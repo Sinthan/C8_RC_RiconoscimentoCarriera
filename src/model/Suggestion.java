@@ -19,8 +19,13 @@ public class Suggestion {
 	   * @param validationMode represents the suggested validation mode  
 	   * @param validationDate refers to the date of the first validation of the exam
 	   */
-	public Suggestion(String univeristyName,String examName, String externalStudentCFU, String validationMode, Date validationaDate) {
+	public Suggestion(String universityName,String examName, String externalStudentCFU, String validationMode, Date validationDate) {
 		
+		this.univeristyName = universityName;
+		this.examName = examName;
+		this.externalStudentCFU= externalStudentCFU;
+		this.validationaDate = validationDate;
+		this.validationMode = validationMode;
 		
 		
 	}
