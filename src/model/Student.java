@@ -45,6 +45,15 @@ public class Student implements UserInterface {
     this.registrationDate = registrationDate;
   }
 
+  public Student(String email, String name, String surname, char sex, String password,int userType) {
+	    this.email = email;
+	    this.name = name;
+	    this.surname = surname;
+	    this.sex = sex;
+	    this.password = password;
+	    this.userType = userType;
+  
+  }
   
   /**
    * 
