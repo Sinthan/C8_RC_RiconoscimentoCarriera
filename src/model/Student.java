@@ -1,32 +1,56 @@
 package model;
 
 import interfacce.UserInterface;
+import java.util.Date;
 
+/**
+ * 
+ * Object Student represents a real student 
+ *
+ */
 public class Student implements UserInterface {
-  private String email;
-  private String name;
-  private String surname;
-  private char sex;
-  private String password;
-  private int userType;
-
+	
+	private String email;
+	private String name;
+	private String surname;
+	private char sex;
+	private String password;
+	private int userType;
+	private Date registrationDate;
+  
+	/**
+	 * Empty Constructor.
+	 */
   public Student() {}
 
-  /**
-   * email name surname sex password userType 
-   * Return object Student.
-   */
 
-  public Student(String email, String name, String surname, char sex, String password,
-      int userType) {
+  /**
+   * Contructor.
+   * 
+   * @param email is the address that the Student uses to Log in the site.
+   * @param name is the name of the Student.
+   * @param surname is the surname of the Student.
+   * @param sex specifies the sex of the Student with one letter (M,F).
+   * @param password is the password that the Student uses to Log in the site.
+   * @param userType specifies the type of the user.
+   * @param registrationDate specifies the student's registration date 
+   */
+  public Student(String email, String name, String surname, char sex, String password,int userType, Date registrationDate) {
     this.email = email;
     this.name = name;
     this.surname = surname;
     this.sex = sex;
     this.password = password;
     this.userType = userType;
+    this.registrationDate = registrationDate;
   }
 
+  
+  /**
+   * 
+   * getters and setters
+   * 
+   */
   @Override
   public String getEmail() {
     return email;
@@ -57,6 +81,10 @@ public class Student implements UserInterface {
     return userType;
   }
 
+  public Date getRegistrationDate() {
+		return registrationDate;
+  }
+  
   @Override
   public void setEmail(String email) {
     this.email = email;
@@ -87,7 +115,11 @@ public class Student implements UserInterface {
     this.userType = userType;
   }
 
-  @Override
+  public void setRegistrationDate(Date registrationDate) {
+	this.registrationDate = registrationDate;
+}
+
+@Override
   public boolean validate() {
     return new Stub().database.containsKey(getEmail()) 
         && new Stub().database.containsValue(getPassword());    
