@@ -15,6 +15,8 @@ import org.json.simple.JSONObject;
 import interfacce.UserInterface;
 import model.Admin;
 import model.AdminDAO;
+import model.RequestRC;
+import model.RequestRCDAO;
 import model.Secretary;
 import model.SecretaryDAO;
 import model.Student;
@@ -82,6 +84,9 @@ public class LoginManagement extends HttpServlet {
 		        		
 		        		UCDAO ucDao = new UCDAO();
 		        		UC uc = ucDao.doRetrieveUc(email, password);
+		        		
+		        		RequestRCDAO rDao = new RequestRCDAO();
+		        		
 	        			
 		        		/*
 		        		 * il seguente controllo discrimina in base al ritorno dei singoli metodi delle classi DAO 
@@ -96,7 +101,12 @@ public class LoginManagement extends HttpServlet {
 	        				if((student.getEmail().substring(student.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
 	        					redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";	        		
 	        				}else {
-	        					redirect = request.getContextPath() + "/_areaStudent/viewRequestRC.jsp";
+	        					RequestRC rRC = rDao.doRetrieveRequestRCByStudentID(student.getEmail());
+	        					if( rRC == null ) {
+	        						redirect = request.getContextPath() + "/GUIStudentRC/createRCRequest1.jsp";
+	        					}else {
+	        						redirect = request.getContextPath() + "/GUIStudentRC/viewRCRequestStatus.jsp";
+	        					}
 	        				}
 	        				request.getSession().setAttribute("user", student);
 	        			}else if(secretary!=null){// Profilo Secretary

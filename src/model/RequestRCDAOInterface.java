@@ -12,55 +12,55 @@ public interface RequestRCDAOInterface {
 	/*
 	 * Add new requestRC in the database
 	 */
-	public int insertRequestRC();
+	public int insertRequestRC(RequestRC request);
 	
 	
 	/*
 	 * Update information of requestRC
 	 */
-	public int updateRequestRC();
+	public int updateRequestRC(RequestRC request);
 	
 	
 	/*
 	 * Update report's ID
 	 */
-	public int updateReportID();
+	public int updateReportID(int reportID);
 	
 	
 	/*
 	 * Update the state of the request
 	 */
-	public int updateState();
+	public int updateState(int state);
 	
 	
 	/*
 	 * Retrieve all the requestRCs from the database
 	 */
-	public ArrayList<RequestRC> doRetrieveAllRequestRCExams();
+	public ArrayList<RequestRC> doRetrieveAllRequestRCExams(int requestRCID);
 	
 	
 	/*
 	 *Retrieve one specific requestRC using ID of the request 
 	 */
-	public RequestRC doRetrieveRequestRCByRequestID();
+	public RequestRC doRetrieveRequestRCByRequestID(int requestRCID);
 	
 	
 	/*
 	 *Retrieve one specific requestRC using ID of the student 
 	 */
-	public RequestRC doRetrieveRequestRCByStudentID();
+	public RequestRC doRetrieveRequestRCByStudentID(String studentID);
 	
 	
 	/*
 	 *Delete one specific requestRC using ID of the request 
 	 */
-	public int deleteRequestRCByRequestID();
+	public int deleteRequestRCByRequestID(int requestRCID);
 	
 	
 	/*
 	 *Delete one specific requestRC using ID of the student
 	 */
-	public int deleteRequestRCByStudentID();
+	public int deleteRequestRCByStudentID(int syudentID);
 	
 
 }
