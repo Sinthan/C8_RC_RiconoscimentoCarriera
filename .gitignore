@@ -43,3 +43,5 @@ node_modules
 .metadata/.plugins/org.eclipse.tips.ide/dialog_settings.xml
 .metadata/.plugins/org.eclipse.ui.ide/dialog_settings.xml
 .metadata/.plugins/org.eclipse.ui.workbench/dialog_settings.xml
+.classpath
+.settings/org.eclipse.wst.common.project.facet.core.xml
