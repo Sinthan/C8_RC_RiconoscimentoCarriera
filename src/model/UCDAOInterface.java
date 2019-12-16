@@ -6,8 +6,13 @@ package model;
 import model.UC;
 
 public interface UCDAOInterface {
-
-	public UC doRetrieveUCByEmail (String email);
+	/**
+	 * 
+	 * @param email
+	 * @param password
+	 * @return Uc object
+	 */
+	public UC doRetrieveUc(String email, String password);
 	
 	
 }

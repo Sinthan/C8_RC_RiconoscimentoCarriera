@@ -8,7 +8,7 @@ $(document).ready(function() {
 			$(".preloader").show();
 
 			$.ajax({
-				url : absolutePath + "/ServletCommon",
+				url : absolutePath + "/LoginManagement",
 				type : "POST",
 				dataType : 'JSON',
 				async : false,

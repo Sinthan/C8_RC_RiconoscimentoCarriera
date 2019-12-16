@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Request;
 import model.Student;
+import model.StudentDAO;
 import model.SystemAttribute;
 import org.eclipse.jdt.internal.compiler.env.IModule;
 import org.json.simple.JSONObject;
@@ -67,9 +71,11 @@ public class ServletStudent extends HttpServlet {
     String error = "";
     String content = "";
     String redirect = "";
+
     PreparedStatement stmt = null;
     Statement stmtSelect = null;
     Statement stmtSelectTwo = null;
+    Date date = new Date(System.currentTimeMillis());
 
     int flag = Integer.parseInt(request.getParameter("flag"));
     Connection conn = new DbConnection().getInstance().getConn();
@@ -77,7 +83,7 @@ public class ServletStudent extends HttpServlet {
 
     if (conn != null) {
 
-      if (flag == 1) { // registrazione nuovo utente
+      if (flag == 1) { // registrazione nuovo Studente 
         String name = request.getParameter("name");
         if (name.length() == 0 || name.length() > 20 || name.matches(".*\\d+.*")) {
           throw new IllegalArgumentException("Formato non corretto");
@@ -95,10 +101,18 @@ public class ServletStudent extends HttpServlet {
         if (email.length() > 0) {
           prefix = email.substring(0, email.indexOf("@"));
         }
-        if (email.length() == 0 
-            || !email.endsWith("@studenti.unisa.it") 
-            || prefix.length() < 3 || prefix.indexOf(".") == -1) {
+        if (email.length() == 0  
+            || prefix.length() < 3) {
           throw new IllegalArgumentException("Formato non corretto");
+        }
+        if (email != null) {
+            String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(email);
+            if (!matcher.matches()) {
+                error = "Formato email non valido";
+                throw new IllegalArgumentException("Formato non corretto");
+            }
         }
         
         char sex = request.getParameter("sex").charAt(0);
@@ -116,39 +130,33 @@ public class ServletStudent extends HttpServlet {
         int userType = 0;
         UserInterface user = null;
 
+        // inserimento dei dati dello Studente nel db
         try {
-          sql = " SELECT  email FROM user WHERE TRIM(LOWER(email)) = TRIM(?) ";
-          stmt = conn.prepareStatement(sql);
-          stmt.setString(1, email.toLowerCase());
-          ResultSet r = stmt.executeQuery();
-          if (r.wasNull()) {
-            error = "Errore nell'esecuzione della Query";
-          } else {
-            int count = r.last() ? r.getRow() : 0;
-            if (count == 0) {
-              sql = " INSERT INTO user " + " (email, name, surname, sex, password, user_type) "
-                  + " VALUES " + " (?, ?, ?, ?, ?, ?) ";
-              stmt = conn.prepareStatement(sql);
-              stmt.setString(1, email.toLowerCase());
-              stmt.setString(2, name);
-              stmt.setString(3, surname);
-              stmt.setString(4, String.valueOf(sex));
-              stmt.setString(5, password);
-              stmt.setInt(6, userType);
-              if (stmt.executeUpdate() > 0) {
-                redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";
-                user = new Student(email, name, surname, sex, password, userType);
-                request.getSession().setAttribute("user", user);
-                content = "Registrazione effettuata correttamente.";
-                result = 1;
-              } else {
-                error = "Impossibile effettuare la registrazione.";
+        	
+        	StudentDAO sDao = new StudentDAO();
+        	int res = sDao.insertStudent(email, name, surname, userType, sex, password, date);
+        	
+              if (res == 1) {
+            	  user = new Student(email, name, surname, sex, password, userType);
+            	  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
+            		  redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";               
+            	  	  request.getSession().setAttribute("user", user);
+            	  	  content = "Registrazione effettuata correttamente.";
+            	  	  result = 1;
+            	  }else{
+            		  redirect = request.getContextPath() + "/_areaStudent/viewRequestRC.jsp";
+					  user = new Student(email, name, surname, sex, password, userType);
+					  request.getSession().setAttribute("user", user);
+		              content = "Registrazione effettuata correttamente.";
+		              result = 1;
+				}
+                
+              } else if(res == 0){
+                error = "Utente già registrato";
+              }else {
+            	  error = "impossibile effettuare la registrazione";
               }
-            } else {
-              error = "Utente gi&agrave; registrato.";
-            }
-          }
-
+              
           if (result == 0) {
             conn.rollback();
           } else {
@@ -158,6 +166,9 @@ public class ServletStudent extends HttpServlet {
         } catch (Exception e) {
           error += e.getMessage();
         }
+        
+        
+        
       } else if (flag == 2) { // registrazione primo form in DB
         
         String year = request.getParameter("year");

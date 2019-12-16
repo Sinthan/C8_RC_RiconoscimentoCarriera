@@ -24,6 +24,10 @@ $(document)
 											if (password != verifyPassword) {
 												showAlert(1,
 														"Controllare che le due password coincidano");
+											}
+											if (password != verifyPassword) {
+												showAlert(1,
+														"Controllare che le due password coincidano");
 											} else {
 												$(".preloader").show();
 
@@ -62,8 +66,9 @@ $(document)
 															},
 															error : function(
 																	msg) {
-																showAlert(1,
-																		"Impossibile Recuperare i dati.");
+																showAlert(
+																		1,
+																		msg.error);
 															}
 														});
 
@@ -78,3 +83,4 @@ $(document)
 									});
 
 				});
+

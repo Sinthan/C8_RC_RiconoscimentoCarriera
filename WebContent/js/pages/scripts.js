@@ -45,7 +45,7 @@ function showAlert(flag, descrizione) {
 // check the validity of the e-mail
 function checkEmail(email) {
 	var $email = email;
-	var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 	if ($email == '' || !re.test($email)) {
 		return false;
 	} else {
