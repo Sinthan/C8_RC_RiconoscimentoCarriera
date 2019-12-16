@@ -25,7 +25,7 @@ public class Student implements UserInterface {
 
 
   /**
-   * Contructor.
+   * Contructor used 
    * 
    * @param email is the address that the Student uses to Log in the site.
    * @param name is the name of the Student.
@@ -33,25 +33,16 @@ public class Student implements UserInterface {
    * @param sex specifies the sex of the Student with one letter (M,F).
    * @param password is the password that the Student uses to Log in the site.
    * @param userType specifies the type of the user.
-   * @param registrationDate specifies the student's registration date 
    */
-  public Student(String email, String name, String surname, char sex, String password,int userType, Date registrationDate) {
-    this.email = email;
-    this.name = name;
-    this.surname = surname;
-    this.sex = sex;
-    this.password = password;
-    this.userType = userType;
-    this.registrationDate = registrationDate;
-  }
 
   public Student(String email, String name, String surname, char sex, String password,int userType) {
-	    this.email = email;
-	    this.name = name;
-	    this.surname = surname;
-	    this.sex = sex;
-	    this.password = password;
-	    this.userType = userType;
+	    
+	  this.email = email;
+	  this.name = name;
+	  this.surname = surname;
+	  this.sex = sex;
+	  this.password = password;
+	  this.userType = userType;
   
   }
   
