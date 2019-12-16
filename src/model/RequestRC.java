@@ -28,7 +28,7 @@ public class RequestRC {
 	 * @param studentID refers to unique ID of the request's referred student
 	 * @param examsList refers to exams listed by the student in the request
 	 */
-	public RequestRC(Date submissionDate, String universityID, String studentID, ArrayList<Exams> examsList) {
+	public RequestRC(Date submissionDate, String universityID, String studentID, ArrayList<Exam> examsList) {
 		this.submissionDate = submissionDate;
 		this.universityID = universityID;
 		this.studentID = studentID;
