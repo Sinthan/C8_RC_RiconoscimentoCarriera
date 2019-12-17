@@ -39,7 +39,7 @@ public class LoginManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
@@ -48,8 +48,11 @@ public class LoginManagement extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@SuppressWarnings("unchecked")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		Connection conn = new DbConnection().getInstance().getConn();
+		
+		
+		
 		Integer result = 0;
 	    String error = "";
 	    String content = "";
@@ -65,6 +68,10 @@ public class LoginManagement extends HttpServlet {
 	    }
 	        
 	        try {
+	        	
+	        	Secretary secretary = null;
+	        	Admin admin = null;
+	        	UC uc = null;
 	        		
 	        	/*
 	        	 *  vengono lanciati tutti i metodi dao, 
@@ -72,30 +79,31 @@ public class LoginManagement extends HttpServlet {
 	        	 */
 	        	
 	        			StudentDAO sDao = new StudentDAO();
-	        			Student student = sDao.doRetrieveStudent(email, password);	        			
-	
-	        			SecretaryDAO secretaryDao = new SecretaryDAO();
-		        		Secretary secretary = secretaryDao.doRetrieveSecretary(email, password);
-		        		
-		        		AdminDAO adminDao = new AdminDAO();
-		        		Admin admin = adminDao.doRetrieveAdmin(email, password);
-		        		
-		        		UCDAO ucDao = new UCDAO();
-		        		UC uc = ucDao.doRetrieveUc(email, password);
+	        			Student student = sDao.doRetrieveStudent(email, password);
 	        			
-		        		/*
-		        		 * il seguente controllo discrimina in base al ritorno dei singoli metodi delle classi DAO 
-		        		 * se l'oggetto è diverso da null si procede al reindirizzamento
-		        		 */
+	        			if(student==null) {
+	        				SecretaryDAO secretaryDao = new SecretaryDAO();
+	        				secretary = secretaryDao.doRetrieveSecretary(email, password);
+	        			}
+	        			 if(secretary==null && student==null){
+	        				AdminDAO adminDao = new AdminDAO();
+		        			 admin = adminDao.doRetrieveAdmin(email, password);
+	        			 }
+	        			 if(secretary==null && student==null && admin==null){
+	        				UCDAO ucDao = new UCDAO();
+	        				uc = ucDao.doRetrieveUc(email, password);
+	        			}
 	        	
 	        			if (student != null) { // Profilo Student
 	        				/*
 	        				 * il seguente if controlla il tipo di studente tramite l'estenzione della mail 
 	        				 * così da discriminare tra studenti interni ed esterni e reindirizzare alla pagina dedicata
 	        				 */
+	        				// Profilo unisa Student 
 	        				if((student.getEmail().substring(student.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
 	        					redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";	        		
 	        				}else {
+	        					// Profilo Student 
 	        					redirect = request.getContextPath() + "/_areaStudent/viewRequestRC.jsp";
 	        				}
 	        				request.getSession().setAttribute("user", student);
@@ -105,28 +113,30 @@ public class LoginManagement extends HttpServlet {
 	        			}else if(admin != null){// Profilo Admin
 	        				redirect = request.getContextPath() + "/_areaAdmin/viewRequest.jsp";
 	        				request.getSession().setAttribute("user", admin);
-	        			} else if(uc != null){// Profilo Admin
+	        			} else if(uc != null){// Profilo UC
 	        				redirect = request.getContextPath() + "/_areaUC/viewRequest.jsp";
 	        				request.getSession().setAttribute("user", uc);
 	        			}else {
 	        				throw new NumberFormatException("utente non valido");
 	        			}
-	        				
-	        		
+	        			
+	        			if(student!=null || uc!=null || admin!=null || secretary!=null ) {
 	        				result = 1;
-	        	
+		        	        JSONObject res = new JSONObject();
+		        	        res.put("result", result);
+		        	        res.put("error", error);
+		        	        res.put("content", content);
+		        	        res.put("redirect", redirect);
+		        	        PrintWriter out = response.getWriter();
+		        	        out.println(res);
+		        	        response.setContentType("json");
+		        	        System.out.println(response.getContentType());
+		        		}			
+	        		
 	        } catch (Exception e) {
 	        	System.out.println(error);
 	        }
 	       
-	        JSONObject res = new JSONObject();
-	        res.put("result", result);
-	        res.put("error", error);
-	        res.put("content", content);
-	        res.put("redirect", redirect);
-	        PrintWriter out = response.getWriter();
-	        out.println(res);
-	        response.setContentType("json");
 	    }
 	        
 	}

@@ -102,14 +102,14 @@ public class ServletStudent extends HttpServlet {
           prefix = email.substring(0, email.indexOf("@"));
         }
         if (email.length() == 0  
-            || prefix.length() < 3) {
+            || prefix.length() < 3 || (email.substring(email.indexOf("@"))).equalsIgnoreCase("@unisa.it")) {
           throw new IllegalArgumentException("Formato non corretto");
         }
         if (email != null) {
             String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(email);
-            if (!matcher.matches()) {
+            if (!matcher.matches()) { 
                 error = "Formato email non valido";
                 throw new IllegalArgumentException("Formato non corretto");
             }

@@ -36,6 +36,99 @@ public class ServletStudentTest extends Mockito {
     response = new MockHttpServletResponse();
   }
   
+  //test studente esterno
+  
+  @Test
+  public void addNewStudentIllegalMail() throws ServletException, IOException  {
+    request.addParameter("name", "Giuseppe");
+    request.addParameter("surname", "Cirino");
+    request.addParameter("email", "g.c@unisa.it");
+    request.addParameter("sex", "M");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    assertThrows(IllegalArgumentException.class, () -> {
+        servlet.doPost(request, response);
+      });
+  }
+  
+  @Test
+  public void addNewExsternalStudent() throws ServletException, IOException  {
+    request.addParameter("name", "Gerardo");
+    request.addParameter("surname", "Cirino");
+    request.addParameter("email", "gerardo.cirino@gmail.it");
+    request.addParameter("sex", "M");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    servlet.doPost(request, response); 
+  }
+  
+  @Test
+  public void addNewExsternalStudentFailNameNull() throws ServletException, IOException  {
+    request.addParameter("name", "");
+    request.addParameter("surname", "Cirino");
+    request.addParameter("email", "g.c@gmail.it");
+    request.addParameter("sex", "M");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    assertThrows(IllegalArgumentException.class, () -> {
+      servlet.doPost(request, response);
+    });
+  } 
+  
+  @Test
+  public void addNewExsternalStudentFailNameOver() throws ServletException, IOException  {
+    request.addParameter("name", "aaaaaaaaaaaaaaaaaaaaa");
+    request.addParameter("surname", "Cirino");
+    request.addParameter("email", "g.c@gmail.it");
+    request.addParameter("sex", "M");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    assertThrows(IllegalArgumentException.class, () -> {
+      servlet.doPost(request, response);
+    });
+  }
+  
+  @Test
+  public void addNewExsternalStudentFailSurnameNull() throws ServletException, IOException  {
+    request.addParameter("name", "Giuseppe");
+    request.addParameter("surname", "");
+    request.addParameter("email", "g.c@gmail.it");
+    request.addParameter("sex", "M");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    assertThrows(IllegalArgumentException.class, () -> {
+      servlet.doPost(request, response);
+    });
+  }
+  
+  @Test
+  public void addNewExsternalStudentFailSurnameNumber() throws ServletException, IOException  {
+    request.addParameter("name", "Giuseppe");
+    request.addParameter("surname", "C1rino");
+    request.addParameter("email", "g.c@gmail.it");
+    request.addParameter("sex", "M");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    assertThrows(IllegalArgumentException.class, () -> {
+      servlet.doPost(request, response);
+    });
+  }
+  
+  @Test
+  public void addNewExsternalStudentFailSurnameOver() throws ServletException, IOException  {
+    request.addParameter("name", "Giuseppe");
+    request.addParameter("surname", "aaaaaaaaaaaaaaaaaaaaa");
+    request.addParameter("email", "g.c@gmail.it");
+    request.addParameter("sex", "M");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    assertThrows(IllegalArgumentException.class, () -> {
+      servlet.doPost(request, response);
+    });
+  }
+  
+  //test studente interno
+  
   @Test
   public void addNewStudentFailNameNumber() throws ServletException, IOException  {
     request.addParameter("name", "Giuseppe1");
@@ -159,9 +252,7 @@ public class ServletStudentTest extends Mockito {
     request.addParameter("sex", "M");
     request.addParameter("password", "password");
     request.addParameter("flag", "1");
-    assertThrows(IllegalArgumentException.class, () -> {
-      servlet.doPost(request, response);
-    });
+    servlet.doPost(request, response);
   }
   
   @Test
@@ -242,7 +333,7 @@ public class ServletStudentTest extends Mockito {
   }
   
   @Test
-  public void addNewStudent1() throws ServletException, IOException  {
+  public void addNewStudentRandomMail() throws ServletException, IOException  {
     String Ab = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     SecureRandom rnd = new SecureRandom();
     StringBuilder sb = new StringBuilder(10);
@@ -252,7 +343,7 @@ public class ServletStudentTest extends Mockito {
     }
     request.addParameter("name", "Giuseppe");
     request.addParameter("surname", "Cirino");
-    request.addParameter("email", sb.toString() + "." + "@studenti.unisa.it");
+    request.addParameter("email", sb.toString()+ "@studenti.unisa.it");
     request.addParameter("sex", "M");
     request.addParameter("password", "password");
     request.addParameter("flag", "1");
