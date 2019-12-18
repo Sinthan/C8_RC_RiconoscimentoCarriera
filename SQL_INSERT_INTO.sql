@@ -1,5 +1,8 @@
 USE englishvalidation;
 
+INSERT INTO UNIVERSITY VALUES ('Università degli studi di Salerno');
+INSERT INTO UNIVERSITY VALUES ('Università di Napoli');
+INSERT INTO UNIVERSITY VALUES ('Università di Pisa');
 
 INSERT INTO REQUEST VALUES (1,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,512103579,6,'prova@unisa.it',2,2);
 INSERT INTO REQUEST VALUES (2,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,512103579,6,'prova2@unisa.it',2,3);
@@ -17,6 +20,7 @@ INSERT INTO `user` VALUES ('prova6@unisa.it','Lollo','Mat','M','4bb47fd2a6c598d2
 INSERT INTO `user` VALUES ('fferrucci@unisa.it','Filomena','Ferrucci','F','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',2,null),('segreteria@unisa.it','Segreteria','Studenti','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',1,null);
 
 /*USER RC*/
+INSERT INTO `user` VALUES ('lollo@gmail.com','PROVA1','RC1','M','123456789',0,'01-1-10');
 INSERT INTO `user` VALUES ('provaRC1@unisa.it','PROVA1','RC1','M','12345678',0,'01-1-10');
 INSERT INTO `user` VALUES ('provaRC2@unisa.it','PROVA2','RC2','M','12345678',0,'2020-10-20');
 /*UC*/

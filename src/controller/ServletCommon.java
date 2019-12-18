@@ -1,6 +1,7 @@
 package controller;
 
 import interfacce.UserInterface;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -50,7 +51,7 @@ public class ServletCommon extends HttpServlet {
   @SuppressWarnings("unchecked")
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
+	
     Integer result = 0;
     String error = "";
     String content = "";
