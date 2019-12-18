@@ -56,7 +56,6 @@ public class LoginManagement extends HttpServlet {
 	    String error = "";
 	    String content = "";
 	    String redirect = "";
-	  
 	    String email = request.getParameter("email");
 	    String password = new Utils().generatePwd(request.getParameter("password"));
 	    
@@ -103,9 +102,10 @@ public class LoginManagement extends HttpServlet {
 	        				}else {
 	        					RequestRC rRC = rDao.doRetrieveRequestRCByStudentID(student.getEmail());
 	        					if( rRC == null ) {
-	        						redirect = request.getContextPath() + "/GUIStudentRC/createRCRequest1.jsp";
+	        						request.getSession().setAttribute("flag",1);
+	        						redirect = request.getContextPath() + "/StudentManagement";
 	        					}else {
-	        						redirect = request.getContextPath() + "/GUIStudentRC/viewRCRequestStatus.jsp";
+	        						redirect = request.getContextPath() + "/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp";
 	        					}
 	        				}
 	        				request.getSession().setAttribute("user", student);

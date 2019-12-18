@@ -9,23 +9,25 @@
 <html>
 <head>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-	<script> 
+<script type='text/javascript' src="<%= request.getContextPath() %>/jsRC/validateCreateRequest.js"></script>
+	<script type='text/javascript'> 
 		function formValidation(){
-			var fileInput1 = document.getElementByID("file1");
-			var fileInput2 = document.getElementByID("file2");
-			var filePath1 = fileInput1.value("file1");
-			var filePath2 = fileInput2.value("file2");
-			var allowedExtenzions = /(\.pdf)$/i;
-			if(!allowedExtensions.exec(filePath1) || !allowedExtensions.exec(filePath1) ){
-				alert("cass");
+			var fileInput1 = document.getElementById("file1");
+			var fileInput2 = document.getElementById("file2");
+			var filePath1 = document.getElementById("file1");
+			var filePath2 = document.getElementById("file2");
+			var allowedExtension = /(\.pdf)$/i;
+			if(!allowedExtension.exec(filePath1) || !allowedExtension.exec(filePath2) ){
 				fileInput1 = "";
 				fileInput2 = "";
+				showAlert(1, "Formato file non accettato");
+				
 			}
 		}
 	</script>
-	<link href="<%= request.getContextPath() %>css/RC/createRCRequest.css"
+	<link href="<%= request.getContextPath() %>/css/RC/createRCRequest.css"
 	rel="stylesheet">
-	<jsp:include page="../../partials/head.jsp" />
+	<jsp:include page="/partials/head.jsp" />
 	<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -84,7 +86,7 @@
 											<div class="" >
 												<p class="pTFile">
 													<input class="fileS" type="file" id="file1" onChange="formValidation()" accept="application/pdf" ></input> 
-													<label for="file" class="btn-2">+</label>
+													<label for="file1" class="btn-2">+</label>
 												</p>
 												<p class="pFile">
 													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file 
@@ -102,7 +104,7 @@
 												<div class="">
 													<p class="pTFile"> 
 														<input class="fileS" type="file" accept="application/pdf" id="file2"></input> 
-														<label for="file" class="btn-2">+</label>
+														<label for="file2" class="btn-2">+</label>
 													</p>
 													<p class="pFile">
 														&nbsp;&nbsp;&nbsp;&nbsp;Nome Allegato 
