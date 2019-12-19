@@ -169,7 +169,7 @@
 											</div>
 										</div>
 										
-										<div class="divNext">
+										<div class="divNext" style="position: fixed; padding: 32px; bottom: 0; right: 0;">
 											<p class="pNext" style="float: right;">
 												Carica file e vai all'inserimento degli esami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 												<button id="buttonCreateRequestRC1" class="bNext" type="submit" disabled="disabled">></button> 
