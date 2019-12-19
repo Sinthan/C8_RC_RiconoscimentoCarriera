@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ReportDAO.
@@ -28,7 +29,7 @@ public class UniversityDAO implements UniversityDAOInterface {
 	Connection conn = (Connection) new DbConnection().getInstance().getConn(); 
 
 	@Override
-	public ArrayList<University> doRetrieveAllUniversity() {
+	public List<University> doRetrieveAllUniversity() {
 		try {
 			PreparedStatement ps = conn.prepareStatement(
 					"SELECT* FROM university");
@@ -37,6 +38,7 @@ public class UniversityDAO implements UniversityDAOInterface {
 			while (rs.next()) {
 				University u = new University();
 				u.setName(rs.getString(1));
+				System.out.println(u.getName());
 				universityNames.add(u);
 			}
 			return universityNames;

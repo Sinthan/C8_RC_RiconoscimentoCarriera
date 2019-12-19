@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * UniversityDAOInterface.
@@ -12,5 +12,5 @@ public interface UniversityDAOInterface {
 	/**
 	* @return returns a set of university name.
 	*/
-	public ArrayList<University> doRetrieveAllUniversity();
+	public List<University> doRetrieveAllUniversity();
 }

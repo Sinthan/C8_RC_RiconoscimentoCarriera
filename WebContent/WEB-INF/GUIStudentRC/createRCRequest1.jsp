@@ -9,21 +9,63 @@
 <html>
 <head>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<script type='text/javascript' src="<%= request.getContextPath() %>/jsRC/validateCreateRequest.js"></script>
+
 	<script type='text/javascript'> 
-		function formValidation(){
-			var fileInput1 = document.getElementById("file1");
-			var fileInput2 = document.getElementById("file2");
-			var filePath1 = document.getElementById("file1");
-			var filePath2 = document.getElementById("file2");
+	
+		function validationFile1(){
+			var filePath1 = document.getElementById("file1").value;
+			var filePath2 = document.getElementById("file2").value;
+			var uniSel = document.getElementById("università").value;
+			var btnform = document.getElementById("buttonCreateRequestRC1");
 			var allowedExtension = /(\.pdf)$/i;
-			if(!allowedExtension.exec(filePath1) || !allowedExtension.exec(filePath2) ){
-				fileInput1 = "";
-				fileInput2 = "";
-				showAlert(1, "Formato file non accettato");
-				
+			if(!allowedExtension.exec(filePath1)){
+				filePath1 = "";
+				btnform.disabled = true;
+				showAlert(1, "Formato file non accettato, inserire file in formato PDF.");
+			}else{
+				/* document.getElementById("parFile1").innerHTML = filePath1; */
+				showAlert(0, "File caricato correttamente.");
+				if (allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni" ){
+					btnform.disabled = false;
+				}
+			}
+			 
+		}
+		
+		function validationFile2(){
+			var filePath1 = document.getElementById("file1").value;
+			var filePath2 = document.getElementById("file2").value;
+			var uniSel = document.getElementById("università").value;
+			var btnform = document.getElementById("buttonCreateRequestRC1");
+			var allowedExtension = /(\.pdf)$/i;
+			if(!allowedExtension.exec(filePath2)){
+				filePath2 = "";
+				btnform.disabled = true;
+				showAlert(1, "Formato file non accettato, inserire file in formato PDF.");
+			}else{
+				showAlert(0, "File caricato correttamente.");
+				if (allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni"){
+					btnform.disabled = false;
+				}
+			}
+			 
+		}
+		
+		function validationUni(){
+			var filePath1 = document.getElementById("file1").value;
+			var filePath2 = document.getElementById("file2").value;
+			var uniSel = document.getElementById("università").value;
+			var btnform = document.getElementById("buttonCreateRequestRC1");
+			var allowedExtension = /(\.pdf)$/i;
+			if( uniSel=="defaultUni" ){
+				btnform.disabled = true;
+			}else if(allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni"){
+				btnform.disabled = false;
+			}else{
+				btnform.disabled = true;
 			}
 		}
+
 	</script>
 	<link href="<%= request.getContextPath() %>/css/RC/createRCRequest.css"
 	rel="stylesheet">
@@ -42,6 +84,11 @@
 			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
 		
+		<%
+			HttpSession sess = request.getSession();
+			sess.setAttribute("flag",2);
+		%>
+		
 		<div class="sidebar-page-container basePage createRequestRCPage" style="">
 			<div class="auto-container">
 				<div class="row clearfix">
@@ -55,41 +102,47 @@
 										<h1 class="text-center">Compila Richiesta</h1>
 									</div>
 									
-									<form id="createRequestRC1" method="post" action="">
+									<form id="createRequestRC1" method="post" action="StudentManagement">
 										
 										<div class="divUni">
 											<p class="pBold">
 												Universit&agrave; di provenienza :
 											</p>
 											<div>
-												<select name="università" style="margin-left: 10px;">
-													<option style="" value="unisa" selected="selected">Seleziona universit&agrave;</option>
-													<option style="" value="unisa" selected="selected">Universit&agrave; dei sapientini</option>
-													<option style="" value="unisa" selected="selected">Universit&agrave; dei picassi</option>
-													<option style="" value="unisa" selected="selected">Universit&agrave; dei serpenti</option>
+												<!-- <select id="università" onChange="validationUni()" style="margin-left: 10px;">
+													<option style="" value="defaultUni" selected>Seleziona una Universit&agrave;</option>
+													<option style="" value="unisa">Universit&agrave; degli studi di Salerno</option>
+													<option style="" value="unina">Università di Napoli</option>
+													<option style="" value="unipi">Università di Pisa</option>
+												</select> -->
+												
+												
+												
+												<select id="università" onChange="validationUni()" name="università">
+													<option style="" value="defaultUni" selected>Seleziona una Universit&agrave;</option>
+												  	<c:forEach items="${universities}" var="university">
+												    	<option value="${university.name}">
+												    		${university.name}
+												    	</option>
+												  	</c:forEach>
 												</select>
 												
-												<c:forEach  items="${universities}"  var="università">
-						          					<a class="dropdown-item">
-													<c:out value="${università.nome}"/></a>
-						          					<div class="dropdown-divider"></div>
-												</c:forEach>
 											</div>	
 										</div>
 										
 										<div class="divFile1">
 											<div>
 												<p class="pBold">
-													&nbsp;&nbsp;&nbsp;&nbsp;Upload documento
+													&nbsp;&nbsp;&nbsp;&nbsp;Upload documento di riconoscimento
 												</p>
 											</div>
 											<div class="" >
 												<p class="pTFile">
-													<input class="fileS" type="file" id="file1" onChange="formValidation()" accept="application/pdf" ></input> 
+													<input class="fileS" type="file" id="file1" onChange="validationFile1()" accept="application/pdf"  ></input>
 													<label for="file1" class="btn-2">+</label>
 												</p>
-												<p class="pFile">
-													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file 
+												<p class="parFile1" id="textFile1">
+													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona File
 												</p>
 											</div>
 										</div>
@@ -103,11 +156,11 @@
 											<div class="" >
 												<div class="">
 													<p class="pTFile"> 
-														<input class="fileS" type="file" accept="application/pdf" id="file2"></input> 
+														<input class="fileS" type="file" onChange="validationFile2()" accept="application/pdf" id="file2"></input> 
 														<label for="file2" class="btn-2">+</label>
 													</p>
-													<p class="pFile">
-														&nbsp;&nbsp;&nbsp;&nbsp;Nome Allegato 
+													<p class="parFile2" id="textFile1">
+														&nbsp;&nbsp;&nbsp;&nbsp;Seleziona File
 													</p>
 												</div>
 											</div>
@@ -116,7 +169,7 @@
 										<div class="divNext">
 											<p class="pNext" style="float: right;">
 												Carica file e vai all'inserimento degli esami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-												<button class="bNext" type="submit">></button> 
+												<button id="buttonCreateRequestRC1" class="bNext" type="submit" disabled="disabled">></button> 
 											</p>
 										</div>
 									</form>
