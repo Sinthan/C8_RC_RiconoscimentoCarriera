@@ -27,7 +27,7 @@ import org.json.simple.JSONObject;
 public class ServletStudent extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
+ 
     RequestRCDAO rDao = new RequestRCDAO();
 	
 
@@ -98,7 +98,7 @@ public class ServletStudent extends HttpServlet {
 					prefix = email.substring(0, email.indexOf("@"));
 				}
 				if (email.length() == 0  
-						|| prefix.length() < 3) {
+						|| prefix.length() < 3 || (email.substring(email.indexOf("@"))).equalsIgnoreCase("@unisa.it")) {
 					throw new IllegalArgumentException("Formato non corretto");
 				}
 				if (email != null) {

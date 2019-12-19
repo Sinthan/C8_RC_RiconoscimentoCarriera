@@ -29,7 +29,7 @@ public class ServletStudentTest extends Mockito {
   /**
    * Before.
    */
-  @Before
+  @Before 
   public void setUp() {
     servlet = new ServletStudent();
     request = new MockHttpServletRequest();
@@ -155,7 +155,7 @@ public class ServletStudentTest extends Mockito {
   public void addNewStudentFailEmail3() throws ServletException, IOException  {
     request.addParameter("name", "Giuseppe");
     request.addParameter("surname", "Cirino");
-    request.addParameter("email", "aaaa@studenti.unisa.it");
+    request.addParameter("email", "aaaa@unisa.it");
     request.addParameter("sex", "M");
     request.addParameter("password", "password");
     request.addParameter("flag", "1");
@@ -252,7 +252,7 @@ public class ServletStudentTest extends Mockito {
     }
     request.addParameter("name", "Giuseppe");
     request.addParameter("surname", "Cirino");
-    request.addParameter("email", sb.toString() + "." + "@studenti.unisa.it");
+    request.addParameter("email", sb.toString()+ "@studenti.unisa.it");
     request.addParameter("sex", "M");
     request.addParameter("password", "password");
     request.addParameter("flag", "1");
