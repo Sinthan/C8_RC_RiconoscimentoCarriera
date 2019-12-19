@@ -28,6 +28,15 @@ public class ServletCommonTest extends Mockito {
   }
 
   @Test
+  public void testLoginAdmin() throws ServletException, IOException {
+    request.addParameter("email", "fferrucci@unisa.it");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    servlet.doPost(request, response);
+    assertEquals("json", response.getContentType());
+  }
+  
+  @Test
   public void testUpdateName() throws ServletException, IOException {
     request.addParameter("idUser", "fferrucci@unisa.it");
     request.addParameter("newName", "Luigia");
@@ -69,6 +78,51 @@ public class ServletCommonTest extends Mockito {
     request.addParameter("newSurname", "Melchionno");
     request.addParameter("flag", "3");
     servlet.doGet(request, response);
+    assertEquals("json", response.getContentType());
+  }
+  
+  @Test
+  public void testLoginStudent() throws ServletException, IOException {
+    request.addParameter("email", "a.prova@studenti.unisa.it");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    servlet.doPost(request, response);
+    assertEquals("json", response.getContentType());
+  }
+  
+  @Test
+  public void testLoginFail() throws ServletException, IOException {
+    request.addParameter("email", "a.prova@studenti.unisa.it");
+    request.addParameter("password", "passwordsbagliata");
+    request.addParameter("flag", "1");
+    servlet.doPost(request, response);
+    assertEquals("json", response.getContentType());
+  }
+  
+  @Test
+  public void testLoginSecretary() throws ServletException, IOException {
+    request.addParameter("email", "segreteria@unisa.it");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    servlet.doPost(request, response);
+    assertEquals("json", response.getContentType());
+  }
+  
+  @Test
+  public void testLoginErrorType() throws ServletException, IOException {
+    request.addParameter("email", "loginerror@studenti.unisa.it");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "1");
+    servlet.doPost(request, response);
+    assertEquals("json", response.getContentType());
+  }
+
+  @Test
+  public void testLoginErrorFlag() throws ServletException, IOException {
+    request.addParameter("email", "loginerror@studenti.unisa.it");
+    request.addParameter("password", "password");
+    request.addParameter("flag", "133");
+    servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
 }

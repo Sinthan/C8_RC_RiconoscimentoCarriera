@@ -21,7 +21,6 @@ public class StudentDAO implements StudentDAOInterface {
 	String error;
 	@SuppressWarnings("static-access")
 	
-	
 	Connection conn = (Connection) new DbConnection().getInstance().getConn();
 	
 	/**
@@ -71,7 +70,7 @@ public class StudentDAO implements StudentDAOInterface {
 	public int insertStudent(String email, String name, String surname, int userType, char sex, String password, Date date) {
 		
 		try {
-			PreparedStatement ps = conn.prepareStatement( 
+			PreparedStatement ps = conn.prepareStatement(
 					 " SELECT  email FROM user WHERE TRIM(LOWER(email)) = TRIM(?) ");
 	          ps.setString(1,email.toLowerCase());
 	          ResultSet r = ps.executeQuery();
@@ -102,7 +101,16 @@ public class StudentDAO implements StudentDAOInterface {
 	      
 		return 0;
 	}
-	
+	/**
+	 * Insert new student  
+	 * 
+	 * @return -1 if insert failed, 0 if insert ok
+	 */
+	public int insertStudent(Student s) {
+		
+		int flag = 0;
+		return flag;
+	}
 	
 	/**
 	 * Retrieve the student through his email        

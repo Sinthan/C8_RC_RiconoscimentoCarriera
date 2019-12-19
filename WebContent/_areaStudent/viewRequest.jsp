@@ -29,6 +29,12 @@
 
 
 		<div class="sidebar-page-container basePage viewRequestStudent">
+		
+		<!-- form di prova per lanciare la servlet StudentManagement -->
+		<form action="../StudentManagement" method="get">
+			<input type="submit" value="PROVA SERVLET">
+		</form>
+		
 			<div class="auto-container">
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">

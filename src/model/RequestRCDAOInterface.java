@@ -48,7 +48,7 @@ public interface RequestRCDAOInterface {
 	/*
 	 *Retrieve one specific requestRC using ID of the student 
 	 */
-	public RequestRC doRetrieveRequestRCByStudentID();
+	public RequestRC doRetrieveRequestRCByStudentID(String studentID);
 	
 	
 	/*

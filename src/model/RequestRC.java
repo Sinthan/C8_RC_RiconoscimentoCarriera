@@ -10,9 +10,35 @@ import java.util.Date;
  * (Request for English Validation, Request RC for Riconoscimento Carriera) 
  */
 public class RequestRC {
+	
+	
+	public enum RCState {
+		needsUCValidation,
+		isBeingDiscussed,
+		approved,
+		refused;
+
+		public static RCState fromInteger(int x) {
+			switch(x) {
+			case 0:
+				return needsUCValidation;
+			case 1:
+				return isBeingDiscussed;
+			case 2: 
+				return approved;
+			case 3: 
+				return refused;
+				
+			}
+			System.err.println("Integer");
+			return null;
+		}
+	}
+	
+	
 	private int requestRCID;
 	private Date submissionDate;
-	private State RCState;
+	private RCState state;
 	private String universityID;
 	private int reportID;
 	private String studentID;
@@ -32,9 +58,9 @@ public class RequestRC {
 		this.submissionDate = submissionDate;
 		this.universityID = universityID;
 		this.studentID = studentID;
-		this.examsList = examsList;
-		
+		this.examsList = examsList;	
 	}
+	
 	/*
 	 * Void Constructor
 	 */
@@ -44,18 +70,12 @@ public class RequestRC {
 	
 	/*
 	 * toString method
+	 * 
 	 */
 	public String toString(){
 		return universityID;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	/*
 	 * Getter and setter
@@ -72,11 +92,11 @@ public class RequestRC {
 	public void setSubmissionDate(Date submissionDate) {
 		this.submissionDate = submissionDate;
 	}
-	public State getRCState() {
-		return RCState;
+	public RCState getState() {
+		return state;
 	}
-	public void setRCState(State rCState) {
-		RCState = rCState;
+	public void setState(RCState state) {
+		this.state = state;
 	}
 	public String getUniversityID() {
 		return universityID;
@@ -102,6 +122,7 @@ public class RequestRC {
 	public void setExamsList(ArrayList<Exam> examsList) {
 		this.examsList = examsList;
 	}
+	
 
 
 
