@@ -52,9 +52,9 @@ public class StudentManagement extends HttpServlet {
     				request.setAttribute("rRCDate", rRC.getSubmissionDate().toString());
     				request.setAttribute("rRCState", rRC.getState().toString());
     				
-    				RequestDispatcher requestDispatcher = request.getRequestDispatcher("prova");
-    				requestDispatcher.forward(request, response);
-				return;
+    				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
+    				requestDispatcher.forward(request, response);    	
+    				return;
     				
     		}catch (Exception e) {
 				e.getMessage();
