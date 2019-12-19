@@ -42,25 +42,21 @@ public class StudentManagement extends HttpServlet {
     		HttpSession sessione = request.getSession(true);
     		Student s = (Student) sessione.getAttribute("user");
     		
-    		
-    		
+		
     		String email = s.getEmail();
-    		System.out.println(email);
-    		
     		
     			RequestRCDAO rDAO =  new RequestRCDAO();
     			RequestRC rRC = rDAO.doRetrieveRequestRCByStudentID(email);
     			
-    			
-    			
-    				
-    				//redirect = request.getContextPath() + "/EnglishValidation/WebContent/_areaStudent/viewRCRequestStatus.jsp";   
 
     				request.setAttribute("rRCDate", rRC.getSubmissionDate().toString());
     				request.setAttribute("rRCState", rRC.getState().toString());
     			
-    				RequestDispatcher requestDispatcher = request.getRequestDispatcher("prova");
+    				
+    				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
     				requestDispatcher.forward(request, response);
+    				//RequestDispatcher requestDispatcher = request.getRequestDispatcher("prova");
+    				//requestDispatcher.forward(request, response);
     				return;
     		
 

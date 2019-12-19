@@ -43,6 +43,8 @@
           + "/firstForm.jsp\">Compila Richiesta</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/uploadAttached.jsp\">Carica Allegato</a></li>";
+          menu += "<li><a href=\"" + request.getContextPath() + "/" 
+                  + "StudentManagement?method=get\">Riconoscimento Carriera</a></li>";
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
