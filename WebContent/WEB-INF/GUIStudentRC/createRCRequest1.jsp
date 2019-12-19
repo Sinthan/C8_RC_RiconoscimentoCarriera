@@ -43,7 +43,7 @@
 			if(!allowedExtension.exec(filePath2)){
 				filePath2 = "";
 				btnform.disabled = true;
-				document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
+				document.getElementById("parFile2").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
 				showAlert(1, "Formato file non accettato, inserire file in formato PDF.");
 			}else{
 				var printF = filePath2.substr(filePath2.lastIndexOf("\\")+1);
