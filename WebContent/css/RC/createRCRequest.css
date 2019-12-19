@@ -1,5 +1,6 @@
 @charset "ISO-8859-1";
 
+
 .divUni {
 	position:static; 
 	margin-top:0px; 
@@ -57,8 +58,8 @@
 .bNext:disabled{
 	background: #808080
 }
- 
- [type="file"] {
+
+[type="file"] {
   height: 0;
   overflow: hidden;
   width: 0;

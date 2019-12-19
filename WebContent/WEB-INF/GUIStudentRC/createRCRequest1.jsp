@@ -21,9 +21,11 @@
 			if(!allowedExtension.exec(filePath1)){
 				filePath1 = "";
 				btnform.disabled = true;
+				document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
 				showAlert(1, "Formato file non accettato, inserire file in formato PDF.");
 			}else{
-				/* document.getElementById("parFile1").innerHTML = filePath1; */
+				var printF = filePath1.substr(filePath1.lastIndexOf("\\")+1);
+				document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
 				showAlert(0, "File caricato correttamente.");
 				if (allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni" ){
 					btnform.disabled = false;
@@ -41,8 +43,11 @@
 			if(!allowedExtension.exec(filePath2)){
 				filePath2 = "";
 				btnform.disabled = true;
+				document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
 				showAlert(1, "Formato file non accettato, inserire file in formato PDF.");
 			}else{
+				var printF = filePath2.substr(filePath2.lastIndexOf("\\")+1);
+				document.getElementById("parFile2").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
 				showAlert(0, "File caricato correttamente.");
 				if (allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni"){
 					btnform.disabled = false;
@@ -133,16 +138,16 @@
 										<div class="divFile1">
 											<div>
 												<p class="pBold">
-													&nbsp;&nbsp;&nbsp;&nbsp;Upload documento di riconoscimento
+													&nbsp;&nbsp;&nbsp;&nbsp;Upload documento
 												</p>
 											</div>
 											<div class="" >
 												<p class="pTFile">
-													<input class="fileS" type="file" id="file1" onChange="validationFile1()" accept="application/pdf"  ></input>
+													<input class="fileS" type="file" id="file1" onChange="validationFile1()" accept="application/pdf" ></input> 
 													<label for="file1" class="btn-2">+</label>
 												</p>
-												<p class="parFile1" id="textFile1">
-													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona File
+												<p class="pFile" id="parFile1">
+													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file 
 												</p>
 											</div>
 										</div>
@@ -154,15 +159,13 @@
 												</p>
 											</div>
 											<div class="" >
-												<div class="">
-													<p class="pTFile"> 
-														<input class="fileS" type="file" onChange="validationFile2()" accept="application/pdf" id="file2"></input> 
-														<label for="file2" class="btn-2">+</label>
-													</p>
-													<p class="parFile2" id="textFile1">
-														&nbsp;&nbsp;&nbsp;&nbsp;Seleziona File
-													</p>
-												</div>
+												<p class="pTFile"> 
+													<input class="fileS" type="file" id="file2" onChange="validationFile2()" accept="application/pdf" ></input> 
+													<label for="file2" class="btn-2">+</label>
+												</p>
+												<p class="pFile" id="parFile2">
+													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file
+												</p>
 											</div>
 										</div>
 										
