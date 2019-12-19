@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 
@@ -14,7 +18,9 @@ import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import controller.DbConnection;
 import controller.LoginManagement;
+import model.Student;
 
 
 class LoginManagementTest extends Mockito {
@@ -35,7 +41,7 @@ class LoginManagementTest extends Mockito {
 	@Test //Caso Login Admin: Login effettuato con successo
 	  void testLoginAdminOK() throws ServletException, IOException {
 		request.addParameter("email", "fferrucci@unisa.it");
-	    request.addParameter("password", "123456789");
+	    request.addParameter("password", "password");
 	    servlet.doPost(request, response);
 	    assertEquals("json", response.getContentType());
 	  }
@@ -51,7 +57,7 @@ class LoginManagementTest extends Mockito {
 	 @Test //Caso Login Admin: Utente non presente nel Database (password errata)
 	  void testLoginAdminFailPwd() throws ServletException, IOException {
 	    request.addParameter("email", "fferrucci@unisa.it");
-	    request.addParameter("password", "password");
+	    request.addParameter("password", "pasrd");
 	    servlet.doPost(request, response);
 	    assertEquals(null, response.getContentType());
 	  }
@@ -70,7 +76,7 @@ class LoginManagementTest extends Mockito {
 	 @Test //Caso Login Secretary: Login effettuato con successo
 	  void testLoginSecretaryOK() throws ServletException, IOException {
 		request.addParameter("email", "segreteria@unisa.it");
-	    request.addParameter("password", "123456789");
+	    request.addParameter("password", "password");
 	    servlet.doPost(request, response);
 	    assertEquals("json", response.getContentType());
 	  }
@@ -103,8 +109,8 @@ class LoginManagementTest extends Mockito {
 	 
 	 	@Test //Caso Login Student: Login effettuato con successo
 	 	void testLoginStudentOK() throws ServletException, IOException {
-	 		request.addParameter("email", "prova@studenti.unisa.it");
-		    request.addParameter("password", "123456789");
+	 		request.addParameter("email","a.cassese9@studenti.unisa.it");
+		    request.addParameter("password","123456789");
 		    servlet.doPost(request, response);
 		    assertEquals("json", response.getContentType());
 		  }
@@ -164,11 +170,4 @@ class LoginManagementTest extends Mockito {
 			servlet.doPost(request, response);
 			assertEquals(null, response.getContentType());
 		 }
-	
-
-	 
-	 
-	
-	
-
 }

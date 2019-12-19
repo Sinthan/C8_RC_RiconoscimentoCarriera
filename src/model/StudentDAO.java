@@ -49,8 +49,9 @@ public class StudentDAO implements StudentDAOInterface {
 				s.setPassword(rs.getString(5));
 				s.setUserType(rs.getInt(6));
 				return s;
+			}else {
+				return null;
 			}
-			return null;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -49,6 +49,7 @@ public class LoginManagement extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
 		Connection conn = new DbConnection().getInstance().getConn();
 		Integer result = 0;
 	    String error = "";
@@ -66,22 +67,28 @@ public class LoginManagement extends HttpServlet {
 	        
 	        try {
 	        		
-	        	/*
-	        	 *  vengono lanciati tutti i metodi dao, 
-	        	 *  il ritorno sarà unico quindi ci sarà un solo oggetto diverso da null.
-	        	 */
+	        	Secretary secretary = null;
+	        	Admin admin = null;
+	        	UC uc = null;
+	        	
 	        	
 	        			StudentDAO sDao = new StudentDAO();
 	        			Student student = sDao.doRetrieveStudent(email, password);	        			
 	
-	        			SecretaryDAO secretaryDao = new SecretaryDAO();
-		        		Secretary secretary = secretaryDao.doRetrieveSecretary(email, password);
-		        		
-		        		AdminDAO adminDao = new AdminDAO();
-		        		Admin admin = adminDao.doRetrieveAdmin(email, password);
-		        		
-		        		UCDAO ucDao = new UCDAO();
-		        		UC uc = ucDao.doRetrieveUc(email, password);
+	        			if(student==null) {
+	        				SecretaryDAO secretaryDAO = new SecretaryDAO();
+	        				secretary = secretaryDAO.doRetrieveSecretary(email, password);
+	        			}
+	        			
+	        			if(student == null && secretary == null) {
+	        				AdminDAO adminDAO = new AdminDAO();
+	        				admin = adminDAO.doRetrieveAdmin(email, password);
+	        			}
+	        			
+	        			if(student == null && secretary == null && admin == null) {
+	        				UCDAO ucDAO = new UCDAO();
+	        				uc = ucDAO.doRetrieveUc(email, password);
+	        			}
 	        			
 		        		/*
 		        		 * il seguente controllo discrimina in base al ritorno dei singoli metodi delle classi DAO 
@@ -114,20 +121,25 @@ public class LoginManagement extends HttpServlet {
 	        				
 	        		
 	        				result = 1;
+	        				
+	        			    if(student != null || uc != null || admin != null || secretary != null) {
+	        		        	
+	        		        	JSONObject res = new JSONObject();
+	        		        	res.put("result", result);
+	        		        	res.put("error", error);
+	        		        	res.put("content", content);
+	        		        	res.put("redirect", redirect);
+	        		        	PrintWriter out = response.getWriter();
+	        		        	out.println(res);
+	        		        	response.setContentType("json");		        
+	        		        }
 	        	
 	        } catch (Exception e) {
 	        	System.out.println(error);
-	        }
-	       
-	        JSONObject res = new JSONObject();
-	        res.put("result", result);
-	        res.put("error", error);
-	        res.put("content", content);
-	        res.put("redirect", redirect);
-	        PrintWriter out = response.getWriter();
-	        out.println(res);
-	        response.setContentType("json");
+	        }      
+	    
 	    }
+	        
 	        
 	}
 	    

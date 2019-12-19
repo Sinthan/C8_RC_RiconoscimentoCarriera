@@ -37,8 +37,10 @@ public class UCDAO implements UCDAOInterface{
 				u.setTelephone(rs.getString(3));
 				u.setFax(rs.getString(4));
 				return u;
+			}else {
+				return null;
 			}
-			return null;
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
