@@ -34,13 +34,13 @@ public class ExamDAO implements ExamDAOInterface{
 	 * @author 		Gianluca Rossi
 	 */
 	public int insertExam(Exam exam) throws SQLException {
-		if (exam.getName().equals("") && exam.getCFU() == -1 && exam.getProgramLink().equals("")) // Checks if attributes are set
+		if (exam.getName().equals("") || exam.getCFU() == -1 || exam.getProgramLink().equals("")) // Checks if attributes are set
 			return -2;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;		
 		int result = 0;
 
-		/* Adds the 2 parametric values in the EXAM table.
+		/* Adds the 3 parametric values in the EXAM table.
 		 * The exam ID is automatically generated from the
 		 * database, as it is defined as an auto increment value,
 		 * so it's not required to create a new one here.

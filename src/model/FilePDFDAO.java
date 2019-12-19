@@ -32,7 +32,7 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 	 */
 	@Override
 	public int insertFilePDF(FilePDF file) throws SQLException {
-		if (file.getPDFLink().equals("") && file.getRequestRCID() == -1) // Checks if attributes are set
+		if (file.getPDFLink().equals("") || file.getRequestRCID() == -1) // Checks if attributes are set
 			return -2;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
