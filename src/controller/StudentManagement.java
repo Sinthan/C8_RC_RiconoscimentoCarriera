@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import model.SortByName;
 import model.University;
 import model.UniversityDAO;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Servlet implementation class StudentManagement
@@ -41,6 +46,7 @@ public class StudentManagement extends HttpServlet {
 		if( flag==1 ){
 			//accede al primo form
 			List<University> universities = uniDAO.doRetrieveAllUniversity();
+			Collections.sort(universities , new SortByName());
 			request.getSession().setAttribute("universities", universities);
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 			dis.forward(request, response);
@@ -60,3 +66,4 @@ public class StudentManagement extends HttpServlet {
 	}
 
 }
+

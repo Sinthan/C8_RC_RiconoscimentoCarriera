@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Univerity.
@@ -50,3 +51,5 @@ public class University {
 	
 
 }
+
+
