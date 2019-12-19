@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.Exam;
+import model.RequestRC;
 import model.SortByName;
 import model.University;
 import model.UniversityDAO;
@@ -54,6 +56,30 @@ public class StudentManagement extends HttpServlet {
 		else if( flag==2 ){
 			//primo form della compilazione delle richieste
 			System.out.println("flag 2");
+		} else if (flag == 3) { //createRCRequest2.jsp
+			// Getting exams list
+			ArrayList<Exam> examsList = new ArrayList<Exam>();
+			int rowCount = (int) request.getSession().getAttribute("rowCount");
+			Exam exam = new Exam();
+			for (int i = 0; i < rowCount - 1; i++) {
+				// Gets the exam parameters from the form
+				String name =(String) request.getSession().getAttribute("examName" + rowCount);
+				int CFU = (int) request.getSession().getAttribute("CFU" + rowCount);
+				String link = (String) request.getSession().getAttribute("programLink" + rowCount);
+				
+				// Sets and adds the exam to the array
+				exam.setName(name);
+				exam.setCFU(CFU);
+				exam.setProgramLink(link);
+				examsList.add(exam);
+			}
+			// Adding exams list to the RequestRC
+			RequestRC newReq = (RequestRC) request.getSession().getAttribute("newRequestRC");
+			newReq.setExamsList(examsList);
+			request.setAttribute("newRequestRC", newReq);
+			// Redirect to view request status page
+			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
+			dis.forward(request, response);
 		}
 	}
 

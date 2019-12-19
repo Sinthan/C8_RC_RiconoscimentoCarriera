@@ -15,80 +15,88 @@
 <meta charset="ISO-8859-1">
 <title>Compila richiesta | Inserisci esami</title>
 <script type='text/javascript'>
-		var rowCount = 1;
-		
-		function addRow(){
-			// Container <div> where dynamic content will be placed
-			var container = document.getElementById("examInsertionRows");
-			
-			// Create the <div> element that contains the new row
-			var rowDiv = document.createElement("div");
-			rowDiv.className = 'form-row';
-			container.appendChild(rowDiv);
-			
-			// Create the <input> element for the exam's name, set its type and name attributes
-			var examNameDiv = document.createElement("div");
-			examNameDiv.className = 'form-group col-md-4 mb-3';
-			rowDiv.appendChild(examNameDiv);
-			
-			var inputExamName = document.createElement("input");
-			inputExamName.type = "text";
-			inputExamName.name = "examName" + rowCount;
-			inputExamName.className = 'form-control';
-			inputExamName.placeholder = 'es. Programmazione 1';
-			inputExamName.required = true;
-			examNameDiv.appendChild(inputExamName);
-			
-			// Create the <input> element for the exam's CFU, set its type and name attributes
-			var CFUDiv = document.createElement("div");
-			CFUDiv.className = 'form-group col-md-1 mb-3';
-			rowDiv.appendChild(CFUDiv);
-			
-			var inputCFU = document.createElement("input");
-			inputCFU.type = "text";
-			inputCFU.name = "CFU" + rowCount;
-			inputCFU.className = 'form-control';
-			inputCFU.placeholder = 'es. 9';
-			inputCFU.required = true;
-			CFUDiv.appendChild(inputCFU);
-			
-			// Create the <input> element for the program's link, set its type and name attributes
-			var programLinkDiv = document.createElement("div");
-			programLinkDiv.className = 'form-group col-md-5 mb-3';
-			rowDiv.appendChild(programLinkDiv);
-			
-			var inputProgramLink = document.createElement("input");
-			inputProgramLink.type = "text";
-			inputProgramLink.name = "programLink" + rowCount;
-			inputProgramLink.className = 'form-control';
-			inputProgramLink.placeholder = 'es. unisa.it/programmaEsame.html';
-			inputProgramLink.required = true;
-			programLinkDiv.appendChild(inputProgramLink);
-			
-			// Append a line break 
-			container.appendChild(document.createElement("br"));
+	var rowCount = 2;
 
-			rowCount++;
-		}
-		
-		function deleteRow(){
-			// Container <div> where dynamic content will be placed
-			var container = document.getElementById("examInsertionRows");
-			if (rowCount > 1) {
-				for (i = 2; i > 0; i--) { 	// Removes the row and the br
-					container.removeChild(container.lastChild);
-				}
-				rowCount--;
+	function addRow() {
+		// Container <div> where dynamic content will be placed
+		var container = document.getElementById("examInsertionRows");
+
+		// Create the <div> element that contains the new row
+		var rowDiv = document.createElement("div");
+		rowDiv.className = 'form-row';
+		container.appendChild(rowDiv);
+
+		// Create the <input> element for the exam's name, set its type and name attributes
+		var examNameDiv = document.createElement("div");
+		examNameDiv.className = 'form-group col-md-4 mb-3';
+		rowDiv.appendChild(examNameDiv);
+
+		var inputExamName = document.createElement("input");
+		inputExamName.type = "text";
+		inputExamName.name = "examName" + rowCount;
+		inputExamName.className = 'form-control';
+		inputExamName.placeholder = 'es. Programmazione 1';
+		inputExamName.required = true;
+		examNameDiv.appendChild(inputExamName);
+
+		// Create the <input> element for the exam's CFU, set its type and name attributes
+		var CFUDiv = document.createElement("div");
+		CFUDiv.className = 'form-group col-md-1 mb-3';
+		rowDiv.appendChild(CFUDiv);
+
+		var inputCFU = document.createElement("input");
+		inputCFU.type = "text";
+		inputCFU.name = "CFU" + rowCount;
+		inputCFU.className = 'form-control';
+		inputCFU.placeholder = 'es. 9';
+		inputCFU.required = true;
+		CFUDiv.appendChild(inputCFU);
+
+		// Create the <input> element for the program's link, set its type and name attributes
+		var programLinkDiv = document.createElement("div");
+		programLinkDiv.className = 'form-group col-md-5 mb-3';
+		rowDiv.appendChild(programLinkDiv);
+
+		var inputProgramLink = document.createElement("input");
+		inputProgramLink.type = "text";
+		inputProgramLink.name = "programLink" + rowCount;
+		inputProgramLink.className = 'form-control';
+		inputProgramLink.placeholder = 'es. unisa.it/programmaEsame.html';
+		inputProgramLink.required = true;
+		programLinkDiv.appendChild(inputProgramLink);
+
+		// Append a line break 
+		container.appendChild(document.createElement("br"));
+
+		rowCount++;
+		document.getElementById('rowCount').value = rowCount;
+	}
+
+	function deleteRow() {
+		// Container <div> where dynamic content will be placed
+		var container = document.getElementById("examInsertionRows");
+		if (rowCount > 2) {
+			for (i = 2; i > 0; i--) { // Removes the row and the br
+				container.removeChild(container.lastChild);
 			}
+			rowCount--;
+			document.getElementById('rowCount').value = rowCount;
 		}
-		</script>
+	}
+</script>
 </head>
 <body>
 	<div class="page-wrapper">
 		<jsp:include page="/partials/header.jsp">
-			<jsp:param name="pageName" value="<%= pageName %>" />
-			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
+			<jsp:param name="pageName" value="<%=pageName%>" />
+			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
+		
+		<%
+			HttpSession sess = request.getSession();
+			sess.setAttribute("flag",3);
+		%>
+		
 		<div class="sidebar-page-container basePage createRequestRCPage">
 			<div class="auto-container">
 				<div class="row clearfix">
@@ -96,32 +104,33 @@
 						<div class="content">
 							<div class="news-block-seven">
 
-								<div
-									class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="panel" display: inline;">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="panel" display:inline;">
 										<h1 class="text-left">Inserisci esami</h1>
 									</div>
 
 									<form id="createRequestRC2" method="post"
-										action="examList">
+										action="StudentManagement">
+
+										<input type="hidden" name="rowCount" id="rowCount" value="-1" />
 
 										<div class="form-row" id=examInsertionRows>
 											<div class="form-group col-md-4 mb-3">
-											<label for="examName">Nome esame</label>
-												<input type="text" class="form-control" id="examName"
+												<label for="examName">Nome esame</label> <input type="text"
+													class="form-control" id="examName"
 													placeholder="es. Programmazione 1" minlength="1"
 													maxlength="20" required>
 											</div>
 
 											<div class="form-group col-md-1 mb-3">
-											<label for="CFU">CFU</label>
-												<input type="text" class="form-control" id="CFU"
-													placeholder="es. 9" minlength="1" required>
+												<label for="CFU">CFU</label> <input type="text"
+													class="form-control" id="CFU" placeholder="es. 9"
+													minlength="1" required>
 											</div>
 
 											<div class="form-group col-md-5 mb-3">
-											<label for="programLink">Link al programma d'esame</label>
-												<input type="text" class="form-control" id="programLink"
+												<label for="programLink">Link al programma d'esame</label> <input
+													type="text" class="form-control" id="programLink"
 													placeholder="es. unisa.it/programmaEsame.html"
 													minlength="1" maxlength="20" required>
 											</div>
@@ -130,31 +139,31 @@
 										</div>
 
 										<div class="panel" style="margin-left: 15px; float: left;">
-										<button type="button" class="btn btn-primary" id="btnAdd" onclick="addRow() ">Aggiungi
-											esame</button>
-										<button type="button" class="btn btn-danger" id="btnAdd" onclick="deleteRow()">Rimuovi
-											ultimo esame</button>
-											</div>
+											<button type="button" class="btn btn-primary" id="btnAdd"
+												onclick="addRow() ">Aggiungi esame</button>
+											<button type="button" class="btn btn-danger" id="btnAdd"
+												onclick="deleteRow()">Rimuovi ultimo esame</button>
+										</div>
 
 
-										<div class="form-group" style="position: fixed; padding: 32px;
-  bottom: 0; right: 0;">
+										<div class="form-group"
+											style="position: fixed; padding: 32px; bottom: 0; right: 0;">
 											<p class="text-center" style="float: right;">
 												Sottometti richiesta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<button type="submit" class="btn btn-primary btn-submit"
-													style="border-radius: 20px;"" ">&#10004;</button>
+													style="border-radius: 20px;">&#10004;</button>
 											</p>
 										</div>
-								</form>
-							</div>
+									</form>
+								</div>
 
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<jsp:include page="/partials/footer.jsp" />
+		<jsp:include page="/partials/footer.jsp" />
 	</div>
 	<!--End pagewrapper-->
 
