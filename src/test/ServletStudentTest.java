@@ -29,7 +29,7 @@ public class ServletStudentTest extends Mockito {
   /**
    * Before.
    */
-  @Before
+  @Before 
   public void setUp() {
     servlet = new ServletStudent();
     request = new MockHttpServletRequest();

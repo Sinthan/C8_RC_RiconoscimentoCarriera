@@ -28,7 +28,7 @@ public class RequestRCDAO implements RequestRCDAOInterface{
 	Connection conn = (Connection) new DbConnection().getInstance().getConn(); 
 	@Override
 	
-	public int insertRequestRC() {
+	public int insertRequestRC() { 
 		return 0;
 	}	
 	

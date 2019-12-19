@@ -13,7 +13,7 @@ public class RequestRC {
 	
 	
 	public enum RCState {
-		needsUCValidation,
+		needsUCValidation, 
 		isBeingDiscussed,
 		approved,
 		refused;

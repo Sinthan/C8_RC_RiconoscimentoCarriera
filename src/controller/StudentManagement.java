@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import model.RequestRCDAO;
 import model.Student;
 import model.RequestRC;
-import model.RequestRC.RCState;
 
 /**
  * Servlet implementation class StudentManagement
@@ -40,39 +37,32 @@ public class StudentManagement extends HttpServlet {
     			throws ServletException, IOException {
 
     		HttpSession sessione = request.getSession(true);
-    		Student s = (Student) sessione.getAttribute("user");
-    		
-    		
-    		
+    		Student s = (Student) sessione.getAttribute("user"); 		
     		String email = s.getEmail();
     		System.out.println(email);
     		
-    		
+    		try {
     			RequestRCDAO rDAO =  new RequestRCDAO();
     			RequestRC rRC = rDAO.doRetrieveRequestRCByStudentID(email);
-    			
-    			
-    			
-    				
-    				//redirect = request.getContextPath() + "/EnglishValidation/WebContent/_areaStudent/viewRCRequestStatus.jsp";   
-
+    			  
     				request.setAttribute("rRCDate", rRC.getSubmissionDate().toString());
     				request.setAttribute("rRCState", rRC.getState().toString());
-    			
+    				
     				RequestDispatcher requestDispatcher = request.getRequestDispatcher("prova");
     				requestDispatcher.forward(request, response);
-    				return;
-    		
-
+    				
+    		}catch (Exception e) {
+				e.getMessage();
+			}
+    				
     	}
 
     	/**
     	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
     	 */
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    		doGet(request, response);
     		
-    		
-
     	}
     		
     }
