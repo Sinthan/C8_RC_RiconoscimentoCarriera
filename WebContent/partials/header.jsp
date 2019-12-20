@@ -58,7 +58,7 @@
   	          menu +=
   	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	 }
-    if (pageName.equals("createRCRequest1.jsp")) {      
+    if (pageName.equals("createRCRequest.jsp")) {      
 	      
     	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
   	          + "/viewRequest.jsp\">English Validation</a></li>";
