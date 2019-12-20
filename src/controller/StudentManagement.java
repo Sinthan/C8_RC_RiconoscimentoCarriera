@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,8 +50,10 @@ public class StudentManagement extends HttpServlet {
     		try {
     			RequestRCDAO rDAO =  new RequestRCDAO();
     			RequestRC rRC = rDAO.doRetrieveRequestRCByStudentID(email);
+    			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    			String sendDate = sdf.format(rRC.getSubmissionDate());
     			  
-    				request.setAttribute("rRCDate", rRC.getSubmissionDate().toString());
+    				request.setAttribute("rRCDate", sendDate.toString());
     				request.setAttribute("rRCState", rRC.getState().toString());
     				
     				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");

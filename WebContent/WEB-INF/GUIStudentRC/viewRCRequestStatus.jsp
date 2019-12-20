@@ -29,37 +29,37 @@
 		
 		
 	<div class="sidebar-page-container basePage viewRequestStudent">
-			<h2 style="color:black;">La tua richiesta</h2><br>
+			<br/><h2>La tua richiesta</h2><br/>
 			<div class="auto-container">
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
-							<table id="studentTable" class="display data-results table table-striped table-hover table-bordered">
+							<table id="studentTableRC" class="display data-results table table-striped table-hover table-bordered">
 									<thead>
 										<tr align="center">
-											<th class="text-center" align="center">Data di invio</th>
-											<th class="text-center" align="center">Stato richiesta</th>
+											<th class="text-center tableRequestRCtd" align="center">Data di invio</th>
+											<th class="text-center tableRequestRCtd" align="center">Stato richiesta</th>
 										</tr>
 										<tr>
-											<td>${rRCDate}</td>	
+											<td class="text-center" align="center">${rRCDate}</td>	
 																					
 											<!-- Controllo per lo stato della richiesta -->
 											<% 
 												if(request.getAttribute("rRCState").toString().equals("needsUCValidation")){													
-													out.print("<td><img src='imagesRC/sent.png' alt='greyPoit'>Richiesta in revisione</td>");
+													out.print("<td class='text-center' align='center'><img src='imagesRC/sent.png' alt='greyPoit'>Richiesta in revisione</td>");
 												}else if(request.getAttribute("rRCState").toString().equals("isBeingDiscussed")){
-													out.print("<td><img src='imagesRC/pending.png' alt='orangePoit'>Richiesta in valutazione</td>");
+													out.print("<td class='text-center' align='center'><img src='imagesRC/pending.png' alt='orangePoit'>Richiesta in valutazione</td>");
 												}else if(request.getAttribute("rRCState").toString().equals("approved")){
-													out.print("<td><img src='imagesRC/approved.png' alt='greenPoit'>Richiesta approvata</td>");
+													out.print("<td class='text-center' align='center'><img src='imagesRC/approved.png' alt='greenPoit'>Richiesta approvata</td>");
 												}else{
 													out.print("<td>refused</td>");
 												}
 											%>
 											
-										</tr>
-									</thead>
-									<tbody id="bodyStudentTable">
+												</tr>
+											</thead>
+										<tbody id="bodyStudentTable">
 									</tbody>
 								</table>
 							</div>
@@ -71,6 +71,8 @@
 		<jsp:include page="/partials/footer.jsp" />
 	</div>
 	<!--End pagewrapper-->
+	
+	
 
 	<jsp:include page="/partials/includes.jsp" />
 
