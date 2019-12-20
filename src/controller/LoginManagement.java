@@ -15,6 +15,8 @@ import org.json.simple.JSONObject;
 import interfacce.UserInterface;
 import model.Admin;
 import model.AdminDAO;
+import model.RequestRC;
+import model.RequestRCDAO;
 import model.Secretary;
 import model.SecretaryDAO;
 import model.Student;
@@ -55,7 +57,6 @@ public class LoginManagement extends HttpServlet {
 	    String error = "";
 	    String content = "";
 	    String redirect = "";
-	  
 	    String email = request.getParameter("email");
 	    String password = new Utils().generatePwd(request.getParameter("password"));
 	    
@@ -75,6 +76,8 @@ public class LoginManagement extends HttpServlet {
 	        			StudentDAO sDao = new StudentDAO();
 	        			Student student = sDao.doRetrieveStudent(email, password);	        			
 	
+	        			RequestRCDAO rDao = new RequestRCDAO();
+
 	        			if(student==null) {
 	        				SecretaryDAO secretaryDAO = new SecretaryDAO();
 	        				secretary = secretaryDAO.doRetrieveSecretary(email, password);
@@ -89,21 +92,30 @@ public class LoginManagement extends HttpServlet {
 	        				UCDAO ucDAO = new UCDAO();
 	        				uc = ucDAO.doRetrieveUc(email, password);
 	        			}
+
 	        			
 		        		/*
 		        		 * il seguente controllo discrimina in base al ritorno dei singoli metodi delle classi DAO 
-		        		 * se l'oggetto è diverso da null si procede al reindirizzamento
+		        		 * se l'oggetto ï¿½ diverso da null si procede al reindirizzamento
 		        		 */
 	        	
 	        			if (student != null) { // Profilo Student
 	        				/*
 	        				 * il seguente if controlla il tipo di studente tramite l'estenzione della mail 
-	        				 * così da discriminare tra studenti interni ed esterni e reindirizzare alla pagina dedicata
+	        				 * cosï¿½ da discriminare tra studenti interni ed esterni e reindirizzare alla pagina dedicata
 	        				 */
 	        				if((student.getEmail().substring(student.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
 	        					redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";	        		
 	        				}else {
-	        					redirect = request.getContextPath() + "/_areaStudent/viewRequestRC.jsp";
+	        					RequestRC rRC = rDao.doRetrieveRequestRCByStudentID(student.getEmail());
+	        					if( rRC == null ) {
+	        						request.getSession().setAttribute("flag",1);
+	        						request.getSession().setAttribute("user", student);
+	        						redirect = request.getContextPath() + "/StudentManagement";
+	        					}else {
+	        						request.getSession().setAttribute("flag",0);
+	        						redirect = request.getContextPath() + "/StudentManagement";
+	        					}
 	        				}
 	        				request.getSession().setAttribute("user", student);
 	        			}else if(secretary!=null){// Profilo Secretary

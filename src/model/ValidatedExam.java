@@ -19,10 +19,25 @@ package model;
 
 public class ValidatedExam {
 
+	/**
+	 * The ID of this <tt>ValidatedExam</tt>.
+	 */
 	private int vExamID;
+	/**
+	 * The ID of the report that contains this exam.
+	 */
 	private int reportID;
+	/**
+	 * The exam name used in the external university.
+	 */
 	private String examName;
+	/**
+	 * The value of CFU validated for this exam.
+	 */
 	private int validatedCFU;
+	/**
+	 * The note containing the validation procedure.
+	 */
 	private	String validationProcedure;
 	
 	/**	
@@ -34,6 +49,7 @@ public class ValidatedExam {
 	 * @param validationProcedure	the note containing the validation procedure
 	 */
 	public ValidatedExam(int reportID, String examName, int validatedCFU, String validationProcedure) {
+		vExamID = -1; // -1 is used to identify an ID that wasn't initialized by the developer.
 		this.reportID = reportID;
 		this.examName = examName;
 		this.validatedCFU = validatedCFU;
@@ -42,9 +58,16 @@ public class ValidatedExam {
 	
 	/**
      * Constructs an empty <tt>ValidatedExam</tt> object.
+     * <p>
+     * Sets the attributes to an invalid state.
      */
 	public ValidatedExam() {
-		
+		// -1 is used to identify an attribute that wasn't initialized by the developer.
+		vExamID = -1;
+		reportID = -1;
+		examName = "";
+		validatedCFU = -1;
+		validationProcedure = "";
 	}
 	
 	/**
@@ -58,32 +81,35 @@ public class ValidatedExam {
 	
 	/* Getter methods */
 	/**
-	 * @return	the ID of this validated exam
+	 * @return the ID of this validated exam
 	 */
 	public int getVExamID() {
 		return vExamID;
 	}
 	
+	/**
+	 * @return the ID of the report that contains this exam
+	 */
 	public int getReportID() {
 		return reportID;
 	}
 	
 	/**
-	 * @return	the exam name used in the external university
+	 * @return the exam name used in the external university
 	 */
 	public String getExamName() {
 		return examName;
 	}
 	
 	/**
-	 * @return	the value of CFU validated for this exam
+	 * @return the value of CFU validated for this exam
 	 */
 	public int getValidatedCFU() {
 		return validatedCFU;
 	}
 	
 	/**
-	 * @return	the note containing the validation procedure
+	 * @return the note containing the validation procedure
 	 */
 	public String getValidationProcedure() {
 		return validationProcedure;
@@ -97,6 +123,9 @@ public class ValidatedExam {
 		vExamID = ID;
 	}
 
+	/**
+	 * Sets the ID of the report that contains this exam.
+	 */
 	public void setReportID(int ID) {
 		reportID = ID;
 	}
