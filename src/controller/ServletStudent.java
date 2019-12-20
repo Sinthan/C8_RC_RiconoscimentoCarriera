@@ -23,7 +23,6 @@ import model.RequestRCDAO;
 import model.Student;
 import model.StudentDAO;
 import model.SystemAttribute;
-import org.eclipse.jdt.internal.compiler.env.IModule;
 import org.json.simple.JSONObject;
 
 
@@ -148,7 +147,7 @@ public class ServletStudent extends HttpServlet {
 							result = 1;
 						}else{
 							request.getSession().setAttribute("flag",1);
-    						redirect = request.getContextPath() + "/StudentManagement";
+    							redirect = request.getContextPath() + "/StudentManagement";
 							user = new Student(email, name, surname, sex, password, userType);
 							System.out.println(redirect.toString());
 							request.getSession().setAttribute("user", user);
