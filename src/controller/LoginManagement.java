@@ -113,7 +113,8 @@ public class LoginManagement extends HttpServlet {
 	        						request.getSession().setAttribute("user", student);
 	        						redirect = request.getContextPath() + "/StudentManagement";
 	        					}else {
-	        						redirect = request.getContextPath() + "/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp";
+	        						request.getSession().setAttribute("flag",0);
+	        						redirect = request.getContextPath() + "/StudentManagement";
 	        					}
 	        				}
 	        				request.getSession().setAttribute("user", student);
