@@ -1,6 +1,12 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+
 
 import model.RequestRC.RCState;
 import model.RequestRCDAOInterface;
@@ -13,58 +19,58 @@ import java.util.ArrayList;
 
 import controller.DbConnection;
 
-/*
- * RequestRCDAO
- * Class that retrieves and manages
- * informations about the RequestRC through the Database
- */
-public class RequestRCDAO implements RequestRCDAOInterface{
-	
+
+
+
+
+public class RequestRCDAO implements RequestRCDAOInterface {
+
 	Statement stmt = null;
 	String sql = "";
 	String error;
 	@SuppressWarnings("static-access")
 	
-	Connection conn = (Connection) new DbConnection().getInstance().getConn(); 
-	@Override
+
+	Connection conn = (Connection) new DbConnection().getInstance().getConn();
 	
-	public int insertRequestRC() { 
+    @Override
+	public int insertRequestRC(RequestRC request) {
+		// TODO Auto-generated method stub
 		return 0;
-	}	
-	
-	
-	@Override
-	public int updateRequestRC() {
-		return 0;
-	}	
-	
+	}
 
 	@Override
-	public int updateReportID() {
+	public int updateRequestRC(RequestRC request) {
+		// TODO Auto-generated method stub
 		return 0;
-	}	
-	
-	
-	@Override
-	public int updateState() {
-		return 0;
-	}	
-	
+	}
 
 	@Override
-	public ArrayList<RequestRC> doRetrieveAllRequestRCExams(){
-		return null;
-	}	
-	
-	
+	public int updateReportID(int reportID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	@Override
-	public RequestRC doRetrieveRequestRCByRequestID(){
+	public int updateState(int state) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<RequestRC> doRetrieveAllRequestRCExams(int requestRCID) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-		
-	
+
 	@Override
-	public RequestRC doRetrieveRequestRCByStudentID(String studentID){
+	public RequestRC doRetrieveRequestRCByRequestID(int requestRCID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RequestRC doRetrieveRequestRCByStudentID(String studentID) {
 		try {
 			PreparedStatement ps = conn.prepareStatement(
 					" SELECT  * FROM request_rc "
@@ -86,18 +92,17 @@ public class RequestRCDAO implements RequestRCDAOInterface{
 			throw new RuntimeException(e);
 		}
 	}
-	
-	
+
 	@Override
-	public int deleteRequestRCByRequestID() {
+	public int deleteRequestRCByRequestID(int requestRCID) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
-		
-	
+
 	@Override
-	public int deleteRequestRCByStudentID() {
+	public int deleteRequestRCByStudentID(int syudentID) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+
 }

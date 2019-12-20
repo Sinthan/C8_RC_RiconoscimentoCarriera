@@ -1,5 +1,40 @@
 USE englishvalidation;
 
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di BARI ALDO MORO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi della BASILICATA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di BOLOGNA");
+INSERT INTO UNIVERSITY VALUES("Libera Università di BOLZANO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di CAGLIARI");
+INSERT INTO UNIVERSITY VALUES("Università della CALABRIA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di CAMERINO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di CATANIA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di FERRARA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di FIRENZE");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di GENOVA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi insurbia VARESE-COMO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi de L'AQUILA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di MESSINA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di MILANO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di MILANO-BICOCCA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di MODENA e REGGIO EMILIA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi del MOLISE");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di NAPOLI Federico II");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di NAPOLI Parthenope");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di PADOVA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di PALERMO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di PARMA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi del PIEMONTE ORIENTALE Amedeo Avogadro-Vercelli");
+INSERT INTO UNIVERSITY VALUES("Università di PISA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di ROMA La Sapienza");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di ROMA Tor Vergata");
+INSERT INTO UNIVERSITY VALUES("Libera Università degli Studi Maria SS.Assunta - LUMSA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di SALERNO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di TORINO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di TRENTO");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di UDINE");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di URBINO Carlo Bo");
+INSERT INTO UNIVERSITY VALUES("Università Ca Foscari VENEZIA");
+INSERT INTO UNIVERSITY VALUES("Università degli Studi di VERONA");
 
 INSERT INTO REQUEST VALUES (1,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,512103579,6,'prova@unisa.it',2,2);
 INSERT INTO REQUEST VALUES (2,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,512103579,6,'prova2@unisa.it',2,3);
@@ -17,6 +52,7 @@ INSERT INTO `user` VALUES ('prova6@unisa.it','Lollo','Mat','M','4bb47fd2a6c598d2
 INSERT INTO `user` VALUES ('fferrucci@unisa.it','Filomena','Ferrucci','F','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',2,null),('segreteria@unisa.it','Segreteria','Studenti','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',1,null);
 
 /*USER RC*/
+INSERT INTO `user` VALUES ('lollo@gmail.com','PROVA1','RC1','M','123456789',0,'01-1-10');
 INSERT INTO `user` VALUES ('provaRC1@unisa.it','PROVA1','RC1','M','12345678',0,'01-1-10');
 INSERT INTO `user` VALUES ('provaRC2@unisa.it','PROVA2','RC2','M','12345678',0,'2020-10-20');
 /*UC*/

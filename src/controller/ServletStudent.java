@@ -17,6 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.*;
+import model.Request;
+import model.RequestRC;
+import model.RequestRCDAO;
+import model.Student;
+import model.StudentDAO;
+import model.SystemAttribute;
+import org.eclipse.jdt.internal.compiler.env.IModule;
 import org.json.simple.JSONObject;
 
 
@@ -26,9 +33,11 @@ import org.json.simple.JSONObject;
 @WebServlet("/ServletStudent")
 public class ServletStudent extends HttpServlet {
 
+
     private static final long serialVersionUID = 1L;
  
     RequestRCDAO rDao = new RequestRCDAO();
+
 	
 
 	/**
@@ -37,7 +46,7 @@ public class ServletStudent extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 
-    public ServletStudent() {
+	public ServletStudent() {
 		super();
 	}
 
@@ -49,8 +58,7 @@ public class ServletStudent extends HttpServlet {
 
 
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
@@ -97,8 +105,7 @@ public class ServletStudent extends HttpServlet {
 				if (email.length() > 0) {
 					prefix = email.substring(0, email.indexOf("@"));
 				}
-				if (email.length() == 0  
-						|| prefix.length() < 3 || (email.substring(email.indexOf("@"))).equalsIgnoreCase("@unisa.it")) {
+				if (email.length() == 0 || prefix.length() < 3 || (email.substring(email.indexOf("@"))).equalsIgnoreCase("@unisa.it")) {
 					throw new IllegalArgumentException("Formato non corretto");
 				}
 				if (email != null) {
@@ -330,7 +337,7 @@ public class ServletStudent extends HttpServlet {
 				}
 
 			} else if (flag == 4) { // Preleva tutte le richieste dello studente
-				
+
 				UserInterface currUser = (UserInterface) request.getSession().getAttribute("user"); 
 				if (currUser != null) {
 					String email = currUser.getEmail();
@@ -416,6 +423,7 @@ public class ServletStudent extends HttpServlet {
 			error += "Nessuna connessione al database.";
 		}
 
+
 		JSONObject res = new JSONObject();
 		res.put("result", result);
 		res.put("error", error);
@@ -425,6 +433,6 @@ public class ServletStudent extends HttpServlet {
 		out.println(res);
 		response.setContentType("json");
 	}
-	
+
 }
 		
