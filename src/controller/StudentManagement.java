@@ -43,7 +43,7 @@ public class StudentManagement extends HttpServlet {
 
     		Student s = (Student) sessione.getAttribute("user"); 		
     		String email = s.getEmail();
-    		System.out.println(email);
+    		
     		
     		try {
     			RequestRCDAO rDAO =  new RequestRCDAO();
