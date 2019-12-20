@@ -10,12 +10,13 @@
   String logoRedirect= "";		//tiene traccia del path a cui reindirizzare il sito quando si preme sul logo
   
   
+  System.out.println(pageFolder);
   CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
   if(!ck.isAllowed()){			//cliccando sul logo reinderizza a index se non si è loggati
 	  logoRedirect = request.getContextPath()+ck.getUrlRedirect();
   }
 
-  if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
+	if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
 	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
   
     if (pageName.equals("viewRequest.jsp")) {
@@ -48,6 +49,29 @@
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
+    
+  	 
+    if (pageName.equals("viewRCRequestStatus.jsp")) {      
+  	      
+    	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+  	          + "/viewRequest.jsp\">English Validation</a></li>";
+  	          menu +=
+  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	 }
+    if (pageName.equals("createRCRequest1.jsp")) {      
+	      
+    	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+  	          + "/viewRequest.jsp\">English Validation</a></li>";
+  	          menu +=
+  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	 }    
+    if (pageName.equals("createRCRequest2.jsp")) {      
+	      
+    	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+  	          + "/viewRequest.jsp\">English Validation</a></li>";
+  	          menu +=
+  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	 }    
     if (pageName.equals("firstForm.jsp")) {
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/firstForm.jsp\">Compila Richiesta</a></li>";
@@ -70,7 +94,10 @@
           + "/signUp.jsp\">Registrati</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
     }
-  } else if (pageFolder.equals("")) { //se non siamo (o siamo) loggati
+   
+
+  }
+  else if (pageFolder.equals("")) { //se non siamo (o siamo) loggati
     if (pageName.equals("login.jsp")) { //se ci troviamo in login.jsp
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
           + "/login.jsp\">Login</a></li>";
@@ -86,6 +113,8 @@
       }
     }
   }
+  
+  
 
 
   hiddenMenu = menu;
