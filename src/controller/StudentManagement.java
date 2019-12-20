@@ -118,9 +118,9 @@ public class StudentManagement extends HttpServlet {
 			request.getSession().setAttribute("universities", universities);
 			Part filePart1 = request.getPart("file1");  //documento di riconoscimento
 			Part filePart2 = request.getPart("file2");  //documento carriera pregressa
-			String UniSel = request.getParameter("università");  //università selezionata
+			String UniSel = request.getParameter("universitï¿½");  //universitï¿½ selezionata
 			if( UniSel.equals("defaultUni") ) {
-				request.setAttribute("errorCR1", "Università non selezionata.");
+				request.setAttribute("errorCR1", "Universitï¿½ non selezionata.");
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else if( !filePart1.getContentType().equals("application/pdf") ){
@@ -158,7 +158,7 @@ public class StudentManagement extends HttpServlet {
 			ArrayList<Exam> examsList = new ArrayList<Exam>();
 			int rowCount = (int) request.getSession().getAttribute("rowCount");
 			Exam exam = new Exam();
-			for (int i = 1; i < rowCount; i++) {
+			for (int i = 0; i < rowCount; i++) {
 				// Gets the exam parameters from the form
 				String name =(String) request.getSession().getAttribute("examName" + rowCount);
 				int CFU = (int) request.getSession().getAttribute("CFU" + rowCount);

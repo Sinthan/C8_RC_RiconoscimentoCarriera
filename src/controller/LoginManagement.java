@@ -76,6 +76,7 @@ public class LoginManagement extends HttpServlet {
 	        			StudentDAO sDao = new StudentDAO();
 	        			Student student = sDao.doRetrieveStudent(email, password);	        			
 	
+	        			RequestRCDAO rDao = new RequestRCDAO();
 
 	        			if(student==null) {
 	        				SecretaryDAO secretaryDAO = new SecretaryDAO();
@@ -95,13 +96,13 @@ public class LoginManagement extends HttpServlet {
 	        			
 		        		/*
 		        		 * il seguente controllo discrimina in base al ritorno dei singoli metodi delle classi DAO 
-		        		 * se l'oggetto è diverso da null si procede al reindirizzamento
+		        		 * se l'oggetto ï¿½ diverso da null si procede al reindirizzamento
 		        		 */
 	        	
 	        			if (student != null) { // Profilo Student
 	        				/*
 	        				 * il seguente if controlla il tipo di studente tramite l'estenzione della mail 
-	        				 * così da discriminare tra studenti interni ed esterni e reindirizzare alla pagina dedicata
+	        				 * cosï¿½ da discriminare tra studenti interni ed esterni e reindirizzare alla pagina dedicata
 	        				 */
 	        				if((student.getEmail().substring(student.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
 	        					redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";	        		

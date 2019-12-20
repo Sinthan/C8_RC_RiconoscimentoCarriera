@@ -124,19 +124,19 @@
 											<div class="form-group col-md-4 mb-3">
 												<label for="examName1">Nome esame</label> <input type="text"
 													class="form-control" name="Nome esame" id="examName1"
-													placeholder="es. Programmazione 1" minlength="2"
+													placeholder="es. Programmazione 1" pattern="[0-9A-Za-z]" minlength="2"
 													maxlength="50" required>
 											</div>
 
 											<div class="form-group col-md-1 mb-3">
-												<label for="CFU1">CFU</label> <input type="text"
+												<label for="CFU1">CFU</label> <input type="number"
 													class="form-control" name="CFU" id="CFU1" placeholder="es. 9"
 													minlength="1" maxlength="2" required>
 											</div>
 
 											<div class="form-group col-md-5 mb-3">
 												<label for="programLink1">Link al programma d'esame</label> <input
-													type="text" class="form-control" name="Link al programma d'esame" id="programLink1"
+													type="url" class="form-control" name="Link al programma d'esame" id="programLink1"
 													placeholder="es. unisa.it/programmaEsame.html"
 													minlength="4" maxlength="256" required>
 											</div>
