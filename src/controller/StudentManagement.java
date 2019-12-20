@@ -1,7 +1,11 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -40,7 +44,8 @@ import java.util.Comparator;
 public class StudentManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UniversityDAO uniDAO = new UniversityDAO();
-	static String SAVE_DIR = "";
+	static String SAVE_DIR = "./DocumentsRC";
+	String relativePathPDF = "/DocumentsRequestRC";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -65,6 +70,7 @@ public class StudentManagement extends HttpServlet {
 			dis.forward(request, response);
 		}
 		else if( flag==2 ){ //primo form della compilazione delle richieste
+			RequestDispatcher dis = null;
 			List<University> universities = uniDAO.doRetrieveAllUniversity();
 			Collections.sort(universities , new SortByName());
 			request.getSession().setAttribute("universities", universities);
@@ -73,28 +79,35 @@ public class StudentManagement extends HttpServlet {
 			String UniSel = request.getParameter("università");  //università selezionata
 			if( UniSel.equals("defaultUni") ) {
 				request.setAttribute("errorCR1", "Università non selezionata.");
-				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else if( !filePart1.getContentType().equals("application/pdf") ){
-				request.setAttribute("errorCR1","Error");
-				
-				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				request.setAttribute("errorCR1","Formato file non accettato, inserire file in formato PDF.");
+				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else if( !filePart2.getContentType().equals("application/pdf") ) {
-				request.setAttribute("errorCR1","Error");
-				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				request.setAttribute("errorCR1","Formato file non accettato, inserire file in formato PDF.");
+				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else {
 				Student s = (Student) request.getSession().getAttribute("user");
-				System.out.println(s);
-				PrintWriter out = response.getWriter();
-				filePart1.write("C:\\Users\\Lorenzo\\eclipse-workspace-progettoIS\\C8_RC_RiconoscimentoCarriera\\WebContent\\DocumentsRequestRC" + "\\" + s.getEmail() + "ID.pdf");
-				filePart2.write("C:\\Users\\Lorenzo\\eclipse-workspace-progettoIS\\C8_RC_RiconoscimentoCarriera\\WebContent\\DocumentsRequestRC" + "\\" + s.getEmail() + "CP.pdf");
-				out.print("<script src='js/pages/scripts.js' language='text/javascript'>showAlert(0,'Hello');</script>");
+				File file = new File(SAVE_DIR);
+				if( !file.mkdir() ) {
+					
+					
+				}
+				
+				
+				File file2 = new File(SAVE_DIR + "/" + s.getEmail() );
+		        file.mkdir();
+				
+				filePart1.write(SAVE_DIR + "/" + s.getEmail() + "/" +  "ID.pdf");
+				filePart2.write(SAVE_DIR + "/" + s.getEmail() + "/" +  "CP.pdf");
+				
 				request.setAttribute("cont","Apposto");
 				
 				
-				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
 				dis.forward(request, response);
 			}
 			
