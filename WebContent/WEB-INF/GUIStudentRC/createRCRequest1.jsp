@@ -11,18 +11,22 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 	<script type='text/javascript'> 
-	
-		window.onLoad = function(){
+		
+		
+		
+		window.onload = function(){
 			controlServlet();
 		};
 	
 		function controlServlet(){
-			var err = "<% request.getAttribute("error") %>";
-			if( err== null ){}
-				showAlert(0, "Compilazione form eseguita correttamente.");
-			else{
-				showAlert(1, err);
+			var err = '<%= request.getAttribute("errorCR1") %>';
+			
+			if( err.toString() != "null"){
+				showAlert(1, err.toString());
 			}
+			
+			
+			
 		}
 		
 	

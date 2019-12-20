@@ -72,16 +72,16 @@ public class StudentManagement extends HttpServlet {
 			Part filePart2 = request.getPart("file2");  //documento carriera pregressa
 			String UniSel = request.getParameter("università");  //università selezionata
 			if( UniSel.equals("defaultUni") ) {
-				request.setAttribute("error", "Errore: Bisogna selezionare almeno un file");
+				request.setAttribute("errorCR1", "Università non selezionata.");
 				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else if( !filePart1.getContentType().equals("application/pdf") ){
-				request.setAttribute("error","Error");
+				request.setAttribute("errorCR1","Error");
 				
 				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else if( !filePart2.getContentType().equals("application/pdf") ) {
-				request.setAttribute("error","Error");
+				request.setAttribute("errorCR1","Error");
 				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else {
@@ -90,7 +90,7 @@ public class StudentManagement extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				filePart1.write("C:\\Users\\Lorenzo\\eclipse-workspace-progettoIS\\C8_RC_RiconoscimentoCarriera\\WebContent\\DocumentsRequestRC" + "\\" + s.getEmail() + "ID.pdf");
 				filePart2.write("C:\\Users\\Lorenzo\\eclipse-workspace-progettoIS\\C8_RC_RiconoscimentoCarriera\\WebContent\\DocumentsRequestRC" + "\\" + s.getEmail() + "CP.pdf");
-				//out.print("<script src='js/pages/scripts.js' language='text/javascript'>showAlert(0,'Hello');</script>");
+				out.print("<script src='js/pages/scripts.js' language='text/javascript'>showAlert(0,'Hello');</script>");
 				request.setAttribute("cont","Apposto");
 				
 				
