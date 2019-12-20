@@ -11,6 +11,24 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 	<script type='text/javascript'> 
+		
+		
+		
+		window.onload = function(){
+			controlServlet();
+		};
+	
+		function controlServlet(){
+			var err = '<%= request.getAttribute("errorCR1") %>';
+			
+			if( err.toString() != "null"){
+				showAlert(1, err.toString());
+			}
+			
+			
+			
+		}
+		
 	
 		function validationFile1(){
 			var filePath1 = document.getElementById("file1").value;
@@ -107,7 +125,7 @@
 										<h1 class="text-center">Compila Richiesta</h1>
 									</div>
 									
-									<form id="createRequestRC1" method="post" action="StudentManagement">
+									<form id="createRequestRC1" method="post" action="StudentManagement" enctype="multipart/form-data">
 										
 										<div class="divUni">
 											<p class="pBold">
@@ -143,7 +161,7 @@
 											</div>
 											<div class="" >
 												<p class="pTFile">
-													<input class="fileS" type="file" id="file1" onChange="validationFile1()" accept="application/pdf" ></input> 
+													<input class="fileS" type="file" id="file1" name="file1" onChange="validationFile1()" accept="application/pdf" ></input> 
 													<label for="file1" class="btn-2">+</label>
 												</p>
 												<p class="pFile" id="parFile1">
@@ -160,7 +178,7 @@
 											</div>
 											<div class="" >
 												<p class="pTFile"> 
-													<input class="fileS" type="file" id="file2" onChange="validationFile2()" accept="application/pdf" ></input> 
+													<input class="fileS" type="file" id="file2" name="file2" onChange="validationFile2()" accept="application/pdf" ></input> 
 													<label for="file2" class="btn-2">+</label>
 												</p>
 												<p class="pFile" id="parFile2">
