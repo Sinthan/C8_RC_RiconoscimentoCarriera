@@ -38,6 +38,8 @@
 	 logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
   
     if (pageName.equals("viewRequest.jsp")) { //se stiamo in viewRequest
+    	int flag = 0;
+    		request.getSession().setAttribute("flag", 0);
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/viewRequest.jsp\">Richieste</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder

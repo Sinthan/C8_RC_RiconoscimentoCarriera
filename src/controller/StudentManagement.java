@@ -82,7 +82,9 @@ public class StudentManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		int flag = (int) request.getSession().getAttribute("flag");
+		
         if(flag == 0) {
             HttpSession sessione = request.getSession(true);
 
