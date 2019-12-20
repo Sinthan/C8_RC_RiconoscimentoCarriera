@@ -135,13 +135,13 @@ public class StudentManagement extends HttpServlet {
 				Student s = (Student) request.getSession().getAttribute("user");
 				File file = new File(SAVE_DIR);
 				if( !file.mkdir() ) {
-					
-					
+					file.mkdir();
 				}
 				
-				
 				File file2 = new File(SAVE_DIR + "/" + s.getEmail() );
-		        file.mkdir();
+				if( !file2.mkdir() ) {
+					file.mkdir();	
+				}
 				
 				filePart1.write(SAVE_DIR + "/" + s.getEmail() + "/" +  "ID.pdf");
 				filePart2.write(SAVE_DIR + "/" + s.getEmail() + "/" +  "CP.pdf");
