@@ -22,7 +22,9 @@
 	width: 1000px;
 }
 
-
+input[type=text]:invalid {
+  background-color: #ffdddd;
+}
 
 .divNext{
 	position:static; 

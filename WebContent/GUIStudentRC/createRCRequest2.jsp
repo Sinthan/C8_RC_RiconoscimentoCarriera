@@ -15,7 +15,7 @@
 <meta charset="ISO-8859-1">
 <title>Compila richiesta | Inserisci esami</title>
 <script type='text/javascript'>
-	var rowCount = 2;
+	var rowCount = 1;
 
 	function addRow() {
 		// Container <div> where dynamic content will be placed
@@ -37,6 +37,7 @@
 		inputExamName.className = 'form-control';
 		inputExamName.placeholder = 'es. Programmazione 1';
 		inputExamName.required = true;
+		//inputExamName.onChange = validateExamName;
 		examNameDiv.appendChild(inputExamName);
 
 		// Create the <input> element for the exam's CFU, set its type and name attributes
@@ -50,6 +51,7 @@
 		inputCFU.className = 'form-control';
 		inputCFU.placeholder = 'es. 9';
 		inputCFU.required = true;
+		//inputCFU.onChange = validateNumeric;
 		CFUDiv.appendChild(inputCFU);
 
 		// Create the <input> element for the program's link, set its type and name attributes
@@ -63,6 +65,7 @@
 		inputProgramLink.className = 'form-control';
 		inputProgramLink.placeholder = 'es. unisa.it/programmaEsame.html';
 		inputProgramLink.required = true;
+		//inputProgramLink.onChange = validateLink;
 		programLinkDiv.appendChild(inputProgramLink);
 
 		// Append a line break 
@@ -75,7 +78,7 @@
 	function deleteRow() {
 		// Container <div> where dynamic content will be placed
 		var container = document.getElementById("examInsertionRows");
-		if (rowCount > 2) {
+		if (rowCount > 1) {
 			for (i = 2; i > 0; i--) { // Removes the row and the br
 				container.removeChild(container.lastChild);
 			}
@@ -83,7 +86,9 @@
 			document.getElementById('rowCount').value = rowCount;
 		}
 	}
+	
 </script>
+<script src="../jsRC/validateCreateRequest2.js"></script>
 </head>
 <body>
 	<div class="page-wrapper">
@@ -109,30 +114,31 @@
 										<h1 class="text-left">Inserisci esami</h1>
 									</div>
 
-									<form id="createRequestRC2" method="post"
-										action="StudentManagement">
+									<form id="createRequestRC2" name="createRequestRC2" method="post"
+										action="StudentManagement" onChange="formValidation()"
+										>
 
 										<input type="hidden" name="rowCount" id="rowCount" value="-1" />
 
 										<div class="form-row" id=examInsertionRows>
 											<div class="form-group col-md-4 mb-3">
-												<label for="examName">Nome esame</label> <input type="text"
-													class="form-control" id="examName"
-													placeholder="es. Programmazione 1" minlength="1"
-													maxlength="20" required>
+												<label for="examName1">Nome esame</label> <input type="text"
+													class="form-control" name="Nome esame" id="examName1"
+													placeholder="es. Programmazione 1" minlength="2"
+													maxlength="50" required>
 											</div>
 
 											<div class="form-group col-md-1 mb-3">
-												<label for="CFU">CFU</label> <input type="text"
-													class="form-control" id="CFU" placeholder="es. 9"
-													minlength="1" required>
+												<label for="CFU1">CFU</label> <input type="text"
+													class="form-control" name="CFU" id="CFU1" placeholder="es. 9"
+													minlength="1" maxlength="2" required>
 											</div>
 
 											<div class="form-group col-md-5 mb-3">
-												<label for="programLink">Link al programma d'esame</label> <input
-													type="text" class="form-control" id="programLink"
+												<label for="programLink1">Link al programma d'esame</label> <input
+													type="text" class="form-control" name="Link al programma d'esame" id="programLink1"
 													placeholder="es. unisa.it/programmaEsame.html"
-													minlength="1" maxlength="20" required>
+													minlength="4" maxlength="256" required>
 											</div>
 
 											<br>

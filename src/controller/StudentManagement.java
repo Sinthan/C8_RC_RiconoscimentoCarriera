@@ -61,7 +61,7 @@ public class StudentManagement extends HttpServlet {
 			ArrayList<Exam> examsList = new ArrayList<Exam>();
 			int rowCount = (int) request.getSession().getAttribute("rowCount");
 			Exam exam = new Exam();
-			for (int i = 0; i < rowCount - 1; i++) {
+			for (int i = 1; i < rowCount; i++) {
 				// Gets the exam parameters from the form
 				String name =(String) request.getSession().getAttribute("examName" + rowCount);
 				int CFU = (int) request.getSession().getAttribute("CFU" + rowCount);
@@ -77,6 +77,10 @@ public class StudentManagement extends HttpServlet {
 			RequestRC newReq = (RequestRC) request.getSession().getAttribute("newRequestRC");
 			newReq.setExamsList(examsList);
 			request.setAttribute("newRequestRC", newReq);
+			
+			
+			System.out.println(newReq);
+			
 			// Redirect to view request status page
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
