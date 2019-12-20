@@ -103,6 +103,7 @@ public class LoginManagement extends HttpServlet {
 	        					RequestRC rRC = rDao.doRetrieveRequestRCByStudentID(student.getEmail());
 	        					if( rRC == null ) {
 	        						request.getSession().setAttribute("flag",1);
+	        						request.getSession().setAttribute("user", student);
 	        						redirect = request.getContextPath() + "/StudentManagement";
 	        					}else {
 	        						redirect = request.getContextPath() + "/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp";

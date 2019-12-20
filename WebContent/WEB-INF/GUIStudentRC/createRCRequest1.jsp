@@ -12,6 +12,20 @@
 
 	<script type='text/javascript'> 
 	
+		window.onLoad = function(){
+			controlServlet();
+		};
+	
+		function controlServlet(){
+			var err = "<% request.getAttribute("error") %>";
+			if( err== null ){}
+				showAlert(0, "Compilazione form eseguita correttamente.");
+			else{
+				showAlert(1, err);
+			}
+		}
+		
+	
 		function validationFile1(){
 			var filePath1 = document.getElementById("file1").value;
 			var filePath2 = document.getElementById("file2").value;
@@ -107,7 +121,7 @@
 										<h1 class="text-center">Compila Richiesta</h1>
 									</div>
 									
-									<form id="createRequestRC1" method="post" action="StudentManagement">
+									<form id="createRequestRC1" method="post" action="StudentManagement" enctype="multipart/form-data">
 										
 										<div class="divUni">
 											<p class="pBold">
@@ -143,7 +157,7 @@
 											</div>
 											<div class="" >
 												<p class="pTFile">
-													<input class="fileS" type="file" id="file1" onChange="validationFile1()" accept="application/pdf" ></input> 
+													<input class="fileS" type="file" id="file1" name="file1" onChange="validationFile1()" accept="application/pdf" ></input> 
 													<label for="file1" class="btn-2">+</label>
 												</p>
 												<p class="pFile" id="parFile1">
@@ -160,7 +174,7 @@
 											</div>
 											<div class="" >
 												<p class="pTFile"> 
-													<input class="fileS" type="file" id="file2" onChange="validationFile2()" accept="application/pdf" ></input> 
+													<input class="fileS" type="file" id="file2" name="file2" onChange="validationFile2()" accept="application/pdf" ></input> 
 													<label for="file2" class="btn-2">+</label>
 												</p>
 												<p class="pFile" id="parFile2">

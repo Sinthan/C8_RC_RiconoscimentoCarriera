@@ -1,15 +1,21 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import org.json.simple.JSONObject;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,6 +24,7 @@ import java.util.regex.Pattern;
 import model.Exam;
 import model.RequestRC;
 import model.SortByName;
+import model.Student;
 import model.University;
 import model.UniversityDAO;
 import java.util.Collections;
@@ -26,10 +33,14 @@ import java.util.Comparator;
 /**
  * Servlet implementation class StudentManagement
  */
+
+
 @WebServlet("/StudentManagement")
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10) // max file size 10 MB
 public class StudentManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UniversityDAO uniDAO = new UniversityDAO();
+	static String SAVE_DIR = "";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -53,9 +64,40 @@ public class StudentManagement extends HttpServlet {
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 			dis.forward(request, response);
 		}
-		else if( flag==2 ){
-			//primo form della compilazione delle richieste
-			System.out.println("flag 2");
+		else if( flag==2 ){ //primo form della compilazione delle richieste
+			List<University> universities = uniDAO.doRetrieveAllUniversity();
+			Collections.sort(universities , new SortByName());
+			request.getSession().setAttribute("universities", universities);
+			Part filePart1 = request.getPart("file1");  //documento di riconoscimento
+			Part filePart2 = request.getPart("file2");  //documento carriera pregressa
+			String UniSel = request.getParameter("università");  //università selezionata
+			if( UniSel.equals("defaultUni") ) {
+				request.setAttribute("error", "Errore: Bisogna selezionare almeno un file");
+				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis.forward(request, response);
+			}else if( !filePart1.getContentType().equals("application/pdf") ){
+				request.setAttribute("error","Error");
+				
+				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis.forward(request, response);
+			}else if( !filePart2.getContentType().equals("application/pdf") ) {
+				request.setAttribute("error","Error");
+				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis.forward(request, response);
+			}else {
+				Student s = (Student) request.getSession().getAttribute("user");
+				System.out.println(s);
+				PrintWriter out = response.getWriter();
+				filePart1.write("C:\\Users\\Lorenzo\\eclipse-workspace-progettoIS\\C8_RC_RiconoscimentoCarriera\\WebContent\\DocumentsRequestRC" + "\\" + s.getEmail() + "ID.pdf");
+				filePart2.write("C:\\Users\\Lorenzo\\eclipse-workspace-progettoIS\\C8_RC_RiconoscimentoCarriera\\WebContent\\DocumentsRequestRC" + "\\" + s.getEmail() + "CP.pdf");
+				//out.print("<script src='js/pages/scripts.js' language='text/javascript'>showAlert(0,'Hello');</script>");
+				request.setAttribute("cont","Apposto");
+				
+				
+				RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis.forward(request, response);
+			}
+			
 		} else if (flag == 3) { //createRCRequest2.jsp
 			// Getting exams list
 			ArrayList<Exam> examsList = new ArrayList<Exam>();
