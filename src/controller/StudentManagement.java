@@ -90,8 +90,10 @@ public class StudentManagement extends HttpServlet {
             try {
                 RequestRCDAO rDAO =  new RequestRCDAO();
                 RequestRC rRC = rDAO.doRetrieveRequestRCByStudentID(email);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String date = sdf.format(rRC.getSubmissionDate());
                   
-                    request.setAttribute("rRCDate", rRC.getSubmissionDate().toString());
+                    request.setAttribute("rRCDate", date);
                     request.setAttribute("rRCState", rRC.getState().toString());
                     
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
