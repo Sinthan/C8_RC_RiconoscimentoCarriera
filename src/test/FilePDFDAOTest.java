@@ -1,41 +1,29 @@
 package test;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import model.FilePDF;
 import model.FilePDFDAO;
+import model.UC;
+import model.UCDAO;
 
 
 class FilePDFDAOTest {
-	FilePDFDAO pdfDAO = new FilePDFDAO();
+
+	FilePDFDAO filePDFDAO;
 	
-	
-	
-	@Test// File inserito correttamente
-	void testInsertFilePDF() {
-		FilePDF filepdf = new FilePDF("path", 1);
-		int result = 0;
-		try {
-			result = pdfDAO.insertFilePDF(filepdf);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertEquals(result , 1);
+	@BeforeEach
+	public void setUp() {
+		filePDFDAO = new FilePDFDAO();
 	}
 	
-	@Test// File non inserito correttamente ID richiesta non trovato
-	void testInsertFilePDFfail() {
-		FilePDF filepdf = new FilePDF("path2", 124);
-		int result = 0;
-		try {
-			result = pdfDAO.insertFilePDF(filepdf);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertEquals(result , 0);
-	}
-}
+	
+}	
