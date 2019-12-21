@@ -51,19 +51,19 @@ public class ExamDAO implements ExamDAOInterface{
 				" (NAME, CFU, LINK_PROGRAM) " +
 				" VALUES (?, ?, ?)";
 		try {  
-//			connection = DbConnection.getInstance().getConn();
-//			PreparedStatement ps = connection.prepareStatement(
-//					" SELECT * FROM EXAM WHERE NAME = ? AND CFU = ? AND LINK_PROGRAM = ?");
-//			ps.setString(1,exam.getName());
-//			ps.setInt(2, exam.getCFU());
-//			ps.setString(3, exam.getProgramLink());
-//			ResultSet r = ps.executeQuery();
-//
-//			if (!r.wasNull()) {  // Exam found
-//				int examID = r.getInt(1);
-//				System.out.println("Exam already present, id:" + examID);
-//				return examID;
-//			} else { 
+			connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps = connection.prepareStatement(
+					" SELECT * FROM EXAM WHERE NAME = ? AND CFU = ? AND LINK_PROGRAM = ?");
+			ps.setString(1,exam.getName());
+			ps.setInt(2, exam.getCFU());
+			ps.setString(3, exam.getProgramLink());
+			ResultSet r = ps.executeQuery();
+
+			if (r.next()) {  // Exam found
+				int examID = r.getInt(1);
+				System.out.println("Exam already present, id:" + examID);
+				return examID;
+			} else { 
 			// Exam not already present
 				connection = DbConnection.getInstance().getConn();
 				preparedStatement = connection.prepareStatement(insertSQL);			
@@ -76,7 +76,7 @@ public class ExamDAO implements ExamDAOInterface{
 
 				result = preparedStatement.executeUpdate();	
 				connection.commit();
-			
+			}
 		} catch(SQLException e) {
 			new RuntimeException(e);
 		} finally {

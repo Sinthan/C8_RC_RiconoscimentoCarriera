@@ -202,10 +202,10 @@ public class StudentManagement extends HttpServlet {
 				// Adding the contains relations and the exam to the database.
 				int insertExamResult = examDAO.insertExam(exam);
 				if (insertExamResult >= 0) { // Exam record already present in the database
-					System.out.println("exam\"" + exam.getName() + "\"already present");
+					System.out.println("exam\" " + exam.getName() + "\" already present");
 					containsRel.setExamID(insertExamResult); // Sets the examID of the exam already stored
 				} else { // Exam isn't present in the database
-					System.out.println("exam\"" + exam.getName() + "\"not present");
+					System.out.println("exam\" " + exam.getName() + "\" not present");
 					containsRel.setExamID(currentExamID); // Sets the examID of the exam just added
 					currentExamID++;
 				}

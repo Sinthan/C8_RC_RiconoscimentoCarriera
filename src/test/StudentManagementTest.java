@@ -13,15 +13,13 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoSession;
-import org.mockito.quality.Strictness;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import controller.DbConnection;
 import controller.StudentManagement;
+import model.RCState;
 import model.RequestRC;
-import model.RequestRC.RCState;
 
 class StudentManagementTest extends Mockito {
 	
