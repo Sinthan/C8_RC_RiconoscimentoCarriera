@@ -139,5 +139,18 @@ public class ExamDAO implements ExamDAOInterface{
 		}
 		return -1;
 	}
+	
+	// metodo che consente di rimuovere l'esame aggiunto in fase di test
+		public void removeAddExamForTest() throws SQLException {
+			String sql = "Delete FROM englishvalidation.exam  where name = 'ingegneria del test' and cfu = 9 and link_program= '//link di riferimento//'" ;
+			Connection conn = (Connection) new DbConnection().getInstance().getConn();
+			
+			try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.execute();
+			}catch (SQLException e) {
+				e.getMessage();
+			}
+		}
 
 }

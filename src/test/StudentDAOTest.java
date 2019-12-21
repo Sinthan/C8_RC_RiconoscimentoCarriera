@@ -32,25 +32,25 @@ class StudentDAOTest extends Mockito {
 	
 	@Test // Utente estratto correttamente dal database
 	  void testDoRetriveStudentOK() throws ServletException, IOException {
-		Student s = sDAO.doRetrieveStudent("prova@studenti.unisa.it", "9611edf7f716b00c8a44441973906aa7f5c0c580");
+		Student s = sDAO.doRetrieveStudent("r.deluca@studenti.unisa.it", "9611edf7f716b00c8a44441973906aa7f5c0c580");
 	    assertNotEquals(null,s);
 	}
 	
 	@Test // Utente non estratto correttamente dal database (email errata)
 	  void testDoRetriveStudentFailEmail() throws ServletException, IOException {
-		Student s = sDAO.doRetrieveStudent("prova@studen1ti.unisa.it", "9611edf7f716b00c8a44441973906aa7f5c0c580");
+		Student s = sDAO.doRetrieveStudent("r.deluca@stud3enti.unisa.it", "9611edf7f716b00c8a44441973906aa7f5c0c580");
 	    assertEquals(null,s);
 	}
 	
 	@Test // Utente non estratto correttamente dal database (password errata)
 	  void testDoRetriveStudentFailPws() throws ServletException, IOException {
-		Student s = sDAO.doRetrieveStudent("prova@studenti.unisa.it", "9611ed3906aa7f5c0c580");
+		Student s = sDAO.doRetrieveStudent("r.deluca@studenti.unisa.it", "9611ed3906aa7f5c0c580");
 	    assertEquals(null,s);
 	}
 	
 	@Test // Utente non estratto correttamente dal database (password ed email errata)
 	  void testDoRetriveStudentFailEmailPws() throws ServletException, IOException {
-		Student s = sDAO.doRetrieveStudent("prova@stuv33denti.unisa.it", "9611e444419aa7f5c0c580");
+		Student s = sDAO.doRetrieveStudent("r.deluca@studedednti.unisa.it", "9611e444419aa7f5c0c580");
 	    assertEquals(null,s);
 	}
 	
