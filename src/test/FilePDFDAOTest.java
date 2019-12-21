@@ -1,41 +1,60 @@
 package test;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import model.FilePDF;
 import model.FilePDFDAO;
+import model.UC;
+import model.UCDAO;
 
 
 class FilePDFDAOTest {
-	FilePDFDAO pdfDAO = new FilePDFDAO();
+
+	FilePDFDAO filePDFDAO;
+	FilePDF filePDF;
 	
-	
-	
-	@Test// File inserito correttamente
-	void testInsertFilePDF() {
-		FilePDF filepdf = new FilePDF("path", 1);
-		int result = 0;
-		try {
-			result = pdfDAO.insertFilePDF(filepdf);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertEquals(result , 1);
+	@BeforeEach
+	public void setUp() throws Exception {
+		filePDFDAO = new FilePDFDAO();
+		filePDF = new FilePDF();
 	}
 	
-	@Test// File non inserito correttamente ID richiesta non trovato
-	void testInsertFilePDFfail() {
-		FilePDF filepdf = new FilePDF("path2", 124);
-		int result = 0;
-		try {
-			result = pdfDAO.insertFilePDF(filepdf);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertEquals(result , 0);
+	/*@Test
+	void testInsertFilePDFOK() throws SQLException {
+		filePDF.setPDFLink("FILEPDFCARR1");
+		filePDF.setRequestRCID(1);
+		
+		int i = filePDFDAO.insertFilePDF(filePDF);
+		assertEquals(-1, i);
 	}
-}
+*/
+	
+	@Test
+	void testInsertFilePDFFailPDFLink() {
+		filePDF.setPDFLink("");
+		filePDF.setRequestRCID(1);
+		
+		int i = filePDFDAO.insertFilePDF(filePDF);
+		assertEquals(-2, i);
+	}
+	
+	@Test
+	void testInsertFilePDFFailRequestRCID() {
+		filePDF.setPDFLink("FILEPDFCARR1");
+		filePDF.setRequestRCID(-1);
+		
+		int i = filePDFDAO.insertFilePDF(filePDF);
+		assertEquals(-2, i);
+	}
+	
+	
+	
+}	
