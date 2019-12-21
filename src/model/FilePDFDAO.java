@@ -31,7 +31,7 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 	 * @author 		Gianluca Rossi
 	 */
 	@Override
-	public int insertFilePDF(FilePDF file) throws SQLException {
+	public int insertFilePDF(FilePDF file) {
 		if (file.getPDFLink().equals("") || file.getRequestRCID() == -1) // Checks if attributes are set
 			return -2;
 		Connection connection = null;
@@ -57,10 +57,16 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
+		} catch(SQLException e) {
+			new RuntimeException(e);
 		} finally {
 			// Statement release
 			if(preparedStatement != null)
-				preparedStatement.close();
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return result;
 	}

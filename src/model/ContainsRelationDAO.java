@@ -20,16 +20,20 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 	@Override
 	public int insertContainsRelation(ContainsRelation conRel) {
 		// TODO Auto-generated method stub
+
+		Connection connection = null;
 		try {
-			PreparedStatement ps2 = conn.prepareStatement(" INSERT INTO CONTAINS "
+			connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps2 = conn.prepareStatement("INSERT INTO CONTAINS "
 	            			+ " (FK_REQUEST_RC, FK_EXAM) "
 	            			+ " VALUES " + " (?, ?) ");
 	        ps2.setInt(1, conRel.getRequestRCID());
 	        ps2.setInt(2, conRel.getExamID());
 	        ps2.executeUpdate();
+			connection.commit();
 	        return 1;
 	  	} catch (SQLException e) {
-	  		throw new RuntimeException("Impossibile effettuare la registrazione"+ e);
+	  		throw new RuntimeException("Impossibile inserire la relazione Contains"+ e);
 	  	}
 	}
 }

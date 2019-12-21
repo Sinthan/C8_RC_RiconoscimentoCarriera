@@ -29,6 +29,9 @@
 	}
 
 	function addRow() {
+		rowCount++;
+		document.getElementById('rowCount').value = rowCount;
+		
 		// Container <div> where dynamic content will be placed
 		var container = document.getElementById("examInsertionRows");
 
@@ -85,9 +88,6 @@
 
 		// Append a line break 
 		container.appendChild(document.createElement("br"));
-
-		rowCount++;
-		document.getElementById('rowCount').value = rowCount;
 	}
 
 	function deleteRow() {
@@ -166,12 +166,12 @@
 										action="StudentManagement"
 										>
 
-										<input type="hidden" name="rowCount" id="rowCount" value="-1" />
+										<input type="hidden" name="rowCount" id="rowCount" value="1"/>
 
 										<div class="form-row" id=examInsertionRows>
 											<div class="form-group col-md-4 mb-3">
 												<label for="examName1">Nome esame</label> <input type="text"
-													class="form-control" name="Nome esame" id="examName1"
+													class="form-control" name="examName1" id="examName1"
 													placeholder="es. Programmazione 1" minlength="2"
 													maxlength="50" required pattern="([A-z0-9À-ž\s]){2,50}"
 													onkeypress = "allowAlphaNumericOnly(event)">
@@ -179,14 +179,14 @@
 
 											<div class="form-group col-md-1 mb-3">
 												<label for="CFU1">CFU</label> <input type="number"
-													class="form-control" name="CFU" id="CFU1" placeholder="es. 9"
+													class="form-control" name="CFU1" id="CFU1" placeholder="es. 9"
 													min="1" max="30" minlength="1" maxlength="2" required
 													onkeypress="allowNumbersOnly(event)" onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
 											</div>
 
 											<div class="form-group col-md-5 mb-3">
 												<label for="programLink1">Link al programma d'esame</label> <input
-													type="text" class="form-control" name="Link al programma d'esame" id="programLink1"
+													type="text" class="form-control" name="programLink1" id="programLink1"
 													placeholder="es. www.unisa.it/programmaEsame.html"
 													pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
 													minlength="4" maxlength="256" required>

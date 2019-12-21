@@ -13,7 +13,7 @@ public interface RequestRCDAOInterface {
 	/*
 	 * Add new requestRC in the database
 	 */
-	public int insertRequestRC(RequestRC request) throws SQLException;
+	public int insertRequestRC(RequestRC request);
 	
 	
 	/*

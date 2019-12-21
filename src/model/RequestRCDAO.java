@@ -46,7 +46,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	 * @throws 			SQLException
 	 * @author 			Gianluca Rossi
 	 */
-	public int insertRequestRC(RequestRC request) throws SQLException {
+	public int insertRequestRC(RequestRC request) {
 		if (request.getUniversityID().equals("")
 				|| request.getStudentID().equals("")) // Checks if attributes are set
 			return -2;
@@ -84,10 +84,16 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
+		} catch(SQLException e) {
+			new RuntimeException(e);
 		} finally {
 			// Statement release
 			if(preparedStatement != null)
-				preparedStatement.close();
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return result;
 	}

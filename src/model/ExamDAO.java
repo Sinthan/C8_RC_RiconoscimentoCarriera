@@ -3,6 +3,7 @@ import model.Exam;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ExamDAO implements ExamDAOInterface{
 	 * @throws 		SQLException
 	 * @author 		Gianluca Rossi
 	 */
-	public int insertExam(Exam exam) throws SQLException {
+	public int insertExam(Exam exam) {
 		if (exam.getName().equals("") || exam.getCFU() == -1 || exam.getProgramLink().equals("")) // Checks if attributes are set
 			return -2;
 		Connection connection = null;
@@ -60,10 +61,16 @@ public class ExamDAO implements ExamDAOInterface{
 
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
+		} catch(SQLException e) {
+			new RuntimeException(e);
 		} finally {
 			// Statement release
 			if(preparedStatement != null)
-				preparedStatement.close();
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return result;
 	}
@@ -74,9 +81,22 @@ public class ExamDAO implements ExamDAOInterface{
 	 */
 	public ArrayList<Exam> doRetrieveAllExamsByIDRequestRC(int requestRCID){
 		
-		
-		ArrayList<Exam> list = null;
-		return list;
+		try {
+			PreparedStatement ps = conn.prepareStatement(
+					"SELECT * FROM EXAM WHERE ");
+			ArrayList<Exam> examsList = new ArrayList<>();
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Exam e = new Exam();
+				e.setName(rs.getString(1));
+				e.setExamID(rs.get)
+				System.out.println(e.getName());
+				examsList.add(e);
+			}
+			return examsList;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	/**

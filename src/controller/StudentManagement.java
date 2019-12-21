@@ -36,10 +36,14 @@ import javax.servlet.http.Part;
 import org.apache.catalina.User;
 import org.json.simple.JSONObject;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.ContainsRelation;
+import model.ContainsRelationDAO;
 import model.Exam;
 import model.ExamDAO;
 import model.FilePDF;
@@ -125,7 +129,7 @@ public class StudentManagement extends HttpServlet {
 			request.getSession().setAttribute("universities", universities);
 			Part filePart1 = request.getPart("file1");  //documento di riconoscimento
 			Part filePart2 = request.getPart("file2");  //documento carriera pregressa
-			String UniSel = request.getParameter("università");  //universitï¿½ selezionata
+			String UniSel = request.getParameter("universitï¿½");  //universitï¿½ selezionata
 			if( UniSel.equals("defaultUni") ) {
 				request.setAttribute("errorCR1", "Universitï¿½ non selezionata.");
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
@@ -194,14 +198,20 @@ public class StudentManagement extends HttpServlet {
 			RequestRC dbRCRequest = reqDAO.doRetrieveRequestRCByStudentID(studentMail);
 			int reqRCID = dbRCRequest.getRequestRCID();
             // Adding the exams to the database
-			int rowCount = (int) request.getSession().getAttribute("rowCount");
+			System.out.println("rowCount" + request.getParameter("rowCount"));
+			int rowCount = Integer.parseInt(request.getParameter("rowCount"));
 			Exam exam = new Exam();
 			ExamDAO examDAO =  new ExamDAO();
-			for (int i = 0; i < rowCount; i++) {
+			for (int i = 1; i <= rowCount; i++) {
 				// Gets the exam parameters from the form
-				String name =(String) request.getSession().getAttribute("examName" + rowCount);
-				int CFU = (int) request.getSession().getAttribute("CFU" + rowCount);
-				String link = (String) request.getSession().getAttribute("programLink" + rowCount);
+				String n = "examName" + i;
+				System.out.println("n " + n);
+				String name = (String) request.getParameter(n);
+				System.out.println("examName " + name);
+				int CFU = Integer.parseInt(request.getParameter("CFU" + i));
+				System.out.println("CFU " + CFU);
+				String link = (String) request.getParameter("programLink" + i);
+				System.out.println("programLink " + link);
 				// Sets the exam attributes and adds it to the database
 				exam.setName(name);
 				exam.setCFU(CFU);
@@ -212,9 +222,10 @@ public class StudentManagement extends HttpServlet {
 			ArrayList<Exam> examsArray = examDAO.doRetrieveAllExamsByIDRequestRC(reqRCID);
 			ContainsRelation containsRel = new ContainsRelation();
 			containsRel.setRequestRCID(reqRCID);
+			ContainsRelationDAO containsRelDAO = new ContainsRelationDAO();
 			for (Exam e : examsArray) {
-				containsRel.setExamID();
-				insertContainsRelation(containsRel);
+				containsRel.setExamID(e.getExamID());
+				containsRelDAO.insertContainsRelation(containsRel);
 			}
 			// Adding the PDF files to the database.
 			FilePDFDAO pdfDAO = new FilePDFDAO();
