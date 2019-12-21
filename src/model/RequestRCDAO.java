@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.Date;
 
 import model.RequestRC.RCState;
 import model.RequestRCDAOInterface;
@@ -34,9 +35,61 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	Connection conn = (Connection) new DbConnection().getInstance().getConn();
 	
     @Override
-	public int insertRequestRC(RequestRC request) {
-		// TODO Auto-generated method stub
-		return 0;
+    /**
+	 * Saves the request into the database.
+	 * 
+	 * @param request	the <tt>RequestRC</tt> object that will be saved.
+	 * @return			<ul><li>a positive count of the number of rows affected (from INSERT, UPDATE, or DELETE)
+	 *					<li>0 if no rows were affected
+	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified
+	 * @throws 			SQLException
+	 * @author 			Gianluca Rossi
+	 */
+	public int insertRequestRC(RequestRC request) throws SQLException {
+		if (request.getUniversityID().equals("")
+				|| request.getStudentID().equals("")) // Checks if attributes are set
+			return -2;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;		
+		int result = 0;
+
+		/* Adds the 5 parametric values in the REQUEST_RC table.
+		 * The Request ID is automatically generated from the
+		 * database, as it is defined as an auto increment value,
+		 * so it's not required to create a new one here.
+		 */
+		String insertSQL = "INSERT INTO REQUEST_RC " +
+				" (DATE_REQUEST, STATE, FK_UNIVERSITY, FK_USER, FK_EMAIL_UC) " +
+				" VALUES (?, ?, ?, ?, ?)";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(insertSQL);			
+			
+			// Getting today's date
+			Calendar calendar = Calendar.getInstance();
+			java.util.Date currentDate = calendar.getTime();
+			java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+			
+			// Setting parameters
+			preparedStatement.setDate(1, sqlDate);
+			preparedStatement.setInt(2, RCState.needsUCValidation.ordinal());
+			preparedStatement.setString(3, request.getUniversityID());
+			preparedStatement.setString(4, request.getStudentID());
+			preparedStatement.setString(5, "EMAILUC@gmail.it");
+			
+			// Logging the operation
+			System.out.println("insertRequestRC: "+ request.toString());
+
+			result = preparedStatement.executeUpdate();	
+			connection.commit();
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				preparedStatement.close();
+		}
+		return result;
 	}
 
 	@Override

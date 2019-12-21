@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*
@@ -12,7 +13,7 @@ public interface RequestRCDAOInterface {
 	/*
 	 * Add new requestRC in the database
 	 */
-	public int insertRequestRC(RequestRC request);
+	public int insertRequestRC(RequestRC request) throws SQLException;
 	
 	
 	/*

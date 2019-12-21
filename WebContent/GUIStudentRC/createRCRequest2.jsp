@@ -16,6 +16,17 @@
 <title>Compila richiesta | Inserisci esami</title>
 <script type='text/javascript'>
 	var rowCount = 1;
+	
+	window.onload = function(){
+		controlServlet();
+	};
+
+	function controlServlet(){
+		var err = '<%= request.getAttribute("errorCR2") %>';
+		if( err.toString() != "null"){
+			showAlert(1, err.toString());
+		}
+	}
 
 	function addRow() {
 		// Container <div> where dynamic content will be placed
@@ -37,7 +48,7 @@
 		inputExamName.className = 'form-control';
 		inputExamName.placeholder = 'es. Programmazione 1';
 		inputExamName.required = true;
-		//inputExamName.onChange = validateExamName;
+		inputExamName.onkeypress = allowAlphaNumericOnly;
 		examNameDiv.appendChild(inputExamName);
 
 		// Create the <input> element for the exam's CFU, set its type and name attributes
@@ -46,12 +57,16 @@
 		rowDiv.appendChild(CFUDiv);
 
 		var inputCFU = document.createElement("input");
-		inputCFU.type = "text";
+		inputCFU.type = "number";
 		inputCFU.name = "CFU" + rowCount;
 		inputCFU.className = 'form-control';
 		inputCFU.placeholder = 'es. 9';
 		inputCFU.required = true;
-		//inputCFU.onChange = validateNumeric;
+		inputCFU.min = 1;
+		inputCFU.max = 30;
+		inputCFU.onblur = validateCFU.bind(null, inputCFU);
+		inputCFU.oninput = maxLengthCheck.bind(null, inputCFU);
+		inputCFU.onkeypress = allowNumbersOnly;
 		CFUDiv.appendChild(inputCFU);
 
 		// Create the <input> element for the program's link, set its type and name attributes
@@ -63,7 +78,7 @@
 		inputProgramLink.type = "text";
 		inputProgramLink.name = "programLink" + rowCount;
 		inputProgramLink.className = 'form-control';
-		inputProgramLink.placeholder = 'es. unisa.it/programmaEsame.html';
+		inputProgramLink.placeholder = 'es. www.unisa.it/programmaEsame.html';
 		inputProgramLink.required = true;
 		//inputProgramLink.onChange = validateLink;
 		programLinkDiv.appendChild(inputProgramLink);
@@ -87,8 +102,41 @@
 		}
 	}
 	
+	function allowNumbersOnly(e) {
+	    var code = (e.which) ? e.which : e.keyCode;
+	    if (code > 31 && (code < 48 || code > 57)) {
+	        e.preventDefault();
+	    }
+	}
+	
+	function maxLengthCheck(object) {
+	    if (object.value.length > object.max.length)
+	      object.value = object.value.slice(0, object.max.length)
+	  }
+	
+	function validateCFU(object) {
+		if(this.value < 30) {
+			return true;
+		} else if(object.value > 30) {
+			object.value = '30';
+			alert("Il valore massimo dei CFU é 30");
+			this.focus();
+			//element.className += " is-invalid";
+			return false;
+		}
+	}
+
+	function allowAlphaNumericOnly(e) {
+		var keyCode = (e.which) ? e.which : e.keyCode;
+		
+		if (!(keyCode == 32) && // space
+			    !(keyCode > 47 && keyCode < 58) && // numeric (0-9)
+			    !(keyCode > 64 && keyCode < 91) && // upper alpha (A-Z)
+			    !(keyCode > 96 && keyCode < 123)) { // lower alpha (a-z)
+			e.preventDefault();
+		}
+	}
 </script>
-<script src="../jsRC/validateCreateRequest2.js"></script>
 </head>
 <body>
 	<div class="page-wrapper">
@@ -115,7 +163,7 @@
 									</div>
 
 									<form id="createRequestRC2" name="createRequestRC2" method="post"
-										action="StudentManagement" onChange="formValidation()"
+										action="StudentManagement"
 										>
 
 										<input type="hidden" name="rowCount" id="rowCount" value="-1" />
@@ -124,20 +172,23 @@
 											<div class="form-group col-md-4 mb-3">
 												<label for="examName1">Nome esame</label> <input type="text"
 													class="form-control" name="Nome esame" id="examName1"
-													placeholder="es. Programmazione 1" pattern="[0-9A-Za-z]" minlength="2"
-													maxlength="50" required>
+													placeholder="es. Programmazione 1" minlength="2"
+													maxlength="50" required pattern="([A-z0-9À-ž\s]){2,50}"
+													onkeypress = "allowAlphaNumericOnly(event)">
 											</div>
 
 											<div class="form-group col-md-1 mb-3">
 												<label for="CFU1">CFU</label> <input type="number"
 													class="form-control" name="CFU" id="CFU1" placeholder="es. 9"
-													minlength="1" maxlength="2" required>
+													min="1" max="30" minlength="1" maxlength="2" required
+													onkeypress="allowNumbersOnly(event)" onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
 											</div>
 
 											<div class="form-group col-md-5 mb-3">
 												<label for="programLink1">Link al programma d'esame</label> <input
-													type="url" class="form-control" name="Link al programma d'esame" id="programLink1"
-													placeholder="es. unisa.it/programmaEsame.html"
+													type="text" class="form-control" name="Link al programma d'esame" id="programLink1"
+													placeholder="es. www.unisa.it/programmaEsame.html"
+													pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
 													minlength="4" maxlength="256" required>
 											</div>
 
@@ -162,7 +213,6 @@
 										</div>
 									</form>
 								</div>
-
 							</div>
 						</div>
 					</div>

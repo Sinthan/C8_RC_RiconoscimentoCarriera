@@ -39,6 +39,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import model.Exam;
+import model.ExamDAO;
+import model.FilePDF;
+import model.FilePDFDAO;
 import model.RequestRC;
 import model.SortByName;
 import model.Student;
@@ -153,33 +156,48 @@ public class StudentManagement extends HttpServlet {
 				dis.forward(request, response);
 			}
 			
-		} else if (flag == 3) { //createRCRequest2.jsp
-			// Getting exams list
-			ArrayList<Exam> examsList = new ArrayList<Exam>();
+		} else if (flag == 3) { // Exams list insertion page (createRCRequest2.jsp)
+			// Adding the request to the database
+			RequestRC newReq = (RequestRC) request.getSession().getAttribute("newRequestRC");
+			RequestRCDAO reqDAO =  new RequestRCDAO();
+            int insertRequestRCResult = reqDAO.insertRequestRC(newReq);
+			// Getting RequestRC ID
+			String studentMail = newReq.getStudentID();
+			RequestRC dbRCRequest = reqDAO.doRetrieveRequestRCByStudentID(studentMail);
+			int reqRCID = dbRCRequest.getRequestRCID();
+            // Adding the exams to the database
 			int rowCount = (int) request.getSession().getAttribute("rowCount");
 			Exam exam = new Exam();
+			ExamDAO examDAO =  new ExamDAO();
 			for (int i = 0; i < rowCount; i++) {
 				// Gets the exam parameters from the form
 				String name =(String) request.getSession().getAttribute("examName" + rowCount);
 				int CFU = (int) request.getSession().getAttribute("CFU" + rowCount);
 				String link = (String) request.getSession().getAttribute("programLink" + rowCount);
-				
-				// Sets and adds the exam to the array
+				// Sets the exam attributes and adds it to the database
 				exam.setName(name);
 				exam.setCFU(CFU);
 				exam.setProgramLink(link);
-				examsList.add(exam);
-
+	            int insertExamResult = examDAO.insertExam(exam);
 			}
-			// Adding exams list to the RequestRC
-			RequestRC newReq = (RequestRC) request.getSession().getAttribute("newRequestRC");
-			newReq.setExamsList(examsList);
-			request.setAttribute("newRequestRC", newReq);
+			// Adding the contains relations to the database.
+			ArrayList<Exam> examsArray = examDAO.doRetrieveAllExamsByIDRequestRC(reqRCID);
+			ContainsRelation containsRel = new ContainsRelation();
+			containsRel.setRequestRCID(reqRCID);
+			for (Exam e : examsArray) {
+				containsRel.setExamID();
+				insertContainsRelation(containsRel);
+			}
+			// Adding the PDF files to the database.
+			FilePDFDAO pdfDAO = new FilePDFDAO();
+			FilePDF file1 = (FilePDF) request.getSession().getAttribute("filePDF1");
+			FilePDF file2 = (FilePDF) request.getSession().getAttribute("filePDF2");
+			file1.setRequestRCID(reqRCID);
+			file2.setRequestRCID(reqRCID);
+			int insertFile1Result = pdfDAO.insertFilePDF(file1);
+			int insertFile2Result = pdfDAO.insertFilePDF(file2);
 			
-			
-			System.out.println(newReq);
-			
-			// Redirect to view request status page
+			// Redirecting to the "view request status" page
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
 		}

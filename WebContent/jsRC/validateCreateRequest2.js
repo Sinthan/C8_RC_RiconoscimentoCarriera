@@ -69,12 +69,13 @@ function validateLink() {
 	}
 }
 
-function isExamName(element) {
+function isExamName(element, e) {
 	var alphaNumeric =/^[0-9a-zA-Z]+$/;
 	if(element.value.match(alphaNumeric)) {
 		return true;
 	} else {
-		alert(element.name + " deve essere un nome valido");
+		e.preventDefault();
+		//alert(element.name + " deve essere un nome valido");
 		element.focus();
 		//element.className += " is-invalid";
 		return false;
