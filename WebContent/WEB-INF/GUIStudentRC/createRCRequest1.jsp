@@ -33,7 +33,7 @@
 		function validationFile1(){
 			var filePath1 = document.getElementById("file1").value;
 			var filePath2 = document.getElementById("file2").value;
-			var uniSel = document.getElementById("università").value;
+			var uniSel = document.getElementById("universita").value;
 			var btnform = document.getElementById("buttonCreateRequestRC1");
 			var allowedExtension = /(\.pdf)$/i;
 			if(!allowedExtension.exec(filePath1)){
@@ -55,7 +55,7 @@
 		function validationFile2(){
 			var filePath1 = document.getElementById("file1").value;
 			var filePath2 = document.getElementById("file2").value;
-			var uniSel = document.getElementById("università").value;
+			var uniSel = document.getElementById("universita").value;
 			var btnform = document.getElementById("buttonCreateRequestRC1");
 			var allowedExtension = /(\.pdf)$/i;
 			if(!allowedExtension.exec(filePath2)){
@@ -77,7 +77,7 @@
 		function validationUni(){
 			var filePath1 = document.getElementById("file1").value;
 			var filePath2 = document.getElementById("file2").value;
-			var uniSel = document.getElementById("università").value;
+			var uniSel = document.getElementById("universita").value;
 			var btnform = document.getElementById("buttonCreateRequestRC1");
 			var allowedExtension = /(\.pdf)$/i;
 			if( uniSel=="defaultUni" ){
@@ -141,7 +141,7 @@
 												
 												
 												
-												<select id="università" onChange="validationUni()" name="università">
+												<select id="universita" onChange="validationUni()" name="universita">
 													<option style="" value="defaultUni" selected>Seleziona una Universit&agrave;</option>
 												  	<c:forEach items="${universities}" var="university">
 												    	<option value="${university.name}">
