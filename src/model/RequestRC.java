@@ -11,33 +11,7 @@ import java.util.Date;
  * Different from Request 
  * (Request for English Validation, Request RC for Riconoscimento Carriera) 
  */
-public class RequestRC {
-	
-	
-	public enum RCState {
-		needsUCValidation, 
-		isBeingDiscussed,
-		approved,
-		refused;
-
-		public static RCState fromInteger(int x) {
-			switch(x) {
-			case 0:
-				return needsUCValidation;
-			case 1:
-				return isBeingDiscussed;
-			case 2: 
-				return approved;
-			case 3: 
-				return refused;
-				
-			}
-			System.err.println("Integer");
-			return null;
-		}
-	}
-	
-	
+public class RequestRC {	
 	private int requestRCID;
 	private Date submissionDate;
 	private RCState state;
@@ -45,8 +19,6 @@ public class RequestRC {
 	private int reportID;
 	private String studentID;
 	private ArrayList<Exam> examsList;
-	
-	
 
 
 	/*
@@ -127,14 +99,5 @@ public class RequestRC {
 	public void setExamsList(ArrayList<Exam> examsList) {
 		this.examsList = examsList;
 	}
-	
-
-
-
-
-
-
-
-
 
 }

@@ -1,6 +1,6 @@
 package model;
 
-enum RCState {
+public enum RCState {
 	needsUCValidation,
 	isBeingDiscussed,
 	approved,

@@ -27,7 +27,6 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 	 *				<li>0 if no rows were affected
 	 *				<li>-1 if the statement succeeded, but there is no update count information available</ul>
 	 *				<li>-2 if the attributes of the passed argument aren't fully specified
-	 * @throws 		SQLException
 	 * @author 		Gianluca Rossi
 	 */
 	@Override
@@ -55,6 +54,7 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 			// Logging the operation
 			System.out.println("insertFilePDF: "+ file.toString());
 
+			// Executing the query
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
 		} catch(SQLException e) {

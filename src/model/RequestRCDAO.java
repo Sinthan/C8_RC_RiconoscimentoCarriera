@@ -7,22 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import model.RequestRC.RCState;
 import model.RequestRCDAOInterface;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 import controller.DbConnection;
-
-
-
-
 
 public class RequestRCDAO implements RequestRCDAOInterface {
 
@@ -82,6 +70,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			// Logging the operation
 			System.out.println("insertRequestRC: "+ request.toString());
 
+			// Executing the query
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
 		} catch(SQLException e) {
