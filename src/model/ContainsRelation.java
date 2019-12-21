@@ -58,6 +58,11 @@ public class ContainsRelation {
 		return examID;
 	}
 
+	@Override
+	public String toString() {
+		return "ContainsRelation [requestRCID=" + requestRCID + ", examID=" + examID + "]";
+	}
+
 	/**
 	 * Set the id of exam.
      * @param name is the id of exam.

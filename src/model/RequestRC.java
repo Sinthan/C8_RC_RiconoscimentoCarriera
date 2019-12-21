@@ -74,9 +74,11 @@ public class RequestRC {
 	 * toString method
 	 * 
 	 */
-	public String toString(){
-		return universityID;
-		
+	@Override
+	public String toString() {
+		return "RequestRC [requestRCID=" + requestRCID + ", submissionDate=" + submissionDate + ", state=" + state
+				+ ", universityID=" + universityID + ", reportID=" + reportID + ", studentID=" + studentID
+				+ ", examsList=" + examsList + "]";
 	}
 	
 	/*
@@ -85,6 +87,7 @@ public class RequestRC {
 	public int getRequestRCID() {
 		return requestRCID;
 	}
+
 	public void setRequestRCID(int requestRCID) {
 		this.requestRCID = requestRCID;
 	}

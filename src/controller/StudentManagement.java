@@ -202,6 +202,12 @@ public class StudentManagement extends HttpServlet {
 			int rowCount = Integer.parseInt(request.getParameter("rowCount"));
 			Exam exam = new Exam();
 			ExamDAO examDAO =  new ExamDAO();
+			int lastExamID = examDAO.doRetrieveMaxExamID();
+			ContainsRelationDAO containsRelDAO = new ContainsRelationDAO();
+			ContainsRelation containsRel = new ContainsRelation();
+			containsRel.setRequestRCID(reqRCID);
+			int currentExamID = lastExamID + 1;
+			System.out.println("currentExamID" + currentExamID);
 			for (int i = 1; i <= rowCount; i++) {
 				// Gets the exam parameters from the form
 				String n = "examName" + i;
@@ -216,15 +222,16 @@ public class StudentManagement extends HttpServlet {
 				exam.setName(name);
 				exam.setCFU(CFU);
 				exam.setProgramLink(link);
+				// Adding the contains relations to the database.
 	            int insertExamResult = examDAO.insertExam(exam);
-			}
-			// Adding the contains relations to the database.
-			ArrayList<Exam> examsArray = examDAO.doRetrieveAllExamsByIDRequestRC(reqRCID);
-			ContainsRelation containsRel = new ContainsRelation();
-			containsRel.setRequestRCID(reqRCID);
-			ContainsRelationDAO containsRelDAO = new ContainsRelationDAO();
-			for (Exam e : examsArray) {
-				containsRel.setExamID(e.getExamID());
+	            if (insertExamResult >= 0) { // Exam already present in the database
+	            	System.out.println("exam already present, insertExam result: " + insertExamResult);
+	            	containsRel.setExamID(insertExamResult);
+	            } else { // Exam was not present in the database
+	            	System.out.println("exam not present, insertExam result: " + insertExamResult);
+	            	containsRel.setExamID(currentExamID);
+	            	currentExamID++;
+	            }
 				containsRelDAO.insertContainsRelation(containsRel);
 			}
 			// Adding the PDF files to the database.
@@ -235,8 +242,9 @@ public class StudentManagement extends HttpServlet {
 			file2.setRequestRCID(reqRCID);
 			int insertFile1Result = pdfDAO.insertFilePDF(file1);
 			int insertFile2Result = pdfDAO.insertFilePDF(file2);
-			
 			// Redirecting to the "view request status" page
+			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
+            request.setAttribute("rRCState", dbRCRequest.getState());
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
 		}
