@@ -146,8 +146,10 @@ public class ServletStudent extends HttpServlet {
 							content = "Registrazione effettuata correttamente.";
 							result = 1;
 						}else{
-
-							redirect = request.getContextPath() + "/WEB-INF/GUIStudentRC/createRCRequest1.jsp";
+							
+							flag = 1;
+							request.getSession().setAttribute("flag", flag);
+							redirect = request.getContextPath() + "/StudentManagement";
 							user = new Student(email, name, surname, sex, password, userType);
 							request.getSession().setAttribute("user", user);
 							content = "Registrazione effettuata correttamente.";
