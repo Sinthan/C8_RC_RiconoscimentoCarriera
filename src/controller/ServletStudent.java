@@ -146,14 +146,8 @@ public class ServletStudent extends HttpServlet {
 							content = "Registrazione effettuata correttamente.";
 							result = 1;
 						}else{
-							
-							RequestRC rRC = rDao.doRetrieveRequestRCByStudentID(user.getEmail());
-							request.getSession().setAttribute("flag", 0);
-							if( rRC == null ) {
-								redirect = request.getContextPath() + "/GUIStudentRC/createRCRequest1.jsp";
-							}else {
-								redirect = request.getContextPath() + "/GUIStudentRC/viewRCRequestStatus.jsp";
-							}
+						
+							redirect = request.getContextPath() + "/WEB-INF/GUIStudentRC/createRCRequest1.jsp";
 							user = new Student(email, name, surname, sex, password, userType);
 							request.getSession().setAttribute("user", user);
 							content = "Registrazione effettuata correttamente.";
