@@ -70,6 +70,7 @@ public class StudentManagement extends HttpServlet {
 
 		int flag = (int) request.getSession().getAttribute("flag");
 
+
 		if(flag == 0) {
 			HttpSession sessione = request.getSession(true);
 
@@ -222,6 +223,9 @@ public class StudentManagement extends HttpServlet {
 			// Redirecting to the "view request status" page and setting the attributes it will need
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());
+			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
+			dis.forward(request, response);
+		}else if (flag==4) {
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
 		}
