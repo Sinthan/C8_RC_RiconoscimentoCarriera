@@ -107,9 +107,9 @@ public class StudentManagement extends HttpServlet {
 			request.getSession().setAttribute("universities", universities);
 			Part filePart1 = request.getPart("file1");  //documento di riconoscimento
 			Part filePart2 = request.getPart("file2");  //documento carriera pregressa
-			String UniSel = request.getParameter("universit�");  //universit� selezionata
+			String UniSel = request.getParameter("universita");  //universita selezionata
 			if( UniSel.equals("defaultUni") ) {
-				request.setAttribute("errorCR1", "Universit� non selezionata.");
+				request.setAttribute("errorCR1", "Universitit&#224; non selezionata.");
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			}else if( !filePart1.getContentType().equals("application/pdf") ){
