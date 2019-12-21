@@ -23,7 +23,6 @@ import model.RequestRCDAO;
 import model.Student;
 import model.StudentDAO;
 import model.SystemAttribute;
-import org.eclipse.jdt.internal.compiler.env.IModule;
 import org.json.simple.JSONObject;
 
 
@@ -147,13 +146,10 @@ public class ServletStudent extends HttpServlet {
 							content = "Registrazione effettuata correttamente.";
 							result = 1;
 						}else{
-							RequestRC rRC = rDao.doRetrieveRequestRCByStudentID(user.getEmail());
-							if( rRC == null ) {
-								redirect = request.getContextPath() + "/GUIStudentRC/createRCRequest1.jsp";
-							}else {
-								redirect = request.getContextPath() + "/GUIStudentRC/viewRCRequestStatus.jsp";
-							}
+							request.getSession().setAttribute("flag",1);
+    							redirect = request.getContextPath() + "/StudentManagement";
 							user = new Student(email, name, surname, sex, password, userType);
+							System.out.println(redirect.toString());
 							request.getSession().setAttribute("user", user);
 							content = "Registrazione effettuata correttamente.";
 							result = 1;

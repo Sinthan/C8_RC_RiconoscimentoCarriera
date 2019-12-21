@@ -2,6 +2,8 @@ package controller;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
@@ -76,12 +78,6 @@ public class StudentManagement extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    	/**
-    	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-    	 */
-    
-
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -99,8 +95,10 @@ public class StudentManagement extends HttpServlet {
             try {
                 RequestRCDAO rDAO =  new RequestRCDAO();
                 RequestRC rRC = rDAO.doRetrieveRequestRCByStudentID(email);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String date = sdf.format(rRC.getSubmissionDate());
                   
-                    request.setAttribute("rRCDate", rRC.getSubmissionDate().toString());
+                    request.setAttribute("rRCDate", date);
                     request.setAttribute("rRCState", rRC.getState().toString());
                     
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
@@ -200,6 +198,7 @@ public class StudentManagement extends HttpServlet {
 				exam.setCFU(CFU);
 				exam.setProgramLink(link);
 				examsList.add(exam);
+
 			}
 			// Adding exams list to the RequestRC
 			RequestRC newReq = (RequestRC) request.getSession().getAttribute("newRequestRC");

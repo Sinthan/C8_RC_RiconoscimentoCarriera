@@ -9,8 +9,6 @@
   String hiddenMenu = "";
   String logoRedirect= "";		//tiene traccia del path a cui reindirizzare il sito quando si preme sul logo
   
-  
-  System.out.println(pageFolder);
   CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
   if(!ck.isAllowed()){			//cliccando sul logo reinderizza a index se non si è loggati
 	  logoRedirect = request.getContextPath()+ck.getUrlRedirect();
