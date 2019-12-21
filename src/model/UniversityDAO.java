@@ -29,7 +29,7 @@ public class UniversityDAO implements UniversityDAOInterface {
 	Connection conn = (Connection) new DbConnection().getInstance().getConn(); 
 
 	@Override
-	public List<University> doRetrieveAllUniversity() {
+	public ArrayList<University> doRetrieveAllUniversity() {
 		try {
 			PreparedStatement ps = conn.prepareStatement(
 					"SELECT* FROM university");
