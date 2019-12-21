@@ -31,7 +31,7 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 
 		// Adds the 2 parametric values in the CONTAINS table.
 		String insertSQL = "INSERT INTO CONTAINS " +
-				" (LINK_PDF, FK_ID_REQUEST_RC) " +
+				" (FK_REQUEST_RC, FK_EXAM) " +
 				" VALUES (?, ?)";
 
 		try {
