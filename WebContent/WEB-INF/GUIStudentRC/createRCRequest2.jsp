@@ -126,7 +126,7 @@
 			return true;
 		} else if(object.value > 30) {
 			object.value = '30';
-			alert("Il valore massimo dei CFU &#232; 30");
+			showAlert(1, "Il valore massimo dei CFU &#232; 30");
 			this.focus();
 			//element.className += " is-invalid";
 			return false;
