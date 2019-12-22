@@ -1,21 +1,17 @@
 package test;
 
-import static org.hamcrest.CoreMatchers.is; 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import controller.DbConnection;
-
 import java.util.HashMap;
-import java.util.Map;
-
-import model.SystemAttribute;
 
 import org.hamcrest.collection.IsMapContaining;
-
 import org.junit.jupiter.api.Test;
+
+import model.SystemAttribute;
 
 public class SystemAttributeTest {
   

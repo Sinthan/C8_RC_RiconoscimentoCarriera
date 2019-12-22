@@ -31,7 +31,6 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	 *					<li>0 if no rows were affected
 	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
 	 *					<li>-2 if the attributes of the passed argument aren't fully specified
-	 * @throws 			SQLException
 	 * @author 			Gianluca Rossi
 	 */
 	public int insertRequestRC(RequestRC request) {
@@ -43,7 +42,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		PreparedStatement preparedStatement = null;		
 		int result = 0;
 
-		/* Adds the 5 parametric values in the REQUEST_RC table.
+		/* Adds the 5 given parametric values in the REQUEST_RC table.
 		 * The Request ID is automatically generated from the
 		 * database, as it is defined as an auto increment value,
 		 * so it's not required to create a new one here.
@@ -54,27 +53,22 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		try {
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(insertSQL);			
-			
 			// Getting today's date
 			Calendar calendar = Calendar.getInstance();
 			java.util.Date currentDate = calendar.getTime();
 			java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
-			
 			// Setting parameters
 			preparedStatement.setDate(1, sqlDate);
 			preparedStatement.setInt(2, RCState.needsUCValidation.ordinal());
 			preparedStatement.setString(3, request.getUniversityID());
 			preparedStatement.setString(4, request.getStudentID());
 			preparedStatement.setString(5, "EMAILUC@gmail.it");
-			
-			// Logging the operation
-			System.out.println("insertRequestRC: "+ request.toString());
-
-			// Executing the query
+			System.out.println("insertRequestRC: "+ request.toString());		// Logging the operation
+			// Executing the insertion
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
 		} catch(SQLException e) {
-			new RuntimeException(e);
+			new RuntimeException("Couldn't insert the RequestRC " + e);
 		} finally {
 			// Statement release
 			if(preparedStatement != null)

@@ -3,23 +3,20 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import controller.ServletCommon;
-import controller.ServletStudent;
-import interfacce.UserInterface;
-
 import java.io.IOException;
 import java.security.SecureRandom;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
 
-import model.Request;
-import model.Student;
+import javax.servlet.ServletException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import controller.ServletStudent;
+import interfacce.UserInterface;
+import model.Student;
 
 public class ServletStudentTest extends Mockito {
   private ServletStudent servlet;

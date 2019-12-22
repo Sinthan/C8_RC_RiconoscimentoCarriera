@@ -1,9 +1,9 @@
 package test;
 
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals; 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 
@@ -11,9 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.mysql.jdbc.Connection;
-
-import controller.DbConnection;
 import model.Student;
 import model.StudentDAO;
 

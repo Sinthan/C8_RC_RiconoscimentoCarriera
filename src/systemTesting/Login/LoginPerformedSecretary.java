@@ -3,7 +3,6 @@ package systemTesting.Login;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class LoginPerformedSecretary {
   private WebDriver driver;

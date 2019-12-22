@@ -2,11 +2,17 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import controller.DbConnection;
+
+/**
+ * <tt>ContainsRelationDAO</tt>
+ * Implementation of the ContainsRelationDAOInterface, manages and retrieves data related to
+ * <tt>ContainsRelation</tt> objects from the MySQL database.
+ * 
+ * @author	Gianluca Rossi
+ * @see		ContainsRelation
+ */
 
 public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 
@@ -14,7 +20,7 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 	 * Saves the <tt>ContainsRelation</tt> object into the database.
 	 * 
 	 * @param conRel	the <tt>ContainsRelation</tt> object that will be saved
-	 * @return			<ul><li>a positive count of the number of rows affected (from INSERT, UPDATE, or DELETE)
+	 * @return			<ul><li>a positive count of the number of rows affected
 	 *					<li>0 if no rows were affected
 	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
 	 *					<li>-2 if the attributes of the passed argument aren't fully specified
@@ -29,7 +35,7 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 		PreparedStatement preparedStatement = null;
 		int result = 0;
 
-		// Adds the 2 parametric values in the CONTAINS table.
+		// Adds the 2 given parametric values in the CONTAINS table.
 		String insertSQL = "INSERT INTO CONTAINS " +
 				" (FK_REQUEST_RC, FK_EXAM) " +
 				" VALUES (?, ?)";
@@ -40,13 +46,12 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 			// Setting parameters
 			preparedStatement.setInt(1, conRel.getRequestRCID());
 			preparedStatement.setInt(2, conRel.getExamID());
-			// Logging the operation
-			System.out.println("insertContainsRelation: "+ conRel.toString());
-
+			System.out.println("insertContainsRelation: "+ conRel.toString());		// Logging the operation
+			// Executing the insertion
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
 		} catch(SQLException e) {
-			new RuntimeException(e);
+			new RuntimeException("Couldn't insert the ContainsRelation in the database" + e);
 		} finally {
 			// Statement release
 			if(preparedStatement != null)

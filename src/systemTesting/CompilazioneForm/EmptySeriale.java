@@ -3,7 +3,6 @@ package systemTesting.CompilazioneForm;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 import org.junit.After;
 import org.junit.Before;

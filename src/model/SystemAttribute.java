@@ -1,10 +1,11 @@
 package model;
 
-import controller.DbConnection; 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
+
+import controller.DbConnection;
 
 public class SystemAttribute {
 
