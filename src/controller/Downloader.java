@@ -70,7 +70,6 @@ public class Downloader extends HttpServlet {
    * 
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
-  @SuppressWarnings({"unchecked", "unused", "rawtypes"})
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doGet(request, response);
