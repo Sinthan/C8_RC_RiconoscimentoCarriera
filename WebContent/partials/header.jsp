@@ -13,8 +13,10 @@
   if(!ck.isAllowed()){			//cliccando sul logo reinderizza a index se non si è loggati
 	  logoRedirect = request.getContextPath()+ck.getUrlRedirect();
   }
-
-	if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
+  System.out.println(pageName);
+  System.out.println(pageFolder);
+  
+  if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
 	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
   
     if (pageName.equals("viewRequest.jsp")) {
@@ -58,20 +60,7 @@
   	          menu +=
   	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	 }
-    if (pageName.equals("createRCRequest.jsp")) {      
-	      
-    	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-  	          + "/viewRequest.jsp\">English Validation</a></li>";
-  	          menu +=
-  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-  	 }    
-    if (pageName.equals("createRCRequest2.jsp")) {      
-	      
-    	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-  	          + "/viewRequest.jsp\">English Validation</a></li>";
-  	          menu +=
-  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-  	 }    
+    
     if (pageName.equals("firstForm.jsp")) {
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/firstForm.jsp\">Compila Richiesta</a></li>";
@@ -113,6 +102,24 @@
       }
     }
   }
+  
+  else if(pageFolder.equals("GUIStudentRC")) {
+	  
+	  if (pageName.equals("createRCRequest1.jsp")) {      
+	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
+	  	          + "/viewRequest.jsp\">English Validation</a></li>";
+	  	          menu +=
+	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+	  	 }    
+	    if (pageName.equals("createRCRequest2.jsp")) {      
+		      
+	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
+	  	          + "/viewRequest.jsp\">English Validation</a></li>";
+	  	          menu +=
+	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+	  	 }    
+	  
+  } 
   
   
 

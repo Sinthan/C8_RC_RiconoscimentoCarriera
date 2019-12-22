@@ -3,7 +3,7 @@
 
 <%
 	String pageName = "createRCRequest2.jsp";
-	String pageFolder = "";
+	String pageFolder = "GUIStudentRC";
 %>
 
 
