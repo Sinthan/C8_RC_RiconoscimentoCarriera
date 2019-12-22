@@ -18,7 +18,10 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 * Inserts the specified <tt>ValidatedExam</tt> object into the database.
 	 * 
 	 * @param	vExam	the <tt>ValidatedExam</tt> object that will be inserted.
-	 * @return			0 if the insertion succeeded, -1 otherwise.
+	 * @return			<ul><li>a positive count of the number of rows affected
+	 *					<li>0 if no rows were affected
+	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified
 	 */
 	@Override
 	public int insertValidatedExam(ValidatedExam vExam) {
@@ -29,7 +32,10 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 * Updates the specified <tt>ValidatedExam</tt> object into the database.
 	 * 
 	 * @param	vExam	the <tt>ValidatedExam</tt> object that will be updated.
-	 * @return			0 if the update succeeded, -1 otherwise.
+	 * @return			<ul><li>a positive count of the number of rows affected
+	 *					<li>0 if no rows were affected
+	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified
 	 */
 	@Override
 	public int updateValidatedExams(ValidatedExam vExam) {

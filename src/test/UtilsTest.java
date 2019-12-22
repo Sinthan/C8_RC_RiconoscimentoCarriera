@@ -2,25 +2,22 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-import controller.Utils;
-
-import interfacce.UserInterface;
-
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpSession;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
+
+import controller.Utils;
+import interfacce.UserInterface;
 import model.Attached;
 import model.Ente;
 import model.Request;
 import model.State;
 import model.Student;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 class UtilsTest {
 

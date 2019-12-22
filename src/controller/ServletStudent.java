@@ -1,6 +1,5 @@
 package controller;
 
-import interfacce.UserInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -16,14 +15,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.*;
-import model.Request;
-import model.RequestRC;
+
+import org.json.simple.JSONObject;
+
+import interfacce.UserInterface;
 import model.RequestRCDAO;
 import model.Student;
 import model.StudentDAO;
 import model.SystemAttribute;
-import org.json.simple.JSONObject;
 
 
 /**
@@ -157,7 +156,7 @@ public class ServletStudent extends HttpServlet {
 						}
 
 					} else if(res == 0){
-						error = "Utente già registrato";
+						error = "Utente giï¿½ registrato";
 					}else {
 						error = "impossibile effettuare la registrazione";
 					}

@@ -1,16 +1,10 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals; 
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
-
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,9 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import controller.DbConnection;
 import controller.LoginManagement;
-import model.Student;
 
 
 class LoginManagementTest extends Mockito {

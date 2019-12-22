@@ -1,25 +1,20 @@
 package controller;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-
-import java.io.File;
-
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import model.RequestRCDAO;
-import model.Student;
-import model.RequestRC;
-
 import javax.servlet.http.Part;
 
 import model.ContainsRelation;
@@ -28,11 +23,12 @@ import model.Exam;
 import model.ExamDAO;
 import model.FilePDF;
 import model.FilePDFDAO;
+import model.RequestRC;
+import model.RequestRCDAO;
 import model.SortByName;
+import model.Student;
 import model.University;
 import model.UniversityDAO;
-import java.util.Collections;
-import java.util.List;
 
 
 /**
@@ -168,6 +164,7 @@ public class StudentManagement extends HttpServlet {
 			}
 
 		} else if (flag == 3) { // Exams list insertion page (createRCRequest2.jsp)
+			RequestDispatcher dis = null;
 			// Adding the request to the database
 			RequestRC newReq = (RequestRC) request.getSession().getAttribute("newRequestRC");
 			RequestRCDAO reqDAO =  new RequestRCDAO();
@@ -186,16 +183,30 @@ public class StudentManagement extends HttpServlet {
 			ExamDAO examDAO =  new ExamDAO();
 			int lastExamID = examDAO.doRetrieveMaxExamID();
 			int currentExamID = lastExamID + 1;
-			for (int i = 1; i <= examsInserted; i++) {
+			for (int currentExamRow = 1; currentExamRow <= examsInserted; currentExamRow++) {
 				// Gets the exam parameters from the form
-				String n = "examName" + i;
-				System.out.println("n " + n);
-				String name = (String) request.getParameter(n);
-				System.out.println("examName " + name);
-				int CFU = Integer.parseInt(request.getParameter("CFU" + i));
-				System.out.println("CFU " + CFU);
-				String link = (String) request.getParameter("programLink" + i);
-				System.out.println("programLink " + link);
+				String name = (String) request.getParameter("examName" + currentExamRow);
+				int CFU = Integer.parseInt(request.getParameter("CFU" + currentExamRow));
+				String link = (String) request.getParameter("programLink" + currentExamRow);
+				// Checks if the parameters have a valid format
+				if (!name.matches("^[a-zA-Z0-9_-]{2,50}$")) {
+					request.setAttribute("errorCR2","Il nome dell&#8217;esame alla riga " + currentExamRow
+							+ " non rispetta un formato valido, sono ammessi solo caratteri alfanumerici"
+							+ " pi&#249; i caratteri \"-\" e \"_\". La lunghezza deve essere compresa tra i 2 e i 50 caratteri");
+					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
+					dis.forward(request, response);
+				} else if (CFU < 0 || CFU > 31) {
+					request.setAttribute("errorCR2","I CFU dell&#8217;esame alla riga " + currentExamRow
+							+ " non rispettano un formato valido, sono ammessi solo caratteri numerici"
+							+ " La lunghezza deve essere di 1 o 2 cifre");
+					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
+					dis.forward(request, response);
+				} else if (!link.matches("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")) {
+					request.setAttribute("errorCR2","Il link dell&#8217;esame alla riga " + currentExamRow
+							+ " non rispetta un formato valido oppure la lunghezza non &#232; compresa tra i 4 e i 256 caratteri");
+					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
+					dis.forward(request, response);
+				}
 				// Sets the exam attributes
 				exam.setName(name);
 				exam.setCFU(CFU);
@@ -203,10 +214,8 @@ public class StudentManagement extends HttpServlet {
 				// Adding the contains relations and the exam to the database.
 				int insertExamResult = examDAO.insertExam(exam);
 				if (insertExamResult >= 0) { // Exam record already present in the database
-					System.out.println("exam\" " + exam.getName() + "\" already present");
 					containsRel.setExamID(insertExamResult); // Sets the examID of the exam already stored
 				} else { // Exam isn't present in the database
-					System.out.println("exam\" " + exam.getName() + "\" not present");
 					containsRel.setExamID(currentExamID); // Sets the examID of the exam just added
 					currentExamID++;
 				}
@@ -223,7 +232,7 @@ public class StudentManagement extends HttpServlet {
 			// Redirecting to the "view request status" page and setting the attributes it will need
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());
-			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
+			dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
 		}else if (flag==4) {
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");

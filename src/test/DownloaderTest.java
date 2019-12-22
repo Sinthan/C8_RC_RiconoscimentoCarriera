@@ -1,17 +1,15 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import controller.Downloader;
-import controller.ServletCommon;
-
 import java.io.IOException;
+
 import javax.servlet.ServletException;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import controller.Downloader;
 
 public class DownloaderTest {
   private Downloader servlet;

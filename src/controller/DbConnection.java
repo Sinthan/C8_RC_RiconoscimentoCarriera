@@ -23,7 +23,7 @@ public class DbConnection {
     this.conn = null;
     this.databaseName = "englishvalidation";
     this.userName = "root";
-    this.password = "root";
+    this.password = "password";
     this.hostPort = 3306;
     this.hostName = "localhost";
 

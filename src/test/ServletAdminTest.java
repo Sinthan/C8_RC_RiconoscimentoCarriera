@@ -3,22 +3,19 @@ package test;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import controller.DbConnection;
-import controller.ServletAdmin;
-import interfacce.UserInterface;
-import model.Admin;
-import model.Student;
-
 import java.io.IOException;
-import java.sql.Connection;
+
 import javax.servlet.ServletException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import controller.ServletAdmin;
+import interfacce.UserInterface;
+import model.Admin;
 
 
 public class ServletAdminTest extends Mockito {

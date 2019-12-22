@@ -3,19 +3,15 @@ package test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import controller.CheckSession;
-import interfacce.UserInterface;
-
 import javax.servlet.http.HttpSession;
-
-import model.Attached;
-import model.Ente;
-import model.Secretary;
-import model.Student;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
+
+import controller.CheckSession;
+import interfacce.UserInterface;
+import model.Secretary;
+import model.Student;
 
 public class CheckSessionTest {
 

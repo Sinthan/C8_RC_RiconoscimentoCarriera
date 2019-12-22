@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-
 /**
  * Univerity.
  * Maintains University name.

@@ -20,14 +20,16 @@
 	window.onload = function(){
 		controlServlet();
 	};
-
-	function controlServlet(){
-		var err = '<%= request.getAttribute("errorCR2") %>';
-		if( err.toString() != "null"){
-			showAlert(1, err.toString());
+	
+	// If the servlet sent an error, show it
+	function controlServlet() {
+		var err = '<%=request.getAttribute("errorCR2")%>';
+		if(err != "null") {
+			showAlert(1, err);
 		}
 	}
-
+	
+	// Adds a new row to let the user insert another exam
 	function addRow() {
 		rowCount++;
 		document.getElementById('rowCount').value = rowCount;
@@ -35,36 +37,40 @@
 		// Container <div> where dynamic content will be placed
 		var container = document.getElementById("examInsertionRows");
 
-		// Create the <div> element that contains the new row
+		// Creates the <div> element that contains the new row
 		var rowDiv = document.createElement("div");
 		rowDiv.className = 'form-row';
 		container.appendChild(rowDiv);
 
-		// Create the <input> element for the exam's name, set its type and name attributes
+		// Creates the <div> element that contains the exam's name input
 		var examNameDiv = document.createElement("div");
 		examNameDiv.className = 'form-group col-md-4 mb-3';
 		rowDiv.appendChild(examNameDiv);
-
+		// Creates the <input> element for the exam's name, sets its type and attributes
 		var inputExamName = document.createElement("input");
 		inputExamName.type = "text";
 		inputExamName.name = "examName" + rowCount;
 		inputExamName.className = 'form-control';
 		inputExamName.placeholder = 'es. Programmazione 1';
 		inputExamName.required = true;
-		inputExamName.onkeypress = allowAlphaNumericOnly;
+		inputExamName.minLength = 2;
+		inputExamName.maxLength = 50;
+		//inputExamName.onkeypress = allowAlphaNumericOnly;
 		examNameDiv.appendChild(inputExamName);
 
-		// Create the <input> element for the exam's CFU, set its type and name attributes
+		// Creates the <div> element that contains the exam's CFU input
 		var CFUDiv = document.createElement("div");
 		CFUDiv.className = 'form-group col-md-1 mb-3';
 		rowDiv.appendChild(CFUDiv);
-
+		// Create the <input> element for the exam's CFU, set its type and attributes
 		var inputCFU = document.createElement("input");
 		inputCFU.type = "number";
 		inputCFU.name = "CFU" + rowCount;
 		inputCFU.className = 'form-control';
 		inputCFU.placeholder = 'es. 9';
 		inputCFU.required = true;
+		inputCFU.minLength = 1;
+		inputCFU.maxLength = 2;
 		inputCFU.min = 1;
 		inputCFU.max = 30;
 		inputCFU.onblur = validateCFU.bind(null, inputCFU);
@@ -72,18 +78,19 @@
 		inputCFU.onkeypress = allowNumbersOnly;
 		CFUDiv.appendChild(inputCFU);
 
-		// Create the <input> element for the program's link, set its type and name attributes
+		// Creates the <div> element that contains the plan of study's link input
 		var programLinkDiv = document.createElement("div");
 		programLinkDiv.className = 'form-group col-md-5 mb-3';
 		rowDiv.appendChild(programLinkDiv);
-
+		// Create the <input> element for the plan of study's link, set its type attributes
 		var inputProgramLink = document.createElement("input");
 		inputProgramLink.type = "text";
 		inputProgramLink.name = "programLink" + rowCount;
 		inputProgramLink.className = 'form-control';
 		inputProgramLink.placeholder = 'es. www.unisa.it/programmaEsame.html';
 		inputProgramLink.required = true;
-		//inputProgramLink.onChange = validateLink;
+		inputProgramLink.minLength = 4;
+		inputProgramLink.maxLength = 256;
 		programLinkDiv.appendChild(inputProgramLink);
 
 		// Append a line break 
@@ -119,7 +126,7 @@
 			return true;
 		} else if(object.value > 30) {
 			object.value = '30';
-			alert("Il valore massimo dei CFU é 30");
+			alert("Il valore massimo dei CFU &#232; 30");
 			this.focus();
 			//element.className += " is-invalid";
 			return false;
@@ -128,11 +135,10 @@
 
 	function allowAlphaNumericOnly(e) {
 		var keyCode = (e.which) ? e.which : e.keyCode;
-		
-		if (!(keyCode == 32) && // space
-			    !(keyCode > 47 && keyCode < 58) && // numeric (0-9)
-			    !(keyCode > 64 && keyCode < 91) && // upper alpha (A-Z)
-			    !(keyCode > 96 && keyCode < 123)) { // lower alpha (a-z)
+		if (!(keyCode == 32) && // Space
+			    !(keyCode > 47 && keyCode < 58) && // Numeric (0-9)
+			    !(keyCode > 64 && keyCode < 91) && // Upper alpha (A-Z)
+			    !(keyCode > 96 && keyCode < 123)) { // Lower alpha (a-z)
 			e.preventDefault();
 		}
 	}
@@ -144,54 +150,52 @@
 			<jsp:param name="pageName" value="<%=pageName%>" />
 			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
-		
+
 		<%
 			HttpSession sess = request.getSession();
-			sess.setAttribute("flag",3);
+			sess.setAttribute("flag", 3);
 		%>
-		
+
 		<div class="sidebar-page-container basePage createRequestRCPage">
 			<div class="auto-container">
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
-
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="panel" display:inline;">
+									<div class="panel"display:inline;">
 										<h1 class="text-left">Inserisci esami</h1>
 									</div>
 
-									<form id="createRequestRC2" name="createRequestRC2" method="post"
-										action="StudentManagement"
-										>
-
-										<input type="hidden" name="rowCount" id="rowCount" value="1"/>
-
+									<form id="createRequestRC2" name="createRequestRC2"
+										method="post" action="StudentManagement">
+<!-- 										The next field lets the servlet know how many exams were added -->
+										<input type="hidden" name="rowCount" id="rowCount" value="1" />
+										
 										<div class="form-row" id=examInsertionRows>
 											<div class="form-group col-md-4 mb-3">
 												<label for="examName1">Nome esame</label> <input type="text"
-													class="form-control" name="examName1" id="examName1"
+													class="form-control" name="examName1"
 													placeholder="es. Programmazione 1" minlength="2"
-													maxlength="50" required pattern="([A-z0-9À-ž\s]){2,50}"
-													onkeypress = "allowAlphaNumericOnly(event)">
+													maxlength="50" required pattern="([A-z0-9\s]){2,50}"
+													onkeypress="allowAlphaNumericOnly(event)">
 											</div>
-
+											
 											<div class="form-group col-md-1 mb-3">
 												<label for="CFU1">CFU</label> <input type="number"
-													class="form-control" name="CFU1" id="CFU1" placeholder="es. 9"
+													class="form-control" name="CFU1" placeholder="es. 9"
 													min="1" max="30" minlength="1" maxlength="2" required
-													onkeypress="allowNumbersOnly(event)" onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
+													onkeypress="allowNumbersOnly(event)"
+													onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
 											</div>
 
 											<div class="form-group col-md-5 mb-3">
-												<label for="programLink1">Link al programma d'esame</label> <input
-													type="text" class="form-control" name="programLink1" id="programLink1"
+												<label for="programLink1">Link al programma d'esame</label>
+												<input type="text" class="form-control" name="programLink1"
 													placeholder="es. www.unisa.it/programmaEsame.html"
-													pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
 													minlength="4" maxlength="256" required>
 											</div>
-
+											
 											<br>
 										</div>
 
@@ -201,7 +205,6 @@
 											<button type="button" class="btn btn-danger" id="btnAdd"
 												onclick="deleteRow()">Rimuovi ultimo esame</button>
 										</div>
-
 
 										<div class="form-group"
 											style="position: fixed; padding: 32px; bottom: 0; right: 0;">
