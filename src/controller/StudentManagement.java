@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,10 +47,8 @@ public class StudentManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UniversityDAO uniDAO = new UniversityDAO();
 	static String SAVE_DIR = "./DocumentsRC";
-	static String SAVE_DIR2 = "C:\\Users\\" + System.getProperty("user.name");
-	String relativePathPDF = "/DocumentsRequestRC";
-
-
+	String pdfSaveFolder = "/DocumentsRequestRC";
+	String projectName = "/C8_RC_RiconoscimentoCarriera";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -98,6 +98,7 @@ public class StudentManagement extends HttpServlet {
 			dis.forward(request, response);
 		}
 		else if( flag==2 ){ //primo form della compilazione delle richieste
+			
 			RequestDispatcher dis = null;
 			List<University> universities = uniDAO.doRetrieveAllUniversity();
 			Collections.sort(universities , new SortByName());
@@ -119,24 +120,40 @@ public class StudentManagement extends HttpServlet {
 				dis.forward(request, response);
 			}else {
 				Student s = (Student) request.getSession().getAttribute("user");
-
-				File file1 = new File(SAVE_DIR2 + "");
+				
+				//Get  the project path
+				String SAVE_DIR2= Utils.getProjectPath();
+				
+				//Control if path of the project is empty or equals to null
+				if(  SAVE_DIR2.equals("") || SAVE_DIR2.equals(null)) {
+					request.setAttribute("errorCR1","Impossibile salvare il file, path non trovato.");
+					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+					dis.forward(request, response);
+				}
+				
+				//Control if folder DocumentsRequestRC is present in the project
+				File file1 = new File(SAVE_DIR2 + pdfSaveFolder);
 				if( !file1.mkdir() ) {
 					file1.mkdir();	
 				}
 
-				File file2 = new File(SAVE_DIR2 + "\\" + s.getEmail());
+
+				//Control if folder of Students document is present in DocumentsRequestRC
+				File file2 = new File(SAVE_DIR2 + pdfSaveFolder + "/" + s.getEmail());
 				if( !file2.mkdir() ) {
 					file2.mkdir();	
 				}
 
+				//Save ID
 				try {
-					filePart1.write(SAVE_DIR2 + "\\" + s.getEmail() + "\\" + "ID.pdf");
+					filePart1.write(SAVE_DIR2 + pdfSaveFolder + "/" + s.getEmail() + "/" + "ID.pdf");
 				}catch(Exception msg) {
 					System.out.println(msg.getLocalizedMessage());
 				}
+				
+				//Save CP Document
 				try {
-					filePart2.write(SAVE_DIR2 + "\\" + s.getEmail() + "\\" + "CP.pdf");
+					filePart2.write(SAVE_DIR2 + pdfSaveFolder + "/" + s.getEmail() + "/" + "CP.pdf");
 				}catch(Exception msg) {
 					System.out.println(msg.getLocalizedMessage());
 				}
@@ -159,6 +176,7 @@ public class StudentManagement extends HttpServlet {
 				request.getSession().setAttribute("filePDF1", filePDF1);
 				request.getSession().setAttribute("filePDF2", filePDF2);
 
+				//Redirect to second page of RequestRC
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
 				dis.forward(request, response);
 			}
