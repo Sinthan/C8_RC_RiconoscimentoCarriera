@@ -104,6 +104,7 @@
   }
   
   else if(pageFolder.equals("GUIStudentRC")) {
+	  logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
 	  
 	  if (pageName.equals("createRCRequest1.jsp")) {      
 	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
