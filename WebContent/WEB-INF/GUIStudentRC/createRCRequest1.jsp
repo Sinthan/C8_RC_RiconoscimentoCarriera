@@ -42,11 +42,23 @@
 				document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
 				showAlert(1, "Formato file non accettato, inserire file in formato PDF.");
 			}else{
-				var printF = filePath1.substr(filePath1.lastIndexOf("\\")+1);
-				document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
-				showAlert(0, "File caricato correttamente.");
-				if (allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni" ){
-					btnform.disabled = false;
+				if( document.getElementById("file1").files[0].size > (1024*1024*10)-10 ){
+					filePath1 = "";
+					btnform.disabled = true;
+					document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
+					showAlert(1, "Il file inserito supera la dimensione massima consentita, massimo 10MB");
+				}else{
+					var printF = filePath1.substr(filePath1.lastIndexOf("\\")+1);
+					document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
+					showAlert(0, "File caricato correttamente.");
+					if ( document.getElementById("file2").files[0].size < (1024*1024*10)-10 
+							&& document.getElementById("file2").files[0].size < (1024*1024*10)-10 
+							&& allowedExtension.exec(filePath1) 
+							&& allowedExtension.exec(filePath2) 
+							&& uniSel!="defaultUni" 
+						){
+						btnform.disabled = false;
+					}
 				}
 			}
 			 
@@ -64,11 +76,23 @@
 				document.getElementById("parFile2").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
 				showAlert(1, "Formato file non accettato, inserire file in formato PDF.");
 			}else{
-				var printF = filePath2.substr(filePath2.lastIndexOf("\\")+1);
-				document.getElementById("parFile2").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
-				showAlert(0, "File caricato correttamente.");
-				if (allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni"){
-					btnform.disabled = false;
+				if( document.getElementById("file2").files[0].size > (1024*1024*10)-10 ){
+					filePath2 = "";
+					btnform.disabled = true;
+					document.getElementById("parFile2").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "Seleziona un file";
+					showAlert(1, "Il file inserito supera la dimensione massima consentita, massimo 10MB.");
+				}else{
+					var printF = filePath2.substr(filePath2.lastIndexOf("\\")+1);
+					document.getElementById("parFile2").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
+					showAlert(0, "File caricato correttamente.");
+					if ( document.getElementById("file1").files[0].size < (1024*1024*10)-10 
+							&& document.getElementById("file2").files[0].size < (1024*1024*10)-10 
+							&& allowedExtension.exec(filePath1) 
+							&& allowedExtension.exec(filePath2) 
+							&& uniSel!="defaultUni"
+						){
+						btnform.disabled = false;
+					}
 				}
 			}
 			 
@@ -82,7 +106,12 @@
 			var allowedExtension = /(\.pdf)$/i;
 			if( uniSel=="defaultUni" ){
 				btnform.disabled = true;
-			}else if(allowedExtension.exec(filePath1) && allowedExtension.exec(filePath2) && uniSel!="defaultUni"){
+			}else if( document.getElementById("file1").files[0].size < (1024*1024*10)-10 
+					&& document.getElementById("file2").files[0].size < (1024*1024*10)-10 
+					&& allowedExtension.exec(filePath1) 
+					&& allowedExtension.exec(filePath2) 
+					&& uniSel!="defaultUni"
+			){
 				btnform.disabled = false;
 			}else{
 				btnform.disabled = true;
