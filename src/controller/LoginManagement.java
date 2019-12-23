@@ -124,7 +124,7 @@ public class LoginManagement extends HttpServlet {
 	        				redirect = request.getContextPath() + "/_areaAdmin/viewRequest.jsp";
 	        				request.getSession().setAttribute("user", admin);
 	        			} else if(uc != null){// Profilo Admin
-	        				redirect = request.getContextPath() + "/UCRequestRedirector";
+	        				redirect = request.getContextPath() + "/UCManagement";
 	        				request.getSession().setAttribute("user", uc);
 	        			}else {
 	        				throw new NumberFormatException("utente non valido");

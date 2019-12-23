@@ -245,6 +245,7 @@ public class StudentManagement extends HttpServlet {
 			file2.setRequestRCID(reqRCID);
 			int insertFile1Result = pdfDAO.insertFilePDF(file1);
 			int insertFile2Result = pdfDAO.insertFilePDF(file2);
+			
 			// Redirecting to the "view request status" page and setting the attributes it will need
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());

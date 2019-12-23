@@ -151,8 +151,30 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 
 	@Override
 	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(State state) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<RequestRC> requests = new ArrayList<RequestRC>();
+		try {
+			PreparedStatement ps = conn.prepareStatement(
+					" SELECT  * FROM request_rc " 
+					+ "WHERE state  = ?");
+			ps.setInt(1, state.getIdState());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				RequestRC r = new RequestRC();
+				r.setRequestRCID(rs.getInt(1));
+				r.setSubmissionDate(rs.getDate(2));
+				r.setState(RCState.fromInteger(rs.getInt(3)));
+				r.setUniversityID(rs.getString(4));
+				r.setStudentID(rs.getString(5));
+				r.setReportID(rs.getInt(6));
+				requests.add(r);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return requests;
 	}
-
+	
 }

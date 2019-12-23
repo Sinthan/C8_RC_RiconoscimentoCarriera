@@ -14,6 +14,16 @@
 	  logoRedirect = request.getContextPath()+ck.getUrlRedirect();
   }
   
+  if(pageFolder.equals("GUIUC")){
+	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
+	  
+	  if(pageName.equals("homeRCUC.jsp")){
+		  menu +=
+		          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		  
+	  }
+	  
+  }
   if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
 	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
   

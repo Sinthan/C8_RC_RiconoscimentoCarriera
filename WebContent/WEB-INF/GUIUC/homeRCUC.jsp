@@ -2,6 +2,15 @@
 	pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
 <%@ page import="java.util.*,model.Request"%>
 
+<%
+	String pageName = "homeRCUC.jsp";
+	String pageFolder = "GUIUC";
+	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
+	if(!ck.isAllowed()){
+	  response.sendRedirect(request.getContextPath()+ck.getUrlRedirect());  
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
