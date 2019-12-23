@@ -100,10 +100,12 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	}
 
 	@Override
-	public ArrayList<RequestRC> doRetrieveAllRequestRCExams(int requestRCID) {
+	public ArrayList<Exam> doRetrieveAllRequestRCExams(int requestRCID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 	@Override
 	public RequestRC doRetrieveRequestRCByRequestID(int requestRCID) {
@@ -145,6 +147,12 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	public int deleteRequestRCByStudentID(int syudentID) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(State state) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

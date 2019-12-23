@@ -34,10 +34,14 @@ public interface RequestRCDAOInterface {
 	
 	
 	/*
-	 * Retrieve all the requestRCs from the database
+	 * Retrieve one specific requestRCs Exams from the database
 	 */
-	public ArrayList<RequestRC> doRetrieveAllRequestRCExams(int requestRCID);
+	public ArrayList<Exam> doRetrieveAllRequestRCExams(int requestRCID);
 	
+	/*
+	 * Retrieve all requestRCs from the database
+	 */
+	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(State state);
 	
 	/*
 	 *Retrieve one specific requestRC using ID of the request 
