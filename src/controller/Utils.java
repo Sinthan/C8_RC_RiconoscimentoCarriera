@@ -95,5 +95,20 @@ public class Utils {
 
     return idRequest;
   }
+  
+  /**
+   * @return	the absolute path of the project folder
+   * @author	Gianluca Rossi
+   */
+  public static String getProjectPath() {
+	  // Gets a path that identifies a temporary folder inside the workspace
+	  String extendedPath = System.getProperty("catalina.base");
+	  // Extracts the workspace path
+	  int extraPathStartIndex = extendedPath.indexOf("/.metadata/");
+	  String workspacePath = extendedPath.substring(0, extraPathStartIndex);
+	  // Append the project folder to the path
+	  String finalPath = workspacePath + "/C8_RC_RiconoscimentoCarriera";
+	  return finalPath;
+  }
 
 }
