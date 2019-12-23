@@ -97,15 +97,27 @@ public class Utils {
   }
   
   /**
-   * @return	the absolute path of the project folder
+   * @return	the absolute path of the project folder, or null if an error occurred
    * @author	Gianluca Rossi
    */
   public static String getProjectPath() {
+	  String unixExtraPathFirstFolder = "/.metadata/";
+	  String windowsExtraPathFirstFolder = "\\.metadata\\";
 	  // Gets a path that identifies a temporary folder inside the workspace
 	  String extendedPath = System.getProperty("catalina.base");
+	  // Determines the starting index of the extra path depending on the user OS (inferred from the slash)
+	  int slashFound = extendedPath.indexOf("/");
+	  int extraPathStartIndex;
+	  if (slashFound == -1) {
+		  extraPathStartIndex = extendedPath.indexOf(windowsExtraPathFirstFolder);
+	  } else {
+		  extraPathStartIndex = extendedPath.indexOf(unixExtraPathFirstFolder);
+	  }
 	  // Extracts the workspace path
-	  int extraPathStartIndex = extendedPath.indexOf("/.metadata/");
 	  String workspacePath = extendedPath.substring(0, extraPathStartIndex);
+	  if (workspacePath.equals("")) {
+		  return null;
+	  }
 	  // Append the project folder to the path
 	  String finalPath = workspacePath + "/C8_RC_RiconoscimentoCarriera";
 	  return finalPath;
