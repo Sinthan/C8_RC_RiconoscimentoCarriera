@@ -39,7 +39,8 @@ public class UCManagement extends HttpServlet {
 		ArrayList<RequestRC> reqList  =  reqDao.doRetrieveAllRequestRCBystate(state);
 		for (int i = 0; i < reqList.size(); i++) {
 		      System.out.println(reqList.get(i));
-		    }
+		}
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIUC/homeRCUC.jsp");		
 		requestDispatcher.forward(request, response);
 	}

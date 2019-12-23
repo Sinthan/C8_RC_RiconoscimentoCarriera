@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
-	import="controller.CheckSession , controller.Utils, model.Student"%>
+	import="controller.CheckSession , controller.Utils, model.Student, model.UC"%>
 
 <%
   String pageName = request.getParameter("pageName");
@@ -10,20 +10,10 @@
   String logoRedirect= "";		//tiene traccia del path a cui reindirizzare il sito quando si preme sul logo
   
   CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-  if(!ck.isAllowed()){			//cliccando sul logo reinderizza a index se non si è loggati
+   if(!ck.isAllowed()){			//cliccando sul logo reinderizza a index se non si è loggati
 	  logoRedirect = request.getContextPath()+ck.getUrlRedirect();
   }
-  
-  if(pageFolder.equals("GUIUC")){
-	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
-	  
-	  if(pageName.equals("homeRCUC.jsp")){
-		  menu +=
-		          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-		  
-	  }
-	  
-  }
+
   if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
 	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
   
@@ -131,8 +121,16 @@
 	  	          menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 	  	 }    
-	  
-  } 
+  	}else if(pageFolder.equals("GUIUC")) {
+  	  UC user =(UC) session.getAttribute("user");
+  	  if (pageName.equals("viewRCRequestUC.jsp")) {      
+  	    	menu += "<li><a href=\"" + request.getContextPath() + "/homeRCUC.jsp\">English Validation</a></li>";;
+  	  	          menu +=
+  	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	  	    logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
+  	  	 }    
+  	}
+ 
   
   
 
