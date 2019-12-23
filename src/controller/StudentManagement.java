@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -207,7 +205,7 @@ public class StudentManagement extends HttpServlet {
 				int CFU = Integer.parseInt(request.getParameter("CFU" + currentExamRow));
 				String link = (String) request.getParameter("programLink" + currentExamRow);
 				// Checks if the parameters have a valid format
-				if (!name.matches("^[a-zA-Z0-9_-]{2,50}$")) {
+				if (!name.matches("^(\\w?\\s?\\-?)*\\s*$")) {
 					request.setAttribute("errorCR2","Il nome dell&#8217;esame alla riga " + currentExamRow
 							+ " non rispetta un formato valido, sono ammessi solo caratteri alfanumerici"
 							+ " pi&#249; i caratteri \"-\" e \"_\". La lunghezza deve essere compresa tra i 2 e i 50 caratteri");

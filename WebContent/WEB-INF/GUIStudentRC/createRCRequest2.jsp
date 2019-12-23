@@ -55,7 +55,7 @@
 		inputExamName.required = true;
 		inputExamName.minLength = 2;
 		inputExamName.maxLength = 50;
-		//inputExamName.onkeypress = allowAlphaNumericOnly;
+		inputExamName.pattern = /^(\w?\s?\-?)*\s*$/;
 		examNameDiv.appendChild(inputExamName);
 
 		// Creates the <div> element that contains the exam's CFU input
@@ -76,6 +76,7 @@
 		inputCFU.onblur = validateCFU.bind(null, inputCFU);
 		inputCFU.oninput = maxLengthCheck.bind(null, inputCFU);
 		inputCFU.onkeypress = allowNumbersOnly;
+		inputCFU.pattern = /[0-9]{1,2}/;
 		CFUDiv.appendChild(inputCFU);
 
 		// Creates the <div> element that contains the plan of study's link input
@@ -91,6 +92,7 @@
 		inputProgramLink.required = true;
 		inputProgramLink.minLength = 4;
 		inputProgramLink.maxLength = 256;
+		inputProgramLink.pattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/g;
 		programLinkDiv.appendChild(inputProgramLink);
 
 		// Append a line break 
@@ -113,6 +115,7 @@
 	    var code = (e.which) ? e.which : e.keyCode;
 	    if (code > 31 && (code < 48 || code > 57)) {
 	        e.preventDefault();
+	        showAlert(1, "Sono consentiti solo caratteri numerici.");
 	    }
 	}
 	
@@ -135,11 +138,14 @@
 
 	function allowAlphaNumericOnly(e) {
 		var keyCode = (e.which) ? e.which : e.keyCode;
-		if (!(keyCode == 32) && // Space
+		if (!(keyCode == 95) && // _
+				!(keyCode == 45) && // -
+				!(keyCode == 32) && // Space
 			    !(keyCode > 47 && keyCode < 58) && // Numeric (0-9)
 			    !(keyCode > 64 && keyCode < 91) && // Upper alpha (A-Z)
 			    !(keyCode > 96 && keyCode < 123)) { // Lower alpha (a-z)
 			e.preventDefault();
+			showAlert(1, "Sono consentiti solo caratteri alfanumerici pi&#249; i caratteri \"-\" e \"_\".");
 		}
 	}
 </script>
@@ -169,23 +175,23 @@
 
 									<form id="createRequestRC2" name="createRequestRC2"
 										method="post" action="StudentManagement">
-<!-- 										The next field lets the servlet know how many exams were added -->
+										<!-- 										The next field lets the servlet know how many exams were added -->
 										<input type="hidden" name="rowCount" id="rowCount" value="1" />
-										
+
 										<div class="form-row" id=examInsertionRows>
 											<div class="form-group col-md-4 mb-3">
 												<label for="examName1">Nome esame</label> <input type="text"
 													class="form-control" name="examName1"
 													placeholder="es. Programmazione 1" minlength="2"
-													maxlength="50" required pattern="([A-z0-9\s]){2,50}"
+													maxlength="50" required pattern="^(\w?\s?\-?)*\s*$"
 													onkeypress="allowAlphaNumericOnly(event)">
 											</div>
-											
+
 											<div class="form-group col-md-1 mb-3">
 												<label for="CFU1">CFU</label> <input type="number"
 													class="form-control" name="CFU1" placeholder="es. 9"
 													min="1" max="30" minlength="1" maxlength="2" required
-													onkeypress="allowNumbersOnly(event)"
+													pattern="([0-9]){1,2}" onkeypress="allowNumbersOnly(event)"
 													onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
 											</div>
 
@@ -193,9 +199,11 @@
 												<label for="programLink1">Link al programma d'esame</label>
 												<input type="text" class="form-control" name="programLink1"
 													placeholder="es. www.unisa.it/programmaEsame.html"
-													minlength="4" maxlength="256" required>
+													minlength="4" maxlength="256"
+													pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+													required>
 											</div>
-											
+
 											<br>
 										</div>
 
