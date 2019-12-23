@@ -10,6 +10,8 @@
 
 <body onLoad="showData()">
 		<h1>PAGINA UC</h1>
+		<a href=".\GUIUC\viewRCRequestUC.jsp" class="btn btn-primary btn-lg btn-block"
+										role="button" aria-pressed="true">Richiesta</a>
 		
 </body>
 </html>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
-	import="controller.CheckSession , controller.Utils "%>
+	import="controller.CheckSession , controller.Utils, model.Student"%>
 
 <%
   String pageName = request.getParameter("pageName");
@@ -13,8 +13,6 @@
   if(!ck.isAllowed()){			//cliccando sul logo reinderizza a index se non si è loggati
 	  logoRedirect = request.getContextPath()+ck.getUrlRedirect();
   }
-  System.out.println(pageName);
-  System.out.println(pageFolder);
   
   if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
 	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
@@ -104,8 +102,12 @@
   }
   
   else if(pageFolder.equals("GUIStudentRC")) {
-	  logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
-	  
+	  Student user =(Student) session.getAttribute("user");
+	  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
+ 		  logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
+	  } else	{  
+		  logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
+	  }
 	  if (pageName.equals("createRCRequest1.jsp")) {      
 	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
 	  	          + "/viewRequest.jsp\">English Validation</a></li>";
