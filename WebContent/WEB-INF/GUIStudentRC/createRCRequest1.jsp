@@ -170,8 +170,8 @@
 												
 												
 												
-												<select id="universita" onChange="validationUni()" name="universita">
-													<option style="" value="defaultUni" selected>Seleziona una Universit&agrave;</option>
+												<select class="select" id="universita" onChange="validationUni()" name="universita">
+													<option value="defaultUni" selected>Seleziona una Universit&agrave;</option>
 												  	<c:forEach items="${universities}" var="university">
 												    	<option value="${university.name}">
 												    		${university.name}
@@ -216,10 +216,10 @@
 											</div>
 										</div>
 										
-										<div class="divNext" style="position: fixed; padding: 32px; bottom: 0; right: 0;">
-											<p class="pNext" style="float: right;">
+										<div class="form-group" style="position: fixed; padding: 32px; bottom: 0; right: 0;">
+											<p class="text-center" style="float: right;">
 												Carica file e vai all'inserimento degli esami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-												<button id="buttonCreateRequestRC1" class="bNext" type="submit" disabled="disabled">></button> 
+												<button id="buttonCreateRequestRC1" class="btn btn-primary btn-submit" type="submit" style="border-radius: 20px;" disabled="disabled"><b>></b></button> 
 											</p>
 										</div>
 									</form>

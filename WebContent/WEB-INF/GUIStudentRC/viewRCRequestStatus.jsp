@@ -14,9 +14,22 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp" />
+<script type='text/javascript'>
+	window.onload = function(){
+		controlServlet();
+	};
+	
+	// If the servlet has the status of the RCRequest insertion, show it
+	function controlServlet() {
+		var didInsertRequest = '<%=request.getAttribute("didInsertRequest")%>';
+		if(didInsertRequest == "true") {
+			showAlert(0, "Richiesta inserita con successo");
+		}
+	}
+</script>
 </head>
 
-<body onLoad="showData()">
+<body>
 	<div class="page-wrapper">
  
 		<!-- Preloader -->

@@ -34,9 +34,10 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	 * @author 			Gianluca Rossi
 	 */
 	public int insertRequestRC(RequestRC request) {
-		if (request.getUniversityID().equals("")
-				|| request.getStudentID().equals("")) // Checks if attributes are set
+		if (request.getUniversityID().equals("") || request.getStudentID().equals("")) { // Checks if attributes are set
+			System.out.println("Please set the University ID and the Student ID before trying to add the RequestRC to the database.");
 			return -2;
+		}
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;		
@@ -63,10 +64,10 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			preparedStatement.setString(3, request.getUniversityID());
 			preparedStatement.setString(4, request.getStudentID());
 			preparedStatement.setString(5, "EMAILUC@gmail.it");
-			System.out.println("insertRequestRC: "+ request.toString());		// Logging the operation
 			// Executing the insertion
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
+			System.out.println("insertRequestRC(result=" + result + ": " + request.toString());		// Logging the operation
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't insert the RequestRC " + e);
 		} finally {

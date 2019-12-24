@@ -17,7 +17,6 @@ public class ExamDAO implements ExamDAOInterface{
 	Statement stmt = null;
 	String sql = "";
 	String error;
-	@SuppressWarnings("static-access")
 
 	Connection conn = (Connection) new DbConnection().getInstance().getConn();
 
@@ -31,15 +30,14 @@ public class ExamDAO implements ExamDAOInterface{
 	 *				<li>-2 if no rows were affected
 	 *				<li>-3 if the statement succeeded, but there is no update count information available
 	 *				<li>-4 if the attributes of the passed argument aren't fully specified
-	 *				<li>-5 if the exam already exists.</ul>
 	 * @author 		Gianluca Rossi
 	 * @author 		Lorenzo Maturo
 	 */
 	public int insertExam(Exam exam) {
-		if (exam.getName().equals("")
-				|| exam.getCFU() == -1
-				|| exam.getProgramLink().equals("")) // Checks if attributes are set
+		if (exam.getName().equals("") || exam.getCFU() == -1 || exam.getProgramLink().equals("")) { // Checks if attributes are set
+			System.out.println("Please set the Exam's name, cfu and program link before trying to add it to the database.");
 			return -4;
+		}
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;		
@@ -56,8 +54,8 @@ public class ExamDAO implements ExamDAOInterface{
 
 		/* Selects the exams that match the 3 given parametric values
 		 */
-		String selectSQL = "SELECT * FROM EXAM"
-				+ "WHERE NAME = ? AND CFU = ? AND LINK_PROGRAM = ?";
+		String selectSQL = "SELECT * FROM EXAM "
+				+ " WHERE NAME = ? AND CFU = ? AND LINK_PROGRAM = ?";
 		try {  
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(selectSQL);
@@ -67,7 +65,7 @@ public class ExamDAO implements ExamDAOInterface{
 			preparedStatement.setString(3, exam.getProgramLink());
 			ResultSet resSet = preparedStatement.executeQuery();
 
-			if (resSet.next()) {	// Exam found
+			if (resSet.next() && resSet.getInt(1) != 0) {	// Exam found
 				int examID = resSet.getInt(1);
 				System.out.println("Exam \"" + exam.getName() + "\" already present.");
 				return examID;
@@ -78,7 +76,6 @@ public class ExamDAO implements ExamDAOInterface{
 				preparedStatement.setString(1, exam.getName());
 				preparedStatement.setInt(2, exam.getCFU());
 				preparedStatement.setString(3, exam.getProgramLink());
-				System.out.println("insertExam: "+ exam.toString());	// Logging the operation
 				// Executing the insertion
 				result = preparedStatement.executeUpdate();	
 				connection.commit();
@@ -95,13 +92,14 @@ public class ExamDAO implements ExamDAOInterface{
 				}
 		}
 
-		if (result > 0) { // Insertion SQL succeeded
+		if (result > 0) { // SQL Insert succeeded
 			return -1;
-		} else if (result == 0) { // Insertion SQL failed
+		} else if (result == 0) { // SQL Insert failed
 			return -2;
-		} else if (result == -1) { // Insertion SQL succeeded without log
+		} else if (result == -1) { // SQL Insert succeeded without log
 			return -3;
 		}
+		System.out.println("insertExam(result=" + result + ": " + exam.toString());	// Logging the operation
 		return result;
 	}
 
