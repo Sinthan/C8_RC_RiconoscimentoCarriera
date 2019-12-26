@@ -16,7 +16,7 @@
 <title>Compila richiesta | Inserisci esami</title>
 <script type='text/javascript'>
 	var rowCount = 1;
-	var urlRegex = /^(?:http(s)?:\/\/)?([-a-zA-Z0-9@:%._\\+~#=]+(\.[a-zA-Z]{2,3})+){1,256}\/?([-a-zA-Z0-9()@:%_\\+.~#?&=]*)/;
+	var urlRegex = /^(?:(http(s)?|ftp):\/\/)?([-a-zA-Z0-9@:%._\\+~#=]+(\.[a-zA-Z0-9]{1,6})+)(\/([-a-zA-Z0-9()@:%_\\+.~#?&=]*))*/;
 	var examNameRegex = /^(\w+\s?\-?)*(\-?\s*\w*)*$/;
 	var CFURegex = /[0-9]{1,2}/;
 	
@@ -217,7 +217,7 @@
 													es. unisa.it/programma_esame.html"
 													placeholder="es. unisa.it/programma_esame.html"
 													minlength="4" maxlength="256"
-													pattern="(([\w]+:)?//)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,63}(:[\d]+)?(/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?"
+													pattern="^(?:(http(s)?|ftp):\/\/)?([-a-zA-Z0-9@:%._\\+~#=]+(\.[a-zA-Z0-9]{1,6})+)(\/([-a-zA-Z0-9()@:%_\\+.~#?&=]*))*"
 													required>
 											</div>
 

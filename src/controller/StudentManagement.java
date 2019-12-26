@@ -222,7 +222,7 @@ public class StudentManagement extends HttpServlet {
 							+ " La lunghezza deve essere di 1 o 2 cifre");
 					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
 					dis.forward(request, response);
-				} else if (!link.matches("^(?:http(s)?:\\/\\/)?([-a-zA-Z0-9@:%._\\\\+~#=]+(\\.[a-zA-Z]{2,3})+){1,256}\\/?([-a-zA-Z0-9()@:%_\\\\+.~#?&=]*)")) {
+				} else if (!link.matches("^(?:(http(s)?|ftp):\\/\\/)?([-a-zA-Z0-9@:%._\\\\+~#=]+(\\.[a-zA-Z0-9]{1,6})+)(\\/([-a-zA-Z0-9()@:%_\\\\+.~#?&=]*))*")) {
 					request.setAttribute("errorCR2","Il link dell&#8217;esame alla riga " + currentExamRow
 							+ " non rispetta un formato valido oppure la lunghezza non &#232; compresa tra i 4 e i 256 caratteri");
 					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
