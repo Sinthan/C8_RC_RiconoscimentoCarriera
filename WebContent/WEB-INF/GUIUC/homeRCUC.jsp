@@ -19,7 +19,7 @@
 
 <body onLoad="showData()">
 		<h1>PAGINA UC</h1>
-		<a href="UCManagement" class="btn btn-primary btn-lg btn-block"
+		<a href="UCRCRequestRedirector" class="btn btn-primary btn-lg btn-block"
 										role="button" aria-pressed="true">Richiesta</a>
 		
 </body>

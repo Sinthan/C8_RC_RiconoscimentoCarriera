@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UCManagement
+ * Servlet implementation class UCRCRequestRedirector
  */
-@WebServlet("/UCManagement")
-public class UCManagement extends HttpServlet {
+@WebServlet("/UCRCRequestRedirector")
+public class UCRCRequestRedirector extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UCManagement() {
+    public UCRCRequestRedirector() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +29,6 @@ public class UCManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");		
 		requestDispatcher.forward(request, response);
 	}
