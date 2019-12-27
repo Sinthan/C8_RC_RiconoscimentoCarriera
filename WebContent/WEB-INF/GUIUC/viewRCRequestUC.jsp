@@ -9,11 +9,19 @@
 <html>
 <head>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-
 	<link href="<%= request.getContextPath() %>/css/RC/viewRCRequestUC.css"
 	rel="stylesheet">
 	<jsp:include page="/partials/head.jsp" />
 	<meta charset="ISO-8859-1">
+	<script>
+		function openForm() {
+		  document.getElementById("myForm").style.display = "block";
+		}
+
+		function closeForm() {
+		  document.getElementById("myForm").style.display = "none";
+		} 
+	</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -35,88 +43,80 @@
 							<div class="news-block-seven">
 
 								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
-									<div class="panel" style="float:left; text-align: left" >
+									<div class="panel">
 										<h2 class="text-center">Richiesta di NOME - DATA</h2>
 									</div>
-									<div class="StudentName"  style="  width : 1000px; position: relative; float:left" >
-									<div>
-									<p style="font-weight: bold" >Nome studente </p>
-									</div>
-									<div>
-									<p class="pFile" id="parFile1">&nbsp;&nbsp;&nbsp;&nbsp;NOME</p>
-									</div>
-									<div>
-									<p style="font-weight: bold">Cognome studente </p>
-									</div>
-												<p class="pFile">&nbsp;&nbsp;&nbsp;&nbsp;COGNOME</p>		
-									</div>		
-									</div>			
+										<div class="studentName" >
+											<div>
+												<p style="font-weight: bold" >Nome studente </p>
+											</div>
+												<div>
+													<p class="pDat" id="pName">&nbsp;&nbsp;&nbsp;&nbsp;NOME</p>
+												</div>
+													<div>
+														<p style="font-weight: bold">Cognome studente </p>
+													</div>
+														<p class="pDat" id="pSurname">&nbsp;&nbsp;&nbsp;&nbsp;COGNOME</p>		
+													</div>		
+								</div>					
+									<div class="news-block-seven">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											
-										
-								<div class="news-block-seven">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="panel" style="display: inline">
-											<p class="text-left" style="font-weight: bold">Esami inseriti dallo studente</p>
+												<p class="text-left">Esami inseriti dallo studente</p>
 											</div>
-										<div id="ExamsDiv">
-				
-										<input type="hidden" name="rowCount" id="rowCount" value="1" />
-										
-										<div class="form-row" id=examInsertionRows>
-											<div class="form-group col-md-4 mb-3">
-												<label for="examName1">Nome esame</label> 
-												<p>Programmazione 1</p>
-											</div>
-											
-											<div class="form-group col-md-1 mb-3">
-												<label for="CFU1">CFU</label>
-												<p>9</p>	
-											</div>
+												<div id="ExamsDiv">
+													<input type="hidden" name="rowCount" id="rowCount" value="1" />
+													<div class="form-row" id=examInsertionRows>
+														<div class="form-group col-md-4 mb-3">
+															<label for="examName1">Nome esame</label> 
+															<p>Programmazione 1</p>
+														</div>
+															<div class="form-group col-md-1 mb-3">
+																<label for="CFU1">CFU</label>
+																<p>9</p>	
+															</div>
+														<div class="form-group col-md-5 mb-3">
+															<label for="programLink1">Link al programma d'esame</label>
+															<p>www.link.com</p>
+														</div>
+														<br>
+													</div>
+												</div>
+										</div>
+										<!-- popup per il rifiuto della richiesta -->
 
-											<div class="form-group col-md-5 mb-3">
-												<label for="programLink1">Link al programma d'esame</label>
-												<p>www.link.com</p>
-												
-											</div>
-											
-											<br>
+									</div>
+									<div class="downloadButton">
+										<div class="divDownload1" >
+											<a href="pathID" download="email+ID.pdf" ><button class="btn"><i class="fa fa-download"></i></button></a>
+											<p id="drc1" class="drc">Download documento d'identit&agrave;</p>
 										</div>
-										</div>
-										</div>
-										</div>
-									
-										<div class="downloadButton" style="  width : 1400px; position: relative; float:left">
-											<div class="divDownload1" style="display: inline">
-												<button class="btn" style="float:left"><i class="fa fa-download"></i></button>
-												<p>&nbsp;Download documento d'identit&agrave;</p>
-											</div>
-											<div class="divDownload2" style="width: 800px; margin-bottom: 50px;  flaot:left; margin: 15 px ;">
-												<button class="btn" style="float:left"><i class="fa fa-download"></i></button>
-												<p>&nbsp;Download documento di riconoscimento carriera</p>
-											</div>
-										</div>
-					
-										<div class="submitButton" style=" margin-right: 60px; width: 200px; position: relative; float:right">
-											
-												<button class="btn btn-primary" type="submit" style=" margin-right: 20px; flaot: left; position: relative">Rifiuta</button>
+										<div class="divDownload2">
 										
-												<button class="btn btn-primary" type="submit" style="flaot: right; position: relative">Accetta</button>
-											
+											<a href="pathCP" download="email+CP.pdf" ><button class="btn"><i class="fa fa-download"></i></button></a>
+											<p id="drc2" class="drc">Download documento di riconoscimento carriera</p>
 										</div>
 										
-										
-										
-									
-									
-								</div>
-
+									</div>
+									<div class="submitButton" >
+										<button id="reject" class="btn btn-primary" type="submit" onClick ="openForm()">Rifiuta</button>
+										<button id="accept" class="btn btn-primary" type="submit">Accetta</button>
+										<div class="form-popup" id="myForm">
+										  <form action="/action_page.php" class="form-container" id="containerPopup">
+										    <h3>Motivo del rifiuto</h3>
+										    <input type="text" placeholder="Motivazione.." name="pupupText" required>
+										    <button type="submit" class="btn">Inoltra</button>
+										    <button type="submit" class="btn cancel" onclick="closeForm()">Annulla</button>
+										  </form>
+										</div>
+									</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		
-		<jsp:include page="/partials/footer.jsp" />
+		</div>
+	<jsp:include page="/partials/footer.jsp" />
 
 	<!--End pagewrapper-->
 
