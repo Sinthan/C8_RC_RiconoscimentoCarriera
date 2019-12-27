@@ -4,7 +4,7 @@
 	pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
 <%@ page import="java.util.*,model.RequestRC"%>
 <%
-	String pageName = "homepageRCStudent.jsp";
+	String pageName = "homePageRCStudent.jsp";
 	String pageFolder = "_areaStudent";
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
 
