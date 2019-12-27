@@ -17,11 +17,8 @@ public class ExamDAO implements ExamDAOInterface{
 	Statement stmt = null;
 	String sql = "";
 	String error;
-
-	Connection conn = (Connection) new DbConnection().getInstance().getConn();
 	
 	private final ContainsRelationDAO crDAO = new ContainsRelationDAO();
-	private final ExamDAO exDAO = new ExamDAO();
 
 	/**
 	 * Saves the exam into the database.
@@ -218,7 +215,8 @@ public class ExamDAO implements ExamDAOInterface{
 
 	public int doRetrieveMaxExamID() {
 		try {
-			PreparedStatement ps = conn.prepareStatement(
+			Connection connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps = connection.prepareStatement(
 					" SELECT MAX(ID_EXAM) FROM EXAM");
 			ResultSet r = ps.executeQuery();
 			if (r.next()) {
@@ -240,7 +238,8 @@ public class ExamDAO implements ExamDAOInterface{
 	@Override
 	public int deleteAllRCRequestExamsByRequestID(int idRequest) {
 		// TODO Auto-generated method stub
-		ArrayList<Exam> exams = exDAO.doRetrieveAllExamsByRequestRCID(idRequest);
+		ArrayList<Exam> exams = doRetrieveAllExamsByRequestRCID(idRequest);
+		int result = 0;
 		for( int i=0 ; i < exams.size() ; i++ ) {
 			ArrayList<ContainsRelation> containsRelations = crDAO.doRetrieveAllContainsRelationByIDExam(exams.get(i).getExamID());
 			if( containsRelations.size() == 1 ) {
@@ -251,7 +250,7 @@ public class ExamDAO implements ExamDAOInterface{
 					preparedStatement = connection.prepareStatement("DELETE EXAM FROM EXAM WHERE ID_EXAM = ?");
 					preparedStatement.setInt(1, exams.get(i).getExamID());
 					// Executing the deletion
-					int result = preparedStatement.executeUpdate();	
+					result = preparedStatement.executeUpdate();	
 					connection.commit();
 					return result;
 				} catch (SQLException e) {

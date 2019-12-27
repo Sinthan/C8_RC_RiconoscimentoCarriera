@@ -19,9 +19,6 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	String error;
 
 
-	Connection conn = (Connection) new DbConnection().getInstance().getConn();
-
-
 	/**
 	 * Saves the request into the database.
 	 * 
@@ -158,7 +155,8 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	@Override
 	public RequestRC doRetrieveRequestRCByStudentID(String studentID) {
 		try {
-			PreparedStatement ps = conn.prepareStatement(
+			Connection connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps = connection.prepareStatement(
 					" SELECT  * FROM request_rc "
 							+ "WHERE fk_user = ?");
 			ps.setString(1, studentID);
@@ -207,7 +205,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		 * table whose ID matches the given parametric value.
 		 * Deletes the relative ContainsRelation, Report and ValidatedExam records as well.
 		 */
-		String deleteSQL = "DELETE FROM REQUEST_RC WHERE ID_REQUEST = ?";
+		String deleteSQL = "DELETE REQUEST_RC FROM REQUEST_RC WHERE ID_REQUEST = ?";
 		try {
 			// Deletes all the related exams
 			ExamDAO eDAO = new ExamDAO();
@@ -256,7 +254,8 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 
 		ArrayList<RequestRC> requests = new ArrayList<RequestRC>();
 		try {
-			PreparedStatement ps = conn.prepareStatement(
+			Connection connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps = connection.prepareStatement(
 					" SELECT  * FROM request_rc " 
 							+ "WHERE state  = ?");
 			ps.setInt(1, state.getIdState());
