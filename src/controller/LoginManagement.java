@@ -104,7 +104,8 @@ public class LoginManagement extends HttpServlet {
 	        				 * cos� da discriminare tra studenti interni ed esterni e reindirizzare alla pagina dedicata
 	        				 */
 	        				if((student.getEmail().substring(student.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
-	        					redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";	        		
+	        					redirect = request.getContextPath()+"/InsideStudentRedirect";	  
+	        					System.out.println(redirect);
 	        				}else {
 	        					RequestRC rRC = rDao.doRetrieveRequestRCByStudentID(student.getEmail());
 	        					if( rRC == null ) {

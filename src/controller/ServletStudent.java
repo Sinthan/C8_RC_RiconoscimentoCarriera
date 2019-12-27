@@ -140,7 +140,7 @@ public class ServletStudent extends HttpServlet {
 					if (res == 1) {
 						user = new Student(email, name, surname, sex, password, userType);
 						if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
-							redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";               
+							redirect = request.getContextPath() + "/InsideStudentRedirect";               
 							request.getSession().setAttribute("user", user);
 							content = "Registrazione effettuata correttamente.";
 							result = 1;

@@ -63,8 +63,8 @@ public class StudentManagement extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		int flag = (int) request.getSession().getAttribute("flag");
-
-
+			
+		
 		if(flag == 0) {
 			HttpSession sessione = request.getSession(true);
 
@@ -253,7 +253,10 @@ public class StudentManagement extends HttpServlet {
 		}else if (flag==4) {
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
+			
+			//controllo per il bottone RC della homePageRCStudent
 		}
+		
 	}
 
 	/**

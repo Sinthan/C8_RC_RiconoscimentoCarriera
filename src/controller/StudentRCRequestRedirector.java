@@ -39,6 +39,10 @@ public class StudentRCRequestRedirector extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int flag = Integer.parseInt(request.getParameter("flag"));
+		
+		if(flag==1) {
 		HttpSession sessione = request.getSession(true);
 		Student s = (Student) sessione.getAttribute("user");
 		String email = s.getEmail();
@@ -58,6 +62,11 @@ public class StudentRCRequestRedirector extends HttpServlet {
 			request.setAttribute("rRCState", rRC.getState().toString());
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			requestDispatcher.forward(request, response);
+		}
+		
+		}else if(flag==2){
+			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/_areaStudent/viewRequest.jsp");
+			dis.forward(request, response);	
 		}
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
