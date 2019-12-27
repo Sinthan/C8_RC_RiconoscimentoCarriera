@@ -117,18 +117,24 @@
 	    if (pageName.equals("createRCRequest2.jsp")) {      
 		      
 	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
-	  	          + "/viewRequest.jsp\">English Validation</a></li>";
+	  	          + "/viewRequest.jsp\">English Validation</a></li>";  
 	  	          menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 	  	 }    
   	}else if(pageFolder.equals("GUIUC")) {
   	  UC user =(UC) session.getAttribute("user");
   	  if (pageName.equals("viewRCRequestUC.jsp")) {      
-  	    	menu += "<li><a href=\"" + request.getContextPath() + "/homeRCUC.jsp\">English Validation</a></li>";;
-  	  	          menu +=
+  	    	menu += 
+  	    			"<li><a href=\"" + request.getContextPath() + "/homeRCUC.jsp\">Richieste</a></li>";;   
+  	    	menu +=
   	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	  	    logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
-  	  	 }    
+  	  	 } 
+  	  else if(pageName.equals("homeRCUC.jsp")){
+  		  menu +=
+	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+	  	    logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;  
+  	  }
   	}
  
   

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.State;
+import model.Student;
+import model.StudentDAO;
 
 /**
  * Servlet implementation class UCManagement
@@ -37,8 +39,23 @@ public class UCManagement extends HttpServlet {
 		State state = new State(0,"needsUCValidation");
 		RequestRCDAO reqDao = new RequestRCDAO();
 		ArrayList<RequestRC> reqList  =  reqDao.doRetrieveAllRequestRCBystate(state);
+		RequestRC temp = null;
+		StudentDAO rDao = new StudentDAO();
+		String name;
+		String surname;
+		
 		for (int i = 0; i < reqList.size(); i++) {
-		      System.out.println(reqList.get(i));
+		
+			
+		      temp = reqList.get(i);
+		      temp.getSubmissionDate();
+		      System.out.println(temp.toString());
+		      Student s = rDao.doRetrieveStudentByEmail(temp.getStudentID());
+		      name = s.getName();
+		      surname = s.getSurname();
+		      request.setAttribute("rRCDate",temp.getSubmissionDate());
+		      request.setAttribute("stName",name+" "+surname);
+		      
 		}
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIUC/homeRCUC.jsp");		

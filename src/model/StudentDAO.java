@@ -119,9 +119,31 @@ public class StudentDAO implements StudentDAOInterface {
 	 */
 	public Student doRetrieveStudentByEmail(String email) {
 		
-		Student s = null;
-		return s;
+		try {
+			PreparedStatement ps = conn.prepareStatement(
+					" SELECT  * FROM user "
+				  + "WHERE email = ?");
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				Student s = new Student();
+				s.setEmail(email);
+				s.setName(rs.getString(2));
+				s.setSurname(rs.getString(3));
+				s.setSex(rs.getString(4).charAt(0));
+				s.setPassword(rs.getString(5));
+				s.setUserType(rs.getInt(6));
+				s.setRegistrationDate(rs.getDate(7));
+				return s;
+			}else {
+				return null;
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
+	
 	
 	/**
 	 * Delete student having his email        
