@@ -82,6 +82,11 @@
       menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
     }
    
+    if (pageName.equals("homePageRCStudent.jsp")){ 
+    	logoRedirect = request.getContextPath()+"/InsideStudentRedirect";
+    	menu +=
+	  	  "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+	  } 
 
   }
   else if (pageFolder.equals("")) { //se non siamo (o siamo) loggati
@@ -104,7 +109,7 @@
   else if(pageFolder.equals("GUIStudentRC")) {
 	  Student user =(Student) session.getAttribute("user");
 	  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ) {
- 		  logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
+		 logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
 	  } else	{  
 		  logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
 	  }
@@ -117,25 +122,24 @@
 	    if (pageName.equals("createRCRequest2.jsp")) {      
 		      
 	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
-	  	          + "/viewRequest.jsp\">English Validation</a></li>";  
+	  	          + "/viewRequest.jsp\">English Validation</a></li>";
 	  	          menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 	  	 }    
   	}else if(pageFolder.equals("GUIUC")) {
   	  UC user =(UC) session.getAttribute("user");
   	  if (pageName.equals("viewRCRequestUC.jsp")) {      
-  	    	menu += 
-  	    			"<li><a href=\"" + request.getContextPath() + "/homeRCUC.jsp\">Richieste</a></li>";;   
-  	    	menu +=
+  			menu += 
+	    		  "<li><a href=\"" + request.getContextPath() + "/homeRCUC.jsp\">Richieste</a></li>";;   
+	    	menu +=
   	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	  	    logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
-  	  	 } 
+  	 } 
   	  else if(pageName.equals("homeRCUC.jsp")){
   		  menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 	  	    logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;  
   	  }
-  	}
  
   
   
