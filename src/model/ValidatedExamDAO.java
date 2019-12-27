@@ -61,9 +61,9 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 * Retrieves all the <tt>ValidatedExam</tt> objects related to a specific <tt>Report</tt>
 	 * (identified through an ID).
 	 * 
-	 * @param	reportID	the report ID number that the <tt>ValidatedExam</tt> object must have
+	 * @param	reportID	the <tt>Report</tt> ID number that the <tt>ValidatedExam</tt> object must match
 	 * @return				an <tt>ArrayList</tt> containing the <tt>ValidatedExams</tt> objects
-	 * 						that match the given report ID
+	 * 						that match the given <tt>Report</tt> ID
 	 * @see	Report
 	 */
 	@Override

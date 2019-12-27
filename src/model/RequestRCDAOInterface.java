@@ -32,12 +32,6 @@ public interface RequestRCDAOInterface {
 	 */
 	public int updateState(int state);
 	
-	
-	/*
-	 * Retrieve one specific requestRCs Exams from the database
-	 */
-	public ArrayList<Exam> doRetrieveAllRequestRCExams(int requestRCID);
-	
 	/*
 	 * Retrieve all requestRCs from the database
 	 */

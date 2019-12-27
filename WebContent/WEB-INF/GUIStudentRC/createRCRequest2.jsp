@@ -1,3 +1,9 @@
+<%-- 
+  - Author(s): Gianluca Rossi
+  - Date: 22/12/2019
+  - Description: This page allows the student to compile the exams list related to his request of previous career recognition and to submit it.
+  --%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
