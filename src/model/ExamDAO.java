@@ -19,6 +19,9 @@ public class ExamDAO implements ExamDAOInterface{
 	String error;
 
 	Connection conn = (Connection) new DbConnection().getInstance().getConn();
+	
+	private final ContainsRelationDAO crDAO = new ContainsRelationDAO();
+	private final ExamDAO exDAO = new ExamDAO();
 
 	/**
 	 * Saves the exam into the database.
@@ -120,14 +123,6 @@ public class ExamDAO implements ExamDAOInterface{
 		return flag; 
 	}
 
-	/**
-	 * delete exam 
-	 * @return -1 if insert failed, 0 if ok 
-	 */
-	public int deleteExamsByRequestID(int id) {
-		int flag = 0;
-		return flag;
-	}
 
 	public int doRetrieveMaxExamID() {
 		try {
@@ -144,7 +139,39 @@ public class ExamDAO implements ExamDAOInterface{
 		return -1;
 	}
 
-	// metodo che consente di rimuovere l'esame aggiunto in fase di test
+	
+	/**
+	 * delete all Exam by Request RC id
+	 * @param idRequest is the id of the Request RC
+	 * @return 0 if delete failed, !=0 if ok 
+	 */
+	@Override
+	public int deleteAllRCRequestExamsByRequestID(int idRequest) {
+		// TODO Auto-generated method stub
+		ArrayList<Exam> exams = exDAO.doRetrieveAllExamsByRequestRCID(idRequest);
+		for( int i=0 ; i < exams.size() ; i++ ) {
+			ArrayList<ContainsRelation> containsRelations = crDAO.doRetrieveAllContainsRelationByIDExam(exams.get(i).getExamID());
+			if( containsRelations.size() == 1 ) {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				try {
+					connection = DbConnection.getInstance().getConn();
+					preparedStatement = connection.prepareStatement("DELETE EXAM FROM EXAM WHERE ID_EXAM = ?");
+					preparedStatement.setInt(1, exams.get(i).getExamID());
+					// Executing the deletion
+					int result = preparedStatement.executeUpdate();	
+					connection.commit();
+					return result;
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+		return result;
+	}
+
+	
+	
 	public void removeAddExamForTest() throws SQLException {
 		String sql = "Delete FROM englishvalidation.exam  where name = 'ingegneria del test' and cfu = 9 and link_program= '//link di riferimento//'" ;
 		Connection conn = (Connection) new DbConnection().getInstance().getConn();

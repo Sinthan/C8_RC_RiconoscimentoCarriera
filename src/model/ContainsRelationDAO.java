@@ -2,7 +2,10 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import controller.DbConnection;
 
 /**
@@ -65,4 +68,35 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 		}
 		return result;
 	}
+
+	
+	/**
+	 * Return a set of <tt>ContainsRelation</tt>.
+	 * 
+	 * @param conRel	the <tt>ContainsRelation</tt> object that will be saved
+	 * @return			a set of Contains for an Exam
+	 */
+	@Override
+	public ArrayList<ContainsRelation> doRetrieveAllContainsRelationByIDExam(int idExam) {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement("SELECT * FROM CONTAINS WHERE FK_EXAM = ?");
+			preparedStatement.setInt(1, idExam);
+			ArrayList<ContainsRelation> containsRelations = new ArrayList<>();
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				ContainsRelation cr = new ContainsRelation();
+				cr.setRequestRCID(rs.getInt(1));
+				cr.setExamID(rs.getInt(2));
+				containsRelations.add(cr);
+			}
+			return containsRelations;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 }
