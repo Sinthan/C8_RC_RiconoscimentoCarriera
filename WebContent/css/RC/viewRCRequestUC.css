@@ -1,0 +1,180 @@
+@charset "ISO-8859-1";
+
+@media only screen and (max-width: 540px) {
+	#drc2 {
+		font-size: 90%;
+		left: -30px
+	}
+	#drc1 {
+		font-size: 90%;
+		left:-18px
+	}
+	
+	.form-popup {
+		margin-right: -35%;
+       	 z-index: 0;
+       	 right:0;
+	}
+
+	.submitButton{
+	left: 8%;
+} 
+}
+
+{box-sizing: border-box;}
+
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 35%;  
+  top:30%;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 550px;
+  padding: 10px;
+  background-color: white;
+  border: solid grey;
+}
+
+/* Full-width input fields */
+.form-container input[type=text] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+	position: relative;
+	float: center;
+	right: -25%;
+  	background-color: #248ece;
+  	color: white;
+  	padding: 10px 16px;
+  	cursor: pointer;
+  	width: 50%;
+ 	margin-bottom:10px;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+.panel{
+	float:left; 
+	text-align: left;
+}
+
+.studentName{
+	width : 1000px; 
+	position: relative; 
+	float:left;
+}
+.text-left{
+	font-weight: bold;
+}
+.downloadButton{
+	 width : 1400px; 
+	 position: relative; 
+	 float:left;
+}
+.divDownload1{
+	width:255px;   
+	flaot:left;
+}
+
+.divDownload2{
+	width:365px;   
+	flaot:left; 
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.btn{
+	width:2,5%; 
+	flaot:left;
+}
+.drc{
+	position:relative; 
+	float:right;
+}
+
+.submitButton{
+	margin-right: 60px; 
+	width: 200px; 
+	position: relative; 
+	float:right;
+} 
+
+#accept{
+	flaot: right; 
+	position: relative;
+}
+#reject{
+	margin-right: 20px; 
+	flaot: left; 
+	position: relative; 
+	background-color: red; 
+	border: red;
+}
+
+.divUni {
+	position:static; 
+	margin-top:0px; 
+	float: left; 
+	width: 1000px;
+}
+
+.divNext{
+	position:static; 
+	padding:18px;
+}
+
+.pNext{
+	float: right;
+}
+
+.bNext{
+	style="margin-left: 10px; 
+	border:2px; 
+	background-color:#ff7e00; 
+	padding: 8px 15px; 
+	border-radius:50%; 
+	color:white;
+}
+
+.bNext:disabled{
+	background: #808080
+}
+
+[type="file"] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+    	
+}
+
+ 
+
+

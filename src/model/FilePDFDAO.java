@@ -31,8 +31,10 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 	 */
 	@Override
 	public int insertFilePDF(FilePDF file) {
-		if (file.getPDFLink().equals("") || file.getRequestRCID() == -1) // Checks if attributes are set
+		if (file.getPDFLink().equals("") || file.getRequestRCID() == -1) { // Checks if attributes are set
+			System.out.println("Please set the PDF link and the RequestRC ID before trying to add the FilePDF to the database.");
 			return -2;
+		}
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -43,19 +45,19 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 		 * database, as it is defined as an auto increment value,
 		 * so it's not required to create a new one here.
 		 */
-		String insertSQL = "INSERT INTO FILE_PDF " +
-				" (LINK_PDF, FK_ID_REQUEST_RC) " +
-				" VALUES (?, ?)";
+		String insertSQL = "INSERT INTO FILE_PDF "
+				+ " (LINK_PDF, FK_ID_REQUEST_RC) "
+				+ " VALUES (?, ?)";
 		try {
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(insertSQL);			
 			// Setting parameters
 			preparedStatement.setString(1, file.getPDFLink());
 			preparedStatement.setInt(2, file.getRequestRCID());
-			System.out.println("insertFilePDF: "+ file.toString());		// Logging the operation
 			// Executing the insertion
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
+			System.out.println("insertFilePDF(result=" + result + ": " + file.toString());		// Logging the operation
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't insert the FilePDF " + e);
 		} finally {

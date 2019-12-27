@@ -28,8 +28,10 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 	 */
 	@Override
 	public int insertContainsRelation(ContainsRelation conRel) {
-		if (conRel.getExamID() == -1 || conRel.getRequestRCID() == -1) // Checks if attributes are set
+		if (conRel.getExamID() == -1 || conRel.getRequestRCID() == -1) { // Checks if attributes are set
+			System.out.println("Please set the Exam ID and the RequestRC ID before trying to add the ContainsRelation to the database.");
 			return -2;
+		}
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -46,10 +48,10 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 			// Setting parameters
 			preparedStatement.setInt(1, conRel.getRequestRCID());
 			preparedStatement.setInt(2, conRel.getExamID());
-			System.out.println("insertContainsRelation: "+ conRel.toString());		// Logging the operation
 			// Executing the insertion
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
+			System.out.println("insertContainsRelation(result=" + result + ": " + conRel.toString());		// Logging the operation
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't insert the ContainsRelation in the database" + e);
 		} finally {

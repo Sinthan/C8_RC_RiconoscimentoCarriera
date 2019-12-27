@@ -10,12 +10,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/createRCRequest.css">
+<link rel="stylesheet" href="css/RC/createRCRequest.css">
 <jsp:include page="/partials/head.jsp" />
 <meta charset="ISO-8859-1">
 <title>Compila richiesta | Inserisci esami</title>
 <script type='text/javascript'>
 	var rowCount = 1;
+	var urlRegex = /^(?:(http(s)?|ftp):\/\/)?([-a-zA-Z0-9@:%._\\+~#=]+(\.[a-zA-Z0-9]{1,6})+)(\/([-a-zA-Z0-9()@:%_\\+.~#?&=]*))*/;
+	var examNameRegex = /^(\w+\s?\-?)*(\-?\s*\w*)*$/;
+	var CFURegex = /[0-9]{1,2}/;
 	
 	window.onload = function(){
 		controlServlet();
@@ -55,7 +58,10 @@
 		inputExamName.required = true;
 		inputExamName.minLength = 2;
 		inputExamName.maxLength = 50;
-		inputExamName.pattern = /^(\w?\s?\-?)*\s*$/;
+		inputExamName.pattern = examNameRegex.source;
+		inputExamName.onkeypress = allowAlphaNumericOnly;
+		inputExamName.title = "Sono ammessi solo caratteri alfanumerici"
+			+ " più i caratteri \"-\" e \"_\". La lunghezza deve essere compresa tra i 2 e i 50 caratteri.\nes. Programmazione 1";
 		examNameDiv.appendChild(inputExamName);
 
 		// Creates the <div> element that contains the exam's CFU input
@@ -73,10 +79,11 @@
 		inputCFU.maxLength = 2;
 		inputCFU.min = 1;
 		inputCFU.max = 30;
+		inputCFU.pattern = CFURegex.source;
 		inputCFU.onblur = validateCFU.bind(null, inputCFU);
 		inputCFU.oninput = maxLengthCheck.bind(null, inputCFU);
 		inputCFU.onkeypress = allowNumbersOnly;
-		inputCFU.pattern = /[0-9]{1,2}/;
+		inputCFU.title = "Sono ammessi solo caratteri numerici, la lunghezza deve essere di 1 o 2 cifre.\nes. 9";
 		CFUDiv.appendChild(inputCFU);
 
 		// Creates the <div> element that contains the plan of study's link input
@@ -88,11 +95,12 @@
 		inputProgramLink.type = "text";
 		inputProgramLink.name = "programLink" + rowCount;
 		inputProgramLink.className = 'form-control';
-		inputProgramLink.placeholder = 'es. www.unisa.it/programmaEsame.html';
+		inputProgramLink.placeholder = 'es. unisa.it/programma_esame.html';
 		inputProgramLink.required = true;
 		inputProgramLink.minLength = 4;
 		inputProgramLink.maxLength = 256;
-		inputProgramLink.pattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/g;
+		inputProgramLink.pattern = urlRegex.source;
+		inputProgramLink.title = "Sono ammessi solo url, la lunghezza deve essere compresa tra i 4 e i 256 caratteri.\nes. unisa.it/programma_esame.html";
 		programLinkDiv.appendChild(inputProgramLink);
 
 		// Append a line break 
@@ -131,7 +139,7 @@
 			object.value = '30';
 			showAlert(1, "Il valore massimo dei CFU &#232; 30");
 			this.focus();
-			//element.className += " is-invalid";
+			element.className += " is-invalid";
 			return false;
 		}
 	}
@@ -173,34 +181,43 @@
 										<h1 class="text-left">Inserisci esami</h1>
 									</div>
 
-									<form id="createRequestRC2" name="createRequestRC2"
-										method="post" action="StudentManagement">
+									<form class="needs-validation" id="createRequestRC2"
+										name="createRequestRC2" method="post"
+										action="StudentManagement">
 										<!-- 										The next field lets the servlet know how many exams were added -->
 										<input type="hidden" name="rowCount" id="rowCount" value="1" />
 
 										<div class="form-row" id=examInsertionRows>
 											<div class="form-group col-md-4 mb-3">
 												<label for="examName1">Nome esame</label> <input type="text"
+													title="Sono ammessi solo caratteri alfanumerici più i caratteri - e _
+													La lunghezza deve essere compresa tra i 2 e i 50 caratteri.
+													es. Programmazione 1"
 													class="form-control" name="examName1"
 													placeholder="es. Programmazione 1" minlength="2"
-													maxlength="50" required pattern="^(\w?\s?\-?)*\s*$"
+													maxlength="50" required
+													pattern="^(\w+\s?\-?)*(\-?\s*\w*)*$"
 													onkeypress="allowAlphaNumericOnly(event)">
 											</div>
 
 											<div class="form-group col-md-1 mb-3">
 												<label for="CFU1">CFU</label> <input type="number"
+													title="Sono ammessi solo caratteri numerici, la lunghezza deve essere di 1 o 2 cifre.
+													es. 9"
 													class="form-control" name="CFU1" placeholder="es. 9"
 													min="1" max="30" minlength="1" maxlength="2" required
-													pattern="([0-9]){1,2}" onkeypress="allowNumbersOnly(event)"
+													onkeypress="allowNumbersOnly(event)"
 													onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
 											</div>
 
 											<div class="form-group col-md-5 mb-3">
 												<label for="programLink1">Link al programma d'esame</label>
 												<input type="text" class="form-control" name="programLink1"
-													placeholder="es. www.unisa.it/programmaEsame.html"
+													title="Sono ammessi solo url, la lunghezza deve essere compresa tra i 4 e i 256 caratteri.
+													es. unisa.it/programma_esame.html"
+													placeholder="es. unisa.it/programma_esame.html"
 													minlength="4" maxlength="256"
-													pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+													pattern="^(?:(http(s)?|ftp):\/\/)?([-a-zA-Z0-9@:%._\\+~#=]+(\.[a-zA-Z0-9]{1,6})+)(\/([-a-zA-Z0-9()@:%_\\+.~#?&=]*))*"
 													required>
 											</div>
 

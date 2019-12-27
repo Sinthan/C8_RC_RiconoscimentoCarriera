@@ -34,9 +34,10 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	 * @author 			Gianluca Rossi
 	 */
 	public int insertRequestRC(RequestRC request) {
-		if (request.getUniversityID().equals("")
-				|| request.getStudentID().equals("")) // Checks if attributes are set
+		if (request.getUniversityID().equals("") || request.getStudentID().equals("")) { // Checks if attributes are set
+			System.out.println("Please set the University ID and the Student ID before trying to add the RequestRC to the database.");
 			return -2;
+		}
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;		
@@ -63,10 +64,10 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			preparedStatement.setString(3, request.getUniversityID());
 			preparedStatement.setString(4, request.getStudentID());
 			preparedStatement.setString(5, "EMAILUC@gmail.it");
-			System.out.println("insertRequestRC: "+ request.toString());		// Logging the operation
 			// Executing the insertion
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
+			System.out.println("insertRequestRC(result=" + result + ": " + request.toString());		// Logging the operation
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't insert the RequestRC " + e);
 		} finally {
@@ -151,8 +152,30 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 
 	@Override
 	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(State state) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<RequestRC> requests = new ArrayList<RequestRC>();
+		try {
+			PreparedStatement ps = conn.prepareStatement(
+					" SELECT  * FROM request_rc " 
+					+ "WHERE state  = ?");
+			ps.setInt(1, state.getIdState());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				RequestRC r = new RequestRC();
+				r.setRequestRCID(rs.getInt(1));
+				r.setSubmissionDate(rs.getDate(2));
+				r.setState(RCState.fromInteger(rs.getInt(3)));
+				r.setUniversityID(rs.getString(4));
+				r.setStudentID(rs.getString(5));
+				r.setReportID(rs.getInt(6));
+				requests.add(r);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return requests;
 	}
-
+	
 }

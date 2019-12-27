@@ -4,6 +4,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -165,9 +166,9 @@ public class StudentManagement extends HttpServlet {
 				newRequestRC.setUniversityID(UniSel);
 				newRequestRC.setStudentID(s.getEmail());
 
-				// Populate FilePFD
+				// Populate FilePDF
 				filePDF1.setPDFLink(SAVE_DIR2 + "\\" + s.getEmail() + "\\" + "ID.pdf");
-				filePDF2.setPDFLink(SAVE_DIR2 + "\\" + s.getEmail() + "\\" + "ID.pdf");
+				filePDF2.setPDFLink(SAVE_DIR2 + "\\" + s.getEmail() + "\\" + "CP.pdf");
 
 				// Set FilePDF and RequestRC in the session
 				request.getSession().setAttribute("newRequestRC", newRequestRC);
@@ -198,14 +199,18 @@ public class StudentManagement extends HttpServlet {
 			Exam exam = new Exam();
 			ExamDAO examDAO =  new ExamDAO();
 			int lastExamID = examDAO.doRetrieveMaxExamID();
-			int currentExamID = lastExamID + 1;
+			int nextExamID = lastExamID + 1;
+			int insertExamResult;
+			int containsRelResult;
+			ArrayList<Integer> insertExamResults = new ArrayList<Integer>();
+			ArrayList<Integer> insertContainsRelationResults = new ArrayList<Integer>();
 			for (int currentExamRow = 1; currentExamRow <= examsInserted; currentExamRow++) {
 				// Gets the exam parameters from the form
 				String name = (String) request.getParameter("examName" + currentExamRow);
 				int CFU = Integer.parseInt(request.getParameter("CFU" + currentExamRow));
 				String link = (String) request.getParameter("programLink" + currentExamRow);
 				// Checks if the parameters have a valid format
-				if (!name.matches("^(\\w?\\s?\\-?)*\\s*$")) {
+				if (!name.matches("^(\\w+\\s?\\-?)*(\\-?\\s*\\w*)*$")) {
 					request.setAttribute("errorCR2","Il nome dell&#8217;esame alla riga " + currentExamRow
 							+ " non rispetta un formato valido, sono ammessi solo caratteri alfanumerici"
 							+ " pi&#249; i caratteri \"-\" e \"_\". La lunghezza deve essere compresa tra i 2 e i 50 caratteri");
@@ -217,7 +222,7 @@ public class StudentManagement extends HttpServlet {
 							+ " La lunghezza deve essere di 1 o 2 cifre");
 					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
 					dis.forward(request, response);
-				} else if (!link.matches("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")) {
+				} else if (!link.matches("^(?:(http(s)?|ftp):\\/\\/)?([-a-zA-Z0-9@:%._\\\\+~#=]+(\\.[a-zA-Z0-9]{1,6})+)(\\/([-a-zA-Z0-9()@:%_\\\\+.~#?&=]*))*")) {
 					request.setAttribute("errorCR2","Il link dell&#8217;esame alla riga " + currentExamRow
 							+ " non rispetta un formato valido oppure la lunghezza non &#232; compresa tra i 4 e i 256 caratteri");
 					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
@@ -228,14 +233,16 @@ public class StudentManagement extends HttpServlet {
 				exam.setCFU(CFU);
 				exam.setProgramLink(link);
 				// Adding the contains relations and the exam to the database.
-				int insertExamResult = examDAO.insertExam(exam);
+				insertExamResult = examDAO.insertExam(exam);
+				insertExamResults.add(insertExamResult);
 				if (insertExamResult >= 0) { // Exam record already present in the database
 					containsRel.setExamID(insertExamResult); // Sets the examID of the exam already stored
 				} else { // Exam isn't present in the database
-					containsRel.setExamID(currentExamID); // Sets the examID of the exam just added
-					currentExamID++;
+					containsRel.setExamID(nextExamID); // Sets the examID of the exam just added
+					nextExamID++;
 				}
-				containsRelDAO.insertContainsRelation(containsRel);
+				containsRelResult = containsRelDAO.insertContainsRelation(containsRel);
+				insertContainsRelationResults.add(containsRelResult);
 			}
 			// Adding the PDF files to the database.
 			FilePDFDAO pdfDAO = new FilePDFDAO();
@@ -245,9 +252,40 @@ public class StudentManagement extends HttpServlet {
 			file2.setRequestRCID(reqRCID);
 			int insertFile1Result = pdfDAO.insertFilePDF(file1);
 			int insertFile2Result = pdfDAO.insertFilePDF(file2);
+			// Checking if request was successfully added to the database
+			if (insertRequestRCResult > 0 && insertFile1Result > 0 && insertFile2Result > 0) {
+				for (int result : insertExamResults) {
+					if (result == -2 || result == -4) {
+						System.out.println("Si sono verificati errori sull'inserimento degli esami all'interno del database.");
+						// TODO delete request
+						request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
+						dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+						dis.forward(request, response);
+						return;
+					}
+				}
+				for (int result : insertContainsRelationResults) {
+					if (result == 0 || result == -2) {
+						System.out.println("Si sono verificati errori sull'inserimento delle relazioni Contains all'interno del database.");
+						// TODO delete request
+						request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
+						dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+						dis.forward(request, response);
+						return;
+					}
+				}
+			} else {
+				System.out.println("Si sono verificati errori sull'inserimento della richiesta o dei file pdf all'interno del database.");
+				// TODO delete request
+				request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
+				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis.forward(request, response);
+				return;
+			}
 			// Redirecting to the "view request status" page and setting the attributes it will need
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());
+			request.setAttribute("didInsertRequest", "true");
 			dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
 		}else if (flag==4) {

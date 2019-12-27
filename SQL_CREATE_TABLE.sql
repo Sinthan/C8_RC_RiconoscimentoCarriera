@@ -63,7 +63,7 @@ alter table VALIDATE_EXAM AUTO_INCREMENT=1;
 
 CREATE TABLE FILE_PDF(
 	ID_PDF int(20) not null AUTO_INCREMENT,
-    LINK_PDF  varchar(100) not null,
+    LINK_PDF  varchar(200) not null,
     FK_ID_REQUEST_RC int(20) not null,
     foreign key (FK_ID_REQUEST_RC) references REQUEST_RC(ID_REQUEST),
     primary key(ID_PDF)
