@@ -65,7 +65,6 @@ public class StudentManagement extends HttpServlet {
 
 		int flag = (int) request.getSession().getAttribute("flag");
 			
-		
 		if(flag == 0) {
 			HttpSession sessione = request.getSession(true);
 
@@ -88,16 +87,14 @@ public class StudentManagement extends HttpServlet {
 			}catch (Exception e) {
 				e.getMessage();
 			}
-		} else if( flag==1 ){
+		} else if(flag==1){
 			//accede al primo form
 			List<University> universities = uniDAO.doRetrieveAllUniversity();
 			Collections.sort(universities , new SortByName());
 			request.getSession().setAttribute("universities", universities);
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 			dis.forward(request, response);
-		}
-		else if( flag==2 ){ //primo form della compilazione delle richieste
-			
+		} else if(flag==2){ //primo form della compilazione delle richieste
 			RequestDispatcher dis = null;
 			List<University> universities = uniDAO.doRetrieveAllUniversity();
 			Collections.sort(universities , new SortByName());
@@ -109,15 +106,15 @@ public class StudentManagement extends HttpServlet {
 				request.setAttribute("errorCR1", "Universitit&#224; non selezionata.");
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
-			}else if( !filePart1.getContentType().equals("application/pdf") ){
+			} else if(!filePart1.getContentType().equals("application/pdf") ){
 				request.setAttribute("errorCR1","Formato file non accettato, inserire file in formato PDF.");
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
-			}else if( !filePart2.getContentType().equals("application/pdf") ) {
+			} else if(!filePart2.getContentType().equals("application/pdf") ) {
 				request.setAttribute("errorCR1","Formato file non accettato, inserire file in formato PDF.");
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
-			}else {
+			} else {
 				Student s = (Student) request.getSession().getAttribute("user");
 				
 				//Get  the project path
@@ -179,9 +176,51 @@ public class StudentManagement extends HttpServlet {
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
 				dis.forward(request, response);
 			}
-
 		} else if (flag == 3) { // Exams list insertion page (createRCRequest2.jsp)
 			RequestDispatcher dis = null;
+			// Checks if the data from the previous page is still available in the session
+			if (request.getSession().getAttribute("newRequestRC") == null
+					|| request.getSession().getAttribute("filePDF1") == null
+					|| request.getSession().getAttribute("filePDF2") == null) {
+				System.out.println("Dati della createRCRequest1 non trovati.");
+				request.setAttribute("errorCR1","Alcuni dati sono andati persi, si prega di ricompilare la richiesta.");
+				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis.forward(request, response);
+				return;
+			}
+			// Checks if the parameters have a valid format before proceeding with the insertion on the database
+			String name;
+			int CFU;
+			String link;
+			int examsInserted = Integer.parseInt(request.getParameter("rowCount"));
+			for (int currentExamRow = 1; currentExamRow <= examsInserted; currentExamRow++) {
+				// Gets the exam parameters from the form
+				name = (String) request.getParameter("examName" + currentExamRow);
+				CFU = Integer.parseInt(request.getParameter("CFU" + currentExamRow));
+				link = (String) request.getParameter("programLink" + currentExamRow);
+				// Checks if the parameters have a valid format
+				if (!name.matches("^(\\w+\\s?\\-?)*(\\-?\\s*\\w*)*$")) {
+					request.setAttribute("errorCR2","Il nome dell&#8217;esame alla riga " + currentExamRow
+							+ " non rispetta un formato valido, sono ammessi solo caratteri alfanumerici"
+							+ " pi&#249; i caratteri \"-\" e \"_\". La lunghezza deve essere compresa tra i 2 e i 50 caratteri");
+					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
+					dis.forward(request, response);
+					return;
+				} else if (CFU < 0 || CFU > 31) {
+					request.setAttribute("errorCR2","I CFU dell&#8217;esame alla riga " + currentExamRow
+							+ " non rispettano un formato valido, sono ammessi solo caratteri numerici"
+							+ " La lunghezza deve essere di 1 o 2 cifre");
+					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
+					dis.forward(request, response);
+					return;
+				} else if (!link.matches("^(?:(http(s)?|ftp):\\/\\/)?([-a-zA-Z0-9@:%._\\\\+~#=]+(\\.[a-zA-Z0-9]{1,6})+)(\\/([-a-zA-Z0-9()@:%_\\\\+.~#?&=]*))*")) {
+					request.setAttribute("errorCR2","Il link dell&#8217;esame alla riga " + currentExamRow
+							+ " non rispetta un formato valido oppure la lunghezza non &#232; compresa tra i 4 e i 256 caratteri");
+					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
+					dis.forward(request, response);
+					return;
+				}
+			}
 			// Adding the request to the database
 			RequestRC newReq = (RequestRC) request.getSession().getAttribute("newRequestRC");
 			RequestRCDAO reqDAO =  new RequestRCDAO();
@@ -194,7 +233,6 @@ public class StudentManagement extends HttpServlet {
 			ContainsRelationDAO containsRelDAO = new ContainsRelationDAO();
 			ContainsRelation containsRel = new ContainsRelation();
 			containsRel.setRequestRCID(reqRCID);
-			int examsInserted = Integer.parseInt(request.getParameter("rowCount"));
 			// Adding the exams to the database
 			Exam exam = new Exam();
 			ExamDAO examDAO =  new ExamDAO();
@@ -206,28 +244,9 @@ public class StudentManagement extends HttpServlet {
 			ArrayList<Integer> insertContainsRelationResults = new ArrayList<Integer>();
 			for (int currentExamRow = 1; currentExamRow <= examsInserted; currentExamRow++) {
 				// Gets the exam parameters from the form
-				String name = (String) request.getParameter("examName" + currentExamRow);
-				int CFU = Integer.parseInt(request.getParameter("CFU" + currentExamRow));
-				String link = (String) request.getParameter("programLink" + currentExamRow);
-				// Checks if the parameters have a valid format
-				if (!name.matches("^(\\w+\\s?\\-?)*(\\-?\\s*\\w*)*$")) {
-					request.setAttribute("errorCR2","Il nome dell&#8217;esame alla riga " + currentExamRow
-							+ " non rispetta un formato valido, sono ammessi solo caratteri alfanumerici"
-							+ " pi&#249; i caratteri \"-\" e \"_\". La lunghezza deve essere compresa tra i 2 e i 50 caratteri");
-					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
-					dis.forward(request, response);
-				} else if (CFU < 0 || CFU > 31) {
-					request.setAttribute("errorCR2","I CFU dell&#8217;esame alla riga " + currentExamRow
-							+ " non rispettano un formato valido, sono ammessi solo caratteri numerici"
-							+ " La lunghezza deve essere di 1 o 2 cifre");
-					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
-					dis.forward(request, response);
-				} else if (!link.matches("^(?:(http(s)?|ftp):\\/\\/)?([-a-zA-Z0-9@:%._\\\\+~#=]+(\\.[a-zA-Z0-9]{1,6})+)(\\/([-a-zA-Z0-9()@:%_\\\\+.~#?&=]*))*")) {
-					request.setAttribute("errorCR2","Il link dell&#8217;esame alla riga " + currentExamRow
-							+ " non rispetta un formato valido oppure la lunghezza non &#232; compresa tra i 4 e i 256 caratteri");
-					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
-					dis.forward(request, response);
-				}
+				name = (String) request.getParameter("examName" + currentExamRow);
+				CFU = Integer.parseInt(request.getParameter("CFU" + currentExamRow));
+				link = (String) request.getParameter("programLink" + currentExamRow);
 				// Sets the exam attributes
 				exam.setName(name);
 				exam.setCFU(CFU);
@@ -257,7 +276,7 @@ public class StudentManagement extends HttpServlet {
 				for (int result : insertExamResults) {
 					if (result == -2 || result == -4) {
 						System.out.println("Si sono verificati errori sull'inserimento degli esami all'interno del database.");
-						// TODO delete request
+						reqDAO.deleteRequestRCByRequestID(reqRCID);
 						request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
 						dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 						dis.forward(request, response);
@@ -267,7 +286,7 @@ public class StudentManagement extends HttpServlet {
 				for (int result : insertContainsRelationResults) {
 					if (result == 0 || result == -2) {
 						System.out.println("Si sono verificati errori sull'inserimento delle relazioni Contains all'interno del database.");
-						// TODO delete request
+						reqDAO.deleteRequestRCByRequestID(reqRCID);
 						request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
 						dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 						dis.forward(request, response);
@@ -276,7 +295,7 @@ public class StudentManagement extends HttpServlet {
 				}
 			} else {
 				System.out.println("Si sono verificati errori sull'inserimento della richiesta o dei file pdf all'interno del database.");
-				// TODO delete request
+				reqDAO.deleteRequestRCByRequestID(reqRCID);
 				request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
@@ -288,7 +307,7 @@ public class StudentManagement extends HttpServlet {
 			request.setAttribute("didInsertRequest", "true");
 			dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
-		}else if (flag==4) {
+		} else if (flag==4) {
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
 			

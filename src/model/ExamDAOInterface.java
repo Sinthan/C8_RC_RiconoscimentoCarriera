@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public interface ExamDAOInterface {
 
 	public int insertExam(Exam exam);
-	public ArrayList<Exam> doRetrieveAllExamsByIDRequestRC(int requestRCID);
+	public ArrayList<Exam> doRetrieveAllExamsByRequestRCID(int requestRCID);
+	public Exam doRetrieveExamByID(int examID);
 	public int doRetrieveExam(int requestRCID, int ExamID);
 	public int deleteAllRCRequestExamsByRequestID(int idRequest);
 }
