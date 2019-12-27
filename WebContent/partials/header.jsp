@@ -143,7 +143,7 @@
  
   
   
-
+  	}
 
   hiddenMenu = menu;
 %>
@@ -232,7 +232,7 @@
 		<div class="side-menu">
 			<!--navigation-->
 			<ul class="navigation clearfix">
-				<%=hiddenMenu%>
+				<%= hiddenMenu %>
 			</ul>
 		</div>
 		<!-- /.Side-menu -->
