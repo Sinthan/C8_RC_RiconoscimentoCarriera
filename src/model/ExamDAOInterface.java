@@ -11,5 +11,5 @@ public interface ExamDAOInterface {
 	public ArrayList<Exam> doRetrieveAllExamsByRequestRCID(int requestRCID);
 	public Exam doRetrieveExamByID(int examID);
 	public int doRetrieveExam(int requestRCID, int ExamID);
-	public int deleteExamsByRequestID(int id);
+	public int deleteAllRCRequestExamsByRequestID(int idRequest);
 }

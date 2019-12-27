@@ -65,7 +65,7 @@ CREATE TABLE FILE_PDF(
 	ID_PDF int(20) not null AUTO_INCREMENT,
     LINK_PDF  varchar(200) not null,
     FK_ID_REQUEST_RC int(20) not null,
-    foreign key (FK_ID_REQUEST_RC) references REQUEST_RC(ID_REQUEST),
+    foreign key (FK_ID_REQUEST_RC) references REQUEST_RC(ID_REQUEST) ON DELETE CASCADE ON UPDATE CASCADE,
     primary key(ID_PDF)
 );
 alter table FILE_PDF AUTO_INCREMENT=1;
@@ -82,8 +82,8 @@ alter table EXAM AUTO_INCREMENT=1;
 CREATE TABLE CONTAINS(
 	FK_REQUEST_RC int(20) not null,
     FK_EXAM int(20) not null,
-    foreign key (FK_REQUEST_RC) references REQUEST_RC(ID_REQUEST),
-    foreign key (FK_EXAM) references EXAM(ID_EXAM),
+    foreign key (FK_REQUEST_RC) references REQUEST_RC(ID_REQUEST) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (FK_EXAM) references EXAM(ID_EXAM) ON DELETE CASCADE ON UPDATE CASCADE,
     primary key (FK_REQUEST_RC, FK_EXAM)
 );
 
