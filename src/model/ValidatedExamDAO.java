@@ -18,10 +18,10 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 * Inserts the specified <tt>ValidatedExam</tt> object into the database.
 	 * 
 	 * @param	vExam	the <tt>ValidatedExam</tt> object that will be inserted.
-	 * @return			<ul><li>a positive count of the number of rows affected
-	 *					<li>0 if no rows were affected
-	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
-	 *					<li>-2 if the attributes of the passed argument aren't fully specified
+	 * @return			<ul><li>a positive count if the insertion succeeded
+	 *					<li>0 if nothing was added to the database
+	 *					<li>-1 if the insertion succeeded, but the database didn't return any information about the number of inserted rows
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
 	 */
 	@Override
 	public int insertValidatedExam(ValidatedExam vExam) {
@@ -32,10 +32,10 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 * Updates the specified <tt>ValidatedExam</tt> object into the database.
 	 * 
 	 * @param	vExam	the <tt>ValidatedExam</tt> object that will be updated.
-	 * @return			<ul><li>a positive count of the number of rows affected
-	 *					<li>0 if no rows were affected
-	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
-	 *					<li>-2 if the attributes of the passed argument aren't fully specified
+	 * @return			<ul><li>a positive count if the update succeeded
+	 *					<li>0 if nothing was altered into the database
+	 *					<li>-1 if the update succeeded, but the database didn't return any information about the number of updated rows
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
 	 */
 	@Override
 	public int updateValidatedExams(ValidatedExam vExam) {
@@ -61,9 +61,9 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 * Retrieves all the <tt>ValidatedExam</tt> objects related to a specific <tt>Report</tt>
 	 * (identified through an ID).
 	 * 
-	 * @param	reportID	the <tt>Report</tt> ID number that the <tt>ValidatedExam</tt> object must match
+	 * @param	reportID	the <tt>Report</tt> ID number that the <tt>ValidatedExam</tt> object must have
 	 * @return				an <tt>ArrayList</tt> containing the <tt>ValidatedExams</tt> objects
-	 * 						that match the given <tt>Report</tt> ID
+	 * 						that match the given report ID
 	 * @see	Report
 	 */
 	@Override

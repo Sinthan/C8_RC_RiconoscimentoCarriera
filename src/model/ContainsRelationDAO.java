@@ -23,10 +23,11 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 	 * Saves the <tt>ContainsRelation</tt> object into the database.
 	 * 
 	 * @param conRel	the <tt>ContainsRelation</tt> object that will be saved
-	 * @return			<ul><li>a positive count of the number of rows affected
-	 *					<li>0 if no rows were affected
-	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
-	 *					<li>-2 if the attributes of the passed argument aren't fully specified
+	 * @return			<ul><li>a positive count if the insertion succeeded
+	 *					<li>0 if nothing was added to the database
+	 *					<li>-1 if the insertion succeeded, but the database didn't return any information about the number of inserted rows
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
+	 * @see				ContainsRelation
 	 * @author 			Gianluca Rossi
 	 */
 	@Override
@@ -71,10 +72,11 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 
 	
 	/**
-	 * Return a set of <tt>ContainsRelation</tt>.
+	 * Retrieves all the <tt>ContainsRelation</tt> objects that match the specified exam ID.
 	 * 
-	 * @param conRel	the <tt>ContainsRelation</tt> object that will be saved
-	 * @return			a set of Contains for an Exam
+	 * @param	idExam				the ID of the exam that the the <tt>ContainsRelation</tt> objects must match
+	 * @return						an ArrayList of ContainsRelation objects that match the given exam ID
+	 * @see		ContainsRelation
 	 */
 	@Override
 	public ArrayList<ContainsRelation> doRetrieveAllContainsRelationByIDExam(int idExam) {

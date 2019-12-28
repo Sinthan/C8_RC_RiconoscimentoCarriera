@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import controller.DbConnection;
 
@@ -27,13 +26,14 @@ public class ExamDAO implements ExamDAOInterface{
 	 * @param exam	the <tt>Exam</tt> object that will be saved.
 	 * @return		<ul><li>a positive value if the exam that wants to be saved is already present,
 	 * 						the value corresponds to the examID of the already present exam record
-	 * 				<li>-1 if one or more rows are affected
-	 *				<li>-2 if no rows were affected
-	 *				<li>-3 if the statement succeeded, but there is no update count information available
-	 *				<li>-4 if the attributes of the passed argument aren't fully specified
+	 * 				<li>-1 if the insertion succeeded
+	 *				<li>-2 if nothing was added to the database
+	 *				<li>-3 if the insertion succeeded, but the database didn't return any information about the number of inserted rows
+	 *				<li>-4 if the attributes of the passed argument aren't fully specified</ul>
 	 * @author 		Gianluca Rossi
 	 * @author 		Lorenzo Maturo
 	 */
+	@Override
 	public int insertExam(Exam exam) {
 		if (exam.getName().equals("") || exam.getCFU() == -1 || exam.getProgramLink().equals("")) { // Checks if attributes are set
 			System.out.println("Please set the Exam's name, cfu and program link before trying to add it to the database.");
@@ -65,11 +65,12 @@ public class ExamDAO implements ExamDAOInterface{
 			preparedStatement.setString(3, exam.getProgramLink());
 			ResultSet resSet = preparedStatement.executeQuery();
 
-			if (resSet.next() && resSet.getInt(1) != 0) {	// Exam found
+			if (resSet.first()) {	// Exam found
 				int examID = resSet.getInt(1);
 				System.out.println("Exam \"" + exam.getName() + "\" already present.");
 				return examID;
 			} else {		// Exam not already present in the database, proceeding with the insertion
+				System.out.println("Exam \"" + exam.getName() + "\" not present, adding it to the database.");
 				preparedStatement.close();
 				preparedStatement = connection.prepareStatement(insertSQL);			
 				// Setting parameters
@@ -113,6 +114,7 @@ public class ExamDAO implements ExamDAOInterface{
 	 * @see		Exam
 	 * @author 	Gianluca Rossi
 	 */
+	@Override
 	public ArrayList<Exam> doRetrieveAllExamsByRequestRCID(int requestRCID){
 		if (requestRCID < 0) { // Checks if parameter is a valid ID
 			System.out.println("doRetrieveAllExamsByRequestRCID: Please enter a valid request ID.");
@@ -125,8 +127,11 @@ public class ExamDAO implements ExamDAOInterface{
 		Exam exam = null;
 
 		// Selects the IDs of the exams that are related to the specified RequestRC ID
-		String selectSQL = "SELECT * FROM CONTAINS "
-				+ " WHERE FK_REQUEST_RC = ?";
+		String selectSQL = "SELECT E.ID_EXAM, E.NAME, E.CFU, E.LINK_PROGRAM " + 
+				"FROM CONTAINS C " + 
+				"	INNER JOIN EXAM E " + 
+				"		ON E.ID_EXAM = C.FK_EXAM " + 
+				"		WHERE C.FK_REQUEST_RC = ?";
 		try {
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(selectSQL);			
@@ -135,9 +140,13 @@ public class ExamDAO implements ExamDAOInterface{
 			// Executing the selection
 			ResultSet resSet = preparedStatement.executeQuery();
 
-			// For every related exam found, retrieve and add it to the ArrayList
+			// For every related exam found, construct and add it to the ArrayList
 			while (resSet.next()) {
-				exam = doRetrieveExamByID(resSet.getInt("FK_EXAM"));
+				exam = new Exam();
+				exam.setExamID(resSet.getInt("ID_EXAM"));
+				exam.setName(resSet.getString("NAME"));
+				exam.setCFU(resSet.getInt("CFU"));
+				exam.setProgramLink(resSet.getString("LINK_PROGRAM"));
 				requestRCExams.add(exam);
 			}
 		} catch(SQLException e) {
@@ -152,9 +161,8 @@ public class ExamDAO implements ExamDAOInterface{
 				}
 		}
 		return requestRCExams;
-
 	}
-	
+
 	/**
 	 * Retrieves the <tt>Exam</tt> object that matches the given ID
 	 * 
@@ -162,6 +170,7 @@ public class ExamDAO implements ExamDAOInterface{
 	 * @return			the <tt>Exam</tt> object if found, null otherwise
 	 * @author 			Gianluca Rossi
 	 */
+	@Override
 	public Exam doRetrieveExamByID(int examID) {
 		if (examID < 0) { // Checks if parameter is a valid ID
 			System.out.println("doRetrieveExamByID: Please enter a valid Exam ID.");
@@ -203,17 +212,12 @@ public class ExamDAO implements ExamDAOInterface{
 				}
 		}
 		return exam;
-
-
 	}
+
 	/**
 	 * retrieve exam 
 	 * @return -1 if insert failed, 0 if ok 
 	 */
-	
-
-
-	
 	public int doRetrieveExam(int requestRCID, int ExamID) {
 		int flag = 0;
 		return flag; 

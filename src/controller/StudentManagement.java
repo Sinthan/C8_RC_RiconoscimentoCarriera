@@ -164,8 +164,8 @@ public class StudentManagement extends HttpServlet {
 				newRequestRC.setStudentID(s.getEmail());
 
 				// Populate FilePDF
-				filePDF1.setPDFLink(SAVE_DIR2 + pdfSaveFolder + "\\" + s.getEmail() + "\\" + "ID.pdf");
-				filePDF2.setPDFLink(SAVE_DIR2 + pdfSaveFolder + "\\" + s.getEmail() + "\\" + "CP.pdf");
+				filePDF1.setPDFLink(pdfSaveFolder + "/" + s.getEmail() + "/" + "ID.pdf");
+				filePDF2.setPDFLink(pdfSaveFolder + "/" + s.getEmail() + "/" + "CP.pdf");
 
 				// Set FilePDF and RequestRC in the session
 				request.getSession().setAttribute("newRequestRC", newRequestRC);

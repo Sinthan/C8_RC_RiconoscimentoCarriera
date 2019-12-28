@@ -27,10 +27,11 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 	 * Saves the pdf file into the database.
 	 * 
 	 * @param file	the <tt>FilePDF</tt> object that will be saved
-	 * @return		<ul><li>a positive count of the number of rows affected
-	 *				<li>0 if no rows were affected
-	 *				<li>-1 if the statement succeeded, but there is no update count information available</ul>
-	 *				<li>-2 if the attributes of the passed argument aren't fully specified
+	 * @return		<ul><li>a positive count if the insertion succeeded
+	 *					<li>0 if nothing was added to the database
+	 *					<li>-1 if the insertion succeeded, but the database didn't return any information about the number of inserted rows
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
+	 * @see			FilePDF
 	 * @author 		Gianluca Rossi
 	 */
 	@Override
@@ -77,34 +78,63 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 	}
 
 	/**
-	 * Get a set of PDF files given the request id.
-	 * @param requestRCID is the id of the Request.
-	 * @return returns an set of FilePDF related to the Request.
+	 * Retrieves all the <tt>FilePDF</tt> objects related to a specific <tt>RequestRC</tt>
+	 * (identified through an ID).
+	 * 
+	 * @param	requestRCID		the <tt>RequestRC</tt> ID number that the <tt>RequestRC</tt> object must match
+	 * @return					an <tt>ArrayList</tt> containing the <tt>FilePDF</tt> objects
+	 * 							that match the given <tt>RequestRC</tt> ID
+	 * @see		FilePDF
+	 * @author 	Gianluca Rossi
 	 */
 	@Override
 	public ArrayList<FilePDF> doRetrieveAllFilePDFByIDRequestRC(int requestRCID) {
-		try {
-			PreparedStatement ps = conn.prepareStatement(
-					" SELECT  * FROM file_pdf "
-				  + "WHERE fk_id_request_rc = ? ");
-			ps.setInt(1, requestRCID);
-			ResultSet rs = ps.executeQuery();
-			ArrayList<FilePDF> listPdf = new ArrayList<>();
-			while(rs.next()){
-				FilePDF f = new FilePDF();
-				f.setPDFID(rs.getInt(1));
-				f.setPDFLink(rs.getString(2));
-				f.setRequestRCID(rs.getInt(3));
-				listPdf.add(f);
-			}
-			if(listPdf.isEmpty()){
-				return null;
-			}else {
-				return listPdf;
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+
+		if (requestRCID < 0) { // Checks if parameter is a valid ID
+			System.out.println("doRetrieveAllFilePDFByIDRequestRC: Please enter a valid request ID.");
+			return null;
 		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ArrayList<FilePDF> requestRCPDFFiles = new ArrayList<FilePDF>();
+		FilePDF file = null;
+
+		// Selects the IDs and the link of the FilePDF records that are related to the specified RequestRC ID
+		String selectSQL = "SELECT  F.ID_PDF, F.LINK_PDF " + 
+				"FROM Request_RC R " + 
+				"	INNER JOIN FILE_PDF F\n" + 
+				"		ON F.FK_ID_REQUEST_RC = R.ID_REQUEST\n" + 
+				"		WHERE R.ID_REQUEST = ?";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(selectSQL);			
+			// Setting the parameter
+			preparedStatement.setInt(1, requestRCID);
+			// Executing the selection
+			ResultSet resSet = preparedStatement.executeQuery();
+
+			// For every related pdf file found, add it to the ArrayList
+			while (resSet.next()) {
+				file = new FilePDF();
+				file.setRequestRCID(requestRCID);
+				file.setPDFID(resSet.getInt("ID_PDF"));
+				file.setPDFLink(resSet.getString("LINK_PDF"));
+				requestRCPDFFiles.add(file);
+			}
+		} catch(SQLException e) {
+			new RuntimeException("Couldn't retrieve the RequestRC pdf files" + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return requestRCPDFFiles;
+
 	}
 
 
