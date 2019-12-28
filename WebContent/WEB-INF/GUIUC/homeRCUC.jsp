@@ -55,9 +55,10 @@
 											out.print("<td class=text-center align=center>"+ s.getName() + " " + s.getSurname() + "</td>");
 											out.print("<td class=text-center align=center>"+ temp.getSubmissionDate() +"</td>");
 											out.print("<td class=submitButton-centre align=center style= margin-right: 60px; width: 200px; position: relative; float:centre>"+
-											"<button action=/viewRCRequestUC.jsp method=get class=btn btn-primary type=submit>Controlla richiesta</button></td>");
+													"<form action=/UCRequestRedirector method=post> <input type = hidden name = email value = "  +temp.getStudentID() +  "  /> " +
+													"<input type = hidden name = stName value = "  +s.getName() + " " + s.getSurname() +  "  /> " +
+													"<input type= submit value =Controlla  class=btn btn-primary></input> ></form> </td>");
 											out.print("</tr>");
-																						
 										}
 											
 											%>
