@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+h<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="controller.CheckSession , controller.Utils, model.Student, model.UC"%>
 
@@ -126,19 +126,18 @@
 	  	          menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 	  	 }    
-  	}else if(pageFolder.equals("GUIUC")) {
-  	  UC user =(UC) session.getAttribute("user");
+  	}else if(pageFolder.equals("GUIUC")) {	  
+  		UC user =(UC) session.getAttribute("user");
+		logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
   	  if (pageName.equals("viewRCRequestUC.jsp")) {      
   			menu += 
 	    		  "<li><a href=\"" + request.getContextPath() + "/homeRCUC.jsp\">Richieste</a></li>";;   
 	    	menu +=
   	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-  	  	    logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
   	 } 
   	  else if(pageName.equals("homeRCUC.jsp")){
   		  menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-	  	    logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;  
   	  }
  
   

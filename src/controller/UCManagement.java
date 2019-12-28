@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.State;
-import model.Student;
-import model.StudentDAO;
 
 /**
  * Servlet implementation class UCManagement
@@ -28,36 +26,19 @@ public class UCManagement extends HttpServlet {
      */
     public UCManagement() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		State state = new State(0,"needsUCValidation");
 		RequestRCDAO reqDao = new RequestRCDAO();
 		ArrayList<RequestRC> reqList  =  reqDao.doRetrieveAllRequestRCBystate(state);
-		RequestRC temp = null;
-		StudentDAO rDao = new StudentDAO();
-		String name;
-		String surname;
-		
-		for (int i = 0; i < reqList.size(); i++) {
-		
-			
-		      temp = reqList.get(i);
-		      temp.getSubmissionDate();
-		      System.out.println(temp.toString());
-		      Student s = rDao.doRetrieveStudentByEmail(temp.getStudentID());
-		      name = s.getName();
-		      surname = s.getSurname();
-		      request.setAttribute("rRCDate",temp.getSubmissionDate());
-		      request.setAttribute("stName",name+" "+surname);
-		      
-		}
-
+		request.setAttribute("reqList", reqList );
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIUC/homeRCUC.jsp");		
 		requestDispatcher.forward(request, response);
 	}
@@ -66,7 +47,6 @@ public class UCManagement extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

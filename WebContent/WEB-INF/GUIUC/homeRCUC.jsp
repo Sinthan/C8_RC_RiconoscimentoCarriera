@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" %>
+    <%@ page import = "model.RequestRC, model.RequestRCDAO, model.State, model.Student, model.StudentDAO, java.util.ArrayList"
+    %>
 <%
 	String pageName = "homeRCUC.jsp";
 	String pageFolder = "GUIUC";
@@ -10,7 +12,7 @@
 <head>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-	<link href="<%= request.getContextPath() %>/css/RC/viewRCRequestUC.css"
+	<link href="<%= request.getContextPath() %>/css/RC/homeRCUC.css"
 	rel="stylesheet">
 	<jsp:include page="/partials/head.jsp" />
 	<meta charset="ISO-8859-1">
@@ -24,30 +26,44 @@
 			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
 		
-<div class="sidebar-page-container basePage viewRequestStudent">
-			<br/><h2>Richieste da controllare</h2><br/>
+<div class="sidebar-page-container basePage homeRCUC">
+			<br/><h2 align = center>Richieste da controllare</h2><br/>
 			<div class="auto-container">
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
-							<table id="studentTableRC" class="display data-results table table-striped table-hover table-bordered">
+							<table id="UCTableRC" class="display data-results table table-striped table-hover table-bordered">
 									<thead>
 										<tr align="center">
-											<th class="text-center tableRequestRCtd" align="center">Nome</th>
-											<th class="text-center tableRequestRCtd" align="center">Data invio</th>
-											<th class="text-center tableRequestRCtd" align="center"></th>
+											<th class="text-center tableRequestRCtd" align="center" width="30%">Email</th>
+											<th class="text-center tableRequestRCtd" align="center" width="30%">Nome</th>
+											<th class="text-center tableRequestRCtd" align="center" width="30%">Data</th>
+											<th class="text-center tableRequestRCtd" align="center" width="10%"></th>
 										</tr>
-										<tr>
-										<td class="text-center" align="center">${email}</td>	
-											<td class="text-center" align="center">${stName}</td>	
-											<td class="text-center" align="center">${rRCDate}</td>
-											<td class="submitButton-centre" style=" margin-right: 60px; width: 200px; position: relative; float:centre">												
-												<button class="btn btn-primary" type="submit">Controlla richiesta</button></td>
 											
-											</tr>
+										<%
+										ArrayList<RequestRC> reqList =(ArrayList<RequestRC>) request.getAttribute("reqList");
+										RequestRC temp = null;
+										StudentDAO rDao = new StudentDAO();	
+										
+ 										for (int i = 0; i < reqList.size(); i++){ 
+											temp = reqList.get(i);
+											Student s = rDao.doRetrieveStudentByEmail(temp.getStudentID());
+											out.print("<tr>");
+											out.print("<td class=text-center align=center>" + temp.getStudentID() + "</td>");
+											out.print("<td class=text-center align=center>"+ s.getName() + " " + s.getSurname() + "</td>");
+											out.print("<td class=text-center align=center>"+ temp.getSubmissionDate() +"</td>");
+											out.print("<td class=submitButton-centre align=center style= margin-right: 60px; width: 200px; position: relative; float:centre>"+
+											"<button action=/viewRCRequestUC.jsp method=get class=btn btn-primary type=submit>Controlla richiesta</button></td>");
+											out.print("</tr>");
+																						
+										}
+											
+											%>
 											</thead>
-										<tbody id="bodyStudentTable">
+										<tbody id="bodySUCTable">
+										
 									</tbody>
 								</table>
 							</div>
