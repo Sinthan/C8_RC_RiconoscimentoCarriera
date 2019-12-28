@@ -47,58 +47,68 @@
 
 								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
 									<div class="panel">
-										<h2 class="text-center">Richiesta di NOME - DATA</h2>
+										<h2 class="text-center">Richiesta di ${userRC.name} ${userRC.surname} - ${reqRC.submissionDate}</h2>
 									</div>
 										<div class="studentName" >
 											<div>
 												<p style="font-weight: bold" >Nome studente </p>
 											</div>
 												<div>
-													<p class="pDat" id="pName">&nbsp;&nbsp;&nbsp;&nbsp;NOME</p>
+													<p class="pDat" id="pName">&nbsp;&nbsp;&nbsp;&nbsp;${userRC.name}</p>
 												</div>
 													<div>
-														<p style="font-weight: bold">Cognome studente </p>
+														<p style="font-weight: bold">Cognome studente</p>
 													</div>
-														<p class="pDat" id="pSurname">&nbsp;&nbsp;&nbsp;&nbsp;COGNOME</p>		
+														<p class="pDat" id="pSurname">&nbsp;&nbsp;&nbsp;&nbsp;${userRC.surname}</p>		
 													</div>		
 								</div>					
-								<c:forEach items="${exams}" var="exam">		  	
+									  	
 									<div class="news-block-seven">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											
 												<p class="text-left">Esami inseriti dallo studente</p>
 											</div>
-												<div id="ExamsDiv">
-													<input type="hidden" name="rowCount" id="rowCount" value="1" />
+											
+												<div id="ExamsDiv" >	
 													<div class="form-row" id=examInsertionRows>
 														<div class="form-group col-md-4 mb-3">
-															<label for="examName1">Nome esame</label> 
+															<label for="examName1">Nome esame</label>
+															<c:forEach items="${exams}" var="exam">
 															<p>${exam.name}</p>
+															</c:forEach>
 														</div>
 															<div class="form-group col-md-1 mb-3">
 																<label for="CFU1">CFU</label>
-																<p>${exam.cfu}</p>	
+																<c:forEach items="${exams}" var="exam">
+																<p>${exam.CFU}</p>
+																</c:forEach>
 															</div>
 														<div class="form-group col-md-5 mb-3">
 															<label for="programLink1">Link al programma d'esame</label>
-															<p>${exam.link_program}</p>
+															<c:forEach items="${exams}" var="exam">
+																<p>${exam.programLink}</p>
+															</c:forEach>
 														</div>
 														<br>
 													</div>
 												</div>
+											
 										</div>
-										</c:forEach>
+										
+										
+										
+											
 										<!-- popup per il rifiuto della richiesta -->
 
 									</div>
 									<div class="downloadButton">
 										<div class="divDownload1" >
-											<a href="\C:\Users\gerar\OneDrive\Desktop\UNIVERSITA'\r.pdf" download><button class="btn"><i class="fa fa-download"></i></button></a>
+											<a href="${filepdfID}" download><button class="btn"><i class="fa fa-download"></i></button></a>
 											<p id="drc1" class="drc">Download documento d'identit&agrave;</p>
 										</div>
 										<div class="divDownload2">
 										
-											<a href="pathCP" download="email+CP.pdf" ><button class="btn"><i class="fa fa-download"></i></button></a>
+											<a href="${filepdfCP}" download="email+CP.pdf" ><button class="btn"><i class="fa fa-download"></i></button></a>
 											<p id="drc2" class="drc">Download documento di riconoscimento carriera</p>
 										</div>
 										

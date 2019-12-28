@@ -181,6 +181,31 @@
   width: 0;
 }
 
+/* div contenitore*/
+.containerExam {
+width:1000px;
+clear: both;
+margin-left: 135px;
+}
+
+.divsx{
+	position: relative;
+width:232px;
+margin-right: 10px;
+float:left;
+}
+.divcentro {
+	position: relative;
+width:300px;
+right: 10px;
+margin-left: 10px;
+}
+.divdx{
+	position: relative;
+width:232px;
+margin-left: 10px;
+float:right;
+}
     	
 }
 

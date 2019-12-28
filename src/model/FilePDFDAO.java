@@ -5,8 +5,10 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import controller.DbConnection;
 
@@ -18,6 +20,8 @@ import controller.DbConnection;
  */
 
 public class FilePDFDAO implements FilePDFDAOInterface {
+	
+	Connection conn = (Connection) new DbConnection().getInstance().getConn();
 
 	/**
 	 * Saves the pdf file into the database.
@@ -79,20 +83,29 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 	 */
 	@Override
 	public ArrayList<FilePDF> doRetrieveAllFilePDFByIDRequestRC(int requestRCID) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			PreparedStatement ps = conn.prepareStatement(
+					" SELECT  * FROM file_pdf "
+				  + "WHERE fk_id_request_rc = ? ");
+			ps.setInt(1, requestRCID);
+			ResultSet rs = ps.executeQuery();
+			ArrayList<FilePDF> listPdf = new ArrayList<>();
+			while(rs.next()){
+				FilePDF f = new FilePDF();
+				f.setPDFID(rs.getInt(1));
+				f.setPDFLink(rs.getString(2));
+				f.setRequestRCID(rs.getInt(3));
+				listPdf.add(f);
+			}
+			if(listPdf.isEmpty()){
+				return null;
+			}else {
+				return listPdf;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	/**
-	 * Get a PDF file given the request and file id.
-	 * @param requestRCID is the id of the Request.
-	 * @param PDFID is the id of PDF.
-	 * @return returns the file that corresponds to the request id and the file id.
-	 */
-	@Override
-	public FilePDF doRetrieveFilePDF(int requestRCID, int PDFID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

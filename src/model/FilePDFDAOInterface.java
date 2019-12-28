@@ -2,6 +2,7 @@ package model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * FilePDFDAOInterface.
@@ -24,13 +25,6 @@ public interface FilePDFDAOInterface {
 	* @return returns an set of FilePDF related to the Request.
 	*/
 	public ArrayList<FilePDF> doRetrieveAllFilePDFByIDRequestRC(int requestRCID);
-	
-	/**
-	* Get a PDF file given the request and file id.
-	* @param requestRCID is the id of the Request.
-	* @param PDFID is the id of PDF.
-	* @return returns the file that corresponds to the request id and the file id.
-	*/
-	public FilePDF doRetrieveFilePDF(int requestRCID, int PDFID);
+
 	
 }
