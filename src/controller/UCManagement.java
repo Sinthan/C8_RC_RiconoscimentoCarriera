@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Exam;
+import model.ExamDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.State;
 import model.Student;
 import model.StudentDAO;
+import model.UniversityDAO;
 
 /**
  * Servlet implementation class UCManagement
@@ -44,9 +48,9 @@ public class UCManagement extends HttpServlet {
 		String name;
 		String surname;
 		
-		for (int i = 0; i < reqList.size(); i++) {
+	
 		
-			
+		for (int i = 0; i < reqList.size(); i++) {
 		      temp = reqList.get(i);
 		      temp.getSubmissionDate();
 		      System.out.println(temp.toString());
@@ -54,10 +58,15 @@ public class UCManagement extends HttpServlet {
 		      name = s.getName();
 		      surname = s.getSurname();
 		      request.setAttribute("rRCDate",temp.getSubmissionDate());
-		      request.setAttribute("stName",name+" "+surname);
-		      
+		      request.setAttribute("stName",name+" "+surname);	      
 		}
-
+		
+		
+		ExamDAO examDAO = new ExamDAO();
+		List<Exam> exams =  (List<Exam>) examDAO.doRetrieveAllExamsByRequestRCID(5);
+		request.getSession().setAttribute("exams", exams);
+		System.out.println(exams.toString());
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIUC/homeRCUC.jsp");		
 		requestDispatcher.forward(request, response);
 	}

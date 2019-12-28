@@ -33,19 +33,25 @@
 							<div class="news-block-seven">
 							<table id="studentTableRC" class="display data-results table table-striped table-hover table-bordered">
 									<thead>
+									
 										<tr align="center">
 											<th class="text-center tableRequestRCtd" align="center">Nome</th>
 											<th class="text-center tableRequestRCtd" align="center">Data invio</th>
 											<th class="text-center tableRequestRCtd" align="center"></th>
 										</tr>
 										<tr>
+										
 										<td class="text-center" align="center">${email}</td>	
 											<td class="text-center" align="center">${stName}</td>	
 											<td class="text-center" align="center">${rRCDate}</td>
+											
 											<td class="submitButton-centre" style=" margin-right: 60px; width: 200px; position: relative; float:centre">												
-												<button class="btn btn-primary" type="submit">Controlla richiesta</button></td>
+												
+											<a href="/EnglishValidation/UCRCRequestRedirector">ta da</a></td>
+											
 											
 											</tr>
+										
 											</thead>
 										<tbody id="bodyStudentTable">
 									</tbody>
