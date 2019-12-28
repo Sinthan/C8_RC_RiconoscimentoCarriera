@@ -17,28 +17,25 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	Statement stmt = null;
 	String sql = "";
 	String error;
-	@SuppressWarnings("static-access")
-	
 
-	Connection conn = (Connection) new DbConnection().getInstance().getConn();
-	
-    @Override
-    /**
+
+	/**
 	 * Saves the request into the database.
 	 * 
 	 * @param request	the <tt>RequestRC</tt> object that will be saved.
-	 * @return			<ul><li>a positive count of the number of rows affected (from INSERT, UPDATE, or DELETE)
+	 * @return			<ul><li>a positive count of the number of rows affected
 	 *					<li>0 if no rows were affected
-	 *					<li>-1 if the statement succeeded, but there is no update count information available</ul>
-	 *					<li>-2 if the attributes of the passed argument aren't fully specified
+	 *					<li>-1 if the statement succeeded, but there is no update count information available
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
 	 * @author 			Gianluca Rossi
 	 */
+	@Override
 	public int insertRequestRC(RequestRC request) {
 		if (request.getUniversityID().equals("") || request.getStudentID().equals("")) { // Checks if attributes are set
 			System.out.println("Please set the University ID and the Student ID before trying to add the RequestRC to the database.");
 			return -2;
 		}
-		
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;		
 		int result = 0;
@@ -100,26 +97,68 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		return 0;
 	}
 
-	@Override
-	public ArrayList<Exam> doRetrieveAllRequestRCExams(int requestRCID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 
+	/**
+	 * Retrieves the <tt>RequestRC</tt> object that matches the given ID
+	 * 
+	 * @param	requestRCID		the <tt>RequestRC</tt> ID number that the <tt>RequestRC</tt> object must match
+	 * @return					the <tt>RequestRC</tt> object if found, null otherwise
+	 * @author 	Gianluca Rossi
+	 */
 	@Override
 	public RequestRC doRetrieveRequestRCByRequestID(int requestRCID) {
-		// TODO Auto-generated method stub
-		return null;
+		if (requestRCID < 0) { // Checks if parameter is a valid ID
+			System.out.println("doRetrieveRequestRCByRequestID: Please enter a valid RequestRC ID.");
+			return null;
+		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		RequestRC requestRC = null;
+
+		// Selects the exams that match the specified Exam ID
+		String selectSQL = "SELECT * FROM REQUEST_RC "
+				+ " WHERE ID_REQUEST = ?";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(selectSQL);			
+			// Setting the parameter
+			preparedStatement.setInt(1, requestRCID);
+			// Executing the selection
+			ResultSet resSet = preparedStatement.executeQuery();
+
+			// If an exam is found construct the Exam object
+			if (resSet.next()) {
+				requestRC = new RequestRC();
+				requestRC.setRequestRCID(requestRCID);
+				requestRC.setSubmissionDate(resSet.getDate("DATE_REQUEST"));
+				RCState state = RCState.fromInteger(resSet.getInt("STATE"));
+				requestRC.setState(state);
+				requestRC.setUniversityID(resSet.getString("FK_UNIVERSITY"));
+				requestRC.setStudentID(resSet.getString("FK_USER"));
+				requestRC.setReportID(resSet.getInt("FK_REPORT"));
+			}
+		} catch(SQLException e) {
+			new RuntimeException("Couldn't retrieve the RequestRC " + requestRCID + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return requestRC;
 	}
 
 	@Override
 	public RequestRC doRetrieveRequestRCByStudentID(String studentID) {
 		try {
-			PreparedStatement ps = conn.prepareStatement(
+			Connection connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps = connection.prepareStatement(
 					" SELECT  * FROM request_rc "
-				  + "WHERE fk_user = ?");
+							+ "WHERE fk_user = ?");
 			ps.setString(1, studentID);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -138,26 +177,87 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		}
 	}
 
+
+	/**
+	 * Deletes the request that matches the specified ID, and the related records of the
+	 * <tt>ContainsRelation</tt>, <tt>FilePDF</tt>, <tt>Exam</tt> (if not used in another request),
+	 * <tt>Report</tt>, <tt>ValidatedExams</tt> objects from the database.
+	 * 
+	 * @param	requestRCID		the ID of the <tt>RequestRC</tt> object that will be deleted.
+	 * @return					<ul><li>a positive count of the number of rows affected
+	 *							<li>0 if no rows were affected
+	 *							<li>-1 if the statement succeeded, but there is no update count information available
+	 *							<li>-2 if the passed parameter is not a valid <tt>RequestRC</tt> ID</ul>
+	 * @author 	Gianluca Rossi
+	 */
 	@Override
 	public int deleteRequestRCByRequestID(int requestRCID) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (requestRCID < 0) { // Checks if parameter is a valid ID
+			System.out.println("deleteRequestRCByRequestID: Please enter a valid request ID.");
+			return -2;
+		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;		
+		int result = 0;
+
+		/* Deletes the RequestRC in the REQUEST_RC
+		 * table whose ID matches the given parametric value.
+		 * Deletes the relative ContainsRelation, Report and ValidatedExam records as well.
+		 */
+		String deleteSQL = "DELETE REQUEST_RC FROM REQUEST_RC WHERE ID_REQUEST = ?";
+		try {
+			// Deletes all the related exams
+			ExamDAO eDAO = new ExamDAO();
+			int examDelresult = eDAO.deleteAllRCRequestExamsByRequestID(requestRCID);
+			// Deletes the report, if it was created
+			RequestRC req = doRetrieveRequestRCByRequestID(requestRCID);
+			if (req != null) {
+				int reportID = req.getReportID();
+				if (reportID < 0) {
+					ReportDAO rDAO = new ReportDAO();
+					rDAO.deleteReport(req.getReportID());
+				}
+			} else {
+				System.out.println("RequestRC not found, can't delete the report");
+			}
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(deleteSQL);			
+			// Setting parameter
+			preparedStatement.setInt(1, requestRCID);
+			// Executing the deletion
+			result = preparedStatement.executeUpdate();	
+			connection.commit();
+			System.out.println("deleteRequestRC(result=" + result + ")");		// Logging the operation
+		} catch(SQLException e) {
+			new RuntimeException("Couldn't delete the RequestRC " + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return result;
 	}
 
 	@Override
-	public int deleteRequestRCByStudentID(int syudentID) {
+	public int deleteRequestRCByStudentID(int studentID) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(State state) {
-		
+
 		ArrayList<RequestRC> requests = new ArrayList<RequestRC>();
 		try {
-			PreparedStatement ps = conn.prepareStatement(
+			Connection connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps = connection.prepareStatement(
 					" SELECT  * FROM request_rc " 
-					+ "WHERE state  = ?");
+							+ "WHERE state  = ?");
 			ps.setInt(1, state.getIdState());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -170,12 +270,12 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 				r.setReportID(rs.getInt(6));
 				requests.add(r);
 			}
-			
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		return requests;
 	}
-	
+
 }

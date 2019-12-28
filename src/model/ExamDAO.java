@@ -18,8 +18,8 @@ public class ExamDAO implements ExamDAOInterface{
 	Statement stmt = null;
 	String sql = "";
 	String error;
-
-	Connection conn = (Connection) new DbConnection().getInstance().getConn();
+	
+	private final ContainsRelationDAO crDAO = new ContainsRelationDAO();
 
 	/**
 	 * Saves the exam into the database.
@@ -53,8 +53,7 @@ public class ExamDAO implements ExamDAOInterface{
 				" (NAME, CFU, LINK_PROGRAM) " +
 				" VALUES (?, ?, ?)";
 
-		/* Selects the exams that match the 3 given parametric values
-		 */
+		// Selects the exams that match the 3 given parametric values
 		String selectSQL = "SELECT * FROM EXAM "
 				+ " WHERE NAME = ? AND CFU = ? AND LINK_PROGRAM = ?";
 		try {  
@@ -105,8 +104,14 @@ public class ExamDAO implements ExamDAOInterface{
 	}
 
 	/**
-	 * retrieve all exams 
-	 * @return arraylist of exams
+	 * Retrieves all the <tt>Exam</tt> objects related to a specific <tt>RequestRC</tt>
+	 * (identified through an ID).
+	 * 
+	 * @param	requestRCID		the <tt>RequestRC</tt> ID number that the <tt>RequestRC</tt> object must match
+	 * @return					an <tt>ArrayList</tt> containing the <tt>Exam</tt> objects
+	 * 							that match the given <tt>RequestRC</tt> ID
+	 * @see		Exam
+	 * @author 	Gianluca Rossi
 	 */
 	public ArrayList<Exam> doRetrieveAllExamsByRequestRCID(int requestRCID){
 		if (requestRCID < 0) { // Checks if parameter is a valid ID
@@ -147,8 +152,16 @@ public class ExamDAO implements ExamDAOInterface{
 				}
 		}
 		return requestRCExams;
+
 	}
 	
+	/**
+	 * Retrieves the <tt>Exam</tt> object that matches the given ID
+	 * 
+	 * @param	examID	the <tt>Exam</tt> ID number that the <tt>Exam</tt> object must match
+	 * @return			the <tt>Exam</tt> object if found, null otherwise
+	 * @author 			Gianluca Rossi
+	 */
 	public Exam doRetrieveExamByID(int examID) {
 		if (examID < 0) { // Checks if parameter is a valid ID
 			System.out.println("doRetrieveExamByID: Please enter a valid Exam ID.");
@@ -190,29 +203,27 @@ public class ExamDAO implements ExamDAOInterface{
 				}
 		}
 		return exam;
-	}
 
+
+	}
 	/**
 	 * retrieve exam 
 	 * @return -1 if insert failed, 0 if ok 
 	 */
-	public Exam doRetrieveExam(int requestRCID, int ExamID) {
-	return null;
 	
+
+
+	
+	public int doRetrieveExam(int requestRCID, int ExamID) {
+		int flag = 0;
+		return flag; 
 	}
 
-	/**
-	 * delete exam 
-	 * @return -1 if insert failed, 0 if ok 
-	 */
-	public int deleteExamsByRequestID(int id) {
-		int flag = 0;
-		return flag;
-	}
 
 	public int doRetrieveMaxExamID() {
 		try {
-			PreparedStatement ps = conn.prepareStatement(
+			Connection connection = DbConnection.getInstance().getConn();
+			PreparedStatement ps = connection.prepareStatement(
 					" SELECT MAX(ID_EXAM) FROM EXAM");
 			ResultSet r = ps.executeQuery();
 			if (r.next()) {
@@ -225,7 +236,40 @@ public class ExamDAO implements ExamDAOInterface{
 		return -1;
 	}
 
-	// metodo che consente di rimuovere l'esame aggiunto in fase di test
+	
+	/**
+	 * delete all Exam by Request RC id
+	 * @param idRequest is the id of the Request RC
+	 * @return 0 if delete failed, !=0 if ok 
+	 */
+	@Override
+	public int deleteAllRCRequestExamsByRequestID(int idRequest) {
+		// TODO Auto-generated method stub
+		ArrayList<Exam> exams = doRetrieveAllExamsByRequestRCID(idRequest);
+		int result = 0;
+		for( int i=0 ; i < exams.size() ; i++ ) {
+			ArrayList<ContainsRelation> containsRelations = crDAO.doRetrieveAllContainsRelationByIDExam(exams.get(i).getExamID());
+			if( containsRelations.size() == 1 ) {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				try {
+					connection = DbConnection.getInstance().getConn();
+					preparedStatement = connection.prepareStatement("DELETE EXAM FROM EXAM WHERE ID_EXAM = ?");
+					preparedStatement.setInt(1, exams.get(i).getExamID());
+					// Executing the deletion
+					result = preparedStatement.executeUpdate();	
+					connection.commit();
+					return result;
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+		return result;
+	}
+
+	
+	
 	public void removeAddExamForTest() throws SQLException {
 		String sql = "Delete FROM englishvalidation.exam  where name = 'ingegneria del test' and cfu = 9 and link_program= '//link di riferimento//'" ;
 		Connection conn = (Connection) new DbConnection().getInstance().getConn();
@@ -236,6 +280,12 @@ public class ExamDAO implements ExamDAOInterface{
 		}catch (SQLException e) {
 			e.getMessage();
 		}
+	}
+
+	@Override
+	public int deleteExamsByRequestID(int id) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

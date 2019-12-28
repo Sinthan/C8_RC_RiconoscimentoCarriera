@@ -57,7 +57,20 @@
 										</tr>
 										<tr>
 											<td class="text-center" align="center">${rRCDate}</td>	
-											<td class="text-center" align='center'>${stName}</td>
+											
+											<!-- Controllo per lo stato della richiesta -->
+											<% 
+										
+												if(request.getAttribute("rRCState").toString().equals("needsUCValidation")){													
+													out.print("<td class='text-center' align='center'><img src='imagesRC/sent.png' alt='greyPoit'>Richiesta in revisione</td>");
+												}else if(request.getAttribute("rRCState").toString().equals("isBeingDiscussed")){
+													out.print("<td class='text-center' align='center'><img src='imagesRC/pending.png' alt='orangePoit'>Richiesta in valutazione</td>");
+												}else if(request.getAttribute("rRCState").toString().equals("approved")){
+													out.print("<td class='text-center' align='center'><img src='imagesRC/approved.png' alt='greenPoit'>Richiesta approvata</td>");
+												}else{
+													out.print("<td>refused</td>");
+												}
+											%>
 												</tr>
 											</thead>
 										<tbody id="bodyStudentTable">

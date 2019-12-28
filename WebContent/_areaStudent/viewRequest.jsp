@@ -14,8 +14,8 @@
 <head>
 <jsp:include page="/partials/head.jsp" />
 </head>
-
 <body onLoad="showData()">
+
 	<div class="page-wrapper">
 
 		<!-- Preloader -->
@@ -26,7 +26,7 @@
 			<jsp:param name="pageName" value="<%= pageName %>" />
 			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
-
+		
 
 		<div class="sidebar-page-container basePage viewRequestStudent">
 		
@@ -34,7 +34,7 @@
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
-							<div class="news-block-seven">
+							<div class="news-block-seven">						
 								<table id="studentTable" class="display data-results table table-striped table-hover table-bordered">
 									<thead>
 										<tr align="center">
