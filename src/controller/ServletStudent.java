@@ -156,7 +156,7 @@ public class ServletStudent extends HttpServlet {
 						}
 
 					} else if(res == 0){
-						error = "Utente gi� registrato";
+						error = "Utente gi&#224; registrato";
 					}else {
 						error = "impossibile effettuare la registrazione";
 					}

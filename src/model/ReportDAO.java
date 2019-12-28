@@ -89,9 +89,9 @@ public class ReportDAO implements ReportDAOInterface {
 	 * <tt>ValidatedExams</tt> objects from the database.
 	 * 
 	 * @param reportID	the ID of the <tt>Report</tt> object that will be deleted.
-	 * @return			<ul><li>a positive count of the number of rows affected
-	 *					<li>0 if no rows were affected
-	 *					<li>-1 if the statement succeeded, but there is no update count information available
+	 * @return			<ul><li>a positive count if the deletion succeeded
+	 *					<li>0 if nothing was added to the database
+	 *					<li>-1 if the deletion succeeded, but the database didn't return any information about the number of deleted rows
 	 *					<li>-2 if the passed parameter is not a valid <tt>Report</tt> ID</ul>
 	 * @author 			Gianluca Rossi
 	 */

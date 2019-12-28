@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,9 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import model.RequestRCDAOInterface;
+import org.apache.commons.io.FileUtils;
 
 import controller.DbConnection;
+import controller.Utils;
 
 public class RequestRCDAO implements RequestRCDAOInterface {
 
@@ -23,9 +25,9 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	 * Saves the request into the database.
 	 * 
 	 * @param request	the <tt>RequestRC</tt> object that will be saved.
-	 * @return			<ul><li>a positive count of the number of rows affected
-	 *					<li>0 if no rows were affected
-	 *					<li>-1 if the statement succeeded, but there is no update count information available
+	 * @return			<ul><li>a positive value if the insertion succeeded
+	 *					<li>0 if nothing was added to the database
+	 *					<li>-1 if the insertion succeeded, but the database didn't return any information about the number of inserted rows
 	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
 	 * @author 			Gianluca Rossi
 	 */
@@ -116,7 +118,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		PreparedStatement preparedStatement = null;
 		RequestRC requestRC = null;
 
-		// Selects the exams that match the specified Exam ID
+		// Selects the RCRequest tuples that match the specified ID
 		String selectSQL = "SELECT * FROM REQUEST_RC "
 				+ " WHERE ID_REQUEST = ?";
 		try {
@@ -127,7 +129,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			// Executing the selection
 			ResultSet resSet = preparedStatement.executeQuery();
 
-			// If an exam is found construct the Exam object
+			// If a RCRequest is found construct it
 			if (resSet.next()) {
 				requestRC = new RequestRC();
 				requestRC.setRequestRCID(requestRCID);
@@ -184,9 +186,9 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	 * <tt>Report</tt>, <tt>ValidatedExams</tt> objects from the database.
 	 * 
 	 * @param	requestRCID		the ID of the <tt>RequestRC</tt> object that will be deleted.
-	 * @return					<ul><li>a positive count of the number of rows affected
-	 *							<li>0 if no rows were affected
-	 *							<li>-1 if the statement succeeded, but there is no update count information available
+	 * @return					<ul><li>a positive value if the deletion succeeded
+	 *							<li>0 if the request wasn't deleted
+	 *							<li>-1 if the deletion succeeded, but the database didn't return any information about the number of deleted rows
 	 *							<li>-2 if the passed parameter is not a valid <tt>RequestRC</tt> ID</ul>
 	 * @author 	Gianluca Rossi
 	 */
@@ -209,7 +211,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		try {
 			// Deletes all the related exams
 			ExamDAO eDAO = new ExamDAO();
-			int examDelresult = eDAO.deleteAllRCRequestExamsByRequestID(requestRCID);
+			eDAO.deleteAllRCRequestExamsByRequestID(requestRCID);
 			// Deletes the report, if it was created
 			RequestRC req = doRetrieveRequestRCByRequestID(requestRCID);
 			if (req != null) {
@@ -221,6 +223,19 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			} else {
 				System.out.println("RequestRC not found, can't delete the report");
 			}
+
+			// Deletes the pdf files and the student folder
+			FilePDFDAO pdfDAO = new FilePDFDAO();
+			FilePDF file = pdfDAO.doRetrieveAllFilePDFByIDRequestRC(requestRCID).get(0);	// Gets the first FilePDF
+			String studentFilesFolderPath = Utils.getProjectPath() + Utils.getParentDirectoryFromFilePath(file.getPDFLink());	// Gets the path to the folder that contains all the student files
+			File studentDirectory = new File(studentFilesFolderPath);
+			if (FileUtils.deleteQuietly(studentDirectory)) {	//Deletes the directory and all its files
+				System.out.println("Deleted the folder " + studentDirectory);
+			} else {
+				System.out.println("Couldn't delete the folder " + studentDirectory);
+			}
+
+			// Preparing the RCRequest deletion
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(deleteSQL);			
 			// Setting parameter
