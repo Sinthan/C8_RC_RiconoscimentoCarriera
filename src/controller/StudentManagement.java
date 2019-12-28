@@ -189,6 +189,10 @@ public class StudentManagement extends HttpServlet {
 				return;
 			}
 			// Checks if the parameters have a valid format before proceeding with the insertion on the database
+			Student s = (Student) request.getSession().getAttribute("user");
+			File folderDocuments = new File( Utils.getProjectPath() + pdfSaveFolder + "\\" + s.getEmail() );
+			File content1 = new File( Utils.getProjectPath() + pdfSaveFolder + "\\" + s.getEmail() + "\\" + "ID.pdf" );
+			File content2 = new File( Utils.getProjectPath() + pdfSaveFolder + "\\" + s.getEmail() + "\\" + "CP.pdf" );
 			String name;
 			int CFU;
 			String link;
@@ -278,6 +282,10 @@ public class StudentManagement extends HttpServlet {
 						System.out.println("Si sono verificati errori sull'inserimento degli esami all'interno del database.");
 						reqDAO.deleteRequestRCByRequestID(reqRCID);
 						request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
+						//Delete Documents Folder of the request RC
+						content1.delete();
+						content2.delete();
+						folderDocuments.delete();
 						dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 						dis.forward(request, response);
 						return;
@@ -288,6 +296,10 @@ public class StudentManagement extends HttpServlet {
 						System.out.println("Si sono verificati errori sull'inserimento delle relazioni Contains all'interno del database.");
 						reqDAO.deleteRequestRCByRequestID(reqRCID);
 						request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
+						//Delete Documents Folder of the request RC
+						content1.delete();
+						content2.delete();
+						folderDocuments.delete();
 						dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 						dis.forward(request, response);
 						return;
@@ -297,6 +309,10 @@ public class StudentManagement extends HttpServlet {
 				System.out.println("Si sono verificati errori sull'inserimento della richiesta o dei file pdf all'interno del database.");
 				reqDAO.deleteRequestRCByRequestID(reqRCID);
 				request.setAttribute("errorCR1","Si &#232; verificato un errore durante il salvataggio della richiesta. Si prega di riprovare.");
+				//Delete Documents Folder of the request RC
+				content1.delete();
+				content2.delete();
+				folderDocuments.delete();
 				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 				return;
