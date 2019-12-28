@@ -124,7 +124,7 @@ public class LoginManagement extends HttpServlet {
 	        			}else if(admin != null){// Profilo Admin
 	        				redirect = request.getContextPath() + "/_areaAdmin/viewRequest.jsp";
 	        				request.getSession().setAttribute("user", admin);
-	        			} else if(uc != null){// Profilo Admin
+	        			} else if(uc != null){// Profilo UC
 	        				redirect = request.getContextPath() + "/UCManagement";
 	        				request.getSession().setAttribute("user", uc);
 	        			}else {

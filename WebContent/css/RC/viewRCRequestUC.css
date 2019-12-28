@@ -17,7 +17,7 @@
 	}
 
 	.submitButton{
-	left: 8%;
+	right: 10%;
 } 
 }
 
@@ -96,6 +96,7 @@
 	 width : 1400px; 
 	 position: relative; 
 	 float:left;
+	 margin-bottom: 10px;
 }
 .divDownload1{
 	width:255px;   
@@ -120,20 +121,28 @@
 
 .submitButton{
 	margin-right: 60px; 
-	width: 200px; 
+	width: 170px; 
 	position: relative; 
 	float:right;
+	display: inline-block;
 } 
 
-#accept{
-	flaot: right; 
-	position: relative;
+.submitButton #acceptForm{
+	width: 85px;
+	float: left;
 }
-#reject{
-	margin-right: 20px; 
-	flaot: left; 
-	position: relative; 
-	background-color: red; 
+
+
+.submitButton #accept{
+	width: 80px; 
+	flaot: left;
+	border: #0080ff;
+
+}
+.submitButton #reject{
+	width: 80px;
+	background-color: red;
+	float: right; 
 	border: red;
 }
 

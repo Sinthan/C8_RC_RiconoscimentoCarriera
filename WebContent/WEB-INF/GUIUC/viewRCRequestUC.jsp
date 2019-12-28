@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%
+			HttpSession sess = request.getSession();
+%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 	<link href="<%= request.getContextPath() %>/css/RC/viewRCRequestUC.css"
 	rel="stylesheet">
@@ -59,6 +62,7 @@
 														<p class="pDat" id="pSurname">&nbsp;&nbsp;&nbsp;&nbsp;COGNOME</p>		
 													</div>		
 								</div>					
+								<c:forEach items="${exams}" var="exam">		  	
 									<div class="news-block-seven">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											
@@ -69,26 +73,27 @@
 													<div class="form-row" id=examInsertionRows>
 														<div class="form-group col-md-4 mb-3">
 															<label for="examName1">Nome esame</label> 
-															<p>Programmazione 1</p>
+															<p>${exam.name}</p>
 														</div>
 															<div class="form-group col-md-1 mb-3">
 																<label for="CFU1">CFU</label>
-																<p>9</p>	
+																<p>${exam.cfu}</p>	
 															</div>
 														<div class="form-group col-md-5 mb-3">
 															<label for="programLink1">Link al programma d'esame</label>
-															<p>www.link.com</p>
+															<p>${exam.link_program}</p>
 														</div>
 														<br>
 													</div>
 												</div>
 										</div>
+										</c:forEach>
 										<!-- popup per il rifiuto della richiesta -->
 
 									</div>
 									<div class="downloadButton">
 										<div class="divDownload1" >
-											<a href="pathID" download="email+ID.pdf" ><button class="btn"><i class="fa fa-download"></i></button></a>
+											<a href="\C:\Users\gerar\OneDrive\Desktop\UNIVERSITA'\r.pdf" download><button class="btn"><i class="fa fa-download"></i></button></a>
 											<p id="drc1" class="drc">Download documento d'identit&agrave;</p>
 										</div>
 										<div class="divDownload2">
@@ -98,11 +103,12 @@
 										</div>
 										
 									</div>
+									
 									<div class="submitButton" >
 										<button id="reject" class="btn btn-primary" type="submit" onClick ="openForm()">Rifiuta</button>
-										<button id="accept" class="btn btn-primary" type="submit">Accetta</button>
+										<form id ="acceptForm" action="./UCManagement"><button id="accept" class="btn btn-primary" type="submit">Accetta</button> </form>
 										<div class="form-popup" id="myForm">
-										  <form action="/action_page.php" class="form-container" id="containerPopup">
+										  <form action="./UCManagement" class="form-container" id="containerPopup">
 										    <h3>Motivo del rifiuto</h3>
 										    <input type="text" placeholder="Motivazione.." name="pupupText" required>
 										    <button type="submit" class="btn">Inoltra</button>

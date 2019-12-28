@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Exam;
+import model.ExamDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.State;
@@ -39,6 +42,7 @@ public class UCManagement extends HttpServlet {
 		RequestRCDAO reqDao = new RequestRCDAO();
 		ArrayList<RequestRC> reqList  =  reqDao.doRetrieveAllRequestRCBystate(state);
 		request.setAttribute("reqList", reqList );
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIUC/homeRCUC.jsp");		
 		requestDispatcher.forward(request, response);
 	}

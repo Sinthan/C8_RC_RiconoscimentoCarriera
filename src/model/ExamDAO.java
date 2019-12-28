@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import controller.DbConnection;
 
@@ -151,8 +152,9 @@ public class ExamDAO implements ExamDAOInterface{
 				}
 		}
 		return requestRCExams;
-	}
 
+	}
+	
 	/**
 	 * Retrieves the <tt>Exam</tt> object that matches the given ID
 	 * 
@@ -201,12 +203,17 @@ public class ExamDAO implements ExamDAOInterface{
 				}
 		}
 		return exam;
-	}
 
+
+	}
 	/**
 	 * retrieve exam 
 	 * @return -1 if insert failed, 0 if ok 
 	 */
+	
+
+
+	
 	public int doRetrieveExam(int requestRCID, int ExamID) {
 		int flag = 0;
 		return flag; 
@@ -273,6 +280,12 @@ public class ExamDAO implements ExamDAOInterface{
 		}catch (SQLException e) {
 			e.getMessage();
 		}
+	}
+
+	@Override
+	public int deleteExamsByRequestID(int id) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
