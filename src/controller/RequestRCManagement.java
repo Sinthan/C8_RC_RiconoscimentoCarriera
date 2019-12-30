@@ -77,8 +77,7 @@ public class RequestRCManagement extends HttpServlet {
 					disp = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");
 					disp.forward(request, response);
 				}
-			}
-			
+			}			
 		}//Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
 			

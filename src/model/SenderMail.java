@@ -24,18 +24,21 @@ public class SenderMail {
     private Authenticator authenticator;
 
     public SenderMail () {
-    	from = "carrierapregressaunisa@gmail.com";
+    	
+    	from = "carrierapregressa@gmail.com";
         to = "";
         subject = "";
         messageBody = "";
         fileName = "";
-        host = "smtp.gmail.com";
         authenticator = new SMTPAuthenticator ();
-        properties = System.getProperties ();
+        properties = System.getProperties();
+        host = "smtp.mailtrap.io";
         properties.put ( "mail.smtp.host", host );
         properties.put ( "mail.smtp.starttls.enable", "true" );
-        properties.put ( "mail.smtp.port", "8080" );
+        properties.put ( "mail.smtp.port", "2525" );
         properties.put ( "mail.smtp.auth", "true" );
+        properties.put ( "mail.smtp.ssl", "no" );
+        properties.put ( "mail.smtp.tls", "yes" );
     }
 
     public void sendMail ( String from, String to, String subject, String messageBody, String fileName ) {
@@ -53,15 +56,15 @@ public class SenderMail {
             messageBodyPart.setContent ( messageBody, "text/html" );
             multipart.addBodyPart ( messageBodyPart );
             message.setText(messageBody);
+            
             /* 
             messageBodyPart = new MimeBodyPart ();
-          DataSource source = new FileDataSource ( fileName );
+            DataSource source = new FileDataSource ( fileName );
             messageBodyPart.setDataHandler ( new DataHandler ( source ) );
             messageBodyPart.setFileName ( fileName );
             multipart.addBodyPart ( messageBodyPart );
-
             message.setContent ( multipart );
-		*/	
+             */	
          
             Transport.send ( message );
             System.out.println ( "Message send successfully...." );
@@ -86,8 +89,8 @@ public class SenderMail {
 
 class SMTPAuthenticator extends Authenticator {
 
-    private static final String SMTP_AUTH_USER = "carrierapregressaunisa@gmail.com";
-    private static final String SMTP_AUTH_PASSWORD = "123456789unisa";
+    private static final String SMTP_AUTH_USER = "a0536c3700ec66";
+    private static final String SMTP_AUTH_PASSWORD = "7fd50e83f20b4d";
 
     public PasswordAuthentication getPasswordAuthentication () {
         String username = SMTP_AUTH_USER;
