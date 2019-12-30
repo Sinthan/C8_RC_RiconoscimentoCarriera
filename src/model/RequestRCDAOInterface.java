@@ -25,13 +25,7 @@ public interface RequestRCDAOInterface {
 	 * Update report's ID
 	 */
 	public int updateReportID(int reportID);
-	
-	
-	/*
-	 * Update the state of the request
-	 */
-	public int updateState(int state);
-	
+
 	/*
 	 * Retrieve all requestRCs from the database
 	 */
@@ -51,7 +45,7 @@ public interface RequestRCDAOInterface {
 	
 	/*
 	 *Delete one specific requestRC using ID of the request 
-	 */
+	*/
 	public int deleteRequestRCByRequestID(int requestRCID);
 	
 	
@@ -59,6 +53,11 @@ public interface RequestRCDAOInterface {
 	 *Delete one specific requestRC using ID of the student
 	 */
 	public int deleteRequestRCByStudentID(int syudentID);
+
+	/*
+	 * Update the state of the request
+	 */
+	int updateState(State state, int reportID);
 
 	
 
