@@ -28,6 +28,7 @@
 	
 	window.onload = function(){
 		controlServlet();
+		$('[data-toggle="tooltip"]').tooltip()
 	};
 	
 	// If the servlet sent an error, show it
@@ -233,8 +234,10 @@
 										<div class="panel" style="margin-left: 15px; float: left;">
 											<button type="button" class="btn btn-primary" id="btnAdd"
 												onclick="addRow() ">Aggiungi esame</button>
-											<button type="button" class="btn btn-danger" id="btnAdd"
-												onclick="deleteRow()">Rimuovi ultimo esame</button>
+											<button type="button" class="btn btn-danger" id="btnRemove"
+												onclick="deleteRow()" data-toggle="tooltip" data-html="true"
+												data-placement="right" title="<b><em>I dati inseriti nell'ultima riga verranno cancellati</em></b>">
+												Rimuovi ultimo esame</button>
 										</div>
 
 										<div class="form-group"

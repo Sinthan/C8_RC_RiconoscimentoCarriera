@@ -64,7 +64,7 @@ public class StudentManagement extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		int flag = (int) request.getSession().getAttribute("flag");
-			
+
 		if(flag == 0) {
 			HttpSession sessione = request.getSession(true);
 
@@ -116,17 +116,17 @@ public class StudentManagement extends HttpServlet {
 				dis.forward(request, response);
 			} else {
 				Student s = (Student) request.getSession().getAttribute("user");
-				
+
 				//Get  the project path
 				String SAVE_DIR2= Utils.getProjectPath();
-				
+
 				//Control if path of the project is empty or equals to null
 				if(  SAVE_DIR2.equals("") || SAVE_DIR2.equals(null)) {
 					request.setAttribute("errorCR1","Impossibile salvare il file, path non trovato.");
 					dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 					dis.forward(request, response);
 				}
-				
+
 				//Control if folder DocumentsRequestRC is present in the project
 				File file1 = new File(SAVE_DIR2 + pdfSaveFolder);
 				if( !file1.mkdir() ) {
@@ -146,7 +146,7 @@ public class StudentManagement extends HttpServlet {
 				}catch(Exception msg) {
 					System.out.println(msg.getLocalizedMessage());
 				}
-				
+
 				//Save CP Document
 				try {
 					filePart2.write(SAVE_DIR2 + pdfSaveFolder + "/" + s.getEmail() + "/" + "CP.pdf");
@@ -310,10 +310,10 @@ public class StudentManagement extends HttpServlet {
 		} else if (flag==4) {
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
-			
+
 			//controllo per il bottone RC della homePageRCStudent
 		}
-		
+
 	}
 
 	/**
