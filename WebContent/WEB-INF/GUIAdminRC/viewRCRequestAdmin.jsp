@@ -16,7 +16,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/RC/viewRCRequestAdmin.css">
+<link href="<%= request.getContextPath() %>/css/RC/viewRCRequestAdmin.css"
+	rel="stylesheet">
 <jsp:include page="/partials/head.jsp" />
 <meta charset="ISO-8859-1">
 <title>Controlla Richiesta</title>
@@ -40,7 +41,7 @@
 						<div class="content">
 							<div class="news-block-seven">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="panel"display:inline;">
+									<div class="panel">
 										<h1 class="text-left">
 											<b>Richiesta di</b>
 										</h1>
@@ -78,9 +79,15 @@
 											</div>
 										</div>
 									</div>
+									
 
-									<div id="certificatePreview"></div>
-
+									<div id="certificatePreview" style="padding: 0px;">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+											<div class="orange-frame">
+												<embed src=<%= sess.getAttribute("pathCP") %> type="application/pdf" width="100%" height="600px"></embed>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -128,28 +128,28 @@ public class StudentManagement extends HttpServlet {
 				}
 
 				//Control if folder DocumentsRequestRC is present in the project
-				File file1 = new File(SAVE_DIR2 + pdfSaveFolder);
+				File file1 = new File(SAVE_DIR2 + "/WebContent" + pdfSaveFolder);
 				if( !file1.mkdir() ) {
 					file1.mkdir();	
 				}
 
 
 				//Control if folder of Students document is present in DocumentsRequestRC
-				File file2 = new File(SAVE_DIR2 + pdfSaveFolder + "/" + s.getEmail());
+				File file2 = new File(SAVE_DIR2 + "/WebContent" + pdfSaveFolder + "/" + s.getEmail());
 				if( !file2.mkdir() ) {
 					file2.mkdir();	
 				}
 
 				//Save ID
 				try {
-					filePart1.write(SAVE_DIR2 + pdfSaveFolder + "/" + s.getEmail() + "/" + "ID.pdf");
+					filePart1.write(SAVE_DIR2 + "/WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "ID.pdf");
 				}catch(Exception msg) {
 					System.out.println(msg.getLocalizedMessage());
 				}
 
 				//Save CP Document
 				try {
-					filePart2.write(SAVE_DIR2 + pdfSaveFolder + "/" + s.getEmail() + "/" + "CP.pdf");
+					filePart2.write(SAVE_DIR2 + "/WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "CP.pdf");
 				}catch(Exception msg) {
 					System.out.println(msg.getLocalizedMessage());
 				}
@@ -164,8 +164,8 @@ public class StudentManagement extends HttpServlet {
 				newRequestRC.setStudentID(s.getEmail());
 
 				// Populate FilePDF
-				filePDF1.setPDFLink(pdfSaveFolder + "/" + s.getEmail() + "/" + "ID.pdf");
-				filePDF2.setPDFLink(pdfSaveFolder + "/" + s.getEmail() + "/" + "CP.pdf");
+				filePDF1.setPDFLink("/WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "ID.pdf");
+				filePDF2.setPDFLink("/WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "CP.pdf");
 
 				// Set FilePDF and RequestRC in the session
 				request.getSession().setAttribute("newRequestRC", newRequestRC);
