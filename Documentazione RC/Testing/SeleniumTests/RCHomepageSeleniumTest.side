@@ -1,0 +1,531 @@
+{
+  "id": "968c4e53-38af-4950-9514-c07ad8e97b1a",
+  "version": "2.0",
+  "name": "RCHomepageSeleniumTest",
+  "url": "http://localhost:8080/EnglishValidation/",
+  "tests": [{
+    "id": "fea0a69b-f9f8-4204-bf37-76679c267698",
+    "name": "TC_RC_15_1",
+    "commands": [{
+      "id": "6e1df065-dd7b-4cce-80ce-486eb2f0a1f2",
+      "comment": "",
+      "command": "open",
+      "target": "/EnglishValidation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d82595ee-86bc-4dca-8de8-20c9ff2151b7",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1152x620",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5cb7933b-7194-46e7-8411-fc6e7c41e2b5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '.\\login.jsp')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "859e4995-2850-49ac-9e0a-520c6363414a",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f0eedc1-e69d-4053-8c89-b2ae125ac94d",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "g.damiano@studenti.unisa.it"
+    }, {
+      "id": "da76c38e-a5d5-4390-b839-2b061df094f5",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6ed04fcb-3851-4aa9-8627-e14e477972bf",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "123456789"
+    }, {
+      "id": "db51c9c9-9c31-426f-89a8-d8227ecb4493",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d1bfff4b-143b-4904-a21a-b47387d9b063",
+      "comment": "",
+      "command": "click",
+      "target": "css=#formRC > .btn",
+      "targets": [
+        ["css=#formRC > .btn", "css:finder"],
+        ["xpath=//input[@value='Riconoscimento Carriera Pregressa']", "xpath:attributes"],
+        ["xpath=//form[@id='formRC']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e266b50-ef3a-4572-a4ff-e15203ce6655",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 li:nth-child(2) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Disconnetti')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/logout.jsp')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7dccba26-edef-4e5f-b258-3c6bda45877b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.logo-outer a",
+      "targets": [
+        ["css=.logo-outer a", "css:finder"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/index.jsp')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "431930df-83b3-4254-a3c0-cb3c3b34bd8c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '.\\login.jsp')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d68171f4-a53d-41f3-8ba1-174bd2f665c5",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "21e544ad-e4a4-4af1-84c8-e60ddcc10710",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "g.damiano@studenti.unisa.it"
+    }, {
+      "id": "2eec9aac-0764-4016-9bef-616dd761497c",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "123456789"
+    }, {
+      "id": "50baf678-ae0d-4ce4-ac49-c590e283cedc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "32f97ba3-13bd-4060-834b-e5e028574713",
+      "comment": "",
+      "command": "click",
+      "target": "css=#formEV > .btn",
+      "targets": [
+        ["css=#formEV > .btn", "css:finder"],
+        ["xpath=//input[@value='English Validation']", "xpath:attributes"],
+        ["xpath=//form[@id='formEV']/input[2]", "xpath:idRelative"],
+        ["xpath=//form[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5045d84b-f295-46c3-a6a7-b9883541a54f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 li:nth-child(5) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 li:nth-child(5) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Disconnetti')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/logout.jsp')]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "b865d023-3f5e-4731-9692-4847467161f1",
+    "name": "TC_RC_15_2",
+    "commands": [{
+      "id": "aa9305d9-2433-4c1b-ad41-93a3e994634d",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/EnglishValidation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7eef5f63-c31c-4b2d-81c7-3932ffcf2337",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1152x620",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "98496838-4c1d-4ec1-99a0-f3c129fe5bd1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '.\\login.jsp')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0707988e-5481-461a-9148-47d78bd8387e",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5fc9c7be-cc8e-4222-bb3d-935c1540d8e9",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "fferrucci@unisa.it"
+    }, {
+      "id": "40401f38-867d-43d6-8177-4ce4916e7a33",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "345c1de0-dad1-4443-981a-89a8eef8073f",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "60dc87d7-1aab-44f6-9d2f-a2caa14a1b27",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d198f53c-672b-4863-b20f-65647d98cf3c",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 li:nth-child(2) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Disconnetti')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/logout.jsp')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "65a16576-eb29-4efb-adfe-93d6689a5986",
+      "comment": "",
+      "command": "click",
+      "target": "css=.logo-outer a",
+      "targets": [
+        ["css=.logo-outer a", "css:finder"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/index.jsp')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "04161915-a671-488d-b7f9-987720f33e64",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '.\\login.jsp')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6ca95112-fd74-4ab1-bc23-905b28060184",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f4eaa5d4-ac5c-4d32-8b5e-a31ef1a80eb6",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "c3928502-533a-43e3-8329-e7e761aa45e5",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "segreteria@unisa.it"
+    }, {
+      "id": "fad5a814-bc1d-4872-a388-ca766f1bfced",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aff82214-a9a9-41a1-9aa4-7fa9766b4067",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 li:nth-child(2) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Disconnetti')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/logout.jsp')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "787d8255-2391-4705-bdf3-61f2999ede80",
+      "comment": "",
+      "command": "click",
+      "target": "css=.logo-outer a",
+      "targets": [
+        ["css=.logo-outer a", "css:finder"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/index.jsp')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2340a83f-c681-457e-9d4b-a393da6b2d54",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '.\\login.jsp')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9a3fe2bd-3264-4f0c-aa61-11567877434e",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0f3d1424-f701-4902-97d7-93c2e207fd87",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "lollo@gmail.it"
+    }, {
+      "id": "576f102e-fc15-4181-aab6-be7b6f8e4770",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "123456789"
+    }, {
+      "id": "1d6a3f1c-3e48-415b-b311-8b6300b357bc",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "f46bb517-5e94-4d83-a5b3-fbe3aae0d09e",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 li:nth-child(2) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Disconnetti')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/logout.jsp')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "f8a5a3f9-bb64-4e26-8bb9-b41941007f72",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["fea0a69b-f9f8-4204-bf37-76679c267698"]
+  }],
+  "urls": ["http://localhost:8080/", "http://localhost:8080/EnglishValidation/"],
+  "plugins": []
+}
