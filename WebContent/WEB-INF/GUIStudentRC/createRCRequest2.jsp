@@ -184,7 +184,7 @@
 						<div class="content">
 							<div class="news-block-seven">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="panel"display:inline;">
+									<div class="panel">
 										<h1 class="text-left">Inserisci esami</h1>
 									</div>
 

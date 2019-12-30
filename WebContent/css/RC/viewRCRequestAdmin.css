@@ -1,10 +1,10 @@
 @charset "ISO-8859-1";
 
 .orange-frame {
-	border: 1px solid #FF9900;
-	padding: 10px;
+	border: 1.5px solid #ffb84e;
 	border-radius: 15px;
 	float: none;
-	margin: 0 auto;
-	margin-top: 70px;
+	margin-top: 16px;
+	padding: 16px 16px 22px 22px;
+	background-color: #fcfbfc;
 }
