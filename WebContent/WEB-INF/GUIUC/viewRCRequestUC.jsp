@@ -16,7 +16,23 @@
 	rel="stylesheet">
 	<jsp:include page="/partials/head.jsp" />
 	<meta charset="ISO-8859-1">
-	<script>
+	
+	<script type='text/javascript'> 
+		
+		
+		
+		window.onload = function(){
+			controlServlet();
+		};
+	
+		function controlServlet(){
+			var err = '<%= request.getAttribute("errorCR1") %>';
+			
+			if( err.toString() != "null"){
+				showAlert(1, err.toString());
+			}
+		}
+
 		function openForm() {
 		  document.getElementById("myForm").style.display = "block";
 		}
@@ -108,7 +124,7 @@
 										</div>
 										<div class="divDownload2">
 										
-											<a href="${filepdfCP}" download="email+CP.pdf" ><button class="btn"><i class="fa fa-download"></i></button></a>
+											<a href="${filepdfCP}" download ><button class="btn"><i class="fa fa-download"></i></button></a>
 											<p id="drc2" class="drc">Download documento di riconoscimento carriera</p>
 										</div>
 										
@@ -116,12 +132,15 @@
 									
 									<div class="submitButton" >
 										<button id="reject" class="btn btn-primary" type="submit" onClick ="openForm()">Rifiuta</button>
-										<form id ="acceptForm" action="./UCManagement"><button id="accept" class="btn btn-primary" type="submit">Accetta</button> </form>
+										<form id ="acceptForm" action="./RequestRCManagement">
+										<input type = hidden name = RequestRCstate value="true"/>
+										<button id="accept" value="accepted" class="btn btn-primary" type="submit">Accetta</button> </form>
 										<div class="form-popup" id="myForm">
-										  <form action="./UCManagement" class="form-container" id="containerPopup">
+										  <form action="./RequestRCManagement" class="form-container" id="containerPopup" method="post">
 										    <h3>Motivo del rifiuto</h3>
-										    <input type="text" placeholder="Motivazione.." name="pupupText" required>
-										    <button type="submit" class="btn">Inoltra</button>
+										    <input type="text" placeholder="Motivazione.." name="popupText" required>
+										    <input type = hidden name = RequestRCstate value="false"/>
+										    <button type="submit" class="btn" >Inoltra</button>
 										    <button type="submit" class="btn cancel" onclick="closeForm()">Annulla</button>
 										  </form>
 										</div>

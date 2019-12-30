@@ -129,20 +129,22 @@
 
 .submitButton #acceptForm{
 	width: 85px;
-	float: left;
+	float: right;
 }
 
 
 .submitButton #accept{
-	width: 80px; 
-	flaot: left;
+
+	width: 80px;
 	border: #0080ff;
+	float: right; 
+	
 
 }
 .submitButton #reject{
-	width: 80px;
 	background-color: red;
-	float: right; 
+	width: 80px; 
+	flaot: left;
 	border: red;
 }
 

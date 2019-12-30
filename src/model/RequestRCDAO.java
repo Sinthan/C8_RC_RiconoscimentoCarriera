@@ -92,11 +92,42 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	/**
+	 * Retrieves the <tt>status</tt> of the update given ID and current state
+	 * 
+	 * @param	requestRCID		the <tt>RequestRC</tt> ID number that the <tt>RequestRC</tt> object must match
+	 * @param	state		    the <tt>State</tt> number that the <tt>State</tt> of request have
+	 * @return					the <tt>status</tt> 1 if the update was successful, 0 else
+	 * @author 	Gerardo Damiano
+	 */
 	@Override
-	public int updateState(int state) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateState(State state, int requestRCID) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int ris = 0;
+		String selectSQL = "UPDATE request_rc SET state = ? WHERE id_request = ?";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(selectSQL);			
+			// Setting the parameter
+			preparedStatement.setInt(1, state.getIdState());
+			preparedStatement.setInt(2, requestRCID);
+			// Executing the selection
+			ris = preparedStatement.executeUpdate();
+			connection.commit();
+		} catch(SQLException e) {
+			new RuntimeException("Couldn't update the RequestRC " + requestRCID + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return ris;
 	}
 
 
