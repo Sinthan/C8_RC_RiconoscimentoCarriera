@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ page import="java.util.*, model.RequestRC, model.RequestRCDAO"%>
+<%@ page import="java.util.*, model.Exam"%>
 
 <%
 	String pageName = "viewRCRequestAdmin.jsp";
@@ -18,6 +18,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/RC/viewRCRequestAdmin.css">
 <jsp:include page="/partials/head.jsp" />
@@ -37,7 +38,7 @@
 
 	window.onload = function(){
 		controlServlet();
-		$('[data-toggle="tooltip"]').tooltip()
+		//$('[data-toggle="tooltip"]').tooltip()
 		addExamList();
 	};
 	
@@ -47,37 +48,6 @@
 		if (err != "null") {
 			showAlert(1, err);
 		}
-	}
-
-	function addExamList() {
-		var examNameArray = [<%=request.getAttribute("examNameArray")%>];
-		examNameArray.forEach(addExamName);
-
-		var CFUArray = [<%=request.getAttribute("CFUArray")%>];
-		CFUArray.forEach(addCFU);
-		
-		var linkArray = [<%=request.getAttribute("linkArray")%>];
-		linkArray.forEach(addLinkBtn);
-		
-	}
-	
-	function addCFU(value) {
-		// Creates the <p> element for the CFU
-		var CFU = document.createElement("p");
-		CFU.innerHTML = value;
-		CFU.className = "text-center";
-		CFUDiv.appendChild(CFU);
-	}
-
-	function addExamName(name) {
-		// Creates the <p> element for the exam name
-		var examName = document.createElement("p");
-		examName.innerHTML = name;
-		examNameDiv.appendChild(examName);
-	}
-	
-	function addLinkBtn(link) {
-		// Creates the <button> element for the program link of the exam
 	}
 	
 </script>
@@ -96,18 +66,19 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
 									<h1 class="text-left">
-										<b>Richiesta di <%=request.getAttribute("studentName")%> - <%=request.getAttribute("submissionDate")%></b>
+										<b>Richiesta di <%=request.getAttribute("studentName")%> -
+											<%=request.getAttribute("submissionDate")%></b>
 									</h1>
 								</div>
 
 								<div id="requestSummary">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-										<h4 class="text-left">
+										<h4 class="text-left description">
 											<em>Informazioni sulla carriera pregressa fornite dallo
 												studente</em>
 										</h4>
 										<div class="orange-frame">
-											<h4 class="text-left">
+											<h4 class="text-left field-title">
 												<b>Università di provenienza</b>
 											</h4>
 											<h3 class="text-left"
@@ -115,22 +86,46 @@
 											<div id="examsList">
 												<div class="col-md-3 mb-3" id="examName"
 													style="padding-left: 0;">
-													<h4 class="text-left">
+													<h4 class="text-left field-title">
 														<b>Nome esame</b>
 													</h4>
+													<c:forEach items="${examList}" var="exam">
+														<p>${exam.name}</p>
+													</c:forEach>
 												</div>
 												<div class="col-md-1 mb-3" id="CFU" style="padding-left: 0;">
-													<h4 class="text-center">
+													<h4 class="text-center field-title">
 														<b>CFU</b>
 													</h4>
+													<c:forEach items="${examList}" var="exam">
+														<p class="text-center">${exam.CFU}</p>
+													</c:forEach>
 												</div>
-												<div class="col-md-2 mb-3" id="buttons"></div>
+												<div class="col-md-2 mb-3" id="buttons">
+													<h4 class="text-left field-title">
+														<b>Tasti</b>
+													</h4>
+													<c:forEach items="${examList}" var="exam">
+														<a class="button" href="${exam.programLink}">Vai al piano di studi</a>
+														<button class="button">Vai al piano di studi</button>
+													</c:forEach>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div id="certificatePreview"></div>
+								<div id="certificatePreview">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+										<h4 class="text-left description">
+											<em>Certificato di carriera pregressa dello studente</em>
+										</h4>
+										<div class="orange-frame">
+											<embed src=<%= sess.getAttribute("pathCP") %>
+												type="application/pdf" width="100%" height="600px"></embed>
+										</div>
+									</div>
+								</div>
 
 							</div>
 						</div>

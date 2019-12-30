@@ -8,3 +8,26 @@
 	padding: 16px 16px 22px 22px;
 	background-color: #fcfbfc;
 }
+
+.description {
+	margin-left: 14px;
+}
+
+.field-title {
+/* 	color: #797979; */
+}
+
+.button {
+  background-color: #004A7F;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial;
+  font-size: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+}

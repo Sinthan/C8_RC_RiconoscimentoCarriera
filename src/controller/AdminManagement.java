@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,7 +50,7 @@ public class AdminManagement extends HttpServlet {
 			String studentMail = req.getStudentID();
 			StudentDAO sDAO = new StudentDAO();
 			Student s = sDAO.doRetrieveStudentByEmail(studentMail);
-			String studentName = s.getName() + s.getSurname();
+			String studentName = s.getName() + " " + s.getSurname();
 			request.setAttribute("studentName", studentName);
 			
 			// Setting the submission date
@@ -58,20 +59,7 @@ public class AdminManagement extends HttpServlet {
 			// Getting the exams
 			ExamDAO examDAO = new ExamDAO();
 			ArrayList<Exam> examList= examDAO.doRetrieveAllExamsByRequestRCID(requestRCID);
-			int exams = examList.size();
-			String[] examNamesArray = new String[exams];
-			int[] CFUArray = new int[exams];
-			String[] linkArray = new String[exams];
-			int i = 0;
-			for (Exam e : examList) {
-				examNamesArray[i] = e.getName();
-				CFUArray[i] = e.getCFU();
-				linkArray[i] = e.getProgramLink();
-				i++;
-			}
-			request.setAttribute("examNamesArray", examNamesArray);
-			request.setAttribute("CFUArray", CFUArray);
-			request.setAttribute("linkArray", linkArray);
+			request.setAttribute("examList", examList);
 			
 			// Getting the university
 			String universityName = req.getUniversityID();

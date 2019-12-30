@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%
 	String pageName = "createRCRequest1.jsp";
 	String pageFolder = "GUIStudentRC";
-%>  
-    
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-	<script type='text/javascript'> 
+<script type='text/javascript'> 
 		
 		
 		
@@ -119,10 +119,10 @@
 		}
 
 	</script>
-	<link href="<%= request.getContextPath() %>/css/RC/createRCRequest.css"
+<link href="<%= request.getContextPath() %>/css/RC/createRCRequest.css"
 	rel="stylesheet">
-	<jsp:include page="/partials/head.jsp" />
-	<meta charset="ISO-8859-1">
+<jsp:include page="/partials/head.jsp" />
+<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -135,31 +135,30 @@
 			<jsp:param name="pageName" value="<%= pageName %>" />
 			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
-		
+
 		<%
 			HttpSession sess = request.getSession();
 			sess.setAttribute("flag",2);
 		%>
-		
-		<div class="sidebar-page-container basePage createRequestRCPage" style="">
+
+		<div class="sidebar-page-container basePage createRequestRCPage"
+			style="">
 			<div class="auto-container">
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
 
-								<div
-									class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
-									<div class="panel" style="float:left; margin-top:-70px" >
+								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+									<div class="panel" style="float: left; margin-top: -70px">
 										<h1 class="text-center">Compila Richiesta</h1>
 									</div>
-									
-									<form id="createRequestRC1" method="post" action="StudentManagement" enctype="multipart/form-data">
-										
+
+									<form id="createRequestRC1" method="post"
+										action="StudentManagement" enctype="multipart/form-data">
+
 										<div class="divUni">
-											<p class="pBold">
-												Universit&agrave; di provenienza :
-											</p>
+											<p class="pBold">Universit&agrave; di provenienza :</p>
 											<div>
 												<!-- <select id="università" onChange="validationUni()" style="margin-left: 10px;">
 													<option style="" value="defaultUni" selected>Seleziona una Universit&agrave;</option>
@@ -167,63 +166,65 @@
 													<option style="" value="unina">Università di Napoli</option>
 													<option style="" value="unipi">Università di Pisa</option>
 												</select> -->
-												
-												
-												
-												<select class="select" id="universita" onChange="validationUni()" name="universita">
-													<option value="defaultUni" selected>Seleziona una Universit&agrave;</option>
-												  	<c:forEach items="${universities}" var="university">
-												    	<option value="${university.name}">
-												    		${university.name}
-												    	</option>
-												  	</c:forEach>
+
+
+
+												<select class="select" id="universita"
+													onChange="validationUni()" name="universita">
+													<option value="defaultUni" selected>Seleziona una
+														Universit&agrave;</option>
+													<c:forEach items="${universities}" var="university">
+														<option value="${university.name}">
+															${university.name}</option>
+													</c:forEach>
 												</select>
-												
-											</div>	
+
+											</div>
 										</div>
-										
+
 										<div class="divFile1">
 											<div>
-												<p class="pBold">
-													&nbsp;&nbsp;&nbsp;&nbsp;Upload documento
-												</p>
+												<p class="pBold">&nbsp;&nbsp;&nbsp;&nbsp;Upload
+													documento</p>
 											</div>
-											<div class="" >
+											<div class="">
 												<p class="pTFile">
-													<input class="fileS" type="file" id="file1" name="file1" onChange="validationFile1()" accept="application/pdf" ></input> 
+													<input class="fileS" type="file" id="file1" name="file1"
+														onChange="validationFile1()" accept="application/pdf"></input>
 													<label for="file1" class="btn-2">+</label>
 												</p>
 												<p class="pFile" id="parFile1">
-													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file 
-												</p>
+													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file</p>
 											</div>
 										</div>
-										
+
 										<div class="divFile2">
 											<div>
-												<p class="pBold">
-													&nbsp;&nbsp;&nbsp;&nbsp;Upload certificato di carriera pregressa
-												</p>
+												<p class="pBold">&nbsp;&nbsp;&nbsp;&nbsp;Upload
+													certificato di carriera pregressa</p>
 											</div>
-											<div class="" >
-												<p class="pTFile"> 
-													<input class="fileS" type="file" id="file2" name="file2" onChange="validationFile2()" accept="application/pdf" ></input> 
+											<div class="">
+												<p class="pTFile">
+													<input class="fileS" type="file" id="file2" name="file2"
+														onChange="validationFile2()" accept="application/pdf"></input>
 													<label for="file2" class="btn-2">+</label>
 												</p>
 												<p class="pFile" id="parFile2">
-													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file
-												</p>
+													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file</p>
 											</div>
 										</div>
-										
-										<div class="form-group" style="position: fixed; padding: 32px; bottom: 0; right: 0;">
-											<p class="text-center" style="float: right;">
-												Carica file e vai all'inserimento degli esami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-												<button id="buttonCreateRequestRC1" class="btn btn-primary btn-submit" type="submit" style="border-radius: 20px;" disabled="disabled"><b>></b></button> 
-											</p>
+
+										<div class="form-group"
+											style="position: fixed; padding: 32px; bottom: 0; right: 0;">
+												<button id="buttonCreateRequestRC1" class="continue"
+													type="submit" disabled="disabled">
+													<span class="circle"> <span class="icon arrow"></span>
+													</span> <span class="button-text">Carica file e vai
+														all'inserimento degli esami</span>
+												</button>
 										</div>
 									</form>
-									
+
 								</div>
 
 							</div>
@@ -234,6 +235,7 @@
 		</div>
 		<jsp:include page="/partials/footer.jsp" />
 	</div>
+	
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
