@@ -61,19 +61,4 @@ class RequestRCDAOTest {
 		assertEquals(0, result);
 	}
 
-
-	@Test// Richiesta estratta correttamente
-	void testdoRetrieveRequestRCByRequestID() {
-		RequestRC r = requestrcDAO.doRetrieveRequestRCByRequestID(1);
-		assertNotEquals(r, null);
-	}
-	
-	@Test// Richiesta non estratta correttamente 
-	void testdoRetrieveRequestRCByRequestIDfail() {
-		RequestRC r = requestrcDAO.doRetrieveRequestRCByRequestID(654321);
-		assertEquals(r, null);
-	}
-	
-
-
 }
