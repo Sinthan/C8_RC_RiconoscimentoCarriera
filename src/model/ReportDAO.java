@@ -133,4 +133,10 @@ public class ReportDAO implements ReportDAOInterface {
 		return result;
 	}
 
+	@Override
+	public int updateState(int state) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
