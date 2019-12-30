@@ -23,11 +23,6 @@ public interface ReportDAOInterface {
 	*/
 	public int updateReport(Report report);
 	
-	/*
-	 * Update the state of the request
-	 */
-	
-	public int updateState(int state);
 	
 	/**
 	* Update the list of validated exams into the database by Report id and the new exam list.
