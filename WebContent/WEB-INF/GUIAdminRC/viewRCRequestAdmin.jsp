@@ -75,13 +75,13 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
 									<h1 class="text-left">
-										<b>Richiesta di <%=request.getAttribute("studentName")%> -
-											<%=request.getAttribute("submissionDate")%></b>
+										Richiesta di <%=request.getAttribute("studentName")%> -
+											<%=request.getAttribute("submissionDate")%>
 									</h1>
 								</div>
 
 								<div id="requestSummary">
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									<div class="col-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
 										<h4 class="text-left description">
 											<em>Informazioni sulla carriera pregressa fornite dallo
 												studente</em>
@@ -90,27 +90,25 @@
 											<h4 class="text-left field-title">
 												<b>Università di provenienza</b>
 											</h4>
-											<h3 class="text-left"
-												style="margin-left: 16px; margin-top: 10px; margin-bottom: 16px;"><%=request.getAttribute("universityName")%></h3>
-											<div id="examsList">
-												<div class="col-md-3 mb-3" id="examName"
-													style="padding-left: 0;">
+											<h3 class="text-left"><%=request.getAttribute("universityName")%></h3>
+											<div id="examsList" class="row">
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="examName"">
 													<h4 class="text-left field-title">
 														<b>Nome esame</b>
 													</h4>
 													<c:forEach items="${examList}" var="exam">
-														<p>${exam.name}</p>
+														<h3>${exam.name}</h3>
 													</c:forEach>
 												</div>
-												<div class="col-md-1 mb-3" id="CFU" style="padding-left: 0;">
+												<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
 													<h4 class="text-center field-title">
 														<b>CFU</b>
 													</h4>
 													<c:forEach items="${examList}" var="exam">
-														<p class="text-center">${exam.CFU}</p>
+														<h3 class="text-center">${exam.CFU}</h3>
 													</c:forEach>
 												</div>
-												<div class="col-md-2 mb-3" id="buttons">
+												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="buttons">
 													<h4 class="text-left field-title">
 														<b>Tasti</b>
 													</h4>
@@ -133,7 +131,7 @@
 										</h4>
 										<div class="orange-frame">
 											<embed src=<%= sess.getAttribute("pathCP") %>
-												type="application/pdf" width="100%" height="600px"></embed>
+												type="application/pdf" width="100%" height="600px" style="border-radius: 10px;"></embed>
 										</div>
 									</div>
 								</div>

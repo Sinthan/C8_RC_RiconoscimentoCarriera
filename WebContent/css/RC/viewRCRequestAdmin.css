@@ -3,8 +3,8 @@
 .orange-frame {
 	border: 1.5px solid #ffb84e;
 	border-radius: 15px;
-	float: none;
 	margin-top: 16px;
+	margin-bottom: 16px;
 	padding: 16px 16px 22px 22px;
 	background-color: #fcfbfc;
 }
@@ -30,4 +30,8 @@
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
+}
+
+h3 {
+	padding: 10px 16px;
 }
