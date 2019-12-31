@@ -30,7 +30,7 @@ public class ProofForViewRCRequestAdmin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getSession().setAttribute("flag",2);
-		request.getSession().setAttribute("requestRCID", 7);
+		request.getSession().setAttribute("requestRCID", 47);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/AdminManagement");
 		requestDispatcher.forward(request, response);
 	}

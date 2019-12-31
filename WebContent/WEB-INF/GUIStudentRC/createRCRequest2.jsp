@@ -182,74 +182,71 @@
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
-							<div class="news-block-seven">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="panel">
-										<h1 class="text-left">Inserisci esami</h1>
-									</div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="panel">
+									<h1 class="text-left"><b>Inserisci esami</b></h1>
+								</div>
 
-									<form class="needs-validation" id="createRequestRC2"
-										name="createRequestRC2" method="post"
-										action="StudentManagement">
-										<!-- 										The next field lets the servlet know how many exams were added -->
-										<input type="hidden" name="rowCount" id="rowCount" value="1" />
+								<form class="needs-validation" id="createRequestRC2"
+									name="createRequestRC2" method="post"
+									action="StudentManagement">
+									<!-- 										The next field lets the servlet know how many exams were added -->
+									<input type="hidden" name="rowCount" id="rowCount" value="1" />
 
-										<div class="form-row" id=examInsertionRows>
-											<div class="form-group col-md-4 mb-3">
-												<label for="examName1">Nome esame</label> <input type="text"
-													title="Sono ammessi solo caratteri alfanumerici più i caratteri - e _
+									<div class="form-row" id=examInsertionRows>
+										<div class="form-group col-md-4 mb-3">
+											<label for="examName1">Nome esame</label> <input type="text"
+												title="Sono ammessi solo caratteri alfanumerici più i caratteri - e _
 													La lunghezza deve essere compresa tra i 2 e i 50 caratteri.
 													es. Programmazione 1"
-													class="form-control" name="examName1"
-													placeholder="es. Programmazione 1" minlength="2"
-													maxlength="50" required
-													pattern="^(\w+\s?\-?)*(\-?\s*\w*)*$"
-													onkeypress="allowAlphaNumericOnly(event)">
-											</div>
+												class="form-control" name="examName1"
+												placeholder="es. Programmazione 1" minlength="2"
+												maxlength="50" required pattern="^(\w+\s?\-?)*(\-?\s*\w*)*$"
+												onkeypress="allowAlphaNumericOnly(event)">
+										</div>
 
-											<div class="form-group col-md-1 mb-3">
-												<label for="CFU1">CFU</label> <input type="number"
-													title="Sono ammessi solo caratteri numerici, la lunghezza deve essere di 1 o 2 cifre.
+										<div class="form-group col-md-1 mb-3">
+											<label for="CFU1">CFU</label> <input type="number"
+												title="Sono ammessi solo caratteri numerici, la lunghezza deve essere di 1 o 2 cifre.
 													es. 9"
-													class="form-control" name="CFU1" placeholder="es. 9"
-													min="1" max="30" minlength="1" maxlength="2" required
-													onkeypress="allowNumbersOnly(event)"
-													onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
-											</div>
+												class="form-control" name="CFU1" placeholder="es. 9" min="1"
+												max="30" minlength="1" maxlength="2" required
+												onkeypress="allowNumbersOnly(event)"
+												onblur="validateCFU(this)" oninput="maxLengthCheck(this)">
+										</div>
 
-											<div class="form-group col-md-5 mb-3">
-												<label for="programLink1">Link al programma d'esame</label>
-												<input type="text" class="form-control" name="programLink1"
-													title="Sono ammessi solo url, la lunghezza deve essere compresa tra i 4 e i 256 caratteri.
+										<div class="form-group col-md-5 mb-3">
+											<label for="programLink1">Link al programma d'esame</label> <input
+												type="text" class="form-control" name="programLink1"
+												title="Sono ammessi solo url, la lunghezza deve essere compresa tra i 4 e i 256 caratteri.
 													es. unisa.it/programma_esame.html"
-													placeholder="es. unisa.it/programma_esame.html"
-													minlength="4" maxlength="256"
-													pattern="^(?:(http(s)?|ftp):\/\/)?([-a-zA-Z0-9@:%._\\+~#=]+(\.[a-zA-Z0-9]{1,6})+)(\/([-a-zA-Z0-9()@:%_\\+.~#?&=]*))*"
-													required>
-											</div>
-
-											<br>
+												placeholder="es. unisa.it/programma_esame.html"
+												minlength="4" maxlength="256"
+												pattern="^(?:(http(s)?|ftp):\/\/)?([-a-zA-Z0-9@:%._\\+~#=]+(\.[a-zA-Z0-9]{1,6})+)(\/([-a-zA-Z0-9()@:%_\\+.~#?&=]*))*"
+												required>
 										</div>
 
-										<div class="panel" style="margin-left: 15px; float: left;">
-											<button type="button" class="btn btn-primary" id="btnAdd"
-												onclick="addRow() ">Aggiungi esame</button>
-											<button type="button" class="btn btn-danger" id="btnRemove"
-												onclick="deleteRow()" data-toggle="tooltip" data-html="true"
-												data-placement="right" title="<b><em>I dati inseriti nell'ultima riga verranno cancellati</em></b>">
-												Rimuovi ultimo esame</button>
-										</div>
+										<br>
+									</div>
 
-										<div class="form-group"
-											style="position: fixed; padding: 32px; bottom: 0; right: 0;">
-											<p class="text-center" style="float: right;">
-												Sottometti richiesta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button type="submit" class="btn btn-primary btn-submit"
-													style="border-radius: 20px;">&#10004;</button>
-											</p>
-										</div>
-									</form>
-								</div>
+									<div class="panel" style="margin-left: 15px; float: left;">
+										<button type="button" class="btn btn-primary" id="btnAdd"
+											onclick="addRow() ">Aggiungi esame</button>
+										<button type="button" class="btn btn-danger" id="btnRemove"
+											onclick="deleteRow()" data-toggle="tooltip" data-html="true"
+											data-placement="right"
+											title="<b><em>I dati inseriti nell'ultima riga verranno cancellati</em></b>">
+											Rimuovi ultimo esame</button>
+									</div>
+
+									<div class="form-group"
+										style="position: fixed; padding: 32px; bottom: 0; right: 0;">
+										<button type="submit" class="finish">
+											<span class="circle"> <span class="icon arrow"></span>
+											</span> <span class="button-text">Sottometti richiesta</span>
+										</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
