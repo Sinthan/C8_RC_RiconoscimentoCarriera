@@ -57,6 +57,16 @@
 				+ cfu + '%0D%0A');
 	}
 	
+	function autoFillModal(examName, examCFU) {
+		// Get the textarea element
+		txtArea = document.getElementById("message-text");
+		txtArea.innerHTML = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
+							"\nUniversità di provenienza dello studente: " + "${universityName}" +
+							"\nEsame che si intende validare: " + examName +
+							"\nCFU: " + examCFU +
+							"\nNome dello studente: " + "${studentName}";
+	}
+	
 	/* function sendMail(){
 		document.getElementById("btnMail");
 		var recipient = button.data('whatever');
@@ -87,6 +97,38 @@
 			<jsp:param name="pageName" value="<%=pageName%>" />
 			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
+		<div class="modal fade" id="modal" tabindex="-1" role="dialog"
+			aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalLabel">Invia mail al docente</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Indirizzo email del docente:</label> <input type="text" class="form-control"
+									id="recipient-name">
+							</div>
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Messaggio:</label>
+								<textarea rows="5" cols="100" class="form-control"
+									id="message-text" value="${exam.name}"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Annulla</button>
+						<button type="button" class="btn btn-primary">Invia</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="sidebar-page-container basePage">
 			<div class="auto-container">
 				<div class="row clearfix">
@@ -95,8 +137,10 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
 									<h1 class="text-left">
-										Richiesta di <%=request.getAttribute("studentName")%> -
-											<%=request.getAttribute("submissionDate")%>
+										Richiesta di
+										<%=request.getAttribute("studentName")%>
+										-
+										<%=request.getAttribute("submissionDate")%>
 									</h1>
 								</div>
 
@@ -112,7 +156,8 @@
 											</h4>
 											<h3 class="text-left"><%=request.getAttribute("universityName")%></h3>
 											<div id="examsList" class="row">
-												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="examName"">
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"
+													id="examName"">
 													<h4 class="text-left field-title">
 														<b>Nome esame</b>
 													</h4>
@@ -128,10 +173,9 @@
 														<h3 class="text-center">${exam.CFU}</h3>
 													</c:forEach>
 												</div>
-												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="buttons">
-													<h4 class="text-left field-title">
-														<b>Tasti</b>
-													</h4>
+												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+													id="buttons">
+													<br>
 													<c:forEach items="${examList}" var="exam">
 														<%-- <button
 															onClick="send('<%=request.getAttribute("universityName")%>', '${exam.name}', '${exam.CFU}')"
@@ -140,44 +184,9 @@
 															title="<b><em>Invia una mail al docente</em></b>">Invia
 															mail
 														</button> --%>
-														<button id="btnMail" type="button" onClick="sendMail()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-														<div class="modal fade" id="exampleModal" tabindex="-1"
-															role="dialog" aria-labelledby="exampleModalLabel"
-															aria-hidden="true">
-															<div class="modal-dialog" role="document">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<h5 class="modal-title" id="exampleModalLabel">New
-																			message</h5>
-																		<button type="button" class="close"
-																			data-dismiss="modal" aria-label="Close">
-																			<span aria-hidden="true">&times;</span>
-																		</button>
-																	</div>
-																	<div class="modal-body">
-																		<form>
-																			<div class="form-group">
-																				<label for="recipient-name" class="col-form-label">Send Mail to:</label>
-																				<input type="text" class="form-control"
-																					id="recipient-name">
-																			</div>
-																			<div class="form-group">
-																				<label for="message-text" class="col-form-label">Message:</label>
-																				<textarea rows="5" cols="100" class="form-control" id="message-text" value="${exam.name}">[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa &#10;&#10;Università di Provenienza : ${universityName} &#10;Nome Esame : ${exam.name} &#10;Cfu Convalidati : ${exam.name} &#10;
-																				</textarea>
-																			</div>
-																		</form>
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal">Close</button>
-																		<button type="button" class="btn btn-primary">Send
-																			message</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-
+														<button id="btnMail" type="button" onClick="autoFillModal('${exam.name}', '${exam.CFU}')"
+															class="btn btn-primary needsMargins" data-toggle="modal"
+															data-target="#modal" data-whatever="@getbootstrap">Invia mail al docente</button>
 													</c:forEach>
 												</div>
 											</div>
