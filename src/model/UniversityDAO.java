@@ -37,7 +37,6 @@ public class UniversityDAO implements UniversityDAOInterface {
 			while (rs.next()) {
 				University u = new University();
 				u.setName(rs.getString(1));
-				System.out.println(u.getName());
 				universityNames.add(u);
 			}
 			return universityNames;

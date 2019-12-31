@@ -39,7 +39,7 @@
 	window.onload = function(){
 		controlServlet();
 		//$('[data-toggle="tooltip"]').tooltip()
-		addExamList();
+		//addExamList();
 	};
 	
 	// If the servlet sent an error, show it
@@ -48,6 +48,16 @@
 		if (err != "null") {
 			showAlert(1, err);
 		}
+	}
+	
+	function send(nameU, nameE, cfu) {
+	    window.open('mailto:lorenzomaturo98@gmail.com?subject=' + 
+	    		'[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa' 
+	    		+ '&body=' 
+	    		+ 'Università di Provenienza : ' + nameU + '%0D%0A'
+	    		+ 'Nome Esame : ' + nameE + '%0D%0A'
+	    		+ 'Cfu Convalidati : ' + cfu + '%0D%0A'
+	    );
 	}
 	
 </script>
@@ -107,7 +117,7 @@
 													</h4>
 													<c:forEach items="${examList}" var="exam">
 														<a class="button" href="${exam.programLink}">Vai al piano di studi</a>
-														<button class="button">Vai al piano di studi</button>
+														<button onClick="send('<%=request.getAttribute("universityName")%>', '${exam.name}', '${exam.CFU}')" class="button">Vai al piano di studi</button>
 													</c:forEach>
 												</div>
 											</div>

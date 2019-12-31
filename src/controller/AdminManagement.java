@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Exam;
 import model.ExamDAO;
+import model.FilePDF;
+import model.FilePDFDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;
@@ -41,10 +43,21 @@ public class AdminManagement extends HttpServlet {
 		if (flag == 1) {
 			
 		} else if (flag == 2) {
-			// Getting the RCRequest
+			// Getting the RCRequest and FilePDF
 			RequestRCDAO reqDAO = new RequestRCDAO();
+			FilePDFDAO pdfDAO = new FilePDFDAO();
+			ArrayList<FilePDF> filesPDF = new ArrayList<FilePDF>();
 			int requestRCID = (int) request.getSession().getAttribute("requestRCID");
 			RequestRC req = reqDAO.doRetrieveRequestRCByRequestID(requestRCID);
+			filesPDF = pdfDAO.doRetrieveAllFilePDFByIDRequestRC(req.getRequestRCID());
+			
+			for ( int i=0 ; i<filesPDF.size() ; i++ ) {
+				int indexWC = filesPDF.get(i).getPDFLink().indexOf("/DocumentsRequestRC/");
+				String relativePath = filesPDF.get(i).getPDFLink().substring(indexWC+1, filesPDF.get(i).getPDFLink().length() );
+				if ( relativePath.indexOf("CP.pdf") > 1 ) {
+					request.getSession().setAttribute("pathCP", relativePath);
+				}
+			}
 			
 			// Setting the student name attribute
 			String studentMail = req.getStudentID();
