@@ -65,18 +65,45 @@
 							"\nEsame che si intende validare: " + examName +
 							"\nCFU: " + examCFU +
 							"\nNome dello studente: " + "${studentName}";
+		txtArea.value = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
+							"\nUniversità di provenienza dello studente: " + "${universityName}" +
+							"\nEsame che si intende validare: " + examName +
+							"\nCFU: " + examCFU +
+							"\nNome dello studente: " + "${studentName}";
 	}
 	
-	/* function sendMail(){
-		document.getElementById("btnMail");
-		var recipient = button.data('whatever');
+	function validationMail() {
+		 
+		 txtArea = document.getElementById("message-text").value;
+		 btnSend = document.getElementById("btnSend");
+		 btnSend.disabled = true;
+		 if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("recipient-name").value) ) {
+			 if( txtArea != null && txtArea.length > 0 ) {
+			 	btnSend.disabled = false;
+			 }
+		  }
+	}
+	
+	function validationBodyMail() {
+		 txtArea = document.getElementById("message-text").value;
+		 btnSend = document.getElementById("btnSend");
+		 btnSend.disabled = true;
+		 if ( txtArea != null && txtArea.length > 0  ) {
+			 if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("recipient-name").value) ) {
+				 btnSend.disabled = false;
+			 }
+		  }
+	}
+	
+	function sendMail(){
+		var txtArea = document.getElementById("message-text");
 		var modal = $(this);
 		consol.log(recipient)
 		consol.log("ciao")
 		modal.find('.modal-title').text('New message to ' + recipient)
 		modal.find('.modal-body input').val(recipient)
 	}
-	 */
+	
 	/* $('#exampleModal').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) // Button that triggered the modal
 		var recipient = button.data('whatever') // Extract info from data-* attributes
@@ -111,20 +138,20 @@
 					<div class="modal-body">
 						<form>
 							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Indirizzo email del docente:</label> <input type="text" class="form-control"
-									id="recipient-name">
+								<label for="recipient-name" class="col-form-label">Indirizzo email del docente:</label> <input type="email" class="form-control"
+									id="recipient-name" onChange="validationMail()" name="recipient-name ">
 							</div>
 							<div class="form-group">
 								<label for="message-text" class="col-form-label">Messaggio:</label>
 								<textarea rows="5" cols="100" class="form-control"
-									id="message-text" value="${exam.name}"></textarea>
+									id="message-text" onChange="validationBodyMail()" name="message-text"></textarea>
 							</div>
 						</form>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Annulla</button>
-						<button type="button" class="btn btn-primary">Invia</button>
+						<button id="btnSend" onClick="sendMail()" type="button" class="btn btn-primary" disabled="disabled">Invia</button>
 					</div>
 				</div>
 			</div>
