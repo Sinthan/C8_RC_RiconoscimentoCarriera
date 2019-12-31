@@ -247,6 +247,9 @@ public class StudentManagement extends HttpServlet {
 				name = (String) request.getParameter("examName" + currentExamRow);
 				CFU = Integer.parseInt(request.getParameter("CFU" + currentExamRow));
 				link = (String) request.getParameter("programLink" + currentExamRow);
+				if (!link.startsWith("http://") && !link.startsWith("https://") && !link.startsWith("ftp://")) {
+				    link = "http://" + link;
+				}
 				// Sets the exam attributes
 				exam.setName(name);
 				exam.setCFU(CFU);

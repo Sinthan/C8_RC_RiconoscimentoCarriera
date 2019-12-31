@@ -33,6 +33,10 @@
 }
 
 h3 {
+	padding: 10px 16px 16px 16px;
+}
+
+.list-element {
 	padding: 10px 16px;
 }
 

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,9 +52,13 @@ public class AdminManagement extends HttpServlet {
 			
 			for ( int i=0 ; i<filesPDF.size() ; i++ ) {
 				int indexWC = filesPDF.get(i).getPDFLink().indexOf("/DocumentsRequestRC/");
-				String relativePath = filesPDF.get(i).getPDFLink().substring(indexWC+1, filesPDF.get(i).getPDFLink().length() );
-				if ( relativePath.indexOf("CP.pdf") > 1 ) {
-					request.getSession().setAttribute("pathCP", relativePath);
+				if (indexWC > -1) {
+					String relativePath = filesPDF.get(i).getPDFLink().substring(indexWC+1, filesPDF.get(i).getPDFLink().length() );
+					if (relativePath.indexOf("CP.pdf") > 1) {
+						request.getSession().setAttribute("pathCP", relativePath);
+					}
+				} else {
+					System.out.println("Invalid path, can't show PDF");
 				}
 			}
 			

@@ -57,13 +57,14 @@
 				+ cfu + '%0D%0A');
 	}
 	
-	function autoFillModal(examName, examCFU) {
+	function autoFillModal(examName, examCFU, examLink) {
 		// Get the textarea element
 		txtArea = document.getElementById("message-text");
 		txtArea.innerHTML = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
 							"\nUniversità di provenienza dello studente: " + "${universityName}" +
 							"\nEsame che si intende validare: " + examName +
 							"\nCFU: " + examCFU +
+							"\nLink al piano di studi: " + examLink +
 							"\nNome dello studente: " + "${studentName}";
 	}
 	
@@ -156,13 +157,13 @@
 											</h4>
 											<h3 class="text-left"><%=request.getAttribute("universityName")%></h3>
 											<div id="examsList" class="row">
-												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"
+												<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
 													id="examName"">
 													<h4 class="text-left field-title">
 														<b>Nome esame</b>
 													</h4>
 													<c:forEach items="${examList}" var="exam">
-														<h3>${exam.name}</h3>
+														<h4 class="list-element">${exam.name}</h4>
 													</c:forEach>
 												</div>
 												<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
@@ -170,10 +171,10 @@
 														<b>CFU</b>
 													</h4>
 													<c:forEach items="${examList}" var="exam">
-														<h3 class="text-center">${exam.CFU}</h3>
+														<h4 class="text-center list-element">${exam.CFU}</h4>
 													</c:forEach>
 												</div>
-												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
 													id="buttons">
 													<br>
 													<c:forEach items="${examList}" var="exam">
@@ -186,7 +187,9 @@
 														</button> --%>
 														<button id="btnMail" type="button" onClick="autoFillModal('${exam.name}', '${exam.CFU}')"
 															class="btn btn-primary needsMargins" data-toggle="modal"
-															data-target="#modal" data-whatever="@getbootstrap">Invia mail al docente</button>
+															data-target="#modal" data-whatever="@getbootstrap" style="display:inline;">M</button>
+															<a onclick="window.open('${exam.programLink}', '_blank')" class="btn btn-primary needsMargins">L</a>
+															<br>
 													</c:forEach>
 												</div>
 											</div>
