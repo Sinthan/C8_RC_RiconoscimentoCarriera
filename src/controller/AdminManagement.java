@@ -18,6 +18,8 @@ import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;
 import model.StudentDAO;
+import model.Suggestion;
+import model.SuggestionDAO;
 
 /**
  * Servlet implementation class AdminManagement
@@ -81,6 +83,14 @@ public class AdminManagement extends HttpServlet {
 			// Getting the university
 			String universityName = req.getUniversityID();
 			request.setAttribute("universityName", universityName);
+			
+			// Getting the suggestion
+			SuggestionDAO suggDAO = new SuggestionDAO();
+			ArrayList<Suggestion> suggList = new ArrayList<Suggestion>();
+			for (Exam e : examList) {
+				suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
+			}
+			request.setAttribute("suggList", suggList);
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/viewRCRequestAdmin.jsp");
 			requestDispatcher.forward(request, response);

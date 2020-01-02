@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Suggestion {
 	
-	private String univeristyName;
+	private String universityName;
 	private String examName;
-	private String externalStudentCFU;
+	private int externalStudentCFU;
 	private String validationMode;
-	private Date validationaDate;
+	private Date validationDate;
 	
 	/**
 	   * Contructor.
@@ -19,12 +19,12 @@ public class Suggestion {
 	   * @param validationMode represents the suggested validation mode  
 	   * @param validationDate refers to the date of the first validation of the exam
 	   */
-	public Suggestion(String universityName,String examName, String externalStudentCFU, String validationMode, Date validationDate) {
+	public Suggestion(String universityName,String examName, int externalStudentCFU, String validationMode, Date validationDate) {
 		
-		this.univeristyName = universityName;
+		this.universityName = universityName;
 		this.examName = examName;
 		this.externalStudentCFU= externalStudentCFU;
-		this.validationaDate = validationDate;
+		this.validationDate = validationDate;
 		this.validationMode = validationMode;
 		
 		
@@ -42,12 +42,12 @@ public class Suggestion {
 	 * 
 	 */
 
-	public String getUniveristyName() {
-		return univeristyName;
+	public String getUniversityName() {
+		return universityName;
 	}
 
-	public void setUniveristyName(String univeristyName) {
-		this.univeristyName = univeristyName;
+	public void setUniversityName(String univeristyName) {
+		this.universityName = univeristyName;
 	}
 
 	public String getExamName() {
@@ -58,11 +58,11 @@ public class Suggestion {
 		this.examName = examName;
 	}
 
-	public String getExternalStudentCFU() {
+	public int getExternalStudentCFU() {
 		return externalStudentCFU;
 	}
 
-	public void setExternalStudentCFU(String externalStudentCFU) {
+	public void setExternalStudentCFU(int externalStudentCFU) {
 		this.externalStudentCFU = externalStudentCFU;
 	}
 
@@ -74,18 +74,18 @@ public class Suggestion {
 		this.validationMode = validationMode;
 	}
 
-	public Date getValidationaDate() {
-		return validationaDate;
+	public Date getValidationDate() {
+		return validationDate;
 	}
 
-	public void setValidationaDate(Date validationaDate) {
-		this.validationaDate = validationaDate;
+	public void setValidationDate(Date validationaDate) {
+		this.validationDate = validationaDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Suggestion [univeristyName=" + univeristyName + ", examName=" + examName + ", ExternalStudentCFU="
-				+ externalStudentCFU + ", validationMode=" + validationMode + ", validationaDate=" + validationaDate
+		return "Suggestion [univeristyName=" + universityName + ", examName=" + examName + ", ExternalStudentCFU="
+				+ externalStudentCFU + ", validationMode=" + validationMode + ", validationDate=" + validationDate
 				+ "]";
 	}
 	

@@ -45,6 +45,7 @@ INSERT INTO REQUEST VALUES (6,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,
 
 
 INSERT INTO `user` VALUES ('lollo1@gmail.com','Lorenzo','Maturo','M','9611edf7f716b00c8a44441973906aa7f5c0c580',1, null);
+INSERT INTO `user` VALUES ('g.rossi31@studenti.unisa.it','Gianluca','Rossi','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',0,null);
 INSERT INTO `user` VALUES ('prova2@unisa.it','Giuseppino','Bisoio','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9e',0, null);
 INSERT INTO `user` VALUES ('prova3@unisa.it','Giulia','Serio','F','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9c',0, null);
 INSERT INTO `user` VALUES ('prova@unisa.it','Lollo','Mat','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9d',0,null);
@@ -65,13 +66,11 @@ INSERT INTO UC VALUES('EMAILUC@gmail.it','12356789','3331231233','3331231233');
 INSERT INTO REPORT VALUES(1 ,'La sua carriera ok okok');
 INSERT INTO REPORT VALUES(2 ,'La sua carriera NON è ok okok');
 INSERT INTO REPORT VALUES(3 ,'La sua carriera NON è ok ok');
-/*UNIVERSITY*/
-INSERT INTO UNIVERSITY VALUES('UNINA');
-INSERT INTO UNIVERSITY VALUES('UNIBO');
-/*REQUEST*/
-INSERT INTO REQUEST_RC VALUES(1, '2019-3-11', 1,'UNINA','provaRC1@unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(2, '2020-1-30', 2,'UNIBO','provaRC2@unisa.it',2,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(3, '2020-4-10', 3,'UNIBO','prova2@unisa.it',1,'EMAILUC@gmail.it');
+/*REQUESTRC*/
+INSERT INTO REQUEST_RC VALUES(1, '2019-3-11', 1,'Università degli Studi di SALERNO','provaRC1@unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(2, '2020-1-30', 2,'Università degli Studi di SALERNO','provaRC2@unisa.it',2,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(3, '2020-4-10', 3,'Università degli Studi di SALERNO','prova2@unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(4, '2020-1-20', 0,'Università degli Studi di NAPOLI Federico II','g.rossi31@studenti.unisa.it',1,'EMAILUC@gmail.it');
 
 /*VALIDATE EXAM*/
 INSERT INTO VALIDATE_EXAM VALUES(1,'PROGRAMMAZIONE 1', 9, 'è stato validato bene',1);
@@ -84,12 +83,30 @@ INSERT INTO FILE_PDF VALUES(3, 'FILEPDFCARR2',2);
 INSERT INTO FILE_PDF VALUES(4, 'FILEPDFDOC2',2);
 /*EXAM*/
 INSERT INTO EXAM VALUES(1, 'Programmazione 1', 12, 'www.sito.it/dati/esame/prog1');
-INSERT INTO EXAM VALUES(2, 'Analisi 1', 9, 'www.sito.it/dati/esame/anal1');
-insert into exam values (3,'IS',9,'www.sito.it/dati/esame/IS');
+INSERT INTO EXAM VALUES(2, 'Analisi Matematica I', 9, 'http://cs-informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/147-analisi-matematica-i');
+INSERT INTO EXAM VALUES(3,'IS',9,'www.sito.it/dati/esame/IS');
+INSERT INTO EXAM VALUES(4, 'Algoritmi e strutture dati I', 9, 'http://cs-informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/148-algoritmi-e-strutture-dati-i');
+INSERT INTO EXAM VALUES(5, 'Economia ed organizzazione aziendale', 6, 'http://cs-informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/87-economia-ed-organizzazione-aziendale');
+INSERT INTO EXAM VALUES(6, 'Architettura degli elaboratori', 9, 'http://cs-informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/146-architettura-degli-elaboratori-i');
+INSERT INTO EXAM VALUES(7, 'Fisica Generale I', 6, 'http://cs-informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/141-fisica-generale-i');
+
 /*CONTAINS*/ 
-insert into contains values (1,1);
-insert into contains values (1,3);
-insert into contains values (2,2);
+INSERT INTO CONTAINS VALUES(1,1);
+INSERT INTO CONTAINS VALUES(1,3);
+INSERT INTO CONTAINS VALUES(2,2);
+INSERT INTO CONTAINS VALUES(4,2);
+INSERT INTO CONTAINS VALUES(4,4);
+INSERT INTO CONTAINS VALUES(4,5);
+INSERT INTO CONTAINS VALUES(4,6);
+INSERT INTO CONTAINS VALUES(4,7);
+
+/*SUGGESTION*/
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Analisi Matematica I', 9, 'Validato come ANALISI MATEMATICA, CFU riconosciuti: 9/9', '2020-1-2');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Algoritmi e strutture dati I', 9, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI, CFU riconosciuti: 9/9', '2020-1-3');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Linguaggi di Programmazione I', 6, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI, CFU riconosciuti: 6/6', '2020-1-4');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Economia ed organizzazione aziendale', 6, 'Il corso di laurea di informatica non prevede un esame affine a quello che lo studente intende riconoscere, CFU riconosciuti: 0/6', '2020-1-6');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Architettura degli elaboratori', 9, 'Validato come ARCHITETTURA DEGLI ELABORATORI, CFU riconosciuti: 9/9', '2020-1-10');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Fisica Generale I', 6, 'Validato come FISICA, CFU riconosciuti: 6/6', '2020-1-16');
 
 INSERT INTO `attached` VALUES (1,'certificato.pdf',1,'prova@unisa.it');
 

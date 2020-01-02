@@ -87,13 +87,12 @@ CREATE TABLE CONTAINS(
     primary key (FK_REQUEST_RC, FK_EXAM)
 );
 
-CREATE TABLE SUGESTION(
+CREATE TABLE SUGGESTION(
 NAME_UNIVERSITY varchar(50) not null,
 NAME_EXAM_EXTERN varchar(50) not null,
 NUMBER_CFU_EXTERN varchar(30) not null,
-MODE_VALIDATION varchar(50) not null,
+MODE_VALIDATION varchar(200) not null,
 DATE_VALIDATION date not null
-
 );
 /*FINE TABELLE UTILIZZATE IN RC _____________________________________________________________________________________________________*/
 

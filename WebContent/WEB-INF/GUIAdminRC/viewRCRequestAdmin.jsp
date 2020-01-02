@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ page import="java.util.*, model.Exam"%>
+<%@ page import="java.util.*, model.Exam, model.Suggestion"%>
 
 <%
 	String pageName = "viewRCRequestAdmin.jsp";
@@ -28,6 +28,8 @@
 	HttpSession sess = request.getSession();
 	sess.setAttribute("flag", 2);
 	sess.setAttribute("requestRCID", 4);
+	ArrayList<Suggestion> suggList = (ArrayList<Suggestion>) request.getAttribute("suggList");
+	//List<Suggestion> suggList = new ArrayList<Suggestion>();
 	int examRow = 1;
 %>
 <script type="text/javascript">
@@ -210,8 +212,10 @@
 															class="btn btn-primary btn-square" data-toggle="tooltip"
 															data-html="true" data-placement="bottom"
 															title="<b><em>Vai al piano di studi</em></b>"> <img
-															src="css/svg/external-link.svg" class="btn-icon">
-														</a> <span data-toggle="collapse"
+															src="css/svg/external-link.svg" class="btn-icon"></a> 
+<!-- Exam suggestion -->
+														<% if (suggList.get(examRow-1) != null) {%>
+														<span data-toggle="collapse"
 															data-target="#suggestion<%=examRow%>"
 															aria-expanded="false"
 															aria-controls="suggestion<%=examRow%>">
@@ -222,21 +226,21 @@
 																<img src="css/svg/help-circle.svg" class="btn-icon">
 															</button>
 														</span>
+												<% } %>
 													</div>
 												</div>
 <!-- Exam buttons end -->
 <!-- Exam suggestion -->
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
+												<% if (suggList.get(examRow-1) != null) {%>
+												<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 collapse"
 													id="suggestion<%=examRow%>">
 													<div class="card card-body">
-														<h5 id="suggestion<%=examRow%>Title" class="card-title">Card title</h5>
-														<h6 id="suggestion<%=examRow%>Subtitle" class="card-subtitle mb-2 text-muted">Card
-															subtitle</h6>
-														<p id="suggestion<%=examRow%>Body" class="card-text">Some quick example text to build
-															on the card title and make up the bulk of the card's
-															content.</p>
+														<h5 id="suggestion<%=examRow%>Title" class="card-title"> Validato il <%=suggList.get(examRow-1).getValidationDate()%></h5>
+														<h6 id="suggestion<%=examRow%>Subtitle" class="card-subtitle mb-2 text-muted"><%=suggList.get(examRow-1).getUniversityName()%></h6>
+														<p id="suggestion<%=examRow%>Body" class="card-text"><%=suggList.get(examRow-1).getValidationMode()%></p>
 													</div>
 												</div>
+												<% } %>
 <!-- Exam suggestion end -->
 												<%
 															examRow++;
