@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
-    <%@ page import = "model.RequestRC, model.RequestRCDAO, model.State, model.Student, model.StudentDAO, java.util.ArrayList"
+    <%@ page import = "model.RequestRC, model.RequestRCDAO, model.State, model.Student, model.StudentDAO, java.util.ArrayList, java.text.SimpleDateFormat;"
     %>
 <%
 	String pageName = "homeRCUC.jsp";
@@ -50,14 +50,16 @@
 										
  										for (int i = 0; i < reqList.size(); i++){ 
 											temp = reqList.get(i);
+											SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+											String date  = f.format(temp.getSubmissionDate());
 											Student s = rDao.doRetrieveStudentByEmail(temp.getStudentID());
 											out.print("<tr>");
 											out.print("<td class=text-center align=center>" + temp.getStudentID() + "</td>");
 											out.print("<td class=text-center align=center>"+ s.getName() + " " + s.getSurname() + "</td>");
-											out.print("<td class=text-center align=center>"+ temp.getSubmissionDate() +"</td>");
+											out.print("<td class=text-center align=center>"+ date +"</td>");
 											out.print("<td class=submitButton-centre align=center style= margin-right: 60px; width: 200px; position: relative; float:centre>"+
 													"<form action=./UCRCRequestRedirector method=post> <input type = hidden name = idRequestRC value = "  +temp.getRequestRCID() +  "  /> " +
-													"<input type= submit value =Controlla  class=btn btn-primary></input> ></form> </td>");
+													"<input type= submit value =Controlla  class=btn btn-primary></input></form> </td>");
 											out.print("</tr>");
 										}
 											
