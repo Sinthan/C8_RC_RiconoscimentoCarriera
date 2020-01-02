@@ -56,8 +56,8 @@
 											out.print("<td class=text-center align=center>"+ s.getName() + " " + s.getSurname() + "</td>");
 											out.print("<td class=text-center align=center>"+ temp.getSubmissionDate() +"</td>");
 											out.print("<td class=submitButton-centre align=center style= margin-right: 60px; width: 200px; position: relative; float:centre>"+
-													"<form action=./UCRCRequestRedirector method=post> <input type = hidden name = idRequestRC value = "  +temp.getRequestRCID() +  "  /> " +
-													"<input type= submit value =Controlla  class=btn btn-primary></input> ></form> </td>");
+													"<form action=./UCRCRequestRedirector method=post> <input type = hidden name = idRequestRC value = "  + temp.getRequestRCID() +  "  /> " +
+													"<input type= submit value =Controlla  class=btn btn-primary></input></form> </td>");
 											out.print("</tr>");
 										}
 											
