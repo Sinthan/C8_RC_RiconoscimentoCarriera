@@ -19,20 +19,6 @@
 	
 	<script type='text/javascript'> 
 		
-		
-		
-		window.onload = function(){
-			controlServlet();
-		};
-	
-		function controlServlet(){
-			var err = '<%= request.getAttribute("errorCR1") %>';
-			
-			if( err.toString() != "null"){
-				showAlert(1, err.toString());
-			}
-		}
-
 		function openForm() {
 		  document.getElementById("myForm").style.display = "block";
 		}
@@ -111,25 +97,29 @@
 											
 										</div>
 										
-										
-										
-											
-										<!-- popup per il rifiuto della richiesta -->
-
+									<!-- sezione dedicata al download dei file della richiesta-->	
 									</div>
 									<div class="downloadButton">
 										<div class="divDownload1" >
-											<a href="${filepdfID}" download><button class="btn"><i class="fa fa-download"></i></button></a>
+											<form action="./DownloaderRC" method = "post">
+											<input type = hidden name = pdfvalue value="id"/>
+											<input type = hidden name = pathpdf value="${filePath}"/>
+											<button class="btn" type="submit"><i class="fa fa-download"></i></button>
 											<p id="drc1" class="drc">Download documento d'identit&agrave;</p>
+											</form>
 										</div>
 										<div class="divDownload2">
-										
-											<a href="${filepdfCP}" download ><button class="btn"><i class="fa fa-download"></i></button></a>
+											<form action="./DownloaderRC" method = "post">
+											<input type = hidden name = pdfvalue value="cp"/>
+											<input type = hidden name = pathpdf value="${filePath}"/>
+											<button class="btn"><i class="fa fa-download"></i></button></a>
 											<p id="drc2" class="drc">Download documento di riconoscimento carriera</p>
+											</form>
 										</div>
 										
 									</div>
 									
+									<!-- popup per il rifiuto della richiesta -->
 									<div class="submitButton" >
 										<button id="reject" class="btn btn-primary" type="submit" onClick ="openForm()">Rifiuta</button>
 										<form id ="acceptForm" action="./RequestRCManagement">

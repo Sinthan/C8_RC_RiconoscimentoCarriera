@@ -29,7 +29,7 @@ public interface RequestRCDAOInterface {
 	/*
 	 * Retrieve all requestRCs from the database
 	 */
-	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(State state);
+	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(RCState state);
 	
 	/*
 	 *Retrieve one specific requestRC using ID of the request 
@@ -58,6 +58,8 @@ public interface RequestRCDAOInterface {
 	 * Update the state of the request
 	 */
 	int updateState(State state, int reportID);
+
+
 
 	
 

@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Exam;
 import model.ExamDAO;
+import model.RCState;
 import model.RequestRC;
 import model.RequestRCDAO;
-import model.State;
 
 /**
  * Servlet implementation class UCManagement
@@ -38,7 +38,7 @@ public class UCManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		State state = new State(0,"needsUCValidation");
+		RCState state = RCState.needsUCValidation;
 		RequestRCDAO reqDao = new RequestRCDAO();
 		ArrayList<RequestRC> reqList  =  reqDao.doRetrieveAllRequestRCBystate(state);
 		request.setAttribute("reqList", reqList );

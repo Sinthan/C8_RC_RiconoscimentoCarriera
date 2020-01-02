@@ -18,7 +18,17 @@
 
 	.submitButton{
 	right: 10%;
-} 
+	} 
+	
+	.news-block-seven{
+		position: relative;
+		float: left;
+	}
+	
+	.news-block-seven #ExamsDiv{
+		right: 25px;
+	
+	}
 }
 
 {box-sizing: border-box;}
@@ -154,6 +164,8 @@
 	float: left; 
 	width: 1000px;
 }
+
+
 
 .divNext{
 	position:static; 

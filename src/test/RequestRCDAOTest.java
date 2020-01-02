@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import model.RequestRC;
 import model.RequestRCDAO;
-import model.State;
+import model.RCState;
 
 class RequestRCDAOTest {
 	
@@ -39,8 +39,8 @@ class RequestRCDAOTest {
 	
 	@Test
 	void testdoRetrieveAllRequestRCBystateOK() {
-		State st = new State(1,"Stato presente");
-		ArrayList<RequestRC> list = requestrcDAO.doRetrieveAllRequestRCBystate(st);
+		RCState state = RCState.needsUCValidation;
+		ArrayList<RequestRC> list = requestrcDAO.doRetrieveAllRequestRCBystate(state);
 		if(list.isEmpty()) {
 			result = 0;
 		}else {
@@ -51,14 +51,14 @@ class RequestRCDAOTest {
 	
 	@Test
 	void testdoRetrieveAllRequestRCBystatefail() {
-		State st = new State(5,"Stato non presente");
-		ArrayList<RequestRC> list = requestrcDAO.doRetrieveAllRequestRCBystate(st);
+		RCState state = RCState.refused;
+		ArrayList<RequestRC> list = requestrcDAO.doRetrieveAllRequestRCBystate(state);
 		if(list.isEmpty()) {
 			result = 0;
 		}else {
 			result = 1;
 		}
-		assertEquals(0, result);
+		assertEquals(1, result);
 	}
 
 }
