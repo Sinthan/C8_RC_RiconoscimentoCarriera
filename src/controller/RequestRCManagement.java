@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -72,15 +74,38 @@ public class RequestRCManagement extends HttpServlet {
 					email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
 					requestDispatcher.forward(request, response);
-				}else {
-					request.setAttribute("errorCR1","Impossibile inviare l'email.");
-					disp = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");
-					disp.forward(request, response);
 				}
 			}			
 		}//Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
+			//get the mail of professor 
+			String mailD = request.getParameter("recipient-name");
+			//Control email format
+			if (mailD != null) {
+				String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
+				Pattern pattern = Pattern.compile(regex);
+				Matcher matcher = pattern.matcher(mailD);
+				if (!matcher.matches()) {
+					request.setAttribute("errorVR","Impossibile inviare l'email al docente. Email non vaida.");
+					return;
+				}
+			}else {
+				request.setAttribute("errorVR","Campo email vuoto.");
+				return;
+			}
 			
+			//get body text
+			String messageBody = request.getParameter("message-text");
+			//control body format
+			if( messageBody.length() < 1 ) {
+				request.setAttribute("errorVR","Impossibile inviare l'email al docente. Messaggio non inserito.");
+				return;
+			}
+			
+			//send mail to professor
+			SenderMail email = new SenderMail();
+			email.sendMail("carrierapregressaunisa@gmail.com", mailD, "Carriera pregressa", messageBody, null);
+			return;
 		}
 		
 	}
