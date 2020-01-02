@@ -28,6 +28,7 @@
 	HttpSession sess = request.getSession();
 	sess.setAttribute("flag", 2);
 	sess.setAttribute("requestRCID", 4);
+	int examRow = 1;
 %>
 <script type="text/javascript">
 
@@ -57,24 +58,18 @@
 				+ cfu + '%0D%0A');
 	}
 	
-	function autoFillModal(examName, examCFU, examLink) {
+	function autoFillModal(examName, examCFU) {
 		// Get the textarea element
 		txtArea = document.getElementById("message-text");
-		txtArea.innerHTML = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
-							"\nUniversità di provenienza dello studente: " + "${universityName}" +
-							"\nEsame che si intende validare: " + examName +
-							"\nCFU: " + examCFU +
-							"\nLink al piano di studi: " + examLink +
-							"\nNome dello studente: " + "${studentName}";
 		txtArea.value = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
 							"\nUniversità di provenienza dello studente: " + "${universityName}" +
 							"\nEsame che si intende validare: " + examName +
 							"\nCFU: " + examCFU +
+							"\nLink al piano di studi: " +
 							"\nNome dello studente: " + "${studentName}";
 	}
 	
 	function validationMail() {
-		 
 		 txtArea = document.getElementById("message-text").value;
 		 btnSend = document.getElementById("btnSend");
 		 btnSend.disabled = true;
@@ -104,19 +99,6 @@
 		modal.find('.modal-title').text('New message to ' + recipient)
 		modal.find('.modal-body input').val(recipient)
 	}
-	
-	/* $('#exampleModal').on('show.bs.modal', function (event) {
-		var button = $(event.relatedTarget) // Button that triggered the modal
-		var recipient = button.data('whatever') // Extract info from data-* attributes
-		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		var modal = $(this)
-		consol.log(recipient)
-		consol.log("ciao")
-		modal.find('.modal-title').text('New message to ' + recipient)
-		modal.find('.modal-body input').val(recipient)
-	}) */
-	
 </script>
 </head>
 <body>
@@ -125,38 +107,6 @@
 			<jsp:param name="pageName" value="<%=pageName%>" />
 			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
-		<div class="modal fade" id="modal" tabindex="-1" role="dialog"
-			aria-labelledby="modalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modalLabel">Invia mail al docente</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Indirizzo email del docente:</label> <input type="email" class="form-control"
-									id="recipient-name" onChange="validationMail()" name="recipient-name ">
-							</div>
-							<div class="form-group">
-								<label for="message-text" class="col-form-label">Messaggio:</label>
-								<textarea rows="5" cols="100" class="form-control"
-									id="message-text" onChange="validationBodyMail()" name="message-text"></textarea>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Annulla</button>
-						<button id="btnSend" onClick="sendMail()" type="button" class="btn btn-primary" disabled="disabled">Invia</button>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="sidebar-page-container basePage">
 			<div class="auto-container">
 				<div class="row clearfix">
@@ -171,7 +121,45 @@
 										<%=request.getAttribute("submissionDate")%>
 									</h1>
 								</div>
-
+<!-- Email modal -->
+								<div class="modal fade" id="modal" tabindex="-1" role="dialog"
+									aria-labelledby="modalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="modalLabel">Invia mail al
+													docente</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form>
+													<div class="form-group">
+														<label for="recipient-name" class="col-form-label">Indirizzo
+															email del docente:</label> <input type="email"
+															class="form-control" id="recipient-name"
+															onChange="validationMail()" name="recipient-name ">
+													</div>
+													<div class="form-group">
+														<label for="message-text" class="col-form-label">Messaggio:</label>
+														<textarea rows="5" cols="100" class="form-control"
+															id="message-text" onChange="validationBodyMail()"
+															name="message-text"></textarea>
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Annulla</button>
+												<button id="btnSend" onClick="sendMail()" type="button"
+													class="btn btn-primary" disabled="disabled">Invia</button>
+											</div>
+										</div>
+									</div>
+								</div>
+<!-- Modal end -->
 								<div id="requestSummary">
 									<div class="col-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
 										<h4 class="text-left description">
@@ -183,43 +171,88 @@
 												<b>Università di provenienza</b>
 											</h4>
 											<h3 class="text-left"><%=request.getAttribute("universityName")%></h3>
-											<div id="examsList" class="row">
+											<div id="examsListHeader" class="row">
 												<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
-													id="examName"">
+													id="examNameColumn1"">
 													<h4 class="text-left field-title">
 														<b>Nome esame</b>
 													</h4>
-													<c:forEach items="${examList}" var="exam">
-														<h4 class="list-element">${exam.name}</h4>
-													</c:forEach>
 												</div>
 												<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
 													<h4 class="text-center field-title">
 														<b>CFU</b>
 													</h4>
-													<c:forEach items="${examList}" var="exam">
-														<h4 class="text-center list-element">${exam.CFU}</h4>
-													</c:forEach>
 												</div>
-												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
+												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
 													id="buttons">
 													<br>
-													<c:forEach items="${examList}" var="exam">
-														<%-- <button
-															onClick="send('<%=request.getAttribute("universityName")%>', '${exam.name}', '${exam.CFU}')"
-															class="button" data-toggle="tooltip" data-html="true"
-															data-placement="top"
-															title="<b><em>Invia una mail al docente</em></b>">Invia
-															mail
-														</button> --%>
-														<button id="btnMail" type="button" onClick="autoFillModal('${exam.name}', '${exam.CFU}')"
-															class="btn btn-primary needsMargins" data-toggle="modal"
-															data-target="#modal" data-whatever="@getbootstrap" style="display:inline;">M</button>
-															<a onclick="window.open('${exam.programLink}', '_blank')" class="btn btn-primary needsMargins">L</a>
-															<br>
-													</c:forEach>
 												</div>
 											</div>
+											<c:forEach items="${examList}" var="exam">
+												<div id="examsListRow<%=examRow%>" class="row">
+<!-- Exam name -->
+													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
+														id="examNameColumn<%=examRow%>"">
+														<h4 class="list-element">${exam.name}</h4>
+													</div>
+<!-- Exam name end-->
+<!-- Exam CFU -->
+													<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
+														<h4 class="text-center list-element-centered">${exam.CFU}</h4>
+													</div>
+<!-- Exam CFU end -->
+<!-- Exam buttons -->
+													<div
+														class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
+														id="buttons">
+														
+														<span data-toggle="modal" data-target="#modal">
+															<button id="btnMail" type="button"
+																onClick="autoFillModal('${exam.name}', '${exam.CFU}')"
+																class="btn btn-primary btn-square" data-toggle="tooltip"
+																data-html="true" data-placement="bottom"
+																title="<b><em>Contatta il docente</em></b>">
+																<img src="css/svg/mail.svg" class="btn-icon">
+															</button>
+														</span> <a onclick="window.open('${exam.programLink}', '_blank')"
+															class="btn btn-primary btn-square" data-toggle="tooltip"
+															data-html="true" data-placement="bottom"
+															title="<b><em>Vai al piano di studi</em></b>"> <img
+															src="css/svg/external-link.svg" class="btn-icon">
+														</a> <span data-toggle="collapse"
+															data-target="#suggestion<%=examRow%>"
+															aria-expanded="false"
+															aria-controls="suggestion<%=examRow%>">
+															<button class="btn btn-primary btn-square" type="button"
+																data-toggle="tooltip" data-html="true"
+																data-placement="right"
+																title="<b><em>Visualizza suggerimento</em></b>">
+																<img src="css/svg/help-circle.svg" class="btn-icon">
+															</button>
+														</span>
+													</div>
+												</div>
+<!-- Exam buttons end -->
+<!-- Exam suggestion -->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
+													id="suggestion<%=examRow%>">
+													<div class="card card-body">
+														<h5 id="suggestion<%=examRow%>Title" class="card-title">Card title</h5>
+														<h6 id="suggestion<%=examRow%>Subtitle" class="card-subtitle mb-2 text-muted">Card
+															subtitle</h6>
+														<p id="suggestion<%=examRow%>Body" class="card-text">Some quick example text to build
+															on the card title and make up the bulk of the card's
+															content.</p>
+													</div>
+												</div>
+<!-- Exam suggestion end -->
+												<%
+															examRow++;
+														%>
+											</c:forEach>
+<!-- Adding extra space on the bottom for the last suggestion -->
+											<br>
+											<br>
 										</div>
 									</div>
 								</div>
@@ -244,8 +277,6 @@
 		</div>
 		<jsp:include page="/partials/footer.jsp" />
 	</div>
-	<!--End pagewrapper-->
-
 	<jsp:include page="/partials/includes.jsp" />
 </body>
 </html>
