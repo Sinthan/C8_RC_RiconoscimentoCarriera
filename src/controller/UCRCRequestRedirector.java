@@ -1,6 +1,10 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import model.Exam;
 import model.ExamDAO;
@@ -47,17 +55,13 @@ public class UCRCRequestRedirector extends HttpServlet {
     RequestRC reqRC = reqDAO.doRetrieveRequestRCByRequestID(reqID);
     request.getSession().setAttribute("reqRC", reqRC);
 		
-	//Ricavo i dati dello studente partendo dalla richiesta
+	//Ricavo i dati dello studente partendo dalla richiesta 
     Student userRC = sDAO.doRetrieveStudentByEmail(reqRC.getStudentID());
     request.getSession().setAttribute("userRC",userRC);
-    //Ricavo i file pdf dello studente
-    String pathID=  "file:///" + Utils.getProjectPath() +  "\\DocumentsRequestRC\\" + userRC.getEmail() + "\\ID.pdf";
-    String pathCP=  "file:///" + Utils.getProjectPath() +  "\\DocumentsRequestRC\\" + userRC.getEmail() + "\\CP.pdf";
-    String pdfID = pathID.replace("/", "\\");
-    String pdfCP = pathCP.replace("/", "\\");
-    request.getSession().setAttribute("filepdfID", pdfID);
-    request.getSession().setAttribute("filepdfCP", pdfCP);
-
+    //Ricavo il path della cartella file dello studente
+    String path=  Utils.getProjectPath() +  "\\WebContent\\DocumentsRequestRC\\" + userRC.getEmail() + "\\";
+    path = path.replace("/", "\\");
+	request.getSession().setAttribute("filePath", path);
     //Carica la lista degli esami inseriti manualmente dallo studente
     ArrayList<Exam> eList = examDAO.doRetrieveAllExamsByRequestRCID(reqRC.getRequestRCID());
     request.getSession().setAttribute("exams", eList);

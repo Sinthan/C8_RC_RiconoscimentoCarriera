@@ -43,6 +43,8 @@ INSERT INTO REQUEST VALUES (4,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,
 INSERT INTO REQUEST VALUES (5,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,512103579,6,'prova5@unisa.it',3,4);
 INSERT INTO REQUEST VALUES (6,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,512103579,6,'prova6@unisa.it',3,3);
 
+
+INSERT INTO `user` VALUES ('lollo1@gmail.com','Lorenzo','Maturo','M','9611edf7f716b00c8a44441973906aa7f5c0c580',1, null);
 INSERT INTO `user` VALUES ('prova2@unisa.it','Giuseppino','Bisoio','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9e',0, null);
 INSERT INTO `user` VALUES ('prova3@unisa.it','Giulia','Serio','F','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9c',0, null);
 INSERT INTO `user` VALUES ('prova@unisa.it','Lollo','Mat','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9d',0,null);
@@ -52,10 +54,12 @@ INSERT INTO `user` VALUES ('prova6@unisa.it','Lollo','Mat','M','4bb47fd2a6c598d2
 INSERT INTO `user` VALUES ('fferrucci@unisa.it','Filomena','Ferrucci','F','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',2,null),('segreteria@unisa.it','Segreteria','Studenti','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',1,null);
 
 /*USER RC*/
+INSERT INTO `user` VALUES ('lorenzo@gmail.com','PROVA1','RC1','M','123456789',1,'01-1-10');
 INSERT INTO `user` VALUES ('lollo@gmail.com','PROVA1','RC1','M','123456789',0,'01-1-10');
 INSERT INTO `user` VALUES ('provaRC1@unisa.it','PROVA1','RC1','M','12345678',0,'01-1-10');
 INSERT INTO `user` VALUES ('provaRC2@unisa.it','PROVA2','RC2','M','12345678',0,'2020-10-20');
 /*UC*/
+INSERT INTO englishvalidation.uc VALUES ('uc@unisa.it', '4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b','3385099635','4585698569');
 INSERT INTO UC VALUES('EMAILUC@gmail.it','12356789','3331231233','3331231233');
 /*REPORT*/
 INSERT INTO REPORT VALUES(1 ,'La sua carriera ok okok');

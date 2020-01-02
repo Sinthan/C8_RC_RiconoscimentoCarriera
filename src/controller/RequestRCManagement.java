@@ -72,10 +72,6 @@ public class RequestRCManagement extends HttpServlet {
 					email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
 					requestDispatcher.forward(request, response);
-				}else {
-					request.setAttribute("errorCR1","Impossibile inviare l'email.");
-					disp = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");
-					disp.forward(request, response);
 				}
 			}			
 		}//Se la richiesta deve essere trattata dal PCD

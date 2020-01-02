@@ -70,7 +70,8 @@ public class AdminManagement extends HttpServlet {
 			request.setAttribute("studentName", studentName);
 			
 			// Setting the submission date
-			request.setAttribute("submissionDate", req.getSubmissionDate());
+			String date = Utils.getFormattedDate(req.getSubmissionDate());
+			request.setAttribute("submissionDate", date);
 			
 			// Getting the exams
 			ExamDAO examDAO = new ExamDAO();

@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -143,6 +146,17 @@ public class Utils {
 			}
 		}
 		return parentDirectory;
+	}
+	
+	/**
+	 * Formats the date to the italian format
+	 * @param	date			the unformatted date
+	 * @return					the given date in the format dd/mm/yyyy
+	 * @author	Gianluca Rossi
+	 */
+	public static String getFormattedDate(Date date) {
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(date);
 	}
 
 }
