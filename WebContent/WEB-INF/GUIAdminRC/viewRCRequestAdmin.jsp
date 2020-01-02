@@ -49,23 +49,15 @@
 			showAlert(1, err);
 		}
 	}
-
-	function send(nameU, nameE, cfu) {
-		window.open('mailto: ?subject='
-				+ '[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa'
-				+ '&body=' + 'Università di Provenienza : ' + nameU + '%0D%0A'
-				+ 'Nome Esame : ' + nameE + '%0D%0A' + 'Cfu Convalidati : '
-				+ cfu + '%0D%0A');
-	}
 	
-	function autoFillModal(examName, examCFU) {
+	function autoFillModal(examName, examCFU, examLink) {
 		// Get the textarea element
 		txtArea = document.getElementById("message-text");
 		txtArea.value = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
 							"\nUniversità di provenienza dello studente: " + "${universityName}" +
 							"\nEsame che si intende validare: " + examName +
 							"\nCFU: " + examCFU +
-							"\nLink al piano di studi: " +
+							"\nLink al piano di studi: " + examLink +
 							"\nNome dello studente: " + "${studentName}";
 	}
 	
@@ -208,7 +200,7 @@
 														
 														<span data-toggle="modal" data-target="#modal">
 															<button id="btnMail" type="button"
-																onClick="autoFillModal('${exam.name}', '${exam.CFU}')"
+																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}')"
 																class="btn btn-primary btn-square" data-toggle="tooltip"
 																data-html="true" data-placement="bottom"
 																title="<b><em>Contatta il docente</em></b>">
