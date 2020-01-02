@@ -296,7 +296,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	}
 
 	@Override
-	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(State state) {
+	public ArrayList<RequestRC> doRetrieveAllRequestRCBystate(RCState state) {
 
 		ArrayList<RequestRC> requests = new ArrayList<RequestRC>();
 		try {
@@ -304,7 +304,14 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			PreparedStatement ps = connection.prepareStatement(
 					" SELECT  * FROM request_rc " 
 							+ "WHERE state  = ?");
-			ps.setInt(1, state.getIdState());
+			if(state.equals(state.valueOf("needsUCValidation")))				
+				ps.setInt(1, 0);
+			else if(state.equals(state.valueOf("isBeingDiscussed")))	
+				ps.setInt(1, 1);
+			else if(state.equals(state.valueOf("approved")))	
+				ps.setInt(1, 2);
+			else if(state.equals(state.valueOf("approved")))
+				ps.setInt(1, 3);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				RequestRC r = new RequestRC();
