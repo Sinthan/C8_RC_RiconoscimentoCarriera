@@ -310,7 +310,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 				ps.setInt(1, 1);
 			else if(state.equals(state.valueOf("approved")))	
 				ps.setInt(1, 2);
-			else if(state.equals(state.valueOf("approved")))
+			else if(state.equals(state.valueOf("refused")))
 				ps.setInt(1, 3);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
