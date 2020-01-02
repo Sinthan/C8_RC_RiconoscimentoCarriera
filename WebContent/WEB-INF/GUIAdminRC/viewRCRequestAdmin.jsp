@@ -75,7 +75,7 @@
 	}
 	
 	function validationBodyMail() {
-		 txtArea = document.getElementById("message-text").value;
+		
 		 btnSend = document.getElementById("btnSend");
 		 btnSend.disabled = true;
 		 if ( txtArea != null && txtArea.length > 0  ) {
@@ -86,12 +86,22 @@
 	}
 	
 	function sendMail(){
-		var txtArea = document.getElementById("message-text");
-		var modal = $(this);
-		consol.log(recipient)
-		consol.log("ciao")
-		modal.find('.modal-title').text('New message to ' + recipient)
-		modal.find('.modal-body input').val(recipient)
+		mailD = document.getElementById("recipient-name").value;
+		txtArea = document.getElementById("message-text").value;
+		console.log('aaa');
+		$.ajax({
+            type: 'POST',
+            url: 'RequestRCManagement',
+            data: 'recipient-name=' + mailD + '&message-text=' + txtArea,
+            error: function(response) {
+                // Gets called when an error occurs with error details in variable response
+            	showAlert(1, "Errore nell'invio dell'email.");
+            },
+            success: function(response) {
+                // Gets called when the action is successful with server response in variable response
+            	showAlert(0, "Email inviata correttamente.");
+            }
+        });
 	}
 </script>
 </head>
@@ -148,7 +158,7 @@
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Annulla</button>
 												<button id="btnSend" onClick="sendMail()" type="button"
-													class="btn btn-primary" disabled="disabled">Invia</button>
+													class="btn btn-primary" data-dismiss="modal" disabled="disabled">Invia</button>
 											</div>
 										</div>
 									</div>
