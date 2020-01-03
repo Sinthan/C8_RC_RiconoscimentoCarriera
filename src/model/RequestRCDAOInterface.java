@@ -57,7 +57,7 @@ public interface RequestRCDAOInterface {
 	/*
 	 * Update the state of the request
 	 */
-	int updateState(State state, int reportID);
+	int updateState(RCState state, int reportID);
 
 
 
