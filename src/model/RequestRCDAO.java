@@ -97,12 +97,12 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	 * Retrieves the <tt>status</tt> of the update given ID and current state
 	 * 
 	 * @param	requestRCID		the <tt>RequestRC</tt> ID number that the <tt>RequestRC</tt> object must match
-	 * @param	state		    the <tt>State</tt> number that the <tt>State</tt> of request have
+	 * @param	RCstate		    the <tt>RCState</tt> number that the <tt>RCState</tt> of request have
 	 * @return					the <tt>status</tt> 1 if the update was successful, 0 else
 	 * @author 	Gerardo Damiano
 	 */
 	@Override
-	public int updateState(State state, int requestRCID) {
+	public int updateState(RCState state, int requestRCID) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		int ris = 0;
@@ -111,7 +111,14 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(selectSQL);			
 			// Setting the parameter
-			preparedStatement.setInt(1, state.getIdState());
+			if(state.equals(state.valueOf("needsUCValidation")))				
+				preparedStatement.setInt(1, 0);
+			else if(state.equals(state.valueOf("isBeingDiscussed")))	
+				preparedStatement.setInt(1, 1);
+			else if(state.equals(state.valueOf("approved")))	
+				preparedStatement.setInt(1, 2);
+			else if(state.equals(state.valueOf("refused")))
+				preparedStatement.setInt(1, 3);
 			preparedStatement.setInt(2, requestRCID);
 			// Executing the selection
 			ris = preparedStatement.executeUpdate();
