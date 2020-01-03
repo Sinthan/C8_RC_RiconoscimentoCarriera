@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Admin;
+
 /**
  * Servlet implementation class ProofForViewRCRequestAdmin
  */
@@ -29,8 +31,14 @@ public class ProofForViewRCRequestAdmin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int requestRCID = Integer.parseInt(request.getParameter("idRequestRC"));
-		request.getSession().setAttribute("requestRCID", requestRCID);
+		Admin admin = new Admin();
+		admin.setEmail("fferrucci@unisa.it");
+		admin.setName("Filomena");
+		admin.setSex('M');
+		admin.setSurname("Ferrucci");
+		request.getSession().setAttribute("user",admin);
+		request.getSession().setAttribute("requestRCID", 12);
+		request.setAttribute("flag", 2);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/AdminManagement");
 		requestDispatcher.forward(request, response);
 	}

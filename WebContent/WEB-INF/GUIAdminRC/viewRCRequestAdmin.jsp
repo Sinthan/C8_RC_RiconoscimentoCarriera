@@ -54,6 +54,7 @@
 	
 	function autoFillModal(examName, examCFU, examLink) {
 		// Get the textarea element
+		document.getElementById("recipient-name").value = "";
 		txtArea = document.getElementById("message-text");
 		txtArea.value = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
 							"\nUniversità di provenienza dello studente: " + "${universityName}" +
@@ -88,7 +89,6 @@
 	function sendMail(){
 		mailD = document.getElementById("recipient-name").value;
 		txtArea = document.getElementById("message-text").value;
-		console.log('aaa');
 		$.ajax({
             type: 'POST',
             url: 'RequestRCManagement',
