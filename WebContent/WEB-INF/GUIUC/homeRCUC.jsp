@@ -34,7 +34,7 @@
 						<div class="content">
 							<div class="news-block-seven">
 							<table id="UCTableRC" class="display data-results table table-striped table-hover table-bordered">
-									<thead>									
+									<thead> 									
 										<tr align="center">
 											<th class="text-center tableRequestRCtd" align="center" width="30%">Email</th>
 											<th class="text-center tableRequestRCtd" align="center" width="30%">Nome</th>

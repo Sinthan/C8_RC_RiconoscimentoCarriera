@@ -19,7 +19,9 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
   
     if (pageName.equals("viewRequest.jsp")) {
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/viewRequest.jsp\">Richieste</a></li>";
+          + "/viewRequest.jsp\">Richieste</a></li>";    
+      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/"
+                  + "/ReportManagement\">(TASTO DA CANCELLARE)</a></li>";
       menu += 
     		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Riconoscimento Carriere</a></li>";    
       menu +=
@@ -157,6 +159,12 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
 				 menu += 
 			    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Lista Richieste</a></li>";
   		}
+  		else if(pageName.equals("createReport.jsp")){
+  	    	menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + "_areaAdmin"
+  	    	          + "/viewRequest.jsp\">Richieste English Validation</a></li>";
+  	    	      menu +=
+  	    	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	    }
   	}
 
   hiddenMenu = menu;
