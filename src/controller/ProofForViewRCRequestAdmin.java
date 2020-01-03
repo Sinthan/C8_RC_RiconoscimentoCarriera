@@ -29,8 +29,8 @@ public class ProofForViewRCRequestAdmin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getSession().setAttribute("flag",2);
-		request.getSession().setAttribute("requestRCID", 4);
+		int requestRCID = Integer.parseInt(request.getParameter("idRequestRC"));
+		request.getSession().setAttribute("requestRCID", requestRCID);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/AdminManagement");
 		requestDispatcher.forward(request, response);
 	}

@@ -1,6 +1,6 @@
 h<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
-	import="controller.CheckSession , controller.Utils, model.Student, model.UC"%>
+	import="controller.CheckSession , controller.Utils, model.Student, model.UC, model.Admin"%>
 
 <%
   String pageName = request.getParameter("pageName");
@@ -20,6 +20,8 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
     if (pageName.equals("viewRequest.jsp")) {
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/viewRequest.jsp\">Richieste</a></li>";
+      menu += 
+    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Riconoscimento Carriere</a></li>";    
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
@@ -140,8 +142,21 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	  }
  
+  		
   
-  
+  	}else if(pageFolder.equals("GUIAdminRC")){
+  		logoRedirect = request.getContextPath() + "/AdminManagement?flag=1";
+  			if(pageName.equals("homeRCPCD.jsp")){
+  				 menu += "<li class=\"current\"><a href=\"" +  request.getContextPath() +"/_areaAdmin"
+  				          + "/viewRequest.jsp\">English Validation</a></li>";
+  				 menu +=
+  				          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  			
+  		}else if(pageName.equals("viewRCRequestAdmin.jsp")){
+  			logoRedirect = request.getContextPath() + "/AdminManagement?flag=1";
+				 menu += 
+			    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Lista Richieste</a></li>";
+  		}
   	}
 
   hiddenMenu = menu;

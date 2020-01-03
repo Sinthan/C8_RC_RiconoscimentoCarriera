@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
-    <%@ page import = "model.RequestRC, model.RequestRCDAO, model.State, model.Student, model.StudentDAO, java.util.ArrayList, java.text.SimpleDateFormat;"
+    <%@ page import = "model.RequestRC, model.RequestRCDAO, model.State, model.Student, model.StudentDAO, java.util.ArrayList, java.text.SimpleDateFormat"
     %>
 <%
 	String pageName = "homeRCUC.jsp";
@@ -16,7 +16,7 @@
 	rel="stylesheet">
 	<jsp:include page="/partials/head.jsp" />
 	<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home UC</title>
 </head>
 <body>
 	<div class="page-wrapper">

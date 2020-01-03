@@ -14,6 +14,7 @@ import model.Exam;
 import model.ExamDAO;
 import model.FilePDF;
 import model.FilePDFDAO;
+import model.RCState;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;
@@ -40,8 +41,18 @@ public class AdminManagement extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int flag = (int) request.getSession().getAttribute("flag");
+			
+		 int flag = Integer.parseInt(request.getParameter("flag"));
+				
 		if (flag == 1) {
+			RCState state = RCState.isBeingDiscussed;
+			RequestRCDAO reqDao = new RequestRCDAO();
+			ArrayList<RequestRC> reqList  =  reqDao.doRetrieveAllRequestRCBystate(state);
+			request.setAttribute("reqList", reqList );
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/homeRCPCD.jsp");		
+			requestDispatcher.forward(request, response);
+			return;
+			
 			
 		} else if (flag == 2) {
 			// Getting the RCRequest and FilePDF

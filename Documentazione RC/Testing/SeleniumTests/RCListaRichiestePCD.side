@@ -1,0 +1,225 @@
+{
+  "id": "16cff1a9-061f-47f7-9415-ec3124dc79da",
+  "version": "2.0",
+  "name": "RC",
+  "url": "http://localhost:8080/EnglishValidation/",
+  "tests": [{
+    "id": "a26f1a95-5452-4c22-962b-a56837a07b8f",
+    "name": "RCListaRichiestePCD",
+    "commands": [{
+      "id": "fec36c72-f7bc-4a0f-8e33-06a3401a662a",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/EnglishValidation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "04b3cb53-ee7d-4da1-9da1-7db20658783c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1050x718",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "181731a2-a297-4c53-b5e2-f6adcc9ed472",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '.\\login.jsp')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2df11401-267f-45a4-b5b0-e66f4518db06",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "48a91408-44c7-426d-b7d3-3ea998e015e5",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "fferrucci@unisa.it"
+    }, {
+      "id": "d60b52a2-a39b-42ba-b0a6-8bc217db1e1e",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d7448b94-86d0-46d8-ac30-09ac30686c0b",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "c9b4f137-1cd3-4375-93b1-1dae0861f501",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8aa8b374-2fc6-4b8c-ac66-8c2257c43dd5",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 .current:nth-child(2) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 .current:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Riconoscimento Carriere')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/AdminManagement?flag=1')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9a20bf8a-af6d-49a2-9f3b-24b1eb6c1921",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(3)",
+      "targets": [
+        ["css=.btn:nth-child(3)", "css:finder"],
+        ["xpath=//input[@value='Controlla']", "xpath:attributes"],
+        ["xpath=//table[@id='PCDTableRC']/thead/tr[2]/td[4]/form/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e6f4db56-cbec-45c5-91ee-867a960ad383",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 a", "css:finder"],
+        ["xpath=//a[contains(text(),'Lista Richieste')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/EnglishValidation/AdminManagement?flag=1')])[2]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "949c3b9c-3101-4360-bf10-f621af4accc5",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 .current > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 .current > a", "css:finder"],
+        ["xpath=//a[contains(text(),'English Validation')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/_areaAdmin/viewRequest.jsp')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cca257c7-155d-4660-bbf9-3d1bfe0d7bf3",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 .current:nth-child(2) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 .current:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Riconoscimento Carriere')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/AdminManagement?flag=1')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdb89b62-e498-412b-aa5b-3b9d8ada39b2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.logo-outer a",
+      "targets": [
+        ["css=.logo-outer a", "css:finder"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/AdminManagement?flag=1')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "68d8f721-cb7c-40aa-90eb-38bd15e16b5a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(3)",
+      "targets": [
+        ["css=.btn:nth-child(3)", "css:finder"],
+        ["xpath=//input[@value='Controlla']", "xpath:attributes"],
+        ["xpath=//table[@id='PCDTableRC']/thead/tr[2]/td[4]/form/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0586668f-7620-4938-a0ae-5429ef2103a3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.logo-outer a",
+      "targets": [
+        ["css=.logo-outer a", "css:finder"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/AdminManagement?flag=1')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7270e53c-f92c-499f-b03d-1056e76323f0",
+      "comment": "",
+      "command": "click",
+      "target": "css=#bs-example-navbar-collapse-1 li:nth-child(2) > a",
+      "targets": [
+        ["css=#bs-example-navbar-collapse-1 li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Disconnetti')]", "xpath:link"],
+        ["xpath=//div[@id='bs-example-navbar-collapse-1']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/EnglishValidation/logout.jsp')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "7133a576-80c4-4654-9f6c-60372eeae0e2",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["a26f1a95-5452-4c22-962b-a56837a07b8f"]
+  }],
+  "urls": ["http://localhost:8080/", "http://localhost:8080/EnglishValidation/"],
+  "plugins": []
+}
