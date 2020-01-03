@@ -24,7 +24,7 @@ CREATE TABLE UC(
 
 CREATE TABLE REPORT( 
 	ID_REPORT int(20) not null AUTO_INCREMENT,
-    NOTE text(5000) default null,
+    NOTE text default null,
     primary key (ID_REPORT)
 );
 alter table REPORT AUTO_INCREMENT=1;
