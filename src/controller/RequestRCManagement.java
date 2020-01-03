@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Admin;
+import model.RCState;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.SenderMail;
@@ -40,8 +41,8 @@ public class RequestRCManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		State stateAcceptByUC = new State(1,"isBeingDiscussed");
-		State stateRejectByUC = new State(3,"refused");
+		RCState stateAcceptByUC = RCState.isBeingDiscussed;
+		RCState stateRejectByUC =RCState.refused;
 		Object user = request.getSession().getAttribute("user");
 		int result;
 		RequestDispatcher disp;
