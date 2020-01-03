@@ -47,18 +47,23 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
       menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/uploadAttached.jsp\">Carica Allegato</a></li>";
           menu += "<li><a href=\"" + request.getContextPath() + "/" 
-                  + "StudentRCRequestRedirector\">Riconoscimento Carriera</a></li>";
+                  + "StudentRCRequestRedirector?flag=1\">Riconoscimento Carriera</a></li>";
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
     
   	 
     if (pageName.equals("viewRCRequestStatus.jsp")) {      
-  	      
-    	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-  	          + "/viewRequest.jsp\">English Validation</a></li>";
+    	Student user =(Student) session.getAttribute("user");
+  	  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ){ 
+    		menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+  	          			+ "/viewRequest.jsp\">English Validation</a></li>";
   	          menu +=
-  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	          			"<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	  }else{
+  		 menu +=
+  	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+  	  }
   	 }
     
     if (pageName.equals("firstForm.jsp")) {
