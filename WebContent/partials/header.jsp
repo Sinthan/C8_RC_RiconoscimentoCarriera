@@ -26,6 +26,7 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
   } else if (pageFolder.equals("_areaSecretary")) { //se stiamo in una pagina dell'area segreteria
+
 	  logoRedirect = request.getContextPath()+"/_areaSecretary/viewRequest.jsp";
   
     if (pageName.equals("viewRequest.jsp")) {
@@ -35,8 +36,13 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
   } else if (pageFolder.equals("_areaStudent")) { //se stiamo in una pagina dell'area studente
-	 logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
-  
+	  Student user =(Student) session.getAttribute("user");
+  	  	if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ){
+	 		logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
+  	  }else {
+  		//nessuna funzionalità per il logo
+  	  }
+  	  	
     if (pageName.equals("viewRequest.jsp")) { //se stiamo in viewRequest
     	int flag = 0;
     		request.getSession().setAttribute("flag", 0);
@@ -54,7 +60,7 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
     
   	 
     if (pageName.equals("viewRCRequestStatus.jsp")) {      
-    	Student user =(Student) session.getAttribute("user");
+    	 user =(Student) session.getAttribute("user");
   	  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ){ 
     		menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
   	          			+ "/viewRequest.jsp\">English Validation</a></li>";
