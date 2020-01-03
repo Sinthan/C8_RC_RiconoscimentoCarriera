@@ -61,7 +61,7 @@
 											out.print("<td class=submitButton-centre align=center style= margin-right: 60px; width: 200px; position: relative; float:centre>"+
 													"<form action=./ProofForViewRCRequestAdmin method=get> <input type = hidden name = idRequestRC value = "  +temp.getRequestRCID() +  "  /> " +
 													"<input type= hidden value = 2 name=flag>"+
-													"<input type= submit value =Controlla  class=btn btn-primary></input> ></form> </td>");
+													"<input type= submit value =Controlla  class=btn btn-primary></input> </form> </td>");
 											out.print("</tr>");
 										}
 											
