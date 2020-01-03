@@ -130,10 +130,10 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
 	  	 }    
   	}else if(pageFolder.equals("GUIUC")) {	  
   		UC user =(UC) session.getAttribute("user");
-		logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
+		logoRedirect = request.getContextPath() + "/UCManagement";
   	  if (pageName.equals("viewRCRequestUC.jsp")) {      
   			menu += 
-	    		  "<li><a href=\"" + request.getContextPath() + "/homeRCUC.jsp\">Richieste</a></li>";;   
+  					"<li class=\"current\"><a href=\"" + request.getContextPath() + "/UCManagement\">Lista Richieste</a></li>";   
 	    	menu +=
   	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	 } 
