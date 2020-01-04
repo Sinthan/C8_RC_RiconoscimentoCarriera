@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ page import="java.util.*, model.Exam, model.Suggestion"%>
+<%@ page import="java.util.*, model.Exam, model.Suggestion, controller.Utils"%>
 
 <%
 	String pageName = "viewRCRequestAdmin.jsp";
@@ -53,6 +53,9 @@
 	}
 	
 	function autoFillModal(examName, examCFU, examLink) {
+		// Get the email element and resets it
+		emailField = document.getElementById("recipient-name");
+		emailField.value = "";
 		// Get the textarea element
 		txtArea = document.getElementById("message-text");
 		txtArea.value = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
@@ -139,12 +142,11 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												<form>
 													<div class="form-group">
 														<label for="recipient-name" class="col-form-label">Indirizzo
 															email del docente:</label> <input type="email"
 															class="form-control" id="recipient-name"
-															onChange="validationMail()" name="recipient-name ">
+															onChange="validationMail()" name="recipient-name" placeholder = "emaildocente@esempio.com">
 													</div>
 													<div class="form-group">
 														<label for="message-text" class="col-form-label">Messaggio:</label>
@@ -152,12 +154,11 @@
 															id="message-text" onChange="validationBodyMail()"
 															name="message-text"></textarea>
 													</div>
-												</form>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Annulla</button>
-												<button id="btnSend" onClick="sendMail()" type="button"
+												<button id="btnSend" onclick="sendMail()" type="button"
 													class="btn btn-primary" data-dismiss="modal" disabled="disabled">Invia</button>
 											</div>
 										</div>
@@ -236,29 +237,30 @@
 																<img src="css/svg/help-circle.svg" class="btn-icon">
 															</button>
 														</span>
-												<% } %>
+												
 													</div>
 												</div>
 <!-- Exam buttons end -->
 <!-- Exam suggestion -->
-												<% if (suggList.get(examRow-1) != null) {%>
-												<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 collapse"
+												
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
 													id="suggestion<%=examRow%>">
-													<div class="card card-body">
-														<h5 id="suggestion<%=examRow%>Title" class="card-title"> Validato il <%=suggList.get(examRow-1).getValidationDate()%></h5>
-														<h6 id="suggestion<%=examRow%>Subtitle" class="card-subtitle mb-2 text-muted"><%=suggList.get(examRow-1).getUniversityName()%></h6>
+													<div class="card card-body suggestion">
+														<h4 id="suggestion<%=examRow%>Title" class="card-title"><em><b>Validato il <%=Utils.getFormattedDate(suggList.get(examRow-1).getValidationDate())%></b></em></h4>
 														<p id="suggestion<%=examRow%>Body" class="card-text"><%=suggList.get(examRow-1).getValidationMode()%></p>
 													</div>
 												</div>
-												<% } %>
+												<% } else {%>
+													</div>
+												</div>
+												<%} %>
 <!-- Exam suggestion end -->
 												<%
 															examRow++;
 														%>
 											</c:forEach>
-<!-- Adding extra space on the bottom for the last suggestion -->
-											<br>
-											<br>
+<!-- Adding an extra div after the last suggestion in order to make the orange container resize as the last suggestion gets expanded -->
+											<div>&nbsp;</div>
 										</div>
 									</div>
 								</div>

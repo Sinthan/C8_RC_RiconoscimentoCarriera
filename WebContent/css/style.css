@@ -7831,3 +7831,33 @@ img {
 .banner-footer .text span {
 	color: #fd1e39;
 }
+
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution:
+	.001dpcm) {
+	b, strong {
+		font-weight: 600;
+	}
+	
+	h1, h2, h3, h5, h6 {
+		position: relative;
+		font-weight: 300;
+		margin: 0px;
+		background: none;
+		line-height: 1.4em;
+		font-family: 'Montserrat', sans-serif;
+	}
+	
+	.h4, h4 {
+		font-size: 18px;
+		position: relative;
+		font-weight: 300;
+		margin: 0px;
+		background: none;
+		line-height: 1.4em;
+		font-family: 'Montserrat', sans-serif;
+	}
+	
+	h4 em {
+		font-weight: 400;
+	}
+}
