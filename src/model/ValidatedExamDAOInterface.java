@@ -15,9 +15,11 @@ public interface ValidatedExamDAOInterface {
 
 	public int insertValidatedExam(ValidatedExam vExam);
 	
-	public int updateValidatedExams(ValidatedExam vExam);
+	public int updateValidatedExam(ValidatedExam vExam);
 	
 	public ValidatedExam doRetrieveValidatedExam(int reportID, String examName);
+	
+	public int deleteValidatedExam(ValidatedExam vExam);
 	
 	public ArrayList<ValidatedExam> doRetrieveValidatedExamsByReportID(int reportID);
 }

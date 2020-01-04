@@ -100,6 +100,7 @@ public class CheckSession implements Serializable {
    */
   public boolean isAllowed() {
     this.setAllowed(false);
+    
     Object uc = this.getSession().getAttribute("user");
     if(uc instanceof UC && this.pageFolder.equals("GUIUC")){
     	

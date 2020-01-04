@@ -42,7 +42,14 @@ public class AdminManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-		 int flag = Integer.parseInt(request.getParameter("flag"));
+		int flag = 0;
+	
+		// Control of the next statement to be executed
+		if ( request.getParameter("flag")!=null ) {
+			flag = Integer.parseInt(request.getParameter("flag"));
+		}else if ( request.getAttribute("flag") != null ) {
+			flag = (int) request.getAttribute("flag");		 
+		}
 				
 		if (flag == 1) {
 			RCState state = RCState.isBeingDiscussed;
@@ -59,7 +66,7 @@ public class AdminManagement extends HttpServlet {
 			RequestRCDAO reqDAO = new RequestRCDAO();
 			FilePDFDAO pdfDAO = new FilePDFDAO();
 			ArrayList<FilePDF> filesPDF = new ArrayList<FilePDF>();
-			int requestRCID = (int) request.getSession().getAttribute("requestRCID");
+			int requestRCID = Integer.parseInt(request.getParameter("idRequestRC"));
 			RequestRC req = reqDAO.doRetrieveRequestRCByRequestID(requestRCID);
 			filesPDF = pdfDAO.doRetrieveAllFilePDFByIDRequestRC(req.getRequestRCID());
 			
@@ -101,6 +108,7 @@ public class AdminManagement extends HttpServlet {
 			for (Exam e : examList) {
 				suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
 			}
+			request.setAttribute("idRequestRC", requestRCID);
 			request.setAttribute("suggList", suggList);
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/viewRCRequestAdmin.jsp");

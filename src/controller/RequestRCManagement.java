@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,8 @@ import model.UC;
 @WebServlet("/RequestRCManagement")
 public class RequestRCManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public final RequestRCDAO rDAO= new RequestRCDAO();
+	String pdfSaveFolder = "/DocumentsRequestRC"; //Folder of the student document
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -80,6 +83,7 @@ public class RequestRCManagement extends HttpServlet {
 		}//Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
 			//get the mail of professor 
+			
 			String mailD = request.getParameter("recipient-name");
 			//Control email format
 			if (mailD != null) {
@@ -102,7 +106,6 @@ public class RequestRCManagement extends HttpServlet {
 				request.setAttribute("errorVR","Impossibile inviare l'email al docente. Messaggio non inserito.");
 				return;
 			}
-			
 			//send mail to professor
 			SenderMail email = new SenderMail();
 			email.sendMail("carrierapregressaunisa@gmail.com", mailD, "Carriera pregressa", messageBody, null);
