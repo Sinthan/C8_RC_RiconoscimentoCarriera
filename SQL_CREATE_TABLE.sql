@@ -38,7 +38,7 @@ CREATE TABLE REQUEST_RC(
 	ID_REQUEST int(20) not null AUTO_INCREMENT,
     DATE_REQUEST date not null,
     STATE int(20) not null,
-    FK_UNIVERSITY varchar(50) not null,
+    FK_UNIVERSITY varchar(100) not null,
     FK_USER varchar(50) not null,
     FK_REPORT int(20),     
     FK_EMAIL_UC varchar(50) not null,
