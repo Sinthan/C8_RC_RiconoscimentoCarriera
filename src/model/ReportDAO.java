@@ -2,8 +2,10 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import controller.DbConnection;
 
@@ -23,9 +25,42 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public int insertReport(Report report) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (report.getValidatedExamsList()==null) { // Checks if attributes are set
+			System.out.println("Void report");
+			return -2;
+		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;		
+		int result = 0;
+
+		String insertSQL = "INSERT INTO REPORT " +
+				" (NOTE) " +
+				" VALUES (?)";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(insertSQL);			
+			// Setting parameters
+			preparedStatement.setString(1, report.getNote());
+			// Executing the insertion
+			result = preparedStatement.executeUpdate();	
+			connection.commit();
+			System.out.println("insertRequestRC(result=" + result + ": " + report.toString());		// Logging the operation
+		} catch(SQLException e) {
+			new RuntimeException("Couldn't insert the RequestRC " + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return result;
 	}
+
+	
 
 	/**
 	* Update the Report into the database.
@@ -34,7 +69,8 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public int updateReport(Report report) {
-		// TODO Auto-generated method stub
+		deleteReport(report.getReportID());
+		insertReport(report);
 		return 0;
 	}
 
@@ -69,9 +105,49 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public Report doRetrieveReportByReportID(int reportID) {
-		// TODO Auto-generated method stub
-		return null;
+		if (reportID< 0) { // Checks if parameter is a valid ID
+			System.out.println("doRetrieveReportByReportID: Please enter a valid Report ID.");
+			return null;
+		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		Report report = null;
+		ValidatedExamDAO vExamDAO = new ValidatedExamDAO();
+		ArrayList<ValidatedExam> exams = vExamDAO.doRetrieveValidatedExamsByReportID(reportID);
+		
+		// Selects the report tuples that match the specified ID
+		String selectSQL = "SELECT * FROM REPORT "
+				+ " WHERE ID_REPORT = ?";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(selectSQL);			
+			// Setting the parameter
+			preparedStatement.setInt(1, reportID);
+			// Executing the selection
+			ResultSet resSet = preparedStatement.executeQuery();
+
+			// If a report is found construct it
+			if (resSet.next()) {
+				report = new Report();
+				report.setReportID(reportID);;
+				report.setNote(resSet.getString("NOTE"));
+				report.setValidatedExamsList(exams);
+			}
+		} catch(SQLException e) {
+			new RuntimeException("Couldn't retrieve the RequestRC " + report + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return report;
 	}
+	
 
 	/**
 	* Get the list of validated exams by Report id.
