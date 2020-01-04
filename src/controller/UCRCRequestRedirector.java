@@ -59,8 +59,7 @@ public class UCRCRequestRedirector extends HttpServlet {
     Student userRC = sDAO.doRetrieveStudentByEmail(reqRC.getStudentID());
     request.getSession().setAttribute("userRC",userRC);
     //Ricavo il path della cartella file dello studente
-    String path=  Utils.getProjectPath() +  "\\WebContent\\DocumentsRequestRC\\" + userRC.getEmail() + "\\";
-    path = path.replace("/", "\\");
+    String path=  Utils.getProjectPath() +  "/WebContent/DocumentsRequestRC/" + userRC.getEmail() + "/";
 	request.getSession().setAttribute("filePath", path);
     //Carica la lista degli esami inseriti manualmente dallo studente
     ArrayList<Exam> eList = examDAO.doRetrieveAllExamsByRequestRCID(reqRC.getRequestRCID());

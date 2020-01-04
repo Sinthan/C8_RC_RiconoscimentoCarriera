@@ -131,7 +131,7 @@
 										    <input type="text" placeholder="Motivazione.." name="popupText" required>
 										    <input type = hidden name = RequestRCstate value="false"/>
 										    <button type="submit" class="btn" >Inoltra</button>
-										    <button type="submit" class="btn cancel" onclick="closeForm()">Annulla</button>
+										    <button type="reset" class="btn cancel" value="Reset" onclick="closeForm()">Annulla</button>
 										  </form>
 										</div>
 									</div>
