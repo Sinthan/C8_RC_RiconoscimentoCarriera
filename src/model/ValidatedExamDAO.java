@@ -108,8 +108,22 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
 	 */
 	@Override
-	public int updateValidatedExams(ValidatedExam vExam) {
-		return 0;
+	public int updateValidatedExam(ValidatedExam vExam) {
+		if(vExam==null) {
+			System.out.println("Void Exam passed");
+			return -1;
+		
+		} else if(doRetrieveValidatedExam(vExam.getReportID(),vExam.getExamName())==null){
+			System.out.println("exam doesn't exists in DB");
+			return -2;
+		}else {
+			
+			deleteValidatedExam(vExam);
+			insertValidatedExam(vExam);
+			return 0;
+		}
+		
+	
 	}
 
 	/**
@@ -233,5 +247,51 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 		return exams;
 	}
 
+
+
+	@Override
+	public int deleteValidatedExam(ValidatedExam vExam) {
+		if (vExam.getVExamID()< 0) { // Checks if parameter is a valid ID
+			System.out.println("deleteValidatedExam: Please enter a valid ExamID.");
+			return -1;
+		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;		
+		int result = 0;
+		
+		String deleteSQL = "DELETE * FROM VALIDATE_EXAM WHERE ID_EXAM_VALIDATE = ?";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(deleteSQL);			
+			// Setting parameter
+			preparedStatement.setInt(1, vExam.getVExamID());
+			//cheking if exam exist
+			if(doRetrieveValidatedExam(vExam.getVExamID(),vExam.getExamName())==null) {
+				System.out.println("Exam don't exist already");
+				return -2;
+			}
+			// Executing the deletion
+						
+			result = preparedStatement.executeUpdate();							
+			connection.commit();						
+			return 0;
+	} catch(SQLException e) {
+		new RuntimeException("Couldn't delete the Exam " + e);
+	} finally {
+		// Statement release
+		if(preparedStatement != null)
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	
+	}
+	
+		return result;
+
+
+	}
 }
 

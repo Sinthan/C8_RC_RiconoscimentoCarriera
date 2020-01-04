@@ -69,9 +69,20 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public int updateReport(Report report) {
-		deleteReport(report.getReportID());
-		insertReport(report);
-		return 0;
+		if(report==null) {
+			
+			System.out.println("Invalid report passed");
+			return-1;
+		} else if(doRetrieveReportByReportID(report.getReportID())==null) {
+			
+			System.out.println("report doesn't exists in DB");
+			return -2;
+		} else {
+		
+			deleteReport(report.getReportID());
+			insertReport(report);
+			return 0;
+		}
 	}
 
 	/**
@@ -94,7 +105,7 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public int updateNote(int reportID, String note) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
@@ -156,8 +167,9 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public ArrayList<ValidatedExam> doRetrieveValidatedExamsByReportID(int reportID) {
-		// TODO Auto-generated method stub
-		return null;
+		ValidatedExamDAO vDao = new ValidatedExamDAO();
+		ArrayList<ValidatedExam> exams = vDao.doRetrieveValidatedExamsByReportID(reportID);
+		return exams;
 	}
 
 	/**
