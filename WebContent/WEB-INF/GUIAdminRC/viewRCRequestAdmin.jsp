@@ -25,6 +25,8 @@
 	int examRow = 1;
 %>
 <script type="text/javascript">
+	var examSelected = null
+	
 	window.onload = function(){
 		controlServlet();
 		$('[data-toggle="tooltip"]').tooltip(); // Tooltip setup
@@ -51,6 +53,7 @@
 				"\nCFU: " + examCFU +
 				"\nLink al piano di studi: " + examLink +
 				"\nNome dello studente: " + "${studentName}";
+		examSelected = examName; 
 	}
 
 	function validateMailAddress() {
@@ -82,7 +85,7 @@
 		$.ajax({
 			type : 'POST',
 			url : 'RequestRCManagement',
-			data : 'recipient-name=' + mailD + '&message-text=' + txtArea,
+			data : 'recipient-name=' + mailD + '&message-text=' + txtArea + '&exam-selected=' + examSelected,
 			error : function(response) {
 				// Gets called when an error occurs with error details in variable response
 				showAlert(1, "Errore nell'invio dell'email.");
