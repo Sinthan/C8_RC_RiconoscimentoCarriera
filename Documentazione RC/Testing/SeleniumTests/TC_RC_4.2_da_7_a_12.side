@@ -1,0 +1,1619 @@
+{
+  "id": "3ba106e1-d6b2-4fb0-b739-ef707d7d3fd4",
+  "version": "2.0",
+  "name": "TC_RC_4.2",
+  "url": "http://localhost:8080/EnglishValidation/login.jsp",
+  "tests": [{
+    "id": "f728ffee-66a9-4a07-aa41-ae7ba88a656d",
+    "name": "TC_RC_4.2_07",
+    "commands": [{
+      "id": "85f0b488-ca10-435f-b75b-e4cefbf4d65a",
+      "comment": "",
+      "command": "open",
+      "target": "/EnglishValidation/login.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "16c17f9c-287d-4e71-bc0d-14e40415bd19",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "974x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b64ff82-2e08-490b-92de-45c23991798a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e8857f46-37cf-459d-9a7e-0a214a6f6cce",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "182f0d0f-260b-4f41-95f1-e019ddd0b6a3",
+      "comment": "",
+      "command": "select",
+      "target": "id=universita",
+      "targets": [],
+      "value": "label=Università degli Studi della BASILICATA"
+    }, {
+      "id": "ba31c619-e0ab-4a4e-b2b2-a0da885c066f",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a046d2ea-d2e3-4724-8a8c-997ac994940a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile1",
+      "targets": [
+        ["css=.divFile1", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]", "xpath:idRelative"],
+        ["xpath=//form/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "abc0295d-c81f-4c11-be8f-e1760cb778fb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile1 .btn-2",
+      "targets": [
+        ["css=.divFile1 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7949098b-881a-44c6-971c-f9e1ee27cfb0",
+      "comment": "",
+      "command": "type",
+      "target": "id=file1",
+      "targets": [
+        ["id=file1", "id"],
+        ["name=file1", "name"],
+        ["css=#file1", "css:finder"],
+        ["xpath=//input[@id='file1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\01.reqelicit.pdf"
+    }, {
+      "id": "68d3aca5-a05a-498a-aa45-788886e4d676",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile2 .btn-2",
+      "targets": [
+        ["css=.divFile2 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6b7d8928-45eb-4141-9baf-0584c3a4ca94",
+      "comment": "",
+      "command": "type",
+      "target": "id=file2",
+      "targets": [
+        ["id=file2", "id"],
+        ["name=file2", "name"],
+        ["css=#file2", "css:finder"],
+        ["xpath=//input[@id='file2']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\02.requirements.pdf"
+    }, {
+      "id": "085fbcdf-7cbf-4caf-84b3-78a0f2382f15",
+      "comment": "",
+      "command": "click",
+      "target": "css=b",
+      "targets": [
+        ["css=b", "css:finder"],
+        ["xpath=//button[@id='buttonCreateRequestRC1']/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'>')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2a631ee9-9e80-42d5-80fc-d5fee9a1eda6",
+      "comment": "",
+      "command": "click",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2f4f111f-c8b0-4392-9ae7-fe85d1f4eb04",
+      "comment": "",
+      "command": "type",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Architettura del calcolatori"
+    }, {
+      "id": "e98a8156-da1f-49b2-95e3-5dcfe144b961",
+      "comment": "",
+      "command": "click",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "21bc8b06-5436-405c-987a-40cf1e7df491",
+      "comment": "",
+      "command": "type",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "0"
+    }, {
+      "id": "01083e65-4cb2-42e8-ae53-bdb1ee9316bb",
+      "comment": "",
+      "command": "click",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d5335724-bd2b-437c-ba33-e8b335648f42",
+      "comment": "",
+      "command": "type",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "http://informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/146-architettura-degli-elaboratori-i"
+    }, {
+      "id": "edb71b2d-3eb4-45a4-a539-6548acaabd63",
+      "comment": "",
+      "command": "click",
+      "target": "css=.text-center",
+      "targets": [
+        ["css=.text-center", "css:finder"],
+        ["xpath=//form[@id='createRequestRC2']/div[3]/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4226a11a-9989-4061-87e1-746fc5d423ce",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-submit",
+      "targets": [
+        ["css=.btn-submit", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC2']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'✔')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "73a87513-3a1a-4b8a-a1c1-cfc7a88a475e",
+    "name": "TC_RC_4.2_08",
+    "commands": [{
+      "id": "f37ea379-2da7-4f25-967e-55eea38caaf9",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/EnglishValidation/login.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a128503-6c49-4af3-a568-b892b2576929",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "974x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cb143fb4-21b8-4e63-9e45-7fa94b5a060d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a084b3ec-f58c-4c59-b84a-6009ead00b89",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e3a7a93f-6129-4cf2-8238-b4beeeb7977d",
+      "comment": "",
+      "command": "select",
+      "target": "id=universita",
+      "targets": [],
+      "value": "label=Università degli Studi della BASILICATA"
+    }, {
+      "id": "efc588a7-9795-4bbd-9b57-1a7f717c375b",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a3ab26eb-357f-4209-aab0-9c2364bfd044",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile1 .btn-2",
+      "targets": [
+        ["css=.divFile1 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b9812bd9-ee16-482c-bd45-2874ad7c0e30",
+      "comment": "",
+      "command": "type",
+      "target": "id=file1",
+      "targets": [
+        ["id=file1", "id"],
+        ["name=file1", "name"],
+        ["css=#file1", "css:finder"],
+        ["xpath=//input[@id='file1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\01.reqelicit.pdf"
+    }, {
+      "id": "4bc83568-db5d-47f1-9d04-cc5ce5887baf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile2 .btn-2",
+      "targets": [
+        ["css=.divFile2 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8ab5c5f8-3352-43bd-8714-11e41ed0ba9d",
+      "comment": "",
+      "command": "type",
+      "target": "id=file2",
+      "targets": [
+        ["id=file2", "id"],
+        ["name=file2", "name"],
+        ["css=#file2", "css:finder"],
+        ["xpath=//input[@id='file2']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\02.requirements.pdf"
+    }, {
+      "id": "9df0b2c1-ceb3-4798-b7e4-9325fee0a23c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast:nth-child(1) > .toast-message",
+      "targets": [
+        ["css=.toast:nth-child(1) > .toast-message", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf76b7c7-cca4-4b2d-b49d-b5ac27b0134c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast",
+      "targets": [
+        ["css=.toast", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div", "xpath:idRelative"],
+        ["xpath=//body/div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44dd16cd-cf6f-4fbe-9406-67c103eab7e7",
+      "comment": "",
+      "command": "click",
+      "target": "id=buttonCreateRequestRC1",
+      "targets": [
+        ["id=buttonCreateRequestRC1", "id"],
+        ["css=#buttonCreateRequestRC1", "css:finder"],
+        ["xpath=//button[@id='buttonCreateRequestRC1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[4]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'>')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0a0297d1-c6a9-4300-a3d4-a054ca9f1cde",
+      "comment": "",
+      "command": "click",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4eb79632-62c8-4517-9750-59dbee9057cf",
+      "comment": "",
+      "command": "type",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Architettura del calcolatori"
+    }, {
+      "id": "7aabcfa4-b83d-4550-be24-259c07d6b209",
+      "comment": "",
+      "command": "click",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6c642372-68e6-4d8a-9053-cbb975b3533a",
+      "comment": "",
+      "command": "click",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d4e18194-9368-46b2-bc79-4800bc299673",
+      "comment": "",
+      "command": "type",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "http://informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/146-architettura-degli-elaboratori-i"
+    }, {
+      "id": "103b64b7-c946-4da9-a491-65a9e361d487",
+      "comment": "",
+      "command": "click",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a98d013-a30d-4003-99a9-7001c3f7b3f7",
+      "comment": "",
+      "command": "type",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "35"
+    }, {
+      "id": "676e41aa-c44e-40d6-8b22-dd266630b0f2",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "css=.btn-submit",
+      "targets": [
+        ["css=.btn-submit", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC2']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'✔')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca101cb0-3b28-46f4-adb7-779711ec0c35",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.toast",
+      "targets": [
+        ["css=.toast", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "20de2d20-f1dc-49ce-9088-1133da0d7750",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "535ae660-781b-49f8-8866-7bdb085ae00d",
+    "name": "TC_RC_4.2_09",
+    "commands": [{
+      "id": "200e3394-43d0-4299-b489-b60d440391aa",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/EnglishValidation/login.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fda416f9-36a9-44db-8e90-e2e59f71364b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "974x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "06d5db70-31e0-429d-b379-ed253da4aab2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "18ca64e3-8e57-498a-9951-b155f74d0910",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "61d2c990-678e-4765-815e-f78e5bfc944a",
+      "comment": "",
+      "command": "select",
+      "target": "id=universita",
+      "targets": [],
+      "value": "label=Università degli Studi della BASILICATA"
+    }, {
+      "id": "39a8de70-4830-4457-a437-47222dda0a7c",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0ff5d67e-bea8-4cdf-811f-0c775347d8ff",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile1 .btn-2",
+      "targets": [
+        ["css=.divFile1 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0bb84a58-b14b-4757-b4f9-f449a46c743a",
+      "comment": "",
+      "command": "type",
+      "target": "id=file1",
+      "targets": [
+        ["id=file1", "id"],
+        ["name=file1", "name"],
+        ["css=#file1", "css:finder"],
+        ["xpath=//input[@id='file1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\01.reqelicit.pdf"
+    }, {
+      "id": "d1eb3ada-65ed-4f08-ad96-d4207ac50123",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile2 .btn-2",
+      "targets": [
+        ["css=.divFile2 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "875ec3fd-1be3-4e9f-bf57-3aca56853174",
+      "comment": "",
+      "command": "type",
+      "target": "id=file2",
+      "targets": [
+        ["id=file2", "id"],
+        ["name=file2", "name"],
+        ["css=#file2", "css:finder"],
+        ["xpath=//input[@id='file2']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\02.requirements.pdf"
+    }, {
+      "id": "985af193-c095-45a0-a17a-5e2b94cd7b53",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast:nth-child(1) > .toast-message",
+      "targets": [
+        ["css=.toast:nth-child(1) > .toast-message", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e4963aa7-6a64-4049-ab28-550565257322",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast",
+      "targets": [
+        ["css=.toast", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div", "xpath:idRelative"],
+        ["xpath=//body/div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2e3d7858-853f-48a4-9216-68320e556b29",
+      "comment": "",
+      "command": "click",
+      "target": "id=buttonCreateRequestRC1",
+      "targets": [
+        ["id=buttonCreateRequestRC1", "id"],
+        ["css=#buttonCreateRequestRC1", "css:finder"],
+        ["xpath=//button[@id='buttonCreateRequestRC1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[4]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'>')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c590a06e-907b-49d2-9e4f-aabd59fa7197",
+      "comment": "",
+      "command": "click",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d56bde7d-a4e3-45a6-868b-b75989daa710",
+      "comment": "",
+      "command": "type",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Architettura del calcolatori"
+    }, {
+      "id": "33d6dd04-cfa4-4551-be6a-4320a48f57ea",
+      "comment": "",
+      "command": "click",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "da2ff6ee-6d21-451f-8a01-f5f957b3629b",
+      "comment": "",
+      "command": "type",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "9"
+    }, {
+      "id": "a9739662-7038-4bf6-a5e9-6379ac311eef",
+      "comment": "",
+      "command": "click",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b9a33305-dad6-4a46-ae6e-dedd86b4588f",
+      "comment": "",
+      "command": "type",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "htt"
+    }, {
+      "id": "ad5939d2-72b1-4f93-a447-f3db02d1b5b3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-submit",
+      "targets": [
+        ["css=.btn-submit", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC2']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'✔')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "50cc23df-d505-4899-9f7a-fc1de97916e3",
+    "name": "TC_RC_4.2_10",
+    "commands": [{
+      "id": "146f5ddc-3d18-47bd-910c-bc025f2e2bd5",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/EnglishValidation/login.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5450d48d-3629-4284-8747-117d520c9031",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "974x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bfbbfd90-444d-4268-b69b-67764c3086c8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "009fdf05-68d4-4b1c-bd36-5051a9e7c791",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1c2d6a49-168a-4866-a796-60c4f7d48420",
+      "comment": "",
+      "command": "select",
+      "target": "id=universita",
+      "targets": [],
+      "value": "label=Università degli Studi della BASILICATA"
+    }, {
+      "id": "ed11d0a8-b286-499c-9f2c-81a8d2020155",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dce0216d-7d29-4672-a36f-4517900e254f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile1 .btn-2",
+      "targets": [
+        ["css=.divFile1 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "70148f6d-4dc5-41f9-941f-560cca5f7537",
+      "comment": "",
+      "command": "type",
+      "target": "id=file1",
+      "targets": [
+        ["id=file1", "id"],
+        ["name=file1", "name"],
+        ["css=#file1", "css:finder"],
+        ["xpath=//input[@id='file1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\01.reqelicit.pdf"
+    }, {
+      "id": "527ee415-afe8-4af5-874d-a0bf8a80dde9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile2 .btn-2",
+      "targets": [
+        ["css=.divFile2 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "762e96d4-ca2f-4d23-adf8-debffe5b55b9",
+      "comment": "",
+      "command": "type",
+      "target": "id=file2",
+      "targets": [
+        ["id=file2", "id"],
+        ["name=file2", "name"],
+        ["css=#file2", "css:finder"],
+        ["xpath=//input[@id='file2']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\02.requirements.pdf"
+    }, {
+      "id": "61566466-5180-474b-b830-ea78da906c4e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast:nth-child(2)",
+      "targets": [
+        ["css=.toast:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div[2]", "xpath:idRelative"],
+        ["xpath=//body/div[3]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0de6bfc6-15a5-40f6-82a3-2911161aa4aa",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group",
+      "targets": [
+        ["css=.form-group", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[4]", "xpath:idRelative"],
+        ["xpath=//div[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b9af0d7-c17e-4388-b2f6-c394b3548307",
+      "comment": "",
+      "command": "click",
+      "target": "id=buttonCreateRequestRC1",
+      "targets": [
+        ["id=buttonCreateRequestRC1", "id"],
+        ["css=#buttonCreateRequestRC1", "css:finder"],
+        ["xpath=//button[@id='buttonCreateRequestRC1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[4]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'>')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e1c13de-a260-4cfd-823f-45b6603c9976",
+      "comment": "",
+      "command": "click",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8633c784-92ab-4ea0-8522-006f9a2b0b97",
+      "comment": "",
+      "command": "type",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Architettura del calcolatori"
+    }, {
+      "id": "bfb09a2a-0888-49b0-8b3d-d6655aaf3c69",
+      "comment": "",
+      "command": "click",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a6e51d17-dc37-4149-813e-100aee2ad93d",
+      "comment": "",
+      "command": "type",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "9"
+    }, {
+      "id": "2fe31a1c-9aeb-481f-9f76-1cae23f8d22d",
+      "comment": "",
+      "command": "click",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c96349b-a97f-4386-9d83-611d594970d2",
+      "comment": "",
+      "command": "click",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "61f01179-9c5b-4041-bf37-b6ec8dff2090",
+      "comment": "",
+      "command": "type",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "http://informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/146-architettura-degli-elaboratori-i/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccddsadsadjsdjasiodjdassad"
+    }, {
+      "id": "1ce71858-fad1-4237-a3e5-b892989d0031",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-submit",
+      "targets": [
+        ["css=.btn-submit", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC2']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'✔')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "fdf3e54f-7d63-40f5-b6f7-9117d9dd862b",
+    "name": "TC_RC_4.2_11",
+    "commands": [{
+      "id": "f43d7e2c-0ce8-4ee8-b358-793fd2590e98",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/EnglishValidation/login.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0a5526b3-af2b-46e3-b460-826d973215d8",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "974x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "002bf236-2b94-4802-a81e-7065c2ce092f",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa84c374-d23b-4e34-8f07-ef9a06a83f0f",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "lee@gmail.com"
+    }, {
+      "id": "4c594790-d246-40ef-8ad9-ec6dfdfd4374",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "39b1b7db-70fe-4f8c-9246-34284c09d6dd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divUni",
+      "targets": [
+        ["css=.divUni", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/form/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b743166d-5a14-4341-9ea8-2e9c8ec145a6",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d05ca6a3-a10a-481e-bd05-d9cb466210cb",
+      "comment": "",
+      "command": "select",
+      "target": "id=universita",
+      "targets": [],
+      "value": "label=Università degli Studi della BASILICATA"
+    }, {
+      "id": "6d386019-8a48-4090-9665-575e1b646b6c",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e17a81d6-a9e3-4a23-8e78-6fadcd6bb6ea",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile1 .btn-2",
+      "targets": [
+        ["css=.divFile1 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb1370e7-9974-4ddb-b741-fbae04958ef7",
+      "comment": "",
+      "command": "type",
+      "target": "id=file1",
+      "targets": [
+        ["id=file1", "id"],
+        ["name=file1", "name"],
+        ["css=#file1", "css:finder"],
+        ["xpath=//input[@id='file1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\01.reqelicit.pdf"
+    }, {
+      "id": "f49e0800-2571-4ade-bf71-b219661b6f8a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile2 .btn-2",
+      "targets": [
+        ["css=.divFile2 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef698bfe-60e3-464d-9208-7acd32d024c1",
+      "comment": "",
+      "command": "type",
+      "target": "id=file2",
+      "targets": [
+        ["id=file2", "id"],
+        ["name=file2", "name"],
+        ["css=#file2", "css:finder"],
+        ["xpath=//input[@id='file2']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\02.requirements.pdf"
+    }, {
+      "id": "30b7f92d-ab69-407c-9f90-ed8a35cd7054",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast-close-button",
+      "targets": [
+        ["css=.toast-close-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='toast-container']/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "90902dde-09a0-4a8c-8797-fe6b11cac132",
+      "comment": "",
+      "command": "click",
+      "target": "id=buttonCreateRequestRC1",
+      "targets": [
+        ["id=buttonCreateRequestRC1", "id"],
+        ["css=#buttonCreateRequestRC1", "css:finder"],
+        ["xpath=//button[@id='buttonCreateRequestRC1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[4]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'>')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fd004cb-d07c-4454-8c60-3f8f7dfc1078",
+      "comment": "",
+      "command": "click",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "aecb493a-b650-4cff-9d22-7bafb4a70bf8",
+      "comment": "",
+      "command": "type",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Architettura del calcolatori"
+    }, {
+      "id": "27cf7937-b867-4ee6-aca4-a8e686a90f6b",
+      "comment": "",
+      "command": "click",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dfda5147-f7ce-480d-9090-93abbfcfc7ad",
+      "comment": "",
+      "command": "type",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "9"
+    }, {
+      "id": "1d08ae2c-9351-4d3a-9c62-ee1ff83ed1ac",
+      "comment": "",
+      "command": "click",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d07628be-c7ca-4fc4-a9b9-2dcc5ba1be25",
+      "comment": "",
+      "command": "click",
+      "target": "css=html",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4be62e7d-99f5-4aa9-bc4d-35bc4fe63b0c",
+      "comment": "",
+      "command": "type",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "http_://www.unisa.it"
+    }, {
+      "id": "4a7f168e-2be2-4990-83a9-0ab6ff53c650",
+      "comment": "",
+      "command": "click",
+      "target": "css=html",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "179ec58f-67ad-4c3d-9227-6f1f821a7339",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-submit",
+      "targets": [
+        ["css=.btn-submit", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC2']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'✔')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "8ef1dd97-129f-4fe2-8e32-9072088f8614",
+    "name": "TC_RC_4.2_12",
+    "commands": [{
+      "id": "74d00b74-8e65-488a-b14a-121176239986",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/EnglishValidation/login.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02b0df82-8a3a-4051-976e-21412a1c544c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "974x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "aefd4755-48df-4b44-9cf7-8749e7287ca5",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "36623bc4-039c-4513-a222-8579f4befb72",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "lff@gmail.com"
+    }, {
+      "id": "2a7acee0-45ff-42b1-8470-2e5e6265cff4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//form/div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2fed5d98-74ce-47ad-a902-57300e697963",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "42bd8f4f-2722-4f89-852a-8f087960abea",
+      "comment": "",
+      "command": "select",
+      "target": "id=universita",
+      "targets": [],
+      "value": "label=Università degli Studi della BASILICATA"
+    }, {
+      "id": "023108be-bfe7-42c5-ae71-0e9d9859e444",
+      "comment": "",
+      "command": "click",
+      "target": "id=universita",
+      "targets": [
+        ["id=universita", "id"],
+        ["name=universita", "name"],
+        ["css=#universita", "css:finder"],
+        ["xpath=//select[@id='universita']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div/div/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "37c32a45-486c-4f5d-909b-968b85c7e1fc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile1 .btn-2",
+      "targets": [
+        ["css=.divFile1 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "961b4db5-bf7c-4a53-92de-5a74a79109f0",
+      "comment": "",
+      "command": "type",
+      "target": "id=file1",
+      "targets": [
+        ["id=file1", "id"],
+        ["name=file1", "name"],
+        ["css=#file1", "css:finder"],
+        ["xpath=//input[@id='file1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[2]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\01.reqelicit.pdf"
+    }, {
+      "id": "d9771435-58ba-4367-a92e-5e35040c9a74",
+      "comment": "",
+      "command": "click",
+      "target": "css=.divFile2 .btn-2",
+      "targets": [
+        ["css=.divFile2 .btn-2", "css:finder"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/label", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff916a42-39b1-4349-8c80-d00263566da2",
+      "comment": "",
+      "command": "type",
+      "target": "id=file2",
+      "targets": [
+        ["id=file2", "id"],
+        ["name=file2", "name"],
+        ["css=#file2", "css:finder"],
+        ["xpath=//input[@id='file2']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[3]/div[2]/p/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p/input", "xpath:position"]
+      ],
+      "value": "C:\\Users\\Lorenzo\\Downloads\\02.requirements.pdf"
+    }, {
+      "id": "b243609e-1112-4e4c-9e4a-05a22632c914",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast:nth-child(1) > .toast-message",
+      "targets": [
+        ["css=.toast:nth-child(1) > .toast-message", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e109eac-d476-4bc4-8131-04551b0ce7ac",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast",
+      "targets": [
+        ["css=.toast", "css:finder"],
+        ["xpath=//div[@id='toast-container']/div", "xpath:idRelative"],
+        ["xpath=//body/div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8cc9afb4-ce60-485a-b0a0-e8cf173bf169",
+      "comment": "",
+      "command": "click",
+      "target": "id=buttonCreateRequestRC1",
+      "targets": [
+        ["id=buttonCreateRequestRC1", "id"],
+        ["css=#buttonCreateRequestRC1", "css:finder"],
+        ["xpath=//button[@id='buttonCreateRequestRC1']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC1']/div[4]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'>')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c282eb9b-a857-46f9-a377-1040724bfea9",
+      "comment": "",
+      "command": "click",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "777fd846-3013-463b-ad9e-9f5150b76bb1",
+      "comment": "",
+      "command": "type",
+      "target": "name=examName1",
+      "targets": [
+        ["name=examName1", "name"],
+        ["css=.col-md-4 > .form-control", "css:finder"],
+        ["xpath=//input[@name='examName1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "Architettura del calcolatori"
+    }, {
+      "id": "6630a647-d8b0-4ea5-8988-3e73e24a228f",
+      "comment": "",
+      "command": "click",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "64874892-3b4f-4b0c-a47f-2ed48ae1b862",
+      "comment": "",
+      "command": "type",
+      "target": "name=CFU1",
+      "targets": [
+        ["name=CFU1", "name"],
+        ["css=.col-md-1 > .form-control", "css:finder"],
+        ["xpath=//input[@name='CFU1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "9"
+    }, {
+      "id": "1b59c09c-87d9-48d3-b1f4-8bc6a14595da",
+      "comment": "",
+      "command": "click",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b79996f-b6c3-41e2-b0bf-b0bb818c5136",
+      "comment": "",
+      "command": "click",
+      "target": "css=html",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "351bd7ba-a8d9-4735-b28d-656bb6a46b22",
+      "comment": "",
+      "command": "type",
+      "target": "name=programLink1",
+      "targets": [
+        ["name=programLink1", "name"],
+        ["css=.col-md-5 > .form-control", "css:finder"],
+        ["xpath=//input[@name='programLink1']", "xpath:attributes"],
+        ["xpath=//div[@id='examInsertionRows']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "http://informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/146-architettura-degli-elaboratori-i"
+    }, {
+      "id": "b0075269-ee08-412c-98fe-e1101fb66d88",
+      "comment": "",
+      "command": "click",
+      "target": "css=html",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "46906adf-9f92-45a2-953a-daa364c94a2f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-submit",
+      "targets": [
+        ["css=.btn-submit", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='createRequestRC2']/div[3]/p/button", "xpath:idRelative"],
+        ["xpath=//p/button", "xpath:position"],
+        ["xpath=//button[contains(.,'✔')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "57873565-e586-403b-b070-e1ed7b640319",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8080/", "http://localhost:8080/EnglishValidation/login.jsp"],
+  "plugins": []
+}
