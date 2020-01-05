@@ -83,14 +83,72 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 
 	@Override
 	public int updateRequestRC(RequestRC request) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(request==null) {
+			System.out.println("updateRequestRC: invalid argument passed");
+			return -1;
+		
+		} else if(doRetrieveRequestRCByStudentID(request.getStudentID())==null){
+			System.out.println("updateRequestRC: request doesn't exists in DB");
+			return -2;
+		}else {
+			
+			if(updateReportID(request.getReportID(),request) == 0 &&
+			updateState(request.getState(),request.getRequestRCID()) == 0)
+			return 0;
+			else {
+				System.out.println("updateRequestRC: error in update methods ");
+				return -3;
+			}
+		}
+	
 	}
 
+
 	@Override
-	public int updateReportID(int reportID) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateReportID(int reportID, RequestRC request) {
+		if(reportID<0) {
+			System.out.println("updateReport: invalid argument passed");
+			return -1;
+		
+		} else if(doRetrieveRequestRCByStudentID(request.getStudentID())==null){
+			System.out.println("updateReport: request doesn't exists in DB");
+			return -2;
+		}else {
+			
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			// Selects the exams that match the 2 given parametric values
+			String updateSQL = "UPDATE REQUEST_RC SET FK_REPORT = ?" 
+					+ " WHERE (FK_USER = ?); ";
+			try { 
+				
+				connection = DbConnection.getInstance().getConn();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				
+				// Setting parameters
+				preparedStatement.setInt(1,request.getReportID());
+				preparedStatement.setString(2,request.getStudentID());
+				preparedStatement.executeQuery();
+				
+				connection.close();
+				return 0;
+					
+				
+			} catch(SQLException e) {
+				new RuntimeException("Couldn't find the request in the database " + e);
+			} finally {
+				// Statement release
+				if(preparedStatement != null)
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
+			return 0;
+		}
+		
 	}
 	
 	/**
@@ -134,7 +192,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 					e.printStackTrace();
 				}
 		}
-		return ris;
+		return 0;
 	}
 
 

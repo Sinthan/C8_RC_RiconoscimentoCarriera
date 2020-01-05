@@ -20,6 +20,9 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
     if (pageName.equals("viewRequest.jsp")) {
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/viewRequest.jsp\">Richieste</a></li>";    
+          
+      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/"
+                  + "/ReportManagement\">(TASTO DA CANCELLARE)</a></li>";
       menu += 
     		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Riconoscimento Carriere</a></li>";    
       menu +=

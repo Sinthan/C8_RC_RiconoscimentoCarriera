@@ -118,8 +118,39 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 			return -2;
 		}else {
 			
-			deleteValidatedExam(vExam);
-			insertValidatedExam(vExam);
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			// Selects the exams that match the 2 given parametric values
+			String updateSQL = "UPDATE validate_exam SET CFU_CONVALIDATED = ?, MODE_VALIDATION = ?" 
+					+ " WHERE (FK_ID_REPORT = ? AND NAME_EXAM = ?); ";
+			try { 
+				
+				connection = DbConnection.getInstance().getConn();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				
+				// Setting parameters
+				preparedStatement.setInt(1,vExam.getValidatedCFU());
+				preparedStatement.setString(2, vExam.getValidationProcedure());
+				preparedStatement.setInt(3,vExam.getReportID());
+				preparedStatement.setString(2, vExam.getExamName());
+				preparedStatement.executeQuery();
+				
+				connection.close();
+				return 0;
+					
+				
+			} catch(SQLException e) {
+				new RuntimeException("Couldn't find the exam \"" + vExam.getExamName() + "\" in the database " + e);
+			} finally {
+				// Statement release
+				if(preparedStatement != null)
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
 			return 0;
 		}
 		
