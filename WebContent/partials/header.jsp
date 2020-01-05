@@ -43,14 +43,18 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
    		 if (pageName.equals("viewRequest.jsp")) { //se stiamo in viewRequest
     		int flag = 0;
     		request.getSession().setAttribute("flag", 0);
+    		
+    				 logoRedirect = request.getContextPath()+ "/" 
+                    		 + "InsideStudentRedirect";
+    		
+    		 		menu += "<li><a href=\"" + request.getContextPath() + "/" 
+                    		 + "InsideStudentRedirect\">Home</a></li>";
       			    menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
          						 + "/viewRequest.jsp\">Richieste</a></li>";
       				menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
          						 + "/firstForm.jsp\">Compila Richiesta</a></li>";
      			    menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
           						 + "/uploadAttached.jsp\">Carica Allegato</a></li>";
-         		    menu += "<li><a href=\"" + request.getContextPath() + "/" 
-                                 + "StudentRCRequestRedirector?flag=1\">Riconoscimento Carriera</a></li>";
       				menu +=
                             "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
@@ -59,11 +63,15 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
     	Student user =(Student) session.getAttribute("user");
     	 user =(Student) session.getAttribute("user");
   	  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it") ){ 
-    		menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-  	          			+ "/viewRequest.jsp\">English Validation</a></li>";
+  			  logoRedirect = request.getContextPath()+ "/" 
+       						 + "InsideStudentRedirect";
+  			  menu += "<li><a href=\"" + request.getContextPath() + "/" 
+       					 + "InsideStudentRedirect\">Home</a></li>";
   	          menu +=
   	          			"<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	  }else{
+  			  logoRedirect = request.getContextPath()+ "/" 
+       		 				 + "InsideStudentRedirect";
   		 menu +=
   	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	  }
@@ -123,18 +131,19 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
 	  } else	{  
 		  logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
 	  }
-	  if (pageName.equals("createRCRequest1.jsp")) {      
-	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
-	  	          + "/viewRequest.jsp\">English Validation</a></li>";
+	  if (pageName.equals("createRCRequest1.jsp")) {   
+		  
+		 		 logoRedirect = request.getContextPath()+ "/" 
+         		 			+ "InsideStudentRedirect";
+	    		  menu += "<li><a href=\"" + request.getContextPath() + "/" 
+           				 + "InsideStudentRedirect\">Home</a></li>";
 	  	          menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 	  	 }    
 	    if (pageName.equals("createRCRequest2.jsp")) {      
-		      
-	    	menu += "<li><a href=\"" + request.getContextPath() + "/" + "_areaStudent"
-	  	          + "/viewRequest.jsp\">English Validation</a></li>";
-	  	          menu +=
-	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+	    		logoRedirect = request.getContextPath()+ "/" + "InsideStudentRedirect"; 
+	    		  menu += "<li><a href=\"" + request.getContextPath() + "/" + "InsideStudentRedirect\">Home</a></li>";
+	  	          menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 	  	 }    
   	}else if(pageFolder.equals("GUIUC")) {	  
   		UC user =(UC) session.getAttribute("user");

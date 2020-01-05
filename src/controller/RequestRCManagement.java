@@ -54,7 +54,7 @@ public class RequestRCManagement extends HttpServlet {
 			String requestRCstate = request.getParameter("RequestRCstate");
 			RequestRCDAO reqDAO = new RequestRCDAO();
 			RequestRC requestRC = (RequestRC) request.getSession().getAttribute("reqRC");
-			//Se la richiesta è stata accettata dall'UC
+			//Se la richiesta ï¿½ stata accettata dall'UC
 			if(requestRCstate.equalsIgnoreCase("true")) {
 				result = reqDAO.updateState(stateAcceptByUC, requestRC.getRequestRCID());
 				if(result == 1) {
@@ -65,7 +65,7 @@ public class RequestRCManagement extends HttpServlet {
 					disp = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");
 					disp.forward(request, response);
 				}
-				}//Se la richiesta è stata rifiutata dall'UC
+				}//Se la richiesta ï¿½ stata rifiutata dall'UC
 			else if(requestRCstate.equalsIgnoreCase("false")) {
 				//Ottengo la motivazione del rifiuto della richiesta
 				String messageBody = request.getParameter("popupText");
@@ -74,7 +74,7 @@ public class RequestRCManagement extends HttpServlet {
 					Student student = (Student) request.getSession().getAttribute("userRC");
 					SenderMail email = new SenderMail();
 					String message = "Gentile "+student.getName()+" " + student.getSurname() +", la sua richiesta di convalida della carriera pregressa"
-									+ " è stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
+									+ " ï¿½ stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
 					email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
 					requestDispatcher.forward(request, response);
@@ -82,8 +82,8 @@ public class RequestRCManagement extends HttpServlet {
 			}			
 		}//Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
-			//get the mail of professor 
 			
+			//get the mail of professor 
 			String mailD = request.getParameter("recipient-name");
 			//Control email format
 			if (mailD != null) {
@@ -109,6 +109,9 @@ public class RequestRCManagement extends HttpServlet {
 			//send mail to professor
 			SenderMail email = new SenderMail();
 			email.sendMail("carrierapregressaunisa@gmail.com", mailD, "Carriera pregressa", messageBody, null);
+			
+			
+			String examSelected = request.getParameter("exam-selected");
 			return;
 		}
 		

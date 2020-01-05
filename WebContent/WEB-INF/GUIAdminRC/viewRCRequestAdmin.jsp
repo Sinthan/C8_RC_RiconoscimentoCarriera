@@ -5,15 +5,8 @@
   --%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ page import="java.util.*, model.Exam, model.Suggestion, controller.Utils"%>
-
-<%
-	String pageName = "viewRCRequestAdmin.jsp";
-	String pageFolder = "GUIAdminRC";
-%>
-
+	pageEncoding="ISO-8859-1"
+	import="java.util.*, model.Exam, model.Suggestion, controller.Utils"%>
 
 <!DOCTYPE html>
 <html>
@@ -25,23 +18,18 @@
 <meta charset="ISO-8859-1">
 <title>Controlla Richiesta</title>
 <%
+	String pageName = "viewRCRequestAdmin.jsp";
+	String pageFolder = "GUIAdminRC";
 	HttpSession sess = request.getSession();
-	sess.setAttribute("flag", 2);
-	sess.setAttribute("requestRCID", 4);
 	ArrayList<Suggestion> suggList = (ArrayList<Suggestion>) request.getAttribute("suggList");
-	//List<Suggestion> suggList = new ArrayList<Suggestion>();
 	int examRow = 1;
 %>
 <script type="text/javascript">
-
-	// Get the container divs for the exam details
-	var examNameDiv = document.getElementById("examName");
-	var CFUDiv = document.getElementById("CFU");
-	var buttonsDiv = document.getElementById("buttons");
-
+	var examSelected = null
+	
 	window.onload = function(){
 		controlServlet();
-		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="tooltip"]').tooltip(); // Tooltip setup
 	};
 	
 	// If the servlet sent an error, show it
@@ -51,7 +39,7 @@
 			showAlert(1, err);
 		}
 	}
-	
+
 	function autoFillModal(examName, examCFU, examLink) {
 		// Get the email element and resets it
 		emailField = document.getElementById("recipient-name");
@@ -59,52 +47,54 @@
 		// Get the textarea element
 		document.getElementById("recipient-name").value = "";
 		txtArea = document.getElementById("message-text");
-		txtArea.value = "[DINF-UNISA] Richiesta di Riconoscimento Carriera Pregressa\n" +
-							"\nUniversità di provenienza dello studente: " + "${universityName}" +
-							"\nEsame che si intende validare: " + examName +
-							"\nCFU: " + examCFU +
-							"\nLink al piano di studi: " + examLink +
-							"\nNome dello studente: " + "${studentName}";
+		txtArea.value = "[DINF-UNISA] Richiesta di riconoscimento carriera pregressa\n" +
+				"\nUniversità di provenienza dello studente: " + "${universityName}" +
+				"\nEsame che si intende validare: " + examName +
+				"\nCFU: " + examCFU +
+				"\nLink al piano di studi: " + examLink +
+				"\nNome dello studente: " + "${studentName}";
+		examSelected = examName; 
 	}
-	
-	function validationMail() {
-		 txtArea = document.getElementById("message-text").value;
-		 btnSend = document.getElementById("btnSend");
-		 btnSend.disabled = true;
-		 if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("recipient-name").value) ) {
-			 if( txtArea != null && txtArea.length > 0 ) {
-			 	btnSend.disabled = false;
-			 }
-		  }
+
+	function validateMailAddress() {
+		txtArea = document.getElementById("message-text").value;
+		btnSend = document.getElementById("btnSend");
+		btnSend.disabled = true;
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document
+				.getElementById("recipient-name").value)) {
+			if (txtArea != null && txtArea.length > 0) {
+				btnSend.disabled = false;
+			}
+		}
 	}
-	
-	function validationBodyMail() {
-		
-		 btnSend = document.getElementById("btnSend");
-		 btnSend.disabled = true;
-		 if ( txtArea != null && txtArea.length > 0  ) {
-			 if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("recipient-name").value) ) {
-				 btnSend.disabled = false;
-			 }
-		  }
+
+	function validateMailBody() {
+		btnSend = document.getElementById("btnSend");
+		btnSend.disabled = true;
+		if (txtArea != null && txtArea.length > 0) {
+			if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document
+					.getElementById("recipient-name").value)) {
+				btnSend.disabled = false;
+			}
+		}
 	}
-	
-	function sendMail(){
+
+	function sendMail() {
 		mailD = document.getElementById("recipient-name").value;
 		txtArea = document.getElementById("message-text").value;
 		$.ajax({
-            type: 'POST',
-            url: 'RequestRCManagement',
-            data: 'recipient-name=' + mailD + '&message-text=' + txtArea,
-            error: function(response) {
-                // Gets called when an error occurs with error details in variable response
-            	showAlert(1, "Errore nell'invio dell'email.");
-            },
-            success: function(response) {
-                // Gets called when the action is successful with server response in variable response
-            	showAlert(0, "Email inviata correttamente.");
-            }
-        });
+			type : 'POST',
+			url : 'RequestRCManagement',
+			data : 'recipient-name=' + mailD + '&message-text=' + txtArea + '&exam-selected=' + examSelected,
+			error : function(response) {
+				// Gets called when an error occurs with error details in variable response
+				showAlert(1, "Errore nell'invio dell'email.");
+			},
+			success : function(response) {
+				// Gets called when the action is successful with server response in variable response
+				showAlert(0, "Email inviata correttamente.");
+			}
+		});
 	}
 </script>
 </head>
@@ -142,24 +132,26 @@
 												</button>
 											</div>
 											<div class="modal-body">
-													<div class="form-group">
-														<label for="recipient-name" class="col-form-label">Indirizzo
-															email del docente:</label> <input type="email"
-															class="form-control" id="recipient-name"
-															onChange="validationMail()" name="recipient-name" placeholder = "emaildocente@esempio.com">
-													</div>
-													<div class="form-group">
-														<label for="message-text" class="col-form-label">Messaggio:</label>
-														<textarea rows="5" cols="100" class="form-control"
-															id="message-text" onChange="validationBodyMail()"
-															name="message-text"></textarea>
-													</div>
+												<div class="form-group">
+													<label for="recipient-name" class="col-form-label">Indirizzo
+														email del docente:</label> <input type="email"
+														class="form-control" id="recipient-name"
+														oninput="validateMailAddress()" name="recipient-name"
+														placeholder="emaildocente@esempio.com">
+												</div>
+												<div class="form-group">
+													<label for="message-text" class="col-form-label">Messaggio:</label>
+													<textarea rows="5" cols="100" class="form-control"
+														id="message-text" onChange="validateMailBody()"
+														name="message-text"></textarea>
+												</div>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Annulla</button>
 												<button id="btnSend" onclick="sendMail()" type="button"
-													class="btn btn-primary" data-dismiss="modal" disabled="disabled">Invia</button>
+													class="btn btn-primary" data-dismiss="modal"
+													disabled="disabled">Invia</button>
 											</div>
 										</div>
 									</div>
@@ -207,10 +199,9 @@
 													</div>
 <!-- Exam CFU end -->
 <!-- Exam buttons -->
-													<div
-														class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
-														id="buttons">
-														
+													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"
+														id="buttons" style="padding-left: 74px;">
+
 														<span data-toggle="modal" data-target="#modal">
 															<button id="btnMail" type="button"
 																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}')"
@@ -223,67 +214,83 @@
 															class="btn btn-primary btn-square" data-toggle="tooltip"
 															data-html="true" data-placement="bottom"
 															title="<b><em>Vai al piano di studi</em></b>"> <img
-															src="css/svg/external-link.svg" class="btn-icon"></a> 
+															src="css/svg/external-link.svg" class="btn-icon"></a>
 <!-- Exam suggestion -->
-														<% if (suggList.get(examRow-1) != null) {%>
+														<%
+															if (suggList.get(examRow - 1) != null) {
+														%>
 														<span data-toggle="collapse"
 															data-target="#suggestion<%=examRow%>"
 															aria-expanded="false"
 															aria-controls="suggestion<%=examRow%>">
 															<button class="btn btn-primary btn-square" type="button"
 																data-toggle="tooltip" data-html="true"
-																data-placement="right"
+																data-placement="bottom"
 																title="<b><em>Visualizza suggerimento</em></b>">
 																<img src="css/svg/help-circle.svg" class="btn-icon">
 															</button>
 														</span>
-												
+
 													</div>
 												</div>
-<!-- Exam buttons end -->
-<!-- Exam suggestion -->
-												
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
+
+												<div
+													class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
 													id="suggestion<%=examRow%>">
 													<div class="card card-body suggestion">
-														<h4 id="suggestion<%=examRow%>Title" class="card-title"><em><b>Validato il <%=Utils.getFormattedDate(suggList.get(examRow-1).getValidationDate())%></b></em></h4>
-														<p id="suggestion<%=examRow%>Body" class="card-text"><%=suggList.get(examRow-1).getValidationMode()%></p>
+														<h4 id="suggestion<%=examRow%>Title"
+															class="suggestion-body"><b><em>Validato il <%=Utils.getFormattedDate(suggList.get(examRow - 1).getValidationDate())%></em></b>
+														</h4>
+														<h4 id="suggestion<%=examRow%>Body" class="suggestion-body"><%=suggList.get(examRow - 1).getValidationMode()%></h4>
 													</div>
 												</div>
-												<% } else {%>
-													</div>
-												</div>
-												<%} %>
-<!-- Exam suggestion end -->
+
 												<%
-															examRow++;
-														%>
-											</c:forEach>
+													} else {
+												%>
+												<span data-toggle="tooltip" data-html="true"
+													data-placement="bottom"
+													title="<b><em>Suggerimento non disponibile</em></b>"
+													style = "padding-bottom: 13px;">
+													<button class="btn btn-primary btn-square" type="button"
+														disabled>
+														<img src="css/svg/help-circle.svg" class="btn-icon">
+													</button>
+												</span>
+										</div>
+									</div>
+									<%
+										}
+											examRow++;
+									%>
+<!-- Exam suggestion end -->
+<!-- Exam buttons end -->
+									</c:forEach>
 <!-- Adding an extra div after the last suggestion in order to make the orange container resize as the last suggestion gets expanded -->
-											<div>&nbsp;</div>
-										</div>
-									</div>
+									<div>&nbsp;</div>
 								</div>
-
-								<div id="certificatePreview">
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-										<h4 class="text-left description">
-											<em>Certificato di carriera pregressa dello studente</em>
-										</h4>
-										<div class="orange-frame">
-											<embed src=<%=sess.getAttribute("pathCP")%>
-												type="application/pdf" width="100%" height="600px"></embed>
-										</div>
-									</div>
-								</div>
-
 							</div>
 						</div>
+
+						<div id="certificatePreview">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<h4 class="text-left description">
+									<em>Certificato di carriera pregressa dello studente</em>
+								</h4>
+								<div class="orange-frame">
+									<embed src=<%=sess.getAttribute("pathCP")%>
+										type="application/pdf" width="100%" height="600px"></embed>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
-		<jsp:include page="/partials/footer.jsp" />
+	</div>
+	</div>
+	<jsp:include page="/partials/footer.jsp" />
 	</div>
 	<jsp:include page="/partials/includes.jsp" />
 </body>
