@@ -18,25 +18,26 @@ import model.Admin;
 public class ProofForViewRCRequestAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+	/**
      * @see HttpServlet#HttpServlet()
      */
-    public ProofForViewRCRequestAdmin() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public ProofForViewRCRequestAdmin() {
+    		super();
+    		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Admin admin = new Admin();
 		admin.setEmail("fferrucci@unisa.it");
 		admin.setName("Filomena");
 		admin.setSex('M');
 		admin.setSurname("Ferrucci");
-		request.getSession().setAttribute("user",admin);
+		request.getSession().setAttribute("user", admin);
 		request.getSession().setAttribute("requestRCID", 12);
 		request.setAttribute("flag", 2);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/AdminManagement");
@@ -46,7 +47,8 @@ public class ProofForViewRCRequestAdmin extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
