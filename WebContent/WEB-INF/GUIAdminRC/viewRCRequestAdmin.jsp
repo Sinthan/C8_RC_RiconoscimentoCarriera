@@ -22,10 +22,13 @@
 	String pageFolder = "GUIAdminRC";
 	HttpSession sess = request.getSession();
 	ArrayList<Suggestion> suggList = (ArrayList<Suggestion>) request.getAttribute("suggList");
+	ArrayList<String> mailsSended = (ArrayList<String>) request.getAttribute("mailsSended");
 	int examRow = 1;
 %>
 <script type="text/javascript">
 	var examSelected = null
+	var requestRCID = null
+	var index = null
 	
 	window.onload = function(){
 		controlServlet();
@@ -40,7 +43,7 @@
 		}
 	}
 
-	function autoFillModal(examName, examCFU, examLink) {
+	function autoFillModal(examName, examCFU, examLink, requestID, examRow) {
 		// Get the email element and resets it
 		emailField = document.getElementById("recipient-name");
 		emailField.value = "";
@@ -54,6 +57,8 @@
 				"\nLink al piano di studi: " + examLink +
 				"\nNome dello studente: " + "${studentName}";
 		examSelected = examName; 
+		requestRCID = requestID;
+		index = examRow;
 	}
 
 	function validateMailAddress() {
@@ -85,13 +90,14 @@
 		$.ajax({
 			type : 'POST',
 			url : 'RequestRCManagement',
-			data : 'recipient-name=' + mailD + '&message-text=' + txtArea + '&exam-selected=' + examSelected,
+			data : 'recipient-name=' + mailD + '&message-text=' + txtArea + '&exam-selected=' + examSelected + '&requestRCID=' + requestRCID,
 			error : function(response) {
 				// Gets called when an error occurs with error details in variable response
 				showAlert(1, "Errore nell'invio dell'email.");
 			},
 			success : function(response) {
 				// Gets called when the action is successful with server response in variable response
+				document.getElementById("btnMail" + index).style["background-color"] = 'red';
 				showAlert(0, "Email inviata correttamente.");
 			}
 		});
@@ -189,7 +195,7 @@
 												<div id="examsListRow<%=examRow%>" class="row">
 <!-- Exam name -->
 													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
-														id="examNameColumn<%=examRow%>"">
+														id="examNameColumn<%=examRow%>">
 														<h4 class="list-element">${exam.name}</h4>
 													</div>
 <!-- Exam name end-->
@@ -201,20 +207,42 @@
 <!-- Exam buttons -->
 													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"
 														id="buttons" style="padding-left: 74px;">
-
+														
+														
 														<span data-toggle="modal" data-target="#modal">
-															<button id="btnMail" type="button"
-																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}')"
+														
+															
+															<%
+																if (mailsSended.get(examRow - 1) == null) {
+															%>
+															<button id="btnMail<%=examRow-1%>" type="button"
+																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}', '${idRequestRC}', <%=examRow-1%>)"
 																class="btn btn-primary btn-square" data-toggle="tooltip"
 																data-html="true" data-placement="bottom"
 																title="<b><em>Contatta il docente</em></b>">
-																<img src="css/svg/mail.svg" class="btn-icon">
+																<img id="imgMail" src="css/svg/mail.svg" class="btn-icon">
 															</button>
-														</span> <a onclick="window.open('${exam.programLink}', '_blank')"
+															<%
+																} else {
+															%>
+															<button id="btnMailSended<%=examRow-1%>" style="background-color: red;" id="btnMail" type="button"
+																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}', '${idRequestRC}', '<%=examRow-1%>')"
+																class="btn btn-primary btn-square" data-toggle="tooltip"
+																data-html="true" data-placement="bottom"
+																title="<b><em>Contatta il docente</em></b>">
+																<img id="imgMail" src="css/svg/mail.svg" class="btn-icon">
+															</button>
+															<%
+																}
+															%>
+														</span> 
+														
+														<a onclick="window.open('${exam.programLink}', '_blank')"
 															class="btn btn-primary btn-square" data-toggle="tooltip"
 															data-html="true" data-placement="bottom"
 															title="<b><em>Vai al piano di studi</em></b>"> <img
-															src="css/svg/external-link.svg" class="btn-icon"></a>
+															src="css/svg/external-link.svg" class="btn-icon">
+														</a>
 <!-- Exam suggestion -->
 														<%
 															if (suggList.get(examRow - 1) != null) {

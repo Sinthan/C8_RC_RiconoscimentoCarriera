@@ -1,7 +1,12 @@
 package controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +33,9 @@ import model.SuggestionDAO;
 @WebServlet("/AdminManagement")
 public class AdminManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	String projectPath = Utils.getProjectPath();
+	String pdfSaveFolder = "/DocumentsRequestRC";
+	String projectName = "/C8_RC_RiconoscimentoCarriera";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -97,6 +105,7 @@ public class AdminManagement extends HttpServlet {
 			ExamDAO examDAO = new ExamDAO();
 			ArrayList<Exam> examList= examDAO.doRetrieveAllExamsByRequestRCID(requestRCID);
 			request.setAttribute("examList", examList);
+			request.getSession().setAttribute("examList", examList);
 			
 			// Getting the university
 			String universityName = req.getUniversityID();
@@ -108,9 +117,47 @@ public class AdminManagement extends HttpServlet {
 			for (Exam e : examList) {
 				suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
 			}
+			
+			// Getting sended Mail
+			File dir = new File(projectPath + "/WebContent" + pdfSaveFolder);
+			if( !dir.mkdir() ) {
+				dir.mkdir();	
+			}
+			
+			// Control if folder of Students document is present in DocumentsRequestRC
+			dir = new File(projectPath + "/WebContent" + pdfSaveFolder + "/" + s.getEmail() );
+			if( !dir.mkdir() ) {
+				dir.mkdir();	
+			}
+			// Control if file of sended mail is present in the folder of the student
+			File fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "mailRequest.txt");
+			
+			// Create a new ArrayList of exam sended to Professor
+			ArrayList<String> mailsSended = new ArrayList<String>();
+			if( fileM.exists() ) {
+				for (Exam e : examList) {
+					Scanner scanner = new Scanner(fileM);
+					while ( scanner.hasNextLine() ) { 
+						String lineFromFile = scanner.nextLine(); 
+						if ( lineFromFile.equals( e.getName() ) ) { 
+							mailsSended.add(lineFromFile);
+							break;
+						}else if( !scanner.hasNextLine() ) {
+							mailsSended.add(null);
+							break;
+						}
+					}
+					scanner.close();
+				}
+			}else {
+				for (int i = 0; i < examList.size(); i++) {
+					mailsSended.add(null);
+				}
+			}
+			
 			request.setAttribute("idRequestRC", requestRCID);
 			request.setAttribute("suggList", suggList);
-			
+			request.setAttribute("mailsSended", mailsSended);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/viewRCRequestAdmin.jsp");
 			requestDispatcher.forward(request, response);
 			return;

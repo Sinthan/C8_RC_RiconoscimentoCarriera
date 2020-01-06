@@ -1,5 +1,7 @@
 @charset "ISO-8859-1";
 
+
+
 .orange-frame {
 	border: 1.5px solid #ffb84e;
 	border-radius: 15px;
@@ -53,4 +55,16 @@ h3 {
 
 .suggestion-header {
 	color: #929292;
+}
+
+@media (max-width: 767px){
+	
+	.certificatePreview{
+		display: none;
+    	align-items: center;
+	}
+	.requestSummary{
+		display: none;
+    	align-items: center;
+	}
 }

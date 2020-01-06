@@ -1,7 +1,12 @@
 package controller;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Admin;
+import model.Exam;
 import model.RCState;
 import model.RequestRC;
 import model.RequestRCDAO;
@@ -29,7 +35,9 @@ import model.UC;
 public class RequestRCManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public final RequestRCDAO rDAO= new RequestRCDAO();
-	String pdfSaveFolder = "/DocumentsRequestRC"; //Folder of the student document
+	String projectPath = Utils.getProjectPath();
+	String pdfSaveFolder = "/DocumentsRequestRC";
+	String projectName = "/C8_RC_RiconoscimentoCarriera";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -80,12 +88,13 @@ public class RequestRCManagement extends HttpServlet {
 					requestDispatcher.forward(request, response);
 				}
 			}			
-		}//Se la richiesta deve essere trattata dal PCD
+		}// Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
 			
-			//get the mail of professor 
+			// Get the mail of professor 
+			int reqRCID = Integer.parseInt(request.getParameter("requestRCID"));
 			String mailD = request.getParameter("recipient-name");
-			//Control email format
+			// Control email format
 			if (mailD != null) {
 				String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
 				Pattern pattern = Pattern.compile(regex);
@@ -99,19 +108,82 @@ public class RequestRCManagement extends HttpServlet {
 				return;
 			}
 			
-			//get body text
+			// Get body text
 			String messageBody = request.getParameter("message-text");
-			//control body format
+			// Control body format
 			if( messageBody.length() < 1 ) {
 				request.setAttribute("errorVR","Impossibile inviare l'email al docente. Messaggio non inserito.");
 				return;
 			}
-			//send mail to professor
+			// Send mail to professor
 			SenderMail email = new SenderMail();
 			email.sendMail("carrierapregressaunisa@gmail.com", mailD, "Carriera pregressa", messageBody, null);
 			
-			
+			// Initialize variables to save mail sended to Admin for an student
+			RequestRC requestRC = rDAO.doRetrieveRequestRCByRequestID(reqRCID);
+			String mailStudent = requestRC.getStudentID();
 			String examSelected = request.getParameter("exam-selected");
+			
+			// Control if folder DocumentsRequestRC is present in the project
+			File dir = new File(projectPath + "/WebContent" + pdfSaveFolder);
+			if( !dir.mkdir() ) {
+				dir.mkdir();	
+			}
+			
+			// Control if folder of Students document is present in DocumentsRequestRC
+			dir = new File(projectPath + "/WebContent" + pdfSaveFolder + "/" + mailStudent);
+			if( !dir.mkdir() ) {
+				dir.mkdir();	
+			}
+			// Control if file of sended mail is present in the folder of the student
+			File fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + mailStudent + "/" + "mailRequest.txt");
+			
+			// Control if the mail for exam was sended
+			if( fileM.exists() ) {
+				Scanner scanner = new Scanner(fileM);
+				PrintWriter writer = new PrintWriter( new BufferedWriter( new FileWriter( fileM, true )));
+				boolean found = false; 
+				while ( scanner.hasNextLine() ) { 
+					String lineFromFile = scanner.nextLine(); 
+					if ( lineFromFile.equals( examSelected ) ) { 
+						found = true;
+						break; 
+					}
+				}
+				if (!found) { 
+					writer.write("\n" + examSelected);
+				}
+				scanner.close();
+				writer.close();
+			}else {
+				PrintWriter writer = new PrintWriter( new BufferedWriter( new FileWriter( fileM, true )));
+				writer.println(examSelected);
+				writer.close();
+			}
+			
+			fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + mailStudent + "/" + "mailRequest.txt");
+			
+			// Create a new ArrayList of exam sended to Professor
+			@SuppressWarnings("unchecked")
+			ArrayList<Exam> examList = (ArrayList<Exam>) request.getSession().getAttribute("examList");
+			ArrayList<String> mailsSended = new ArrayList<String>();
+			if( fileM.exists() ) {
+				for (Exam e : examList) {
+					Scanner scanner = new Scanner(fileM);
+					while ( scanner.hasNextLine() ) { 
+						String lineFromFile = scanner.nextLine(); 
+						if ( lineFromFile.equals( e.getName() ) ) { 
+							mailsSended.add(lineFromFile);
+							break;
+						}else if( !scanner.hasNextLine() ) {
+							mailsSended.add(null);
+							break;
+						}
+					}
+					scanner.close();
+				}
+			}
+			request.setAttribute("mailsSended", mailsSended);
 			return;
 		}
 		
