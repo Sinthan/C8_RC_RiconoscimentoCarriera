@@ -99,8 +99,10 @@
 			success : function(response) {
 				// Gets called when the action is successful with server response in variable response
 				//document.getElementById("btnMail" + index).style["background-color"] = 'red';
-				document.getElementById('btnMail' + index).className = "btn btn-danger btn-square";
-				
+				document.getElementById('btnMail' + index).setAttribute('data-original-title', '<b><em>Docente gi&#224; contattato</em></b>').tooltip('show');
+				//document.getElementById('btnMail' + index).title = "<b><em>Docente gi&#224; contattato</em></b>"
+				//$('btnMail' + index).attr('title','<b><em>Docente gi&#224; contattato</em></b>').tooltip('fixTitle').tooltip('show'); // Tooltip reload
+				//$('btnMail' + index).tooltip('dispose');
 				showAlert(0, "Email inviata correttamente.");
 			}
 		});
@@ -228,7 +230,7 @@
 															%>
 															<button id="btnMailSended<%=examRow-1%>"  id="btnMail" type="button"
 																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}', '${idRequestRC}', '<%=examRow-1%>')"
-																class="btn btn-danger btn-square" data-toggle="tooltip"
+																class="btn btn-success btn-square" data-toggle="tooltip"
 																data-html="true" data-placement="bottom"
 																title="<b><em>Docente gi&#224; contattato</em></b>">
 																<img id="imgMail" src="css/svg/mail.svg" class="btn-icon">
