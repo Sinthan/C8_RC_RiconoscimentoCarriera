@@ -1,18 +1,17 @@
 package controller;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import model.Exam;
 import model.ExamDAO;
 import model.FilePDF;
@@ -48,27 +47,22 @@ public class AdminManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-			
 		int flag = 0;
-	
 		// Control of the next statement to be executed
 		if (request.getParameter("flag") != null) {
 			flag = Integer.parseInt(request.getParameter("flag"));
 		} else if (request.getAttribute("flag") != null) {
 			flag = (int) request.getAttribute("flag");		 
 		}
-				
+		
 		if (flag == 1) {
 			RCState state = RCState.isBeingDiscussed;
 			RequestRCDAO reqDao = new RequestRCDAO();
 			ArrayList<RequestRC> reqList = reqDao.doRetrieveAllRequestRCBystate(state);
 			request.setAttribute("reqList", reqList);
-			RequestDispatcher requestDispatcher = 
-					request.getRequestDispatcher("/WEB-INF/GUIAdminRC/homeRCPCD.jsp");		
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/homeRCPCD.jsp");		
 			requestDispatcher.forward(request, response);
 			return;
-			
-			
 		} else if (flag == 2) {
 			// Getting the RCRequest and FilePDF
 			RequestRCDAO reqDAO = new RequestRCDAO();
@@ -90,62 +84,56 @@ public class AdminManagement extends HttpServlet {
 					System.out.println("Invalid path, can't show PDF");
 				}
 			}
-			
+			// Setting the RequestRC ID
+			request.setAttribute("idRequestRC", requestRCID);
 			// Setting the student name attribute
 			String studentMail = req.getStudentID();
 			StudentDAO sDAO = new StudentDAO();
 			Student s = sDAO.doRetrieveStudentByEmail(studentMail);
 			String studentName = s.getName() + " " + s.getSurname();
-			request.setAttribute("studentName", studentName);
-			
+			request.setAttribute("studentName", studentName);	
 			// Setting the submission date
 			String date = Utils.getFormattedDate(req.getSubmissionDate());
 			request.setAttribute("submissionDate", date);
-			
 			// Setting the exams
 			ExamDAO examDAO = new ExamDAO();
 			ArrayList<Exam> examList = examDAO.doRetrieveAllExamsByRequestRCID(requestRCID);
 			request.setAttribute("examList", examList);
 			request.getSession().setAttribute("examList", examList);
-			
 			// Setting the university
 			String universityName = req.getUniversityID();
 			request.setAttribute("universityName", universityName);
-			
-			// Setting the suggestion
+			// Setting the suggestions
 			SuggestionDAO suggDAO = new SuggestionDAO();
 			ArrayList<Suggestion> suggList = new ArrayList<Suggestion>();
 			for (Exam e : examList) {
 				suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
 			}
-			
-			// Getting sended Mail
+			request.setAttribute("suggList", suggList);
+			// Creating the RCRequests documents folder if it doesn't exist
 			File dir = new File(projectPath + "/WebContent" + pdfSaveFolder);
 			if (!dir.mkdir()) {
 				dir.mkdir();	
 			}
-			
-			// Control if folder of Students document is present in DocumentsRequestRC
+			// Creating the student folder if it doesn't exist
 			dir = new File(projectPath + "/WebContent" + pdfSaveFolder + "/" + s.getEmail());
 			if (!dir.mkdir()) {
 				dir.mkdir();	
 			}
-			// Control if file of sended mail is present in the folder of the student
-			File fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder  
-					+ "/" + s.getEmail() + "/" + "mailRequest.txt");
-			
-			// Create a new ArrayList of exam sended to Professor
-			ArrayList<String> mailsSended = new ArrayList<String>();
+			// Instantiating the file used to track the mails already sent
+			File fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "mailRequest.txt");
+			// Constucts a new ArrayList with the exam whose professor were already contacted
+			ArrayList<String> mailsSent = new ArrayList<String>();
 			if (fileM.exists()) {
 				for (Exam e : examList) {
 					Scanner scanner = new Scanner(fileM);
 					while (scanner.hasNextLine()) { 
 						String lineFromFile = scanner.nextLine(); 
 						if (lineFromFile.equals(e.getName())) { 
-							mailsSended.add(lineFromFile);
+							mailsSent.add(lineFromFile);
 							break;
 						} else if (!scanner.hasNextLine()) {
-							mailsSended.add(null);
+							mailsSent.add(null);
 							break;
 						}
 					}
@@ -153,15 +141,11 @@ public class AdminManagement extends HttpServlet {
 				}
 			} else {
 				for (int i = 0; i < examList.size(); i++) {
-					mailsSended.add(null);
+					mailsSent.add(null);
 				}
 			}
-			
-			request.setAttribute("idRequestRC", requestRCID);
-			request.setAttribute("suggList", suggList);
-			request.setAttribute("mailsSended", mailsSended);
-			RequestDispatcher requestDispatcher = 
-					request.getRequestDispatcher("/WEB-INF/GUIAdminRC/viewRCRequestAdmin.jsp");
+			request.setAttribute("mailsSent", mailsSent);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/viewRCRequestAdmin.jsp");
 			requestDispatcher.forward(request, response);
 			return;
 		}

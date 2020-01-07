@@ -22,7 +22,7 @@
 	String pageFolder = "GUIAdminRC";
 	HttpSession sess = request.getSession();
 	ArrayList<Suggestion> suggList = (ArrayList<Suggestion>) request.getAttribute("suggList");
-	ArrayList<String> mailsSended = (ArrayList<String>) request.getAttribute("mailsSended");
+	ArrayList<String> mailsSent = (ArrayList<String>) request.getAttribute("mailsSent");
 	int examRow = 1;
 %>
 <script type="text/javascript">
@@ -43,7 +43,7 @@
 		}
 	}
 
-	function autoFillModal(examName, examCFU, examLink, requestID, examRow) {
+	function autoFillModal(examName, examCFU, examLink, requestID, pressedRow) {
 		// Get the email element and resets it
 		emailField = document.getElementById("recipient-name");
 		emailField.value = "";
@@ -58,7 +58,7 @@
 				"\nNome dello studente: " + "${studentName}";
 		examSelected = examName; 
 		requestRCID = requestID;
-		index = examRow;
+		index = pressedRow;
 	}
 
 	function validateMailAddress() {
@@ -98,11 +98,8 @@
 			},
 			success : function(response) {
 				// Gets called when the action is successful with server response in variable response
-				//document.getElementById("btnMail" + index).style["background-color"] = 'red';
-				document.getElementById('btnMail' + index).setAttribute('data-original-title', '<b><em>Docente gi&#224; contattato</em></b>').tooltip('show');
-				//document.getElementById('btnMail' + index).title = "<b><em>Docente gi&#224; contattato</em></b>"
-				//$('btnMail' + index).attr('title','<b><em>Docente gi&#224; contattato</em></b>').tooltip('fixTitle').tooltip('show'); // Tooltip reload
-				//$('btnMail' + index).tooltip('dispose');
+				document.getElementById('btnMail' + index).setAttribute('data-original-title', '<b><em>Docente gi&#224; contattato</em></b>'); // Updates the tooltip
+				document.getElementById('btnMail' + index).className = "btn btn-success btn-square"; // Changes the button color
 				showAlert(0, "Email inviata correttamente.");
 			}
 		});
@@ -206,17 +203,16 @@
 <!-- Exam name end-->
 <!-- Exam CFU -->
 													<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
-														<h4 class="text-center list-element-centered">${exam.CFU}</h4>
+														<h4 class="text-center">${exam.CFU}</h4>
 													</div>
 <!-- Exam CFU end -->
 <!-- Exam buttons -->
 													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
 														id="buttons">
-														<span data-toggle="modal" data-target="#modal">
-														
-															
+														<span data-toggle="modal" data-target="#modal">												
 															<%
-																if (mailsSended.get(examRow - 1) == null) {
+																if (mailsSent.get(examRow - 1) == null) {
+																	// show mail not sent button
 															%>
 															<button id="btnMail<%=examRow-1%>" type="button"
 																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}', '${idRequestRC}', <%=examRow-1%>)"
@@ -227,8 +223,9 @@
 															</button>
 															<%
 																} else {
+																	// show mail already sent button
 															%>
-															<button id="btnMailSended<%=examRow-1%>"  id="btnMail" type="button"
+															<button id="btnMailSent<%=examRow-1%>" type="button"
 																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}', '${idRequestRC}', '<%=examRow-1%>')"
 																class="btn btn-success btn-square" data-toggle="tooltip"
 																data-html="true" data-placement="bottom"
