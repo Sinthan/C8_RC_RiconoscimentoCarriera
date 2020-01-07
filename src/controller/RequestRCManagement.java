@@ -38,6 +38,7 @@ public class RequestRCManagement extends HttpServlet {
 	String projectPath = Utils.getProjectPath();
 	String pdfSaveFolder = "/DocumentsRequestRC";
 	String projectName = "/C8_RC_RiconoscimentoCarriera";
+	SenderMail email = new SenderMail();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -65,28 +66,19 @@ public class RequestRCManagement extends HttpServlet {
 			//Se la richiesta � stata accettata dall'UC
 			if(requestRCstate.equalsIgnoreCase("true")) {
 				result = reqDAO.updateState(stateAcceptByUC, requestRC.getRequestRCID());
-				if(result == 1) {
-					disp = request.getServletContext().getRequestDispatcher("/UCManagement");
-					disp.forward(request, response);
-				}else {
-					request.setAttribute("errorCR1","Impossibile eseguire l'update.");
-					disp = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");
-					disp.forward(request, response);
-				}
+				disp = request.getServletContext().getRequestDispatcher("/UCManagement");
+				disp.forward(request, response);
 				}//Se la richiesta � stata rifiutata dall'UC
 			else if(requestRCstate.equalsIgnoreCase("false")) {
 				//Ottengo la motivazione del rifiuto della richiesta
 				String messageBody = request.getParameter("popupText");
 				result = reqDAO.updateState(stateRejectByUC, requestRC.getRequestRCID());
-				if(result == 1) {
-					Student student = (Student) request.getSession().getAttribute("userRC");
-					SenderMail email = new SenderMail();
-					String message = "Gentile "+student.getName()+" " + student.getSurname() +", la sua richiesta di convalida della carriera pregressa"
-									+ " � stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
-					email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
-					requestDispatcher.forward(request, response);
-				}
+				Student student = (Student) request.getSession().getAttribute("userRC");
+				String message = "Gentile "+student.getName()+" " + student.getSurname() +", la sua richiesta di convalida della carriera pregressa"
+				+ " � stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
+				email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
+				requestDispatcher.forward(request, response);	
 			}			
 		}// Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
@@ -116,7 +108,6 @@ public class RequestRCManagement extends HttpServlet {
 				return;
 			}
 			// Send mail to professor
-			SenderMail email = new SenderMail();
 			email.sendMail("carrierapregressaunisa@gmail.com", mailD, "Carriera pregressa", messageBody, null);
 			
 			// Initialize variables to save mail sended to Admin for an student
