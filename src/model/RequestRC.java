@@ -11,7 +11,7 @@ import java.util.Date;
  * Different from Request 
  * (Request for English Validation, Request RC for Riconoscimento Carriera) 
  */
-public class RequestRC {	
+public class RequestRC {
 	private int requestRCID;
 	private Date submissionDate;
 	private RCState state;
