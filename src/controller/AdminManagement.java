@@ -93,16 +93,16 @@ public class AdminManagement extends HttpServlet {
 			String date = Utils.getFormattedDate(req.getSubmissionDate());
 			request.setAttribute("submissionDate", date);
 			
-			// Getting the exams
+			// Setting the exams
 			ExamDAO examDAO = new ExamDAO();
 			ArrayList<Exam> examList= examDAO.doRetrieveAllExamsByRequestRCID(requestRCID);
 			request.setAttribute("examList", examList);
 			
-			// Getting the university
+			// Setting the university
 			String universityName = req.getUniversityID();
 			request.setAttribute("universityName", universityName);
 			
-			// Getting the suggestion
+			// Setting the suggestion
 			SuggestionDAO suggDAO = new SuggestionDAO();
 			ArrayList<Suggestion> suggList = new ArrayList<Suggestion>();
 			for (Exam e : examList) {
