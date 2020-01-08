@@ -19,14 +19,27 @@
 
 <script type='text/javascript'> 
 		
-		function openForm() {
-		  document.getElementById("myForm").style.display = "block";
+		
+		// If the servlet sent an error, show it
+		function controlServlet() {
+			var err = '<%=request.getAttribute("errorVR")%>';
+			if (err != "null") {
+				showAlert(1, err);
+			}
 		}
-
-		function closeForm() {
-		  document.getElementById("myForm").style.display = "none";
-		} 
-	</script>
+		
+		//Check the body of the mail
+		function validateMailBody() {
+			btnSend = document.getElementById("btnSend");
+			btnSend.disabled = true;
+			if (txtArea != null && txtArea.length > 0) {
+				if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document
+						.getElementById("recipient-name").value)) {
+					btnSend.disabled = false;
+				}
+			}
+		}
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -124,7 +137,7 @@
 <!-- Decisional buttons -->
 						<div class="submitButton col-12">
 							<button id="reject" value="accepted" type="submit" class="reject"
-								onClick="openForm()">
+								data-toggle="modal" data-target="#popupModal">
 								<span class="circle"> <span class="icon arrow"></span>
 								</span> <span class="button-text">Rifiuta</span>
 							</button>
@@ -138,17 +151,39 @@
 								</button>
 							</form>
 <!-- Decisional buttons end-->
-							<div class="form-popup" id="myForm">
-								<form action="./RequestRCManagement" class="form-container"
-									id="containerPopup" method="post">
-									<h3>Motivo del rifiuto</h3>
-									<input type="text" placeholder="Motivazione.." name="popupText"
-										required> <input type=hidden name=RequestRCstate
-										value="false" />
-									<button type="submit" class="btn">Inoltra</button>
-									<button type="reset" class="btn cancel" value="Reset"
-										onclick="closeForm()">Annulla</button>
-								</form>
+
+<!-- Modal -->
+									<form action="./RequestRCManagement" method="post">
+									<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h3 class="modal-title" id="exampleModalLabel">Motivo del rifiuto</h3>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      
+									      <div class="modal-body">
+									      	 <div class="form-group">
+													<label for="message-text" class="col-form-label">Messaggio:</label>
+													<textarea rows="5" cols="100" class="form-control"
+														id="message-text" placeholder="La richiesta è stata rifiutata perchè..." onChange="validateMailBody()"
+														name="popupText"></textarea>
+												</div>
+										    <input type = hidden name = RequestRCstate value="false"/>
+									      </div>
+									      <div class="modal-footer">
+									         <button type="reset" class="btn btn-secondary" data-dismiss="modal" >Annulla</button>
+									         
+										    	<button type="submit" class="btn btn-primary" >Invia</button>
+										  	
+									        
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									</form>
 							</div>
 						</div>
 					</div>
