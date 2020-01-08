@@ -24,7 +24,7 @@ public interface RequestRCDAOInterface {
 	/*
 	 * Update report's ID
 	 */
-	public int updateReportID(int reportID);
+	public int updateReportID(int reportID, RequestRC request);
 
 	/*
 	 * Retrieve all requestRCs from the database

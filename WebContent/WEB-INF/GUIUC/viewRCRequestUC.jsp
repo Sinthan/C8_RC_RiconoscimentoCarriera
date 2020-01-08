@@ -53,13 +53,13 @@
 									</div>
 										<div class="studentName" >
 											<div>
-												<p style="font-weight: bold" >Nome studente </p>
+												<h4 class="text-left" >Nome studente </h4>
 											</div>
 												<div>
 													<p class="pDat" id="pName">&nbsp;&nbsp;&nbsp;&nbsp;${userRC.name}</p>
 												</div>
 													<div>
-														<p style="font-weight: bold">Cognome studente</p>
+														<h4 class="text-left" > Cognome studente</h4>
 													</div>
 														<p class="pDat" id="pSurname">&nbsp;&nbsp;&nbsp;&nbsp;${userRC.surname}</p>		
 													</div>		
@@ -68,34 +68,30 @@
 									<div class="news-block-seven">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											
-												<p class="text-left">Esami inseriti dallo studente</p>
+												<h4 class="text-left">Esami inseriti dallo studente</h4>
 											</div>
-											
-												<div id="ExamsDiv" >	
-													<div class="form-row" id=examInsertionRows>
-														<div class="form-group col-md-4 mb-3">
-															<label for="examName1">Nome esame</label>
-															<c:forEach items="${exams}" var="exam">
-															<p>${exam.name}</p>
-															</c:forEach>
-														</div>
-															<div class="form-group col-md-1 mb-3">
-																<label for="CFU1">CFU</label>
-																<c:forEach items="${exams}" var="exam">
-																<p>${exam.CFU}</p>
-																</c:forEach>
-															</div>
-														<div class="form-group col-md-5 mb-3">
-															<label for="programLink1">Link al programma d'esame</label>
-															<c:forEach items="${exams}" var="exam">
-																<p>${exam.programLink}</p>
-															</c:forEach>
-														</div>
-														<br>
-													</div>
-												</div>
-											
+											<div class="ExamsDiv">
+											<table class="table table-responsive">
+											  <thead>
+											    <tr>
+											      <th scope="col">Nome esame</th>
+											      <th scope="col">CFU</th>
+											      <th scope="col">Riferimento al programma di esame</th>
+											    </tr>
+											  </thead>
+											  <tbody>
+											  	<c:forEach items="${exams}" var="exam">
+											    <tr>
+											      <td>${exam.name}</td>
+											      <td>${exam.CFU}</td>
+											      <td>${exam.programLink}</td>
+											    </tr>
+												</c:forEach>
+											  </tbody>
+											</table>
+											</div>
 										</div>
+									</div>
 										
 									<!-- sezione dedicata al download dei file della richiesta-->	
 									</div>
@@ -124,7 +120,8 @@
 										<button id="reject" class="btn btn-primary" type="submit" onClick ="openForm()">Rifiuta</button>
 										<form id ="acceptForm" action="./RequestRCManagement">
 										<input type = hidden name = RequestRCstate value="true"/>
-										<button id="accept" value="accepted" class="btn btn-primary" type="submit">Accetta</button> </form>
+										<button id="accept" value="accepted" class="btn btn-primary" type="submit">Accetta</button>
+										</form>
 										<div class="form-popup" id="myForm">
 										  <form action="./RequestRCManagement" class="form-container" id="containerPopup" method="post">
 										    <h3>Motivo del rifiuto</h3>

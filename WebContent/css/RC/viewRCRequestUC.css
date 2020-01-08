@@ -1,7 +1,12 @@
 @charset "ISO-8859-1";
 
 @media only screen and (max-width: 540px) {
+	.panel h2{
+	font-size: auto;
+	}
+	
 	#drc2 {
+
 		font-size: 90%;
 		left: -30px
 	}
@@ -17,16 +22,16 @@
 	}
 
 	.submitButton{
-	right: 10%;
+	position: fixed;
+	float: right;
 	} 
 	
 	.news-block-seven{
+		width: auto;
 		position: relative;
 		float: left;
 	}
 	
-	.news-block-seven #ExamsDiv{
-		right: 25px;
 	
 	}
 }
@@ -100,13 +105,15 @@
 	float:left;
 }
 .text-left{
+	margin-top:15px;
 	font-weight: bold;
 }
 .downloadButton{
 	 width : 1400px; 
 	 position: relative; 
 	 float:left;
-	 margin-bottom: 10px;
+	 margin-left: 8px;
+	 margin-bottom: 15px;
 }
 .divDownload1{
 	width:255px;   
@@ -158,67 +165,34 @@
 	border: red;
 }
 
-.divUni {
-	position:static; 
-	margin-top:0px; 
-	float: left; 
-	width: 1000px;
-}
-
-
-
-.divNext{
-	position:static; 
-	padding:18px;
-}
-
-.pNext{
-	float: right;
-}
-
-.bNext{
-	style="margin-left: 10px; 
-	border:2px; 
-	background-color:#ff7e00; 
-	padding: 8px 15px; 
-	border-radius:50%; 
-	color:white;
-}
-
-.bNext:disabled{
-	background: #808080
-}
-
-[type="file"] {
-  height: 0;
-  overflow: hidden;
-  width: 0;
-}
-
 /* div contenitore*/
-.containerExam {
-width:1000px;
-clear: both;
-margin-left: 135px;
+.ExamsDiv {
+	width:800px;
+	overflow-x: scroll;
+	margin-left: 7px;
+}
+
+.ExamsDiv .table {
+	width: 800px;
 }
 
 .divsx{
 	position: relative;
-width:232px;
-margin-right: 10px;
-float:left;
+	width:232px;
+	margin-right: 10px;
+	float:left;
 }
 .divcentro {
 	position: relative;
-width:300px;
-right: 10px;
-margin-left: 10px;
+	width:300px;
+	right: 10px;
+	margin-left: 10px;
 }
 .divdx{
 	position: relative;
-width:232px;
-margin-left: 10px;
-float:right;
+	width:232px;
+	margin-left: 10px;
+	float:right;
 }
     	
 }
