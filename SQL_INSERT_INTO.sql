@@ -81,6 +81,9 @@ INSERT INTO FILE_PDF VALUES(1, 'FILEPDFCARR1',1);
 INSERT INTO FILE_PDF VALUES(2, 'FILEPDFDOC1',1); 
 INSERT INTO FILE_PDF VALUES(3, 'FILEPDFCARR2',2);
 INSERT INTO FILE_PDF VALUES(4, 'FILEPDFDOC2',2);
+INSERT INTO FILE_PDF VALUES(5, '/WebContent/DocumentsRequestRC/g.rossi31@studenti.unisa.it/ID.pdf',4);
+INSERT INTO FILE_PDF VALUES(6, '/WebContent/DocumentsRequestRC/g.rossi31@studenti.unisa.it/CP.pdf',4);
+
 /*EXAM*/
 INSERT INTO EXAM VALUES(1, 'Programmazione 1', 12, 'www.sito.it/dati/esame/prog1');
 INSERT INTO EXAM VALUES(2, 'Analisi Matematica I', 9, 'http://cs-informatica.dieti.unina.it/index.php/it/corsi-di-laurea/insegnamenti/laurea-triennale/15-corsi-di-laurea/corsi/147-analisi-matematica-i');
@@ -105,7 +108,7 @@ INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', '
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Algoritmi e strutture dati I', 9, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI, CFU riconosciuti: 9/9', '2020-1-3');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Linguaggi di Programmazione I', 6, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI, CFU riconosciuti: 6/6', '2020-1-4');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Economia ed organizzazione aziendale', 6, 'Il corso di laurea di informatica non prevede un esame affine a quello che lo studente intende riconoscere, CFU riconosciuti: 0/6', '2020-1-6');
-INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Architettura degli elaboratori', 9, 'Validato come ARCHITETTURA DEGLI ELABORATORI, CFU riconosciuti: 9/9', '2020-1-10');
+#INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Architettura degli elaboratori', 9, 'Validato come ARCHITETTURA DEGLI ELABORATORI, CFU riconosciuti: 9/9', '2020-1-10');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Fisica Generale I', 6, 'Validato come FISICA, CFU riconosciuti: 6/6', '2020-1-16');
 
 INSERT INTO `attached` VALUES (1,'certificato.pdf',1,'prova@unisa.it');

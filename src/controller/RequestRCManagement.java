@@ -23,7 +23,6 @@ import model.RCState;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.SenderMail;
-import model.State;
 import model.Student;
 import model.UC;
 
@@ -110,7 +109,7 @@ public class RequestRCManagement extends HttpServlet {
 			// Send mail to professor
 			email.sendMail("carrierapregressaunisa@gmail.com", mailD, "Carriera pregressa", messageBody, null);
 			
-			// Initialize variables to save mail sended to Admin for an student
+			// Initialize variables to save mail sent to Admin for an student
 			RequestRC requestRC = rDAO.doRetrieveRequestRCByRequestID(reqRCID);
 			String mailStudent = requestRC.getStudentID();
 			String examSelected = request.getParameter("exam-selected");
@@ -126,10 +125,10 @@ public class RequestRCManagement extends HttpServlet {
 			if( !dir.mkdir() ) {
 				dir.mkdir();	
 			}
-			// Control if file of sended mail is present in the folder of the student
+			// Control if file of sent mail is present in the folder of the student
 			File fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + mailStudent + "/" + "mailRequest.txt");
 			
-			// Control if the mail for exam was sended
+			// Control if the mail for exam was sent
 			if( fileM.exists() ) {
 				Scanner scanner = new Scanner(fileM);
 				PrintWriter writer = new PrintWriter( new BufferedWriter( new FileWriter( fileM, true )));
@@ -154,27 +153,27 @@ public class RequestRCManagement extends HttpServlet {
 			
 			fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + mailStudent + "/" + "mailRequest.txt");
 			
-			// Create a new ArrayList of exam sended to Professor
+			// Create a new ArrayList of exam sent to Professor
 			@SuppressWarnings("unchecked")
 			ArrayList<Exam> examList = (ArrayList<Exam>) request.getSession().getAttribute("examList");
-			ArrayList<String> mailsSended = new ArrayList<String>();
+			ArrayList<String> mailsSent = new ArrayList<String>();
 			if( fileM.exists() ) {
 				for (Exam e : examList) {
 					Scanner scanner = new Scanner(fileM);
 					while ( scanner.hasNextLine() ) { 
 						String lineFromFile = scanner.nextLine(); 
 						if ( lineFromFile.equals( e.getName() ) ) { 
-							mailsSended.add(lineFromFile);
+							mailsSent.add(lineFromFile);
 							break;
 						}else if( !scanner.hasNextLine() ) {
-							mailsSended.add(null);
+							mailsSent.add(null);
 							break;
 						}
 					}
 					scanner.close();
 				}
 			}
-			request.setAttribute("mailsSended", mailsSended);
+			request.setAttribute("mailsSent", mailsSent);
 			return;
 		}
 		
