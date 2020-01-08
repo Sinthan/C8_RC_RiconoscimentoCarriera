@@ -195,20 +195,21 @@
 											</div>
 											<c:forEach items="${examList}" var="exam">
 												<div id="examsListRow<%=examRow%>" class="row">
-<!-- Exam name -->
+	<!-- Exam name -->
 													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
 														id="examNameColumn<%=examRow%>">
 														<h4 class="list-element">${exam.name}</h4>
 													</div>
-<!-- Exam name end-->
-<!-- Exam CFU -->
+	<!-- Exam name end-->
+	<!-- Exam CFU -->
 													<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
-														<h4 class="text-center">${exam.CFU}</h4>
+														<h4 class="text-center list-element-centered">${exam.CFU}</h4>
 													</div>
-<!-- Exam CFU end -->
-<!-- Exam buttons -->
+	<!-- Exam CFU end -->
+	<!-- Exam buttons -->
 													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
 														id="buttons">
+		<!-- Mail button -->
 														<span data-toggle="modal" data-target="#modal">												
 															<%
 																if (mailsSent.get(examRow - 1) == null) {
@@ -236,14 +237,14 @@
 																}
 															%>
 														</span> 
-														
+		<!-- Mail button end-->
 														<a onclick="window.open('${exam.programLink}', '_blank')"
 															class="btn btn-primary btn-square" data-toggle="tooltip"
 															data-html="true" data-placement="bottom"
 															title="<b><em>Vai al piano di studi</em></b>"> <img
 															src="css/svg/external-link.svg" class="btn-icon">
 														</a>
-<!-- Exam suggestion -->
+	<!-- Exam suggestion -->
 														<%
 															if (suggList.get(examRow - 1) != null) {
 														%>
@@ -265,14 +266,30 @@
 												<div
 													class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
 													id="suggestion<%=examRow%>">
-													<div class="card card-body suggestion">
-													
-														<h4 id="suggestion<%=examRow%>Title"
-															class="suggestion-body"><b><em>Validato il <%=Utils.getFormattedDate(suggList.get(examRow - 1).getValidationDate())%></em></b>
-														</h4>
-														
+													<div class="suggestion">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-left-margin">
 														<h4 id="suggestion<%=examRow%>Body" class="suggestion-body"><%=suggList.get(examRow - 1).getValidationMode()%></h4>
+														
+														<br>
+														</div>
+													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
+														<h5>
+															VALIDATO IL
+														</h5>
+														<h4><b><%=Utils.getFormattedDate(suggList.get(examRow - 1).getValidationDate())%></b></h4>
 													</div>
+													<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-left-margin">
+														<h5>
+															CFU RICONOSCIUTI
+														</h5>
+														<h4><b>
+															<%=suggList.get(examRow - 1).getValidatedCFU()%>/<%=suggList.get(examRow - 1).getExternalStudentCFU()%></b></h4>
+													</div>
+													<!-- Adding an extra div in order to make the suggestion resize correctly -->
+													<div>&nbsp;</div>
+													<div>&nbsp;</div>
+
+												</div>
 												</div>
 												<%
 													} else {
@@ -292,10 +309,10 @@
 										}
 											examRow++;
 									%>
-<!-- Exam suggestion end -->
-<!-- Exam buttons end -->
+	<!-- Exam suggestion end -->
+	<!-- Exam buttons end -->
 									</c:forEach>
-<!-- Adding an extra div after the last suggestion in order to make the orange container resize as the last suggestion gets expanded -->
+	<!-- Adding an extra div after the last suggestion in order to make the orange container resize as the last suggestion gets expanded -->
 									<div>&nbsp;</div>
 								</div>
 							</div>
