@@ -130,7 +130,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 				preparedStatement.setInt(1,request.getReportID());
 				preparedStatement.setString(2,request.getStudentID());
 				preparedStatement.executeQuery();
-				
+				connection.commit();
 				connection.close();
 				return 0;
 					

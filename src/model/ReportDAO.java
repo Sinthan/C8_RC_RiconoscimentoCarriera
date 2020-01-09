@@ -37,7 +37,7 @@ public class ReportDAO implements ReportDAOInterface {
 		String insertSQL = "INSERT INTO REPORT " +
 				" (NOTE) " +
 				" VALUES (?)";
-		try {
+try {
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(insertSQL);			
 			// Setting parameters
@@ -69,18 +69,20 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public int updateReport(Report report) {
+		
 		if(report==null) {
 			
 			System.out.println("Invalid report passed");
 			return-1;
+			
 		} else if(doRetrieveReportByReportID(report.getReportID())==null) {
 			
 			System.out.println("report doesn't exists in DB");
 			return -2;
 		} else {
 		
-			deleteReport(report.getReportID());
-			insertReport(report);
+			updateNote(report.getReportID(),report.getNote());
+			
 			return 0;
 		}
 	}
@@ -105,8 +107,55 @@ public class ReportDAO implements ReportDAOInterface {
 	*/
 	@Override
 	public int updateNote(int reportID, String note) {
+		if( reportID < 0 ) {
+			System.out.println(" upedateNote: invalid reportID ");
+			return -1;
+		} else if(doRetrieveReportByReportID(reportID)==null) {
+			System.out.println("upedateNote: report doesn't exist in DB");
+			return -2;
+		}else {
+			
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			// Selects the exams that match the 2 given parametric values
+			String updateSQL = "UPDATE REPORT SET NOTE = ?" 
+					+ " WHERE (ID_REPORT = ?); ";
+			try { 
+				
+				connection = DbConnection.getInstance().getConn();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				
+				// Setting parameters
+				System.out.println("sono in");
+				preparedStatement.setString(1, note);
+				System.out.println("set note");
+				preparedStatement.setInt(2,reportID);
+				System.out.println("set id");
+				preparedStatement.executeUpdate();
+				System.out.println("eseguita");
+				connection.commit();	
+				System.out.println("commit");
+				connection.close();
+				System.out.println("close");
+				
+				return 0;
+				
+				
+			} catch(SQLException e) {
+				new RuntimeException("Couldn't find the report in the database " + e);
+			} finally {
+				// Statement release
+				if(preparedStatement != null)
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
+			return 0;
+		}
 		
-		return 0;
 	}
 
 	/**
@@ -207,6 +256,35 @@ public class ReportDAO implements ReportDAOInterface {
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
 			System.out.println("deleteReport(result=" + result + ")");		// Logging the operation
+		} catch(SQLException e) {
+			new RuntimeException("Couldn't delete the RequestRC " + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return result;
+	}
+
+
+
+	@Override
+	public int doRetrieveLastReportID() {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;		
+		int result = 0;
+
+		String deleteSQL = "SELECT MAX(ID_REPORT) FROM REPORT";
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(deleteSQL);			
+			// Executing the deletion
+			result = preparedStatement.executeUpdate();	
+			connection.commit();
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't delete the RequestRC " + e);
 		} finally {

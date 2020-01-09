@@ -48,6 +48,7 @@ public class ValidatedExam {
 	 * @param validatedCFU			the value of CFU validated for this exam
 	 * @param validationProcedure	the note containing the validation procedure
 	 */
+	
 	public ValidatedExam(int reportID, String examName, int validatedCFU, String validationProcedure) {
 		vExamID = -1; // -1 is used to identify an ID that wasn't initialized by the developer.
 		this.reportID = reportID;
@@ -76,7 +77,7 @@ public class ValidatedExam {
 	 */
 	@Override
 	public String toString() {
-		return "ValidatedExam [vExamID=" + vExamID + ", reportID=" + reportID + ", examName=" + examName + "]";
+		return "ValidatedExam [vExamID=" + vExamID + ", reportID=" + reportID + ", examName=" + examName + ", CFU=" + validatedCFU + ", mode=" + validationProcedure + "]";
 	}
 	
 	/* Getter methods */
@@ -114,6 +115,7 @@ public class ValidatedExam {
 	public String getValidationProcedure() {
 		return validationProcedure;
 	}
+
 	
 	/* Setter methods */
 	/**

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import controller.DbConnection;
 
 /**
@@ -110,11 +112,11 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	@Override
 	public int updateValidatedExam(ValidatedExam vExam) {
 		if(vExam==null) {
-			System.out.println("Void Exam passed");
+			System.out.println("updateValidatedExam: Void Exam passed");
 			return -1;
 		
 		} else if(doRetrieveValidatedExam(vExam.getReportID(),vExam.getExamName())==null){
-			System.out.println("exam doesn't exists in DB");
+			System.out.println("updateValidatedExam: exam doesn't exists in DB");
 			return -2;
 		}else {
 			
@@ -133,9 +135,9 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 				preparedStatement.setInt(1,vExam.getValidatedCFU());
 				preparedStatement.setString(2, vExam.getValidationProcedure());
 				preparedStatement.setInt(3,vExam.getReportID());
-				preparedStatement.setString(2, vExam.getExamName());
-				preparedStatement.executeQuery();
-				
+				preparedStatement.setString(4, vExam.getExamName());
+				preparedStatement.executeUpdate();
+				connection.commit();
 				connection.close();
 				return 0;
 					
@@ -180,24 +182,27 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 			ValidatedExam exam = new ValidatedExam(); 
 			
 			// Selects the exams that match the 2 given parametric values
-			String selectSQL = "SELECT * FROM EXAM "
-					+ " WHERE NAME = ? AND FK_ID_REPORT = ?";
+			String selectSQL = "SELECT * FROM VALIDATE_EXAM "
+					+ " WHERE NAME_EXAM = ? AND FK_ID_REPORT = ?";
 			try { 
 				
 				connection = DbConnection.getInstance().getConn();
 				preparedStatement = connection.prepareStatement(selectSQL);
 				
 				// Setting parameters
-				preparedStatement.setString(1,exam.getExamName());
-				preparedStatement.setInt(2, exam.getReportID());
+				System.out.println("doretrieve: "+examName);
+				System.out.println("doretrieve: "+reportID);
+				preparedStatement.setString(1,examName);
+				preparedStatement.setInt(2,reportID);
 				ResultSet resSet = preparedStatement.executeQuery();
 
-				if (resSet.first()) {	// Exam found
+				if (resSet.next()) {	// Exam found
 					exam.setReportID(resSet.getInt("FK_ID_REPORT"));
 					exam.setExamName(resSet.getNString("NAME_EXAM"));
 					exam.setValidatedCFU(resSet.getInt("CFU_CONVALIDATED"));
 					exam.setValidationProcedure(resSet.getNString("MODE_VALIDATION"));
 					exam.setVExamID(resSet.getInt("ID_EXAM_VALIDATE"));
+					System.out.println("doretrieve:"+exam);
 					return exam;
 					
 				} else {		// Exam not  present in the database
@@ -241,12 +246,13 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ArrayList<ValidatedExam> exams = new ArrayList<ValidatedExam>();
-		ValidatedExam exam = new ValidatedExam(); 
+		ValidatedExam exam = null; 
 
 		// Selects the RCRequest tuples that match the specified ID
 		String selectSQL = "SELECT * FROM VALIDATE_EXAM "
 				+ " WHERE FK_ID_REPORT = ?";
 		try {
+			
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(selectSQL);			
 			// Setting the parameter
@@ -256,6 +262,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 
 			// If exams are found construct ArrayList
 			while (resSet.next()) {
+				exam = new ValidatedExam();
 				exam.setExamName(resSet.getNString("NAME_EXAM"));
 				exam.setReportID(reportID);
 				exam.setValidatedCFU(resSet.getInt("CFU_CONVALIDATED"));

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Report;
-import model.ReportDAO;
 import model.RequestRC;
+import model.ReportDAO;
 import model.RequestRCDAO;
 import model.ValidatedExam;
 
@@ -36,24 +36,32 @@ public class ReportManagement extends HttpServlet {
 	 * @see set as attribute the validatedExam arraylist 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sess = request.getSession(true);
-//		int reqID =(int) sess.getAttribute("IdRequestRC");
+		
+		
+//		int reqID =(int) request.getAttribute("IdRequestRC");
 		RequestRCDAO rDao = new RequestRCDAO();
-//		RequestRC req = rDao.doRetrieveRequestRCByRequestID(reqID);
+		RequestRC req = rDao.doRetrieveRequestRCByRequestID(1);
 		ReportDAO repoDao = new ReportDAO();
-		Report repo = null;
 		ArrayList<ValidatedExam> examList = new ArrayList<ValidatedExam>();
-		examList.add(new ValidatedExam(1, "prog1 ", 3 , "biuo"));
-		examList.add(new ValidatedExam(2, "prog2 ", 4 , "lkoloo"));
-//		if(req.getReportID()<=0) {
-//			repo = new Report(req.getRequestRCID(),"",null);	
-//			repoDao.insertReport(repo);
-//		} else {
-//			 examList = repoDao.doRetrieveValidatedExamsByReportID(reqID);
-//		}
-		request.setAttribute("examList", examList);
+		Report repo = new Report();
+		if(req.getReportID()<=0) {			
+			repoDao.insertReport(repo);
+			req.setReportID(repoDao.doRetrieveLastReportID());
+			repo.setNote("");
+			repo.setValidatedExamsList(examList);
+			
+		} else {			
+			repo = repoDao.doRetrieveReportByReportID(req.getReportID());
+			examList = repoDao.doRetrieveValidatedExamsByReportID(req.getReportID());
+		}
+		
+		
+		request.setAttribute("note", repo.getNote());
+		request.setAttribute("examList", repo.getValidatedExamsList());
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/createReport.jsp");
 		requestDispatcher.forward(request, response);
+		
+		
 	}
 
 	/**
