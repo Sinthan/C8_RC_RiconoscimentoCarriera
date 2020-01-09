@@ -90,7 +90,8 @@ CREATE TABLE CONTAINS(
 CREATE TABLE SUGGESTION(
 NAME_UNIVERSITY varchar(50) not null,
 NAME_EXAM_EXTERN varchar(50) not null,
-NUMBER_CFU_EXTERN varchar(30) not null,
+NUMBER_CFU_EXTERN tinyint(1) not null,
+VALIDATED_CFU tinyint(1) not null,
 MODE_VALIDATION varchar(200) not null,
 DATE_VALIDATION date not null
 );

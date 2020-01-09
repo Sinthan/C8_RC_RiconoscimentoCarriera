@@ -23,7 +23,6 @@ import model.RCState;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.SenderMail;
-import model.State;
 import model.Student;
 import model.UC;
 
@@ -38,6 +37,7 @@ public class RequestRCManagement extends HttpServlet {
 	String projectPath = Utils.getProjectPath();
 	String pdfSaveFolder = "/DocumentsRequestRC";
 	String projectName = "/C8_RC_RiconoscimentoCarriera";
+	SenderMail email = new SenderMail();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -65,28 +65,19 @@ public class RequestRCManagement extends HttpServlet {
 			//Se la richiesta � stata accettata dall'UC
 			if(requestRCstate.equalsIgnoreCase("true")) {
 				result = reqDAO.updateState(stateAcceptByUC, requestRC.getRequestRCID());
-				if(result == 1) {
-					disp = request.getServletContext().getRequestDispatcher("/UCManagement");
-					disp.forward(request, response);
-				}else {
-					request.setAttribute("errorCR1","Impossibile eseguire l'update.");
-					disp = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");
-					disp.forward(request, response);
-				}
+				disp = request.getServletContext().getRequestDispatcher("/UCManagement");
+				disp.forward(request, response);
 				}//Se la richiesta � stata rifiutata dall'UC
 			else if(requestRCstate.equalsIgnoreCase("false")) {
 				//Ottengo la motivazione del rifiuto della richiesta
 				String messageBody = request.getParameter("popupText");
 				result = reqDAO.updateState(stateRejectByUC, requestRC.getRequestRCID());
-				if(result == 1) {
-					Student student = (Student) request.getSession().getAttribute("userRC");
-					SenderMail email = new SenderMail();
-					String message = "Gentile "+student.getName()+" " + student.getSurname() +", la sua richiesta di convalida della carriera pregressa"
-									+ " � stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
-					email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
-					requestDispatcher.forward(request, response);
-				}
+				Student student = (Student) request.getSession().getAttribute("userRC");
+				String message = "Gentile "+student.getName()+" " + student.getSurname() +", la sua richiesta di convalida della carriera pregressa"
+				+ " � stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
+				email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
+				requestDispatcher.forward(request, response);	
 			}			
 		}// Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
@@ -116,10 +107,9 @@ public class RequestRCManagement extends HttpServlet {
 				return;
 			}
 			// Send mail to professor
-			SenderMail email = new SenderMail();
 			email.sendMail("carrierapregressaunisa@gmail.com", mailD, "Carriera pregressa", messageBody, null);
 			
-			// Initialize variables to save mail sended to Admin for an student
+			// Initialize variables to save mail sent to Admin for an student
 			RequestRC requestRC = rDAO.doRetrieveRequestRCByRequestID(reqRCID);
 			String mailStudent = requestRC.getStudentID();
 			String examSelected = request.getParameter("exam-selected");
@@ -135,10 +125,10 @@ public class RequestRCManagement extends HttpServlet {
 			if( !dir.mkdir() ) {
 				dir.mkdir();	
 			}
-			// Control if file of sended mail is present in the folder of the student
+			// Control if file of sent mail is present in the folder of the student
 			File fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + mailStudent + "/" + "mailRequest.txt");
 			
-			// Control if the mail for exam was sended
+			// Control if the mail for exam was sent
 			if( fileM.exists() ) {
 				Scanner scanner = new Scanner(fileM);
 				PrintWriter writer = new PrintWriter( new BufferedWriter( new FileWriter( fileM, true )));
@@ -163,27 +153,27 @@ public class RequestRCManagement extends HttpServlet {
 			
 			fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + mailStudent + "/" + "mailRequest.txt");
 			
-			// Create a new ArrayList of exam sended to Professor
+			// Create a new ArrayList of exam sent to Professor
 			@SuppressWarnings("unchecked")
 			ArrayList<Exam> examList = (ArrayList<Exam>) request.getSession().getAttribute("examList");
-			ArrayList<String> mailsSended = new ArrayList<String>();
+			ArrayList<String> mailsSent = new ArrayList<String>();
 			if( fileM.exists() ) {
 				for (Exam e : examList) {
 					Scanner scanner = new Scanner(fileM);
 					while ( scanner.hasNextLine() ) { 
 						String lineFromFile = scanner.nextLine(); 
 						if ( lineFromFile.equals( e.getName() ) ) { 
-							mailsSended.add(lineFromFile);
+							mailsSent.add(lineFromFile);
 							break;
 						}else if( !scanner.hasNextLine() ) {
-							mailsSended.add(null);
+							mailsSent.add(null);
 							break;
 						}
 					}
 					scanner.close();
 				}
 			}
-			request.setAttribute("mailsSended", mailsSended);
+			request.setAttribute("mailsSent", mailsSent);
 			return;
 		}
 		

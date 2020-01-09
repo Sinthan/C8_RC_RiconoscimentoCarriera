@@ -61,7 +61,7 @@ public class LoginManagement extends HttpServlet {
 	    
 	    if(conn== null) {
 	    	error = "Nessuna connessione al DB ";
-	    }else{
+	    } else {
 	    	error = "Email o password errati ";
 	    }
 	        

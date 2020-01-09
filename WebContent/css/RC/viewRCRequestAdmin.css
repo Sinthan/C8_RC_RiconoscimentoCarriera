@@ -57,14 +57,8 @@ h3 {
 	color: #929292;
 }
 
-@media (max-width: 767px){
-	
-	.certificatePreview{
-		display: none;
-    	align-items: center;
-	}
-	.requestSummary{
-		display: none;
-    	align-items: center;
-	}
+.no-left-margin {
+	margin-left: 0px;
+	padding-left: 0px;
+	margin-right: 32px;
 }

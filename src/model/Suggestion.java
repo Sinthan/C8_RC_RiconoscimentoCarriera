@@ -7,6 +7,7 @@ public class Suggestion {
 	private String universityName;
 	private String examName;
 	private int externalStudentCFU;
+	private int validatedCFU;
 	private String validationMode;
 	private Date validationDate;
 	
@@ -19,11 +20,12 @@ public class Suggestion {
 	   * @param validationMode represents the suggested validation mode  
 	   * @param validationDate refers to the date of the first validation of the exam
 	   */
-	public Suggestion(String universityName,String examName, int externalStudentCFU, String validationMode, Date validationDate) {
+	public Suggestion(String universityName,String examName, int externalStudentCFU, int validatedCFU, String validationMode, Date validationDate) {
 		
 		this.universityName = universityName;
 		this.examName = examName;
 		this.externalStudentCFU= externalStudentCFU;
+		this.validatedCFU = validatedCFU;
 		this.validationDate = validationDate;
 		this.validationMode = validationMode;
 		
@@ -87,6 +89,12 @@ public class Suggestion {
 		return "Suggestion [univeristyName=" + universityName + ", examName=" + examName + ", ExternalStudentCFU="
 				+ externalStudentCFU + ", validationMode=" + validationMode + ", validationDate=" + validationDate
 				+ "]";
+	}
+	public int getValidatedCFU() {
+		return validatedCFU;
+	}
+	public void setValidatedCFU(int validatedCFU) {
+		this.validatedCFU = validatedCFU;
 	}
 	
 	

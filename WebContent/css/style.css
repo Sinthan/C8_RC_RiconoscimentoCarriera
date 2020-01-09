@@ -7834,7 +7834,7 @@ img {
 
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution:
 	.001dpcm) {
-	.b, .strong {
+	b, strong {
 		font-weight: 600;
 	}
 	

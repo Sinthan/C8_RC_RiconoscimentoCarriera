@@ -62,6 +62,7 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 				sugg.setExamName(examName);
 				sugg.setUniversityName(universityName);
 				sugg.setExternalStudentCFU(resSet.getInt("NUMBER_CFU_EXTERN"));
+				sugg.setValidatedCFU(resSet.getInt("VALIDATED_CFU"));
 				sugg.setValidationMode(resSet.getString("MODE_VALIDATION"));
 				sugg.setValidationDate(resSet.getDate("DATE_VALIDATION"));
 			}

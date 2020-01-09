@@ -70,8 +70,7 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
   	          menu +=
   	          			"<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	  }else{
-  			  logoRedirect = request.getContextPath()+ "/" 
-       		 				 + "InsideStudentRedirect";
+  			
   		 menu +=
   	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	  }

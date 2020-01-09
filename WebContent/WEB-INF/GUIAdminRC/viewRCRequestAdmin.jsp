@@ -22,7 +22,7 @@
 	String pageFolder = "GUIAdminRC";
 	HttpSession sess = request.getSession();
 	ArrayList<Suggestion> suggList = (ArrayList<Suggestion>) request.getAttribute("suggList");
-	ArrayList<String> mailsSended = (ArrayList<String>) request.getAttribute("mailsSended");
+	ArrayList<String> mailsSent = (ArrayList<String>) request.getAttribute("mailsSent");
 	int examRow = 1;
 %>
 <script type="text/javascript">
@@ -43,7 +43,7 @@
 		}
 	}
 
-	function autoFillModal(examName, examCFU, examLink, requestID, examRow) {
+	function autoFillModal(examName, examCFU, examLink, requestID, pressedRow) {
 		// Get the email element and resets it
 		emailField = document.getElementById("recipient-name");
 		emailField.value = "";
@@ -58,7 +58,7 @@
 				"\nNome dello studente: " + "${studentName}";
 		examSelected = examName; 
 		requestRCID = requestID;
-		index = examRow;
+		index = pressedRow;
 	}
 
 	function validateMailAddress() {
@@ -83,7 +83,8 @@
 			}
 		}
 	}
-
+	
+	// Calls, asynchronously, the servlet responsible of sending mails
 	function sendMail() {
 		mailD = document.getElementById("recipient-name").value;
 		txtArea = document.getElementById("message-text").value;
@@ -97,7 +98,8 @@
 			},
 			success : function(response) {
 				// Gets called when the action is successful with server response in variable response
-				document.getElementById("btnMail" + index).style["background-color"] = 'red';
+				document.getElementById('btnMail' + index).setAttribute('data-original-title', '<b><em>Docente gi&#224; contattato</em></b>'); // Updates the tooltip
+				document.getElementById('btnMail' + index).className = "btn btn-success btn-square"; // Changes the button color
 				showAlert(0, "Email inviata correttamente.");
 			}
 		});
@@ -163,8 +165,8 @@
 									</div>
 								</div>
 <!-- Modal end -->
-								<div id="requestSummary">
-									<div class="col-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+<!-- Request summary -->
+									<div class="col-lg-6 col-md-12" id="requestSummary">
 										<h4 class="text-left description">
 											<em>Informazioni sulla carriera pregressa fornite dallo
 												studente</em>
@@ -176,7 +178,7 @@
 											<h3 class="text-left"><%=request.getAttribute("universityName")%></h3>
 											<div id="examsListHeader" class="row">
 												<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
-													id="examNameColumn1"">
+													id="examNameColumn1">
 													<h4 class="text-left field-title">
 														<b>Nome esame</b>
 													</h4>
@@ -193,27 +195,25 @@
 											</div>
 											<c:forEach items="${examList}" var="exam">
 												<div id="examsListRow<%=examRow%>" class="row">
-<!-- Exam name -->
+	<!-- Exam name -->
 													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
 														id="examNameColumn<%=examRow%>">
 														<h4 class="list-element">${exam.name}</h4>
 													</div>
-<!-- Exam name end-->
-<!-- Exam CFU -->
+	<!-- Exam name end-->
+	<!-- Exam CFU -->
 													<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
 														<h4 class="text-center list-element-centered">${exam.CFU}</h4>
 													</div>
-<!-- Exam CFU end -->
-<!-- Exam buttons -->
-													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"
-														id="buttons" style="padding-left: 74px;">
-														
-														
-														<span data-toggle="modal" data-target="#modal">
-														
-															
+	<!-- Exam CFU end -->
+	<!-- Exam buttons -->
+													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
+														id="buttons">
+		<!-- Mail button -->
+														<span data-toggle="modal" data-target="#modal">												
 															<%
-																if (mailsSended.get(examRow - 1) == null) {
+																if (mailsSent.get(examRow - 1) == null) {
+																	// show mail not sent button
 															%>
 															<button id="btnMail<%=examRow-1%>" type="button"
 																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}', '${idRequestRC}', <%=examRow-1%>)"
@@ -224,26 +224,27 @@
 															</button>
 															<%
 																} else {
+																	// show mail already sent button
 															%>
-															<button id="btnMailSended<%=examRow-1%>" style="background-color: red;" id="btnMail" type="button"
+															<button id="btnMailSent<%=examRow-1%>" type="button"
 																onClick="autoFillModal('${exam.name}', '${exam.CFU}', '${exam.programLink}', '${idRequestRC}', '<%=examRow-1%>')"
-																class="btn btn-primary btn-square" data-toggle="tooltip"
+																class="btn btn-success btn-square" data-toggle="tooltip"
 																data-html="true" data-placement="bottom"
-																title="<b><em>Contatta il docente</em></b>">
+																title="<b><em>Docente gi&#224; contattato</em></b>">
 																<img id="imgMail" src="css/svg/mail.svg" class="btn-icon">
 															</button>
 															<%
 																}
 															%>
 														</span> 
-														
+		<!-- Mail button end-->
 														<a onclick="window.open('${exam.programLink}', '_blank')"
 															class="btn btn-primary btn-square" data-toggle="tooltip"
 															data-html="true" data-placement="bottom"
 															title="<b><em>Vai al piano di studi</em></b>"> <img
 															src="css/svg/external-link.svg" class="btn-icon">
 														</a>
-<!-- Exam suggestion -->
+	<!-- Exam suggestion -->
 														<%
 															if (suggList.get(examRow - 1) != null) {
 														%>
@@ -265,14 +266,31 @@
 												<div
 													class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
 													id="suggestion<%=examRow%>">
-													<div class="card card-body suggestion">
-														<h4 id="suggestion<%=examRow%>Title"
-															class="suggestion-body"><b><em>Validato il <%=Utils.getFormattedDate(suggList.get(examRow - 1).getValidationDate())%></em></b>
-														</h4>
+													<div class="suggestion">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-left-margin">
 														<h4 id="suggestion<%=examRow%>Body" class="suggestion-body"><%=suggList.get(examRow - 1).getValidationMode()%></h4>
+														
+														<br>
+														</div>
+													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
+														<h5>
+															VALIDATO IL
+														</h5>
+														<h4><b><%=Utils.getFormattedDate(suggList.get(examRow - 1).getValidationDate())%></b></h4>
 													</div>
-												</div>
+													<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-left-margin">
+														<h5>
+															CFU RICONOSCIUTI
+														</h5>
+														<h4><b>
+															<%=suggList.get(examRow - 1).getValidatedCFU()%>/<%=suggList.get(examRow - 1).getExternalStudentCFU()%></b></h4>
+													</div>
+													<!-- Adding an extra div in order to make the suggestion resize correctly -->
+													<div>&nbsp;</div>
+													<div>&nbsp;</div>
 
+												</div>
+												</div>
 												<%
 													} else {
 												%>
@@ -291,17 +309,16 @@
 										}
 											examRow++;
 									%>
-<!-- Exam suggestion end -->
-<!-- Exam buttons end -->
+	<!-- Exam suggestion end -->
+	<!-- Exam buttons end -->
 									</c:forEach>
-<!-- Adding an extra div after the last suggestion in order to make the orange container resize as the last suggestion gets expanded -->
+	<!-- Adding an extra div after the last suggestion in order to make the orange container resize as the last suggestion gets expanded -->
 									<div>&nbsp;</div>
 								</div>
 							</div>
-						</div>
-
-						<div id="certificatePreview">
-							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+<!-- Request summary end -->
+<!-- PDF certificate preview -->
+							<div class="col-lg-6 col-md-12" id="certificatePreview">
 								<h4 class="text-left description">
 									<em>Certificato di carriera pregressa dello studente</em>
 								</h4>
@@ -310,8 +327,7 @@
 										type="application/pdf" width="100%" height="600px"></embed>
 								</div>
 							</div>
-						</div>
-
+<!-- PDF certificate preview end -->
 					</div>
 				</div>
 			</div>
