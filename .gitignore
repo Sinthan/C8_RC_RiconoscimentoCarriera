@@ -45,5 +45,4 @@ node_modules
 .metadata/.plugins/org.eclipse.ui.workbench/dialog_settings.xml
 .classpath
 .settings/org.eclipse.wst.common.project.facet.core.xml
-.classpath
-/WebContent/
+WebContent/DocumentsRequestRC/
