@@ -83,6 +83,7 @@ try {
 		
 			updateNote(report.getReportID(),report.getNote());
 			
+			
 			return 0;
 		}
 	}
@@ -120,7 +121,7 @@ try {
 			
 			// Selects the exams that match the 2 given parametric values
 			String updateSQL = "UPDATE REPORT SET NOTE = ?" 
-					+ " WHERE (ID_REPORT = ?); ";
+					+ " WHERE ID_REPORT = ?; ";
 			try { 
 				
 				connection = DbConnection.getInstance().getConn();
@@ -193,6 +194,8 @@ try {
 				report.setReportID(reportID);;
 				report.setNote(resSet.getString("NOTE"));
 				report.setValidatedExamsList(exams);
+				System.out.println("repo "+report);
+				return report;
 			}
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't retrieve the RequestRC " + report + e);
@@ -205,7 +208,7 @@ try {
 					e.printStackTrace();
 				}
 		}
-		return report;
+		return null;
 	}
 	
 

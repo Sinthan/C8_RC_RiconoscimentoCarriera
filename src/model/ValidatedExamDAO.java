@@ -111,10 +111,10 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 */
 	@Override
 	public int updateValidatedExam(ValidatedExam vExam) {
+
 		if(vExam==null) {
 			System.out.println("updateValidatedExam: Void Exam passed");
 			return -1;
-		
 		} else if(doRetrieveValidatedExam(vExam.getReportID(),vExam.getExamName())==null){
 			System.out.println("updateValidatedExam: exam doesn't exists in DB");
 			return -2;
@@ -183,17 +183,15 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 			
 			// Selects the exams that match the 2 given parametric values
 			String selectSQL = "SELECT * FROM VALIDATE_EXAM "
-					+ " WHERE NAME_EXAM = ? AND FK_ID_REPORT = ?";
+					+ " WHERE FK_ID_REPORT = ? AND NAME_EXAM = ?";
 			try { 
 				
 				connection = DbConnection.getInstance().getConn();
 				preparedStatement = connection.prepareStatement(selectSQL);
 				
 				// Setting parameters
-				System.out.println("doretrieve: "+examName);
-				System.out.println("doretrieve: "+reportID);
-				preparedStatement.setString(1,examName);
-				preparedStatement.setInt(2,reportID);
+				preparedStatement.setInt(1, reportID);
+				preparedStatement.setString(2, examName);
 				ResultSet resSet = preparedStatement.executeQuery();
 
 				if (resSet.next()) {	// Exam found
@@ -270,7 +268,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 				exam.setVExamID(resSet.getInt("ID_EXAM_VALIDATE"));
 				exams.add(exam);
 			}
-			
+			return exams;
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't retrieve the RequestRC " + reportID + e);
 		} finally {
@@ -282,7 +280,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 					e.printStackTrace();
 				}
 		}
-		return exams;
+		return null;
 	}
 
 

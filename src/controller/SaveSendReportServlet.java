@@ -60,9 +60,9 @@ public class SaveSendReportServlet extends HttpServlet {
 			System.out.println("servlet prima"+exam);
 			vExamDao.updateValidatedExam(exam);		
 			examList.add(exam);
-			
+					
 		}
-		
+			
 			repoDao.updateNote(repoID,note);
 		
 	
