@@ -60,16 +60,16 @@ public class StudentManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		int flag = (int) request.getSession().getAttribute("flag");
 
 		if(flag == 0) {
-			HttpSession sessione = request.getSession(true);
+			HttpSession sessione = request.getSession();
 
 			Student s = (Student) sessione.getAttribute("user");
-			String email = s.getEmail();
+			String email = s.getEmail(); 
 
 			try {
 				RequestRCDAO rDAO =  new RequestRCDAO();
@@ -87,14 +87,15 @@ public class StudentManagement extends HttpServlet {
 			}catch (Exception e) {
 				e.getMessage();
 			}
-		} else if(flag==1){
+		} else if(flag==1){ 
 			//accede al primo form
 			List<University> universities = uniDAO.doRetrieveAllUniversity();
 			Collections.sort(universities , new SortByName());
 			request.getSession().setAttribute("universities", universities);
-			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 			dis.forward(request, response);
-		} else if(flag==2){ //primo form della compilazione delle richieste
+			
+		} else if(flag==2){ //primo form della compilazione delle richieste 
 			RequestDispatcher dis = null;
 			List<University> universities = uniDAO.doRetrieveAllUniversity();
 			Collections.sort(universities , new SortByName());
@@ -104,15 +105,15 @@ public class StudentManagement extends HttpServlet {
 			String UniSel = request.getParameter("universita");  //universita selezionata
 			if( UniSel.equals("defaultUni") ) {
 				request.setAttribute("errorCR1", "Universitit&#224; non selezionata.");
-				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			} else if(!filePart1.getContentType().equals("application/pdf") ){
 				request.setAttribute("errorCR1","Formato file non accettato, inserire file in formato PDF.");
-				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			} else if(!filePart2.getContentType().equals("application/pdf") ) {
 				request.setAttribute("errorCR1","Formato file non accettato, inserire file in formato PDF.");
-				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+				dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 				dis.forward(request, response);
 			} else {
 				Student s = (Student) request.getSession().getAttribute("user");
@@ -321,7 +322,7 @@ public class StudentManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
