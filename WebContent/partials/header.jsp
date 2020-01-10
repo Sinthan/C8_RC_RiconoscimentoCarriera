@@ -1,4 +1,4 @@
-h<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="controller.CheckSession , controller.Utils, model.Student, model.UC, model.Admin"%>
 
