@@ -17,6 +17,19 @@
 	rel="stylesheet">
 	<jsp:include page="/partials/head.jsp" />
 	<meta charset="ISO-8859-1">
+	<script type="text/javascript">
+	window.onload = function(){
+		controlServlet();
+	}
+	
+	// If the servlet sent an error, show it
+	function controlServlet() {
+		var err = '<%=request.getAttribute("errorVRA1")%>';
+		if (err != "null") {
+			showAlert(1, err);
+		}
+	}
+	</script>
 </head>
 <body>
 	<div class="page-wrapper">
