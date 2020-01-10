@@ -1,3 +1,4 @@
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="controller.CheckSession , controller.Utils, model.Student, model.UC, model.Admin"%>
@@ -130,19 +131,32 @@
 	  } else	{  
 		  logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
 	  }
-	  if (pageName.equals("createRCRequest1.jsp")) {   
-		  
+	  
+	  if (pageName.equals("createRCRequest1.jsp")) {	
+		  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it")){
+			  
 		 		 logoRedirect = request.getContextPath()+ "/" 
          		 			+ "InsideStudentRedirect";
 	    		  menu += "<li><a href=\"" + request.getContextPath() + "/" 
            				 + "InsideStudentRedirect\">Home</a></li>";
 	  	          menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		  }else{
+			  logoRedirect = request.getContextPath()+"/"+"StudentRCRequestRedirector?flag=1";
+			  menu +=
+		  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		  }
 	  	 }    
-	    if (pageName.equals("createRCRequest2.jsp")) {      
+	    if (pageName.equals("createRCRequest2.jsp")) {  
+	    	if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it")){
 	    		logoRedirect = request.getContextPath()+ "/" + "InsideStudentRedirect"; 
 	    		  menu += "<li><a href=\"" + request.getContextPath() + "/" + "InsideStudentRedirect\">Home</a></li>";
 	  	          menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+	    	}else{
+	    		 logoRedirect = request.getContextPath()+"/"+"StudentRCRequestRedirector?flag=1";
+				  menu +=
+			  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";	
+	    	}
 	  	 }    
   	}else if(pageFolder.equals("GUIUC")) {	  
   		UC user =(UC) session.getAttribute("user");
