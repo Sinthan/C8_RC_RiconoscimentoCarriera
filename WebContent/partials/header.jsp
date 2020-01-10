@@ -24,7 +24,7 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/"
                   + "/ReportManagement\">(TASTO DA CANCELLARE)</a></li>";
       menu += 
-    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Riconoscimento Carriere</a></li>";    
+    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminHome\">Riconoscimento Carriere</a></li>";    
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
@@ -161,7 +161,7 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
   		
   
   	}else if(pageFolder.equals("GUIAdminRC")){
-  		logoRedirect = request.getContextPath() + "/AdminManagement?flag=1";
+  		logoRedirect = request.getContextPath() + "/AdminHome";
   			if(pageName.equals("homeRCPCD.jsp")){
   				 menu += "<li class=\"current\"><a href=\"" +  request.getContextPath() +"/_areaAdmin"
   				          + "/viewRequest.jsp\">English Validation</a></li>";
@@ -169,9 +169,9 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
   				          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   			
   		}else if(pageName.equals("viewRCRequestAdmin.jsp")){
-  			logoRedirect = request.getContextPath() + "/AdminManagement?flag=1";
+  			logoRedirect = request.getContextPath() + "/AdminHome";
 				 menu += 
-			    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Lista Richieste</a></li>";
+			    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminHome\">Lista Richieste</a></li>";
   		}
   		else if(pageName.equals("createReport.jsp")){
   	    	menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + "_areaAdmin"

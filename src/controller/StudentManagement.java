@@ -188,7 +188,6 @@ public class StudentManagement extends HttpServlet {
 				dis.forward(request, response);
 				return;
 			}
-			// Checks if the parameters have a valid format before proceeding with the insertion on the database
 			String name;
 			int CFU;
 			String link;
