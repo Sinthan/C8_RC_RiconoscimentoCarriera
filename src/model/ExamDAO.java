@@ -82,6 +82,7 @@ public class ExamDAO implements ExamDAOInterface{
 				connection.commit();
 			}
 		} catch(SQLException e) {
+			System.out.println("insertExam: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the exam \"" + exam.getName() + "\" in the database " + e);
 		} finally {
 			// Statement release
@@ -150,6 +151,7 @@ public class ExamDAO implements ExamDAOInterface{
 				requestRCExams.add(exam);
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveAllExamsByRequestRCID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the RequestRC exams" + e);
 		} finally {
 			// Statement release
@@ -201,6 +203,7 @@ public class ExamDAO implements ExamDAOInterface{
 				exam.setProgramLink(resSet.getString("LINK_PROGRAM"));
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveExamByID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the exam " + examID + e);
 		} finally {
 			// Statement release
@@ -235,6 +238,7 @@ public class ExamDAO implements ExamDAOInterface{
 				return examID;
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveMaxExamID: error while executing the query\n" + e);
 			new RuntimeException(e);
 		}
 		return -1;
@@ -265,6 +269,7 @@ public class ExamDAO implements ExamDAOInterface{
 					connection.commit();
 					return result;
 				} catch (SQLException e) {
+					System.out.println("deleteAllRCRequestExamsByRequestID: error while executing the query\n" + e);
 					throw new RuntimeException(e);
 				}
 			}
@@ -282,6 +287,7 @@ public class ExamDAO implements ExamDAOInterface{
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.execute();
 		}catch (SQLException e) {
+			System.out.println("removeAddExamForTest: error while executing the query\n" + e);
 			e.getMessage();
 		}
 	}

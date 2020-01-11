@@ -76,6 +76,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 				connection.commit();
 			}
 		} catch(SQLException e) {
+			System.out.println("insertValidatedExam: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the exam \"" + exam.getExamName() + "\" in the database " + e);
 		} finally {
 			// Statement release
@@ -143,6 +144,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 					
 				
 			} catch(SQLException e) {
+				System.out.println("updateValidatedExam: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the exam \"" + vExam.getExamName() + "\" in the database " + e);
 			} finally {
 				// Statement release
@@ -209,6 +211,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 					return null;
 				}
 			} catch(SQLException e) {
+				System.out.println("doRetrieveValidatedExam: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the exam \"" + exam.getExamName() + "\" in the database " + e);
 			} finally {
 				// Statement release
@@ -270,6 +273,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 			}
 			return exams;
 		} catch(SQLException e) {
+			System.out.println("doRetrieveValidatedExamsByReportID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the RequestRC " + reportID + e);
 		} finally {
 			// Statement release
@@ -313,6 +317,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 			connection.commit();						
 			return 0;
 	} catch(SQLException e) {
+		System.out.println("deleteValidatedExam: error while executing the query\n" + e);
 		new RuntimeException("Couldn't delete the Exam " + e);
 	} finally {
 		// Statement release

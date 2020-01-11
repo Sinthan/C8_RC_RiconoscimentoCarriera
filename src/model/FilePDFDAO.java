@@ -60,6 +60,7 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 			connection.commit();
 			System.out.println("insertFilePDF(result=" + result + ": " + file.toString());		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("insertFilePDF: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the FilePDF " + e);
 		} finally {
 			// Statement release
@@ -119,6 +120,7 @@ public class FilePDFDAO implements FilePDFDAOInterface {
 				requestRCPDFFiles.add(file);
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveAllFilePDFByIDRequestRC: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the RequestRC pdf files" + e);
 		} finally {
 			// Statement release

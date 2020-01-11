@@ -137,6 +137,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 					
 				
 			} catch(SQLException e) {
+				System.out.println("updateReportID: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the request in the database " + e);
 			} finally {
 				// Statement release
@@ -183,6 +184,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			ris = preparedStatement.executeUpdate();
 			connection.commit();
 		} catch(SQLException e) {
+			System.out.println("updateState: error while executing the query\n" + e);
 			new RuntimeException("Couldn't update the RequestRC " + requestRCID + e);
 		} finally {
 			// Statement release
@@ -238,6 +240,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 				requestRC.setReportID(resSet.getInt("FK_REPORT"));
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveRequestRCByRequestID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the RequestRC " + requestRCID + e);
 		} finally {
 			// Statement release
@@ -272,6 +275,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			}
 			return null;
 		} catch (SQLException e) {
+			System.out.println("doRetrieveRequestRCByStudentID: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -343,6 +347,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			connection.commit();
 			System.out.println("deleteRequestRC(result=" + result + ")");		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("deleteRequestRCByRequestID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't delete the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -415,6 +420,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			}
 
 		} catch (SQLException e) {
+			System.out.println("doRetrieveAllRequestRCBystate: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 

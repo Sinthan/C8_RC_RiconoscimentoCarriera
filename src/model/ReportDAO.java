@@ -47,6 +47,7 @@ try {
 			connection.commit();
 			System.out.println("insertRequestRC(result=" + result + ": " + report.toString());		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("insertReport: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -144,6 +145,7 @@ try {
 				
 				
 			} catch(SQLException e) {
+				System.out.println("updateNote: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the report in the database " + e);
 			} finally {
 				// Statement release
@@ -198,6 +200,7 @@ try {
 				return report;
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveReportByReportID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the RequestRC " + report + e);
 		} finally {
 			// Statement release
@@ -260,6 +263,7 @@ try {
 			connection.commit();
 			System.out.println("deleteReport(result=" + result + ")");		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("deleteReport: error while executing the query\n" + e);
 			new RuntimeException("Couldn't delete the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -289,6 +293,7 @@ try {
 			result = preparedStatement.executeUpdate();	
 			connection.commit();
 		} catch(SQLException e) {
+			System.out.println("doRetrieveLastReportID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't delete the RequestRC " + e);
 		} finally {
 			// Statement release
