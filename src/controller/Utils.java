@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import interfacce.UserInterface;
 import model.SystemAttribute;
 
+
 public class Utils {
 	public Utils() {}
 

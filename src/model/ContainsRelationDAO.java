@@ -57,6 +57,7 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 			connection.commit();
 			System.out.println("insertContainsRelation(result=" + result + ": " + conRel.toString());		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("insertContainsRelation: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the ContainsRelation in the database" + e);
 		} finally {
 			// Statement release
@@ -97,6 +98,7 @@ public class ContainsRelationDAO implements ContainsRelationDAOInterface {
 			}
 			return containsRelations;
 		} catch (SQLException e) {
+			System.out.println("doRetrieveAllContainsRelationByIDExam: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}

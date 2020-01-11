@@ -46,6 +46,10 @@ INSERT INTO REQUEST VALUES (6,'B.6.56546','A1','2017-05-25','2018-05-25',2018,3,
 
 INSERT INTO `user` VALUES ('lollo1@gmail.com','Lorenzo','Maturo','M','9611edf7f716b00c8a44441973906aa7f5c0c580',1, null);
 INSERT INTO `user` VALUES ('g.rossi31@studenti.unisa.it','Gianluca','Rossi','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',0,null);
+INSERT INTO `user` VALUES ('g.rossi@studenti.unisa.it','Gianluca','Rossi','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',0,null);
+INSERT INTO `user` VALUES ('g.rossiNOESAMI@studenti.unisa.it','Gianluca','Rossi','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',0,null);
+INSERT INTO `user` VALUES ('g.rossiNOESAMIINVALIDPATH@studenti.unisa.it','Gianluca','Rossi','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',0,null);
+INSERT INTO `user` VALUES ('g.rossiNOESAMINOPDF@studenti.unisa.it','Gianluca','Rossi','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b',0,null);
 INSERT INTO `user` VALUES ('prova2@unisa.it','Giuseppino','Bisoio','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9e',0, null);
 INSERT INTO `user` VALUES ('prova3@unisa.it','Giulia','Serio','F','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9c',0, null);
 INSERT INTO `user` VALUES ('prova@unisa.it','Lollo','Mat','M','4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9d',0,null);
@@ -66,11 +70,15 @@ INSERT INTO UC VALUES('EMAILUC@gmail.it','12356789','3331231233','3331231233');
 INSERT INTO REPORT VALUES(1 ,'La sua carriera ok okok');
 INSERT INTO REPORT VALUES(2 ,'La sua carriera NON è ok okok');
 INSERT INTO REPORT VALUES(3 ,'La sua carriera NON è ok ok');
+
 /*REQUESTRC*/
 INSERT INTO REQUEST_RC VALUES(1, '2019-3-11', 1,'Università degli Studi di SALERNO','provaRC1@unisa.it',1,'EMAILUC@gmail.it');
 INSERT INTO REQUEST_RC VALUES(2, '2020-1-30', 2,'Università degli Studi di SALERNO','provaRC2@unisa.it',2,'EMAILUC@gmail.it');
 INSERT INTO REQUEST_RC VALUES(3, '2020-4-10', 3,'Università degli Studi di SALERNO','prova2@unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(4, '2020-1-20', 0,'Università degli Studi di NAPOLI Federico II','g.rossi31@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(4, '2020-1-20', 1,'Università degli Studi di NAPOLI Federico II','g.rossi31@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(5, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMI@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(6, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMINOPDF@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(7, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMIINVALIDPATH@studenti.unisa.it',1,'EMAILUC@gmail.it');
 
 /*VALIDATE EXAM*/
 INSERT INTO VALIDATE_EXAM VALUES(1,'PROGRAMMAZIONE 1', 9, 'è stato validato bene',1);
@@ -83,6 +91,8 @@ INSERT INTO FILE_PDF VALUES(3, 'FILEPDFCARR2',2);
 INSERT INTO FILE_PDF VALUES(4, 'FILEPDFDOC2',2);
 INSERT INTO FILE_PDF VALUES(5, '/WebContent/DocumentsRequestRC/g.rossi31@studenti.unisa.it/ID.pdf',4);
 INSERT INTO FILE_PDF VALUES(6, '/WebContent/DocumentsRequestRC/g.rossi31@studenti.unisa.it/CP.pdf',4);
+INSERT INTO FILE_PDF VALUES(7, 'WebContent/DocumentsRequestRC/g.rossi31@studenti.unisa.it/fakeCP.pdf',5);
+INSERT INTO FILE_PDF VALUES(8, 'invalidPath',7);
 
 /*EXAM*/
 INSERT INTO EXAM VALUES(1, 'Programmazione 1', 12, 'www.sito.it/dati/esame/prog1');

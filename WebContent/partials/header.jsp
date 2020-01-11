@@ -1,4 +1,5 @@
-h<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="controller.CheckSession , controller.Utils, model.Student, model.UC, model.Admin"%>
 
@@ -24,7 +25,7 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/"
                   + "/ReportManagement\">(TASTO DA CANCELLARE)</a></li>";
       menu += 
-    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Riconoscimento Carriere</a></li>";    
+    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminHome\">Riconoscimento Carriere</a></li>";    
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
@@ -130,19 +131,32 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
 	  } else	{  
 		  logoRedirect = request.getContextPath() + "/" + "WEB-INF" + "/" + pageFolder + "/" + pageName;
 	  }
-	  if (pageName.equals("createRCRequest1.jsp")) {   
-		  
+	  
+	  if (pageName.equals("createRCRequest1.jsp")) {	
+		  if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it")){
+			  
 		 		 logoRedirect = request.getContextPath()+ "/" 
          		 			+ "InsideStudentRedirect";
 	    		  menu += "<li><a href=\"" + request.getContextPath() + "/" 
            				 + "InsideStudentRedirect\">Home</a></li>";
 	  	          menu +=
 	  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		  }else{
+			  logoRedirect = request.getContextPath()+"/"+"StudentRCRequestRedirector?flag=1";
+			  menu +=
+		  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		  }
 	  	 }    
-	    if (pageName.equals("createRCRequest2.jsp")) {      
+	    if (pageName.equals("createRCRequest2.jsp")) {  
+	    	if((user.getEmail().substring(user.getEmail().indexOf("@"))).equalsIgnoreCase("@studenti.unisa.it")){
 	    		logoRedirect = request.getContextPath()+ "/" + "InsideStudentRedirect"; 
 	    		  menu += "<li><a href=\"" + request.getContextPath() + "/" + "InsideStudentRedirect\">Home</a></li>";
 	  	          menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+	    	}else{
+	    		 logoRedirect = request.getContextPath()+"/"+"StudentRCRequestRedirector?flag=1";
+				  menu +=
+			  	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";	
+	    	}
 	  	 }    
   	}else if(pageFolder.equals("GUIUC")) {	  
   		UC user =(UC) session.getAttribute("user");
@@ -161,7 +175,7 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
   		
   
   	}else if(pageFolder.equals("GUIAdminRC")){
-  		logoRedirect = request.getContextPath() + "/AdminManagement?flag=1";
+  		logoRedirect = request.getContextPath() + "/AdminHome";
   			if(pageName.equals("homeRCPCD.jsp")){
   				 menu += "<li class=\"current\"><a href=\"" +  request.getContextPath() +"/_areaAdmin"
   				          + "/viewRequest.jsp\">English Validation</a></li>";
@@ -169,9 +183,9 @@ h<%@ page language="java" contentType="text/html; charset=UTF-8"
   				          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   			
   		}else if(pageName.equals("viewRCRequestAdmin.jsp")){
-  			logoRedirect = request.getContextPath() + "/AdminManagement?flag=1";
+  			logoRedirect = request.getContextPath() + "/AdminHome";
 				 menu += 
-			    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminManagement?flag=1\">Lista Richieste</a></li>";
+			    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminHome\">Lista Richieste</a></li>";
   		}
   		else if(pageName.equals("createReport.jsp")){
   	    	menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + "_areaAdmin"

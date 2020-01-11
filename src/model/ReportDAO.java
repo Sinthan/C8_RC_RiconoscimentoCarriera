@@ -47,6 +47,7 @@ try {
 			connection.commit();
 			System.out.println("insertRequestRC(result=" + result + ": " + report.toString());		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("insertReport: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -82,6 +83,7 @@ try {
 		} else {
 		
 			updateNote(report.getReportID(),report.getNote());
+			
 			
 			return 0;
 		}
@@ -143,7 +145,7 @@ try {
 			
 			// Selects the exams that match the 2 given parametric values
 			String updateSQL = "UPDATE REPORT SET NOTE = ?" 
-					+ " WHERE (ID_REPORT = ?); ";
+					+ " WHERE ID_REPORT = ?; ";
 			try { 
 				
 				connection = DbConnection.getInstance().getConn();
@@ -166,6 +168,7 @@ try {
 				
 				
 			} catch(SQLException e) {
+				System.out.println("updateNote: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the report in the database " + e);
 			} finally {
 				// Statement release
@@ -216,8 +219,11 @@ try {
 				report.setReportID(reportID);;
 				report.setNote(resSet.getString("NOTE"));
 				report.setValidatedExamsList(exams);
+				System.out.println("repo "+report);
+				return report;
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveReportByReportID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the RequestRC " + report + e);
 		} finally {
 			// Statement release
@@ -228,7 +234,7 @@ try {
 					e.printStackTrace();
 				}
 		}
-		return report;
+		return null;
 	}
 	
 
@@ -280,6 +286,7 @@ try {
 			connection.commit();
 			System.out.println("deleteReport(result=" + result + ")");		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("deleteReport: error while executing the query\n" + e);
 			new RuntimeException("Couldn't delete the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -312,6 +319,7 @@ try {
 			}
 			connection.commit();
 		} catch(SQLException e) {
+			System.out.println("doRetrieveLastReportID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't delete the RequestRC " + e);
 		} finally {
 			// Statement release

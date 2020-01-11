@@ -52,7 +52,7 @@ public interface RequestRCDAOInterface {
 	/*
 	 *Delete one specific requestRC using ID of the student
 	 */
-	public int deleteRequestRCByStudentID(int syudentID);
+	public int deleteRequestRCByStudentID(String studentID);
 
 	/*
 	 * Update the state of the request

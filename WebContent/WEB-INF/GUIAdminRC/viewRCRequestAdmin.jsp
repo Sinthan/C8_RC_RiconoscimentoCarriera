@@ -323,7 +323,7 @@
 									<em>Certificato di carriera pregressa dello studente</em>
 								</h4>
 								<div class="orange-frame">
-									<embed src=<%=sess.getAttribute("pathCP")%>
+									<embed src=<%=request.getAttribute("pathCP")%>
 										type="application/pdf" width="100%" height="600px"></embed>
 								</div>
 							</div>

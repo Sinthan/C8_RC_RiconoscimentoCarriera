@@ -41,6 +41,7 @@ public class UniversityDAO implements UniversityDAOInterface {
 			}
 			return universityNames;
 		} catch (SQLException e) {
+			System.out.println("doRetrieveAllUniversity: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}
