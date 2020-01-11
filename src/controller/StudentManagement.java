@@ -313,8 +313,6 @@ public class StudentManagement extends HttpServlet {
 		} else if (flag==4) {
 			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
-
-			//controllo per il bottone RC della homePageRCStudent
 		}
 
 	}

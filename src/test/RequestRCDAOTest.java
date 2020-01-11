@@ -18,7 +18,7 @@ class RequestRCDAOTest {
 	
 	//@BeforeEach
 	void setUp() throws Exception {
-		requestRCDAO = new RequestRCDAO();
+		requestrcDAO = new RequestRCDAO();
 		r = new RequestRC();
 	}
 	
@@ -27,8 +27,8 @@ class RequestRCDAOTest {
 
 	@Test// Richiesta estratta correttamente
 	void testdoRetrieveRequestRCByStudentID() {
-		RequestRC r = requestrcDAO.doRetrieveRequestRCByStudentID("provaRC1@unisa.it");
-		assertNotEquals(r, null);
+		RequestRC r = requestrcDAO.doRetrieveRequestRCByStudentID("g.damiano@studenti.unisa.it");
+		assertNotNull(r);
 	}
 	
 	@Test// Richiesta non estratta correttamente 
