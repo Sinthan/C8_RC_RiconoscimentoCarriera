@@ -174,7 +174,7 @@ public class StudentManagement extends HttpServlet {
 				request.getSession().setAttribute("filePDF2", filePDF2);
 
 				//Redirect to second page of RequestRC
-				dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
+				dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp");
 				dis.forward(request, response);
 			}
 		} else if (flag == 3) { // Exams list insertion page (createRCRequest2.jsp)
