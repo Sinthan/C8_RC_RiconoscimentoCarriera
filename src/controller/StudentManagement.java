@@ -85,7 +85,7 @@ public class StudentManagement extends HttpServlet {
 				return;
 
 			}catch (Exception e) {
-				e.getMessage();
+				e.printStackTrace();
 			}
 		} else if(flag==1){ 
 			//accede al primo form

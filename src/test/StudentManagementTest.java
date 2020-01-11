@@ -1,16 +1,10 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
-import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,29 +16,13 @@ import javax.servlet.http.Part;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockHttpSession;
-import org.springframework.mock.web.MockRequestDispatcher;
-
 import controller.StudentManagement;
-
 import model.FilePDF;
-
-import controller.Utils;
-import model.RCState;
-
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;
-
-import static org.junit.Assert.assertEquals;
 
 class StudentManagementTest extends Mockito {
 	
@@ -77,17 +55,13 @@ class StudentManagementTest extends Mockito {
 		s.setEmail("g.rossi@studenti.unisa.it");
 		rRC = new RequestRC();
 		rRC.setStudentID(s.getEmail());
-		rRC.setUniversityID("Università degli Studi di SALERNO");
+		rRC.setUniversityID("Universit√† degli Studi di SALERNO");
+		// Getting today's date
+		Calendar calendar = Calendar.getInstance();
+		java.util.Date currentDate = calendar.getTime();
+		java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+		rRC.setSubmissionDate(sqlDate);
 		reqDAO =  new RequestRCDAO();
-	}
-	
-	//@Test
-	public void returnRequestStatusOK() throws ServletException, IOException {
-		s.setEmail("g.damiano@studenti.unisa.it");
-		rRC = mock(RequestRC.class);
-		pathC = System.getProperty("catalina.base");
-		sdf = new SimpleDateFormat("dd/MM/yyyy");
-		date = new String();
 	}
 	
 	@Test
@@ -115,7 +89,7 @@ class StudentManagementTest extends Mockito {
 		verify(dsp).forward(request, response);
 	}
 	
-	//@Test
+	@Test
 	public void returnUniversityList() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(sessione);
 		when(sessione.getAttribute("flag")).thenReturn(1);
@@ -124,7 +98,7 @@ class StudentManagementTest extends Mockito {
 		verify(dsp).forward(request, response);
 	}
 	
-	//@Test
+	@Test
 	public void createRequestRC1Test() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(sessione);
 		when(sessione.getAttribute("flag")).thenReturn(2);
@@ -136,14 +110,14 @@ class StudentManagementTest extends Mockito {
 		verify(dsp).forward(request, response);
 	}
 	
-	//@Test
+	@Test
 	public void createRequestRC1Test2() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(sessione); 
 		when(sessione.getAttribute("flag")).thenReturn(2);
-		when(request.getPart("file1")).thenReturn(part);
-		when(request.getPart("file2")).thenReturn(part);
-		when(request.getParameter("universita")).thenReturn("UniversitÔøΩ degli Studi di NAPOLI Federico II");
-		when(filePart1.getContentType()).thenReturn("text");
+		when(request.getPart("file1")).thenReturn(part1);
+		when(request.getPart("file2")).thenReturn(part2);
+		when(request.getParameter("universita")).thenReturn("Universit√† degli Studi di NAPOLI Federico II");
+		when(part1.getContentType()).thenReturn("application/xml");
 		when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp")).thenReturn(dsp);
 		sm.doGet(request, response);
 		verify(dsp).forward(request, response);
@@ -155,10 +129,10 @@ class StudentManagementTest extends Mockito {
 		when(sessione.getAttribute("flag")).thenReturn(2);
 		when(request.getPart("file1")).thenReturn(part1);
 		when(request.getPart("file2")).thenReturn(part2);
-		when(request.getParameter("universita")).thenReturn("Universit‡ degli Studi di NAPOLI Federico II");
+		when(request.getParameter("universita")).thenReturn("Universit√† degli Studi di NAPOLI Federico II");
 		when(part1.getContentType()).thenReturn("application/pdf");
 		when(part2.getContentType()).thenReturn("application/xml");
-        when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp")).thenReturn(dsp);
+		when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp")).thenReturn(dsp);
 		sm.doGet(request, response);
 		verify(dsp).forward(request, response);
 	}
@@ -170,12 +144,10 @@ class StudentManagementTest extends Mockito {
         when(sessione.getAttribute("flag")).thenReturn(2);
         when(request.getPart("file1")).thenReturn(part1);
         when(request.getPart("file2")).thenReturn(part2);
-        when(request.getParameter("universita")).thenReturn("Universit‡ degli Studi di NAPOLI Federico II");
+        when(request.getParameter("universita")).thenReturn("Universit√† degli Studi di NAPOLI Federico II");
         when(part1.getContentType()).thenReturn("application/pdf");
         when(part2.getContentType()).thenReturn("application/pdf");
         when(sessione.getAttribute("user")).thenReturn(s);
-        PowerMockito.mockStatic(System.class);
-        PowerMockito.when(System.getProperty("catalina.base")).thenReturn(pathC);
         assertEquals(pathC, System.getProperty("catalina.base"));
         
         when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp")).thenReturn(dsp);
@@ -290,8 +262,6 @@ class StudentManagementTest extends Mockito {
 		when(request.getParameter("examName" + currentExamRow)).thenReturn("Chimica");
 		when(request.getParameter("CFU" + currentExamRow)).thenReturn("9");
 		when(request.getParameter("programLink" + currentExamRow)).thenReturn("ftp://unisa.it");
-		//when(request.getAttribute("newRequestRC")).thenReturn(rRC);
-		//rRC = reqDAO.doRetrieveRequestRCByStudentID("g.rossi@studenti.unisa.it");
 		int reqRCID = rRC.getRequestRCID();
 		FilePDF file = new FilePDF("/WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "fake.pdf", reqRCID);
 		when(request.getSession().getAttribute("filePDF1")).thenReturn(file);
