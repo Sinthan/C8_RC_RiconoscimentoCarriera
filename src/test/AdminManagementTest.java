@@ -4,6 +4,8 @@
 package test;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,6 +35,11 @@ class AdminManagementTest extends Mockito {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		Path root = Paths.get(".").normalize().toAbsolutePath();
+		String projectFolder = "C8_RC_RiconoscimentoCarriera";
+		int extraPathIndex = root.toString().indexOf(projectFolder);
+		String catalinaRoot = root.toString().substring(0, extraPathIndex);
+		System.setProperty("catalina.base", catalinaRoot + "/.metadata/");
 		am = new AdminManagement();
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);

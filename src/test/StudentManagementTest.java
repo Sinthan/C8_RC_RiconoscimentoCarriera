@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -44,6 +46,11 @@ class StudentManagementTest extends Mockito {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		Path root = Paths.get(".").normalize().toAbsolutePath();
+		String projectFolder = "/C8_RC_RiconoscimentoCarriera";
+		int extraPathIndex = root.toString().indexOf(projectFolder);
+		String catalinaRoot = root.toString().substring(0, extraPathIndex);
+		System.setProperty("catalina.base", catalinaRoot + "/.metadata/");
 		sm = new StudentManagement();
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
@@ -276,7 +283,7 @@ class StudentManagementTest extends Mockito {
 	
 	@AfterEach
 	public void tearDown() {
-		reqDAO.deleteRequestRCByStudentID(s.getEmail());
+		reqDAO.deleteRequestRCByStudentID("g.rossi@studenti.unisa.it");
 	}
 
 	@Test
