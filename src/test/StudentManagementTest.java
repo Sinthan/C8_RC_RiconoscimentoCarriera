@@ -47,9 +47,9 @@ class StudentManagementTest extends Mockito {
 	@BeforeEach
 	void setUp() throws Exception {
 		Path root = Paths.get(".").normalize().toAbsolutePath();
-		String projectFolder = "/C8_RC_RiconoscimentoCarriera";
+		String projectFolder = "C8_RC_RiconoscimentoCarriera";
 		int extraPathIndex = root.toString().indexOf(projectFolder);
-		String catalinaRoot = root.toString().substring(0, extraPathIndex);
+		String catalinaRoot = root.toString().substring(0, extraPathIndex -1);
 		System.setProperty("catalina.base", catalinaRoot + "/.metadata/");
 		sm = new StudentManagement();
 		request = mock(HttpServletRequest.class);

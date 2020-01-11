@@ -38,7 +38,7 @@ class AdminManagementTest extends Mockito {
 		Path root = Paths.get(".").normalize().toAbsolutePath();
 		String projectFolder = "C8_RC_RiconoscimentoCarriera";
 		int extraPathIndex = root.toString().indexOf(projectFolder);
-		String catalinaRoot = root.toString().substring(0, extraPathIndex);
+		String catalinaRoot = root.toString().substring(0, extraPathIndex -1);
 		System.setProperty("catalina.base", catalinaRoot + "/.metadata/");
 		am = new AdminManagement();
 		request = mock(HttpServletRequest.class);
