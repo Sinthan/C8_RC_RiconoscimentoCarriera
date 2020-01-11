@@ -1,6 +1,8 @@
 package controller;
 
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -104,26 +106,8 @@ public class Utils {
 	 * @author	Gianluca Rossi
 	 */
 	public static String getProjectPath() {
-		String unixExtraPathFirstFolder = "/.metadata/";
-		String windowsExtraPathFirstFolder = "\\.metadata\\";
-		// Gets a path that identifies a temporary folder inside the workspace
-		String extendedPath = System.getProperty("catalina.base");
-		// Determines the starting index of the extra path depending on the user OS (inferred from the slash)
-		int slashFound = extendedPath.indexOf("/");
-		int extraPathStartIndex;
-		if (slashFound == -1) {
-			extraPathStartIndex = extendedPath.indexOf(windowsExtraPathFirstFolder);
-		} else {
-			extraPathStartIndex = extendedPath.indexOf(unixExtraPathFirstFolder);
-		}
-		// Extracts the workspace path
-		String workspacePath = extendedPath.substring(0, extraPathStartIndex);
-		if (workspacePath.equals("")) {
-			return null;
-		}
-		// Append the project folder to the path
-		String finalPath = workspacePath + "/C8_RC_RiconoscimentoCarriera";
-		return finalPath;
+		Path root = Paths.get(".").normalize().toAbsolutePath();
+		return root.toString();
 	}
 
 	/**

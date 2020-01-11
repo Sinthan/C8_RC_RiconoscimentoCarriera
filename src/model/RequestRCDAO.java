@@ -68,6 +68,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			connection.commit();
 			System.out.println("insertRequestRC(result=" + result + ": " + request.toString());		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("insertRequestRC: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -323,6 +324,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			// Deletes the pdf files and the student folder
 			FilePDFDAO pdfDAO = new FilePDFDAO();
 			FilePDF file = pdfDAO.doRetrieveAllFilePDFByIDRequestRC(requestRCID).get(0);	// Gets the first FilePDF
+			System.out.println(file);
 			String studentFilesFolderPath = Utils.getProjectPath() + Utils.getParentDirectoryFromFilePath(file.getPDFLink());	// Gets the path to the folder that contains all the student files
 			File studentDirectory = new File(studentFilesFolderPath);
 			if (FileUtils.deleteQuietly(studentDirectory)) {	//Deletes the directory and all its files
@@ -354,10 +356,33 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		return result;
 	}
 
+	/**
+	 * Deletes the request that matches the specified student ID, and the related records of the
+	 * <tt>ContainsRelation</tt>, <tt>FilePDF</tt>, <tt>Exam</tt> (if not used in another request),
+	 * <tt>Report</tt>, <tt>ValidatedExams</tt> objects from the database.
+	 * 
+	 * @param	studentMail		the ID of the <tt>Student</tt> object that the <tt>RequestRC</tt> must match.
+	 * @return					<ul><li>a positive value if the deletion succeeded
+	 *							<li>0 if the request wasn't deleted
+	 *							<li>-1 if the deletion succeeded, but the database didn't return any information about the number of deleted rows
+	 *							<li>-2 if the passed parameter is not a valid <tt>Student</tt> ID</ul>
+	 * @author 	Gianluca Rossi
+	 */
 	@Override
-	public int deleteRequestRCByStudentID(int studentID) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteRequestRCByStudentID(String studentMail) {
+		if (studentMail.equals("")) { // Checks if parameter is a valid ID
+			System.out.println("deleteRequestRCByStudentID: Please enter a valid student ID.");
+			return -2;
+		}
+		
+		int result = 0;
+
+		RequestRC reqRC = doRetrieveRequestRCByStudentID(studentMail);
+		if (reqRC != null) {
+			int requestRCID = reqRC.getRequestRCID();
+			result = deleteRequestRCByRequestID(requestRCID);
+		}
+		return result;
 	}
 
 	@Override
