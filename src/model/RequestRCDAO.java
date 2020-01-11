@@ -11,6 +11,8 @@ import java.util.Calendar;
 
 import org.apache.commons.io.FileUtils;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import controller.DbConnection;
 import controller.Utils;
 
@@ -150,6 +152,49 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		}
 		
 	}
+	
+	
+	/**
+	 * Saves the report in request into the database.
+	 * 
+	 * @param request
+	 * @param reportID
+	 * @return			<ul><li>a positive value if the insertion succeeded
+	 *					<li>0 if nothing was added to the database
+	 * @author 			Gerardo Damiano
+	 */
+	@Override
+	public int insertReportID(int reportID, int requestID) {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			System.out.println(reportID + " id richiesta :" + requestID);
+			String updateSQL = "UPDATE REQUEST_RC SET FK_REPORT = ?" 
+					+ " WHERE (ID_REQUEST = ?); ";
+			try { 
+				
+				connection = DbConnection.getInstance().getConn();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				
+				// Setting parameters
+				preparedStatement.setInt(1,reportID);
+				preparedStatement.setInt(2,requestID);
+				preparedStatement.executeUpdate();
+				connection.commit();
+				return 1;
+			} catch(SQLException e) {
+				new RuntimeException("Couldn't find the request in the database " + e);
+			} finally {
+				// Statement release
+				if(preparedStatement != null)
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
+			return 0;
+		}
+	
 	
 	/**
 	 * Retrieves the <tt>status</tt> of the update given ID and current state

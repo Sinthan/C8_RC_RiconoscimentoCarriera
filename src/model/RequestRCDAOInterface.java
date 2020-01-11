@@ -59,6 +59,11 @@ public interface RequestRCDAOInterface {
 	 */
 	int updateState(RCState state, int reportID);
 
+	/*
+	 * Insert a report in a request
+	 */
+	int insertReportID(int reportID, int requestID);
+
 
 
 	

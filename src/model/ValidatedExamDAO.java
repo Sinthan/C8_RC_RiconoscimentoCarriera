@@ -36,45 +36,23 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 		if (exam.getExamName().equals("") || exam.getValidatedCFU() == -1) { // Checks if attributes are set
 			System.out.println("Please set the Exam's name and cfu before trying to add it to the database.");
 			return -4;
-		}
-
+		}	
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;		
-		int result = -2; // No rows affected by default
-
-		
-		String insertSQL = "INSERT INTO VALIDATEDEXAM " +
+		PreparedStatement preparedStatement = null;	
+		String insertSQL = "INSERT INTO VALIDATE_EXAM" +
 				" (NAME_EXAM, CFU_CONVALIDATED, MODE_VALIDATION,FK_ID_REPORT) " +
 				" VALUES (?, ?, ?, ?)";
-
-		// Selects the exams that match the 2 given parametric values
-		String selectSQL = "SELECT * FROM EXAM "
-				+ " WHERE NAME = ? AND FK_ID_REPORT = ?";
 		try {  
-			connection = DbConnection.getInstance().getConn();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			// Setting parameters
-			preparedStatement.setString(1,exam.getExamName());
-			preparedStatement.setInt(2, exam.getReportID());
-			ResultSet resSet = preparedStatement.executeQuery();
-
-			if (resSet.first()) {	// Exam found
-				int examID = resSet.getInt(1);
-				System.out.println("Exam \"" + exam.getExamName() + "\" already present.");
-				return examID;
-			} else {		// Exam not already present in the database, proceeding with the insertion
-				System.out.println("Exam \"" + exam.getExamName() + "\" not present, adding it to the database.");
-				preparedStatement.close();
+				connection = DbConnection.getInstance().getConn();
+				connection.setAutoCommit(false);
 				preparedStatement = connection.prepareStatement(insertSQL);			
 				// Setting parameters
 				preparedStatement.setString(1, exam.getExamName());
 				preparedStatement.setInt(2, exam.getValidatedCFU());
 				preparedStatement.setString(3, exam.getValidationProcedure());
 				preparedStatement.setInt(4, exam.getReportID());
-				// Executing the insertion
-				result = preparedStatement.executeUpdate();	
 				connection.commit();
-			}
+			
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't insert the exam \"" + exam.getExamName() + "\" in the database " + e);
 		} finally {
@@ -86,16 +64,8 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 					e.printStackTrace();
 				}
 		}
-
-		if (result > 0) { // SQL Insert succeeded
-			return -1;
-		} else if (result == 0) { // SQL Insert failed
-			return -2;
-		} else if (result == -1) { // SQL Insert succeeded without log
-			return -3;
-		}
-		System.out.println("insertExam(result=" + result + ": " + exam.toString());	// Logging the operation
-		return result;
+		System.out.println("insertExam(result=: " + exam.toString());	// Logging the operation
+		return 0;
 	}
 
 	

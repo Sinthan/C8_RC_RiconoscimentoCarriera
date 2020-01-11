@@ -60,33 +60,35 @@
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
-
+<!-- sezione dedicata alle informazioni personali dello studente-->
 								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
 									<div class="panel">
-										<h2 class="text-center">Richiesta di ${userRC.name}
-											${userRC.surname} - ${reqRC.submissionDate}</h2>
+										<h3 class="text-center">Richiesta di ${userRC.name}
+											${userRC.surname} - ${reqRC.submissionDate}</h3>
 									</div>
 									<div class="studentName">
 										<div>
 											<h4 class="text-left">Nome studente</h4>
 										</div>
 										<div>
-											<p class="pDat" id="pName">&nbsp;&nbsp;&nbsp;&nbsp;${userRC.name}</p>
+											<h4 class="studentData">&nbsp;&nbsp;&nbsp;${userRC.name}</h4>
 										</div>
 										<div>
 											<h4 class="text-left">Cognome studente</h4>
 										</div>
-										<p class="pDat" id="pSurname">&nbsp;&nbsp;&nbsp;&nbsp;${userRC.surname}</p>
+										<h4 class="studentData">&nbsp;&nbsp;&nbsp;${userRC.surname}</h4>
+										<br>
 									</div>
 								</div>
-
+<!-- sezione dedicata alla lista degli esami della richiesta-->
 								<div class="news-block-seven">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 										<h4 class="text-left">Esami inseriti dallo studente</h4>
 									</div>
 									<div class="ExamsDiv">
-										<table class="table table-responsive">
+										<div class="table-responsive">
+										<table class="table">
 											<thead>
 												<tr>
 													<th scope="col">Nome esame</th>
@@ -104,38 +106,36 @@
 												</c:forEach>
 											</tbody>
 										</table>
+										</div>
 									</div>
 								</div>
 							</div>
 
-							<!-- sezione dedicata al download dei file della richiesta-->
+<!-- sezione dedicata al download dei file della richiesta-->
 						</div>
-						<div class="downloadButton col-12">
-								<form action="./DownloaderRC" method="post">
-									<input type=hidden name=pdfvalue value="id" /> <input
-										type=hidden name=pathpdf value="${filePath}" />
-									<button class="btn btn-primary btn-square" type="submit">
-										<img id="imgDownload" src="css/svg/download.svg" class="btn-icon">
-									</button>
-									<h4 id="drc1" class="download-label">Download documento
-										d'identit&agrave;</h4>
-								</form>
-								<br>
-								<form action="./DownloaderRC" method="post">
-									<input type=hidden name=pdfvalue value="cp" /> <input
-										type=hidden name=pathpdf value="${filePath}" />
-										<span>
-									<button class="btn btn-primary btn-square">
-										<img id="imgDownload" src="css/svg/download.svg" class="btn-icon">
-									</button>
-									<h4 id="drc2" class="download-label">Download documento di
-										riconoscimento carriera</h4>
-										</span>
-								</form>
+						<div class="downloadButton col-12" >
+						<form class="buttonForm" action="./DownloaderRC" method="post">
+							<input type=hidden name=pdfvalue value="id" /> 
+							<input type=hidden name=pathpdf value="${filePath}" />
+								<button class="btn btn-primary btn-square" type="submit">
+									<img id="imgDownload" src="css/svg/download.svg" class="btn-icon">
+								</button>
+						</form>
+						<p id="drc1">Download documento d'identit&agrave;</p>
+						<br>
+						<br>
+						<form class="buttonForm" action="./DownloaderRC" method="post">
+							<input type=hidden name=pdfvalue value="cp" />
+							<input type=hidden name=pathpdf value="${filePath}"/>
+							<button class="btn btn-primary btn-square">
+								<img id="imgDownload" src="css/svg/download.svg" class="btn-icon">
+							</button>
+							<p id="drc2">Download documento di riconoscimento carriera</p>
+						</form>
 						</div>
 
 <!-- Decisional buttons -->
-						<div class="submitButton col-12">
+						<div class="submitButton col-12" >
 							<button id="reject" value="accepted" type="submit" class="reject"
 								data-toggle="modal" data-target="#popupModal">
 								<span class="circle"> <span class="icon arrow"></span>
@@ -153,43 +153,40 @@
 <!-- Decisional buttons end-->
 
 <!-- Modal -->
-									<form action="./RequestRCManagement" method="post">
-									<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									  <div class="modal-dialog" role="document">
-									    <div class="modal-content">
-									      <div class="modal-header">
-									        <h3 class="modal-title" id="exampleModalLabel">Motivo del rifiuto</h3>
-									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									          <span aria-hidden="true">&times;</span>
-									        </button>
-									      </div>
-									      
-									      <div class="modal-body">
-									      	 <div class="form-group">
+							<form action="./RequestRCManagement" method="post">
+								<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+									    	<div class="modal-header">
+									        	<h3 class="modal-title" id="exampleModalLabel">Motivo del rifiuto</h3>
+									        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          		<span aria-hidden="true">&times;</span>
+									        	</button>
+									      	</div>
+									      	<div class="modal-body">
+									      		<div class="form-group">
 													<label for="message-text" class="col-form-label">Messaggio:</label>
-													<textarea rows="5" cols="100" class="form-control"
+														<textarea rows="5" cols="100" class="form-control"
 														id="message-text" placeholder="La richiesta è stata rifiutata perchè..." onChange="validateMailBody()"
-														name="popupText"></textarea>
+														name="popupText" required>
+														</textarea>
 												</div>
-										    <input type = hidden name = RequestRCstate value="false"/>
-									      </div>
-									      <div class="modal-footer">
-									         <button type="reset" class="btn btn-secondary" data-dismiss="modal" >Annulla</button>
-									         
-										    	<button type="submit" class="btn btn-primary" >Invia</button>
-										  	
-									        
-									      </div>
+										    	<input type = hidden name = RequestRCstate value="false"/>
+									      	</div>
+									      	<div class="modal-footer">
+									        	<button type="reset" class="btn btn-secondary" data-dismiss="modal" >Annulla</button>
+									         	<button type="submit" class="btn btn-primary" >Invia</button>
+											</div>
 									    </div>
-									  </div>
-									</div>
-									</form>
-							</div>
+									 </div>
+								</div>
+						 	</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	<jsp:include page="/partials/footer.jsp" />
 
 	<!--End pagewrapper-->

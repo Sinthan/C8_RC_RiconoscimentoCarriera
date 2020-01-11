@@ -98,6 +98,29 @@ try {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	/**
+	* Creation of the report
+	* @return returns the int value of the report id created.
+	*/
+	public int createReport() {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String reportSQL = "INSERT INTO REPORT VALUES()";	
+		try {
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(reportSQL);			
+			// Executing the selection
+			preparedStatement.executeUpdate();
+			connection.commit();
+			return 1;
+		} catch(SQLException e){
+			new RuntimeException(e);
+		}
+		return 0;
+	}
+	
+	
 
 	/**
 	* Update the note into the database by report id and the new note.
@@ -278,12 +301,15 @@ try {
 		PreparedStatement preparedStatement = null;		
 		int result = 0;
 
-		String deleteSQL = "SELECT MAX(ID_REPORT) FROM REPORT";
+		String querySQL = "SELECT MAX(ID_REPORT) FROM REPORT";
 		try {
 			connection = DbConnection.getInstance().getConn();
-			preparedStatement = connection.prepareStatement(deleteSQL);			
+			preparedStatement = connection.prepareStatement(querySQL);			
 			// Executing the deletion
-			result = preparedStatement.executeUpdate();	
+			ResultSet rs = preparedStatement.executeQuery();	
+			if(rs.next()) {
+				result = rs.getInt("MAX(ID_REPORT)");
+			}
 			connection.commit();
 		} catch(SQLException e) {
 			new RuntimeException("Couldn't delete the RequestRC " + e);

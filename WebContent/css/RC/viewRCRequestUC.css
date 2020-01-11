@@ -1,40 +1,35 @@
 @charset "ISO-8859-1";
 
-@media only screen and (max-width: 540px) {
-	.panel h2 {
-		font-size: auto;
-	}
-	#drc2 {
-		font-size: 90%;
-		left: -30px
-	}
-	#drc1 {
-		font-size: 90%;
-		left: -18px
-	}
-	.form-popup {
-		margin-right: -35%;
-		z-index: 0;
-		right: 0;
-	}
-	.submitButton {
-		position: fixed;
-		float: right;
-	}
-	.news-block-seven {
-		width: auto;
-		position: relative;
-		float: left;
-	}
-}
-
-}
 {
 box-sizing
 :
  
 border-box
 ;
+}
+
+.text-center{
+	font-weight: bolder;
+}
+
+
+.downloadButton{
+	margin-top: -50px;
+	display: inline; 
+}
+.buttonForm{
+	width:340px;
+	position:relative;
+	display:inline;
+}
+
+#drc1{
+	position:relative;
+	display:inline;
+}
+#drc2{
+	position:relative;
+	display:inline;
 }
 
 /* The popup form - hidden by default */
@@ -109,11 +104,14 @@ border-box
 	margin-top: 15px;
 	font-weight: bold;
 }
-
+.studentData{
+	font-weight: 400;
+}
 .downloadButton {
 	width: 1400px;
 	position: relative;
 	float: left;
+	display: inline-block;
 	margin-left: 8px;
 	margin-bottom: 15px;
 }
@@ -150,12 +148,8 @@ border-box
 /* div contenitore*/
 .ExamsDiv {
 	width: 800px;
-	overflow-x: scroll;
+	overflow-x: auto;
 	margin-left: 7px;
-}
-
-.ExamsDiv .table {
-	width: 800px;
 }
 
 .divsx {
@@ -375,4 +369,49 @@ button.reject .button-text {
 .btn-icon {
     height: 24px;
     width: 24px;
+}
+
+
+@media only screen and (max-width: 540px) {
+	.panel h2 {
+		font-size: auto;
+	}
+	#drc2 {
+		font-size: 90%;
+	}
+	#drc1 {
+		font-size: 90%;
+	}
+	.text-center{
+		font-size: 92%;
+		font-weight: bolder;
+	}
+	
+	.text-left{
+		font-size: 100%;
+	}
+	.form-popup {
+		margin-right: -35%;
+		z-index: 0;
+		right: 0;
+	}
+	
+	.news-block-seven {
+		width: auto;
+		position: relative;
+		float: left;
+	}
+
+	.submitButton.col-12 {
+		right: -12px;
+		width: 80%;
+		position:relative;
+		float:left;
+	}
+
+	#acceptForm{
+		margin-top:5px;
+		left: -39px;
+	}
+
 }
