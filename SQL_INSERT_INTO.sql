@@ -75,10 +75,10 @@ INSERT INTO REPORT VALUES(3 ,'La sua carriera NON è ok ok');
 INSERT INTO REQUEST_RC VALUES(1, '2019-3-11', 1,'Università degli Studi di SALERNO','provaRC1@unisa.it',1,'EMAILUC@gmail.it');
 INSERT INTO REQUEST_RC VALUES(2, '2020-1-30', 2,'Università degli Studi di SALERNO','provaRC2@unisa.it',2,'EMAILUC@gmail.it');
 INSERT INTO REQUEST_RC VALUES(3, '2020-4-10', 3,'Università degli Studi di SALERNO','prova2@unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(4, '2020-1-20', 0,'Università degli Studi di NAPOLI Federico II','g.rossi31@studenti.unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(5, '2020-1-11', 0,'Università degli Studi di SALERNO','g.rossiNOESAMI@studenti.unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(6, '2020-1-11', 0,'Università degli Studi di SALERNO','g.rossiNOESAMINOPDF@studenti.unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(7, '2020-1-11', 0,'Università degli Studi di SALERNO','g.rossiNOESAMIINVALIDPATH@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(4, '2020-1-20', 1,'Università degli Studi di NAPOLI Federico II','g.rossi31@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(5, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMI@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(6, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMINOPDF@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(7, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMIINVALIDPATH@studenti.unisa.it',1,'EMAILUC@gmail.it');
 
 /*VALIDATE EXAM*/
 INSERT INTO VALIDATE_EXAM VALUES(1,'PROGRAMMAZIONE 1', 9, 'è stato validato bene',1);
