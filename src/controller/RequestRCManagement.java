@@ -83,7 +83,6 @@ public class RequestRCManagement extends HttpServlet {
 				for(int i = 0; i < exams.size(); i++){
 					e.setExamName(exams.get(i).getName());
 					e.setReportID(reportID);
-					e.setValidatedCFU(0);
 					e.setValidationProcedure(null);
 					result = eDao.insertValidatedExam(e);
 				}

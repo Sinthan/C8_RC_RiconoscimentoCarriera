@@ -33,7 +33,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 */
 	@Override
 	public int insertValidatedExam(ValidatedExam vExam) {
-		if (vExam.getExamName().equals("") || vExam.getValidatedCFU() == -1) { // Checks if attributes are set
+		if (vExam.getExamName().equals("")) { // Checks if attributes are set
 			System.out.println("Please set the Exam's name and cfu before trying to add it to the database.");
 			return -2;
 		}	

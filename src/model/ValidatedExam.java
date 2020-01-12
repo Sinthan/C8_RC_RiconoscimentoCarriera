@@ -30,7 +30,7 @@ public class ValidatedExam {
 	/**
 	 * The exam name used in the external university.
 	 */
-	private String examName;
+	private String name;
 	/**
 	 * The value of CFU validated for this exam.
 	 */
@@ -52,7 +52,7 @@ public class ValidatedExam {
 	public ValidatedExam(int reportID, String examName, int validatedCFU, String validationProcedure) {
 		vExamID = -1; // -1 is used to identify an ID that wasn't initialized by the developer.
 		this.reportID = reportID;
-		this.examName = examName;
+		this.name = examName;
 		this.validatedCFU = validatedCFU;
 		this.validationProcedure = validationProcedure;
 	}
@@ -66,7 +66,7 @@ public class ValidatedExam {
 		// -1 is used to identify an attribute that wasn't initialized by the developer.
 		vExamID = -1;
 		reportID = -1;
-		examName = "";
+		name = "";
 		validatedCFU = -1;
 		validationProcedure = "";
 	}
@@ -77,7 +77,7 @@ public class ValidatedExam {
 	 */
 	@Override
 	public String toString() {
-		return "ValidatedExam [vExamID=" + vExamID + ", reportID=" + reportID + ", examName=" + examName + ", CFU=" + validatedCFU + ", mode=" + validationProcedure + "]";
+		return "ValidatedExam [vExamID=" + vExamID + ", reportID=" + reportID + ", examName=" + name + ", CFU=" + validatedCFU + ", mode=" + validationProcedure + "]";
 	}
 	
 	/* Getter methods */
@@ -99,7 +99,7 @@ public class ValidatedExam {
 	 * @return the exam name used in the external university
 	 */
 	public String getExamName() {
-		return examName;
+		return name;
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public class ValidatedExam {
 	 * Sets the exam name used in the external university.
 	 */
 	public void setExamName(String name) {
-		examName = name;
+		this.name = name;
 	}
 	
 	/**
