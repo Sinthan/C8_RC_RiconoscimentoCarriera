@@ -80,7 +80,7 @@
 									<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 orange-frame">
 									
 									<div id="examsListHeader" class="row">
-												<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"
+												<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"
 													id="examNameColumn1">
 													<h4 class="text-left field-title">
 														<b>Nome esame</b>
@@ -91,7 +91,7 @@
 														<b>CFU</b>
 													</h4>
 												</div>
-												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
+												<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"
 													id="buttons">
 													<h4 class="text-center field-title">
 														<b>Riferimento al programma di esame</b>
@@ -101,7 +101,7 @@
 											<c:forEach items="${exams}" var="exam">
 												<div class="row">
 	<!-- Exam name -->
-													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
 														<h4 class="list-element">${exam.name}</h4>
 													</div>
 	<!-- Exam name end-->
@@ -110,7 +110,6 @@
 														<h4 class="text-center list-element-centered">${exam.CFU}</h4>
 													</div>
 	<!-- Exam CFU end -->
-	<!-- Exam buttons -->
 													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
 													<a onclick="window.open('${exam.programLink}', '_blank')"
 															title="Vai al piano di studi">
