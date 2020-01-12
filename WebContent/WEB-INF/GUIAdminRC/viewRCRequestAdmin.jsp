@@ -119,6 +119,7 @@
 						<div class="content">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
+								<br>
 									<h1 class="text-left">
 										Richiesta di
 										<%=request.getAttribute("studentName")%>
