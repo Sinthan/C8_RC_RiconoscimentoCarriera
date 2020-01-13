@@ -143,8 +143,7 @@
 										</div>
 									</div>
 									
-								<form id="saveDraft" class="inline" action="./SaveReportDraftServlet">
-								<form id="closeRCRequest" class="inline" action="./GenerateReportServlet">
+								<form action="./ReportManagementServlet">
 									<c:forEach items="${validatedExamList}" var="vExam">
 										<div id="examsListRow<%=examRow%>" class="row">
 	<!-- Exam external name -->
@@ -292,7 +291,7 @@
 								<textarea class="form-control" id="additionalNotes"  name="additionalNotes"
 									placeholder="" rows="5"></textarea>
 								<script type="text/javascript">
-																if ('<%=request.getAttribute("note")%>' != null) {
+																if ('<%=request.getAttribute("note")%>' != "null") {
 																	// if a draft of the report note
 																	// is already present, fill the field with it
 																	document.getElementById("additionalNotes").value = '<%=request.getAttribute("note")%>';
@@ -306,14 +305,13 @@
 							<div class="col-lg-12 col-md-12 reportButtons">
 								
 								
-									<button id="saveDraftBtn" type="submit" form="saveDraft" class="saveDraft" formnovalidate>
+									<button id="saveDraftBtn" type="submit" class="saveDraft" formnovalidate>
 										<span class="circle"> <span class="icon arrow"></span>
 										</span> <span class="button-text">Salva bozza</span>
 									</button>
-								</form>
 
-									<button id="closeRCRequestBtn" type="submit"
-										class="closeRCRequest" form="closeRCRequest">
+									<button id="closeRCRequestBtn" name="closeRCRequestBtn"type="submit"
+										class="closeRCRequest">
 										<span class="circle"> <span class="icon arrow"></span>
 										</span> <span class="button-text">Chiudi la richiesta e genera
 											il report</span>

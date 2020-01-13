@@ -28,6 +28,10 @@
 		if (err != "null") {
 			showAlert(1, err);
 		}
+		var succ = '<%=request.getAttribute("succCR")%>';
+		if (succ != "null") {
+			showAlert(0, succ);
+		}
 	}
 	</script>
 </head>

@@ -24,14 +24,14 @@ import model.ValidatedExamDAO;
 /**
  * Servlet implementation class SaveReportServlet
  */
-@WebServlet("/SaveReportDraftServlet")
-public class SaveReportDraftServlet extends HttpServlet {
+@WebServlet("/ReportManagementServlet")
+public class ReportManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SaveReportDraftServlet() {
+    public ReportManagementServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -69,7 +69,6 @@ public class SaveReportDraftServlet extends HttpServlet {
 				}
 				mode = (String) request.getParameter("validatedExamMode" + i);
 				vExam.setExamName(examName);
-				
 				vExam.setValidatedCFU(CFU);
 				vExam.setValidationProcedure(mode);
 				vExam.setReportID(repoID);
@@ -79,8 +78,21 @@ public class SaveReportDraftServlet extends HttpServlet {
 			repoDao.updateNote(repoID,note);
 			
 			request.setAttribute("idRequestRC",requestRCID);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ViewReportAdminServlet");
-			requestDispatcher.forward(request, response);
+			request.setAttribute("successCR", "Bozza salvata correttamente");
+			
+			if (request.getParameter("closeRCRequestBtn") != null) {
+				// If generate report was pressed
+				
+				
+				// Redirect back to rc requests list and show feedback
+				request.setAttribute("succCR", "Richiesta chiusa correttamente");
+				RequestDispatcher dis = request.getRequestDispatcher("/AdminHome");
+				dis.forward(request, response);
+			} else {
+				// If save draft was pressed
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ViewReportAdminServlet");
+				requestDispatcher.forward(request, response);
+			}
 		} else {
 			goBackWithError("Impossibile caricare la pagina, errore nel recupero della richiesta selezionata, si prega di riprovare.", request, response);
 		}
