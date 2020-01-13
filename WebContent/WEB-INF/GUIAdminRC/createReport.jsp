@@ -19,6 +19,7 @@
 <script type='text/javascript'>
 	var examNameRegex = /^(\w+\s?\-?)*(\-?\s*\w*)*$/;
 	var CFURegex = /[0-9]{1,2}/;
+	var suggestionActiveBG = "#ddf0fe";
 	
 	window.onload = function(){
 		controlServlet();
@@ -31,18 +32,39 @@
 		if(err != "null") {
 			showAlert(1, err);
 		}
+		
+		var succ = '<%=request.getAttribute("successCR")%>';
+		if(succ != "null") {
+			showAlert(0, succ);
+		}
 	}
 	
 	function fillRowWithSuggestion(rowNumber, suggestedCFU, suggestedProcedure) {
 		// Get the validated CFU field
 		validatedCFUField = document.getElementById("validatedExamCFU" + rowNumber);
 		validatedCFUField.value = suggestedCFU;
+		validatedCFUField.style.backgroundColor = suggestionActiveBG;
 		
 		// Get the validation mode field
 		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
 		validationModeField.value  = suggestedProcedure;
+		validationModeField.style.backgroundColor = suggestionActiveBG
 		
 		$("#suggestion" + rowNumber).collapse('hide');
+	}
+	
+	function checkSuggestionMatchForRow(rowNumber, suggestedCFU, suggestedProcedure) {
+		// Get the validated CFU field
+		validatedCFUField = document.getElementById("validatedExamCFU" + rowNumber);
+		// Get the validation mode field
+		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
+		if (validatedCFUField.value == suggestedCFU && validationModeField.value == suggestedProcedure) {
+			validatedCFUField.style.backgroundColor = suggestionActiveBG;
+			validationModeField.style.backgroundColor = suggestionActiveBG;
+		} else {
+			validatedCFUField.style.backgroundColor = "#ffffff";
+			validationModeField.style.backgroundColor = "ffffff";
+		}
 	}
 	
 	function allowNumbersOnly(e) {
@@ -96,164 +118,206 @@
 						<div class="content">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
-								<br>
-									<h1 class="text-left">
-										Compila Report
-									</h1>
-									<h5 class="text-left description">per la richiesta di <%=request.getAttribute("studentName")%></h5>
+									<br>
+									<h1 class="text-left">Compila il report</h1>
+									<h5 class="text-left description">
+										<em>per la richiesta di <%=request.getAttribute("studentName")%></em>
+									</h5>
 								</div>
 <!-- Editable exams list-->
-									<div class="col-lg-10 col-md-10" id="editableExamsList">
-											<div id="examsListHeader" class="row">
-												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
-													id="examNameColumn1">
-													<h4 class="text-left field-title">
-														<b>Nome esame esterno</b>
-													</h4>
-												</div>
-												<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="CFU">
-													<h4 class="text-left field-title">
-														<b>CFU convalidati</b>
-													</h4>
-												</div>
-												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
-													id="buttons">
-													<h4 class="text-left field-title">
-														<b>Modalità di convalida</b>
-													</h4>
-												</div>
-											</div>
-											<c:forEach items="${validatedExamList}" var="vExam">
-												<div id="examsListRow<%=examRow%>" class="row">
+								<div class="col-lg-10 col-md-10" id="editableExamsList">
+									<div id="examsListHeader" class="row">
+										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
+											id="examNameColumn1">
+											<h4 class="text-left field-title">
+												<b>Nome esame esterno</b>
+											</h4>
+										</div>
+										<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="CFU">
+											<h4 class="text-left field-title">
+												<b>CFU convalidati</b>
+											</h4>
+										</div>
+										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
+											id="buttons">
+											<h4 class="text-left field-title">
+												<b>Modalità di convalida</b>
+											</h4>
+										</div>
+									</div>
+									
+								<form id="saveDraft" class="inline" action="./SaveReportDraftServlet">
+								<form id="closeRCRequest" class="inline" action="./GenerateReportServlet">
+									<c:forEach items="${validatedExamList}" var="vExam">
+										<div id="examsListRow<%=examRow%>" class="row">
 	<!-- Exam external name -->
-													<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
-														id="validatedExamName<%=examRow%>">
-														<h4 class="list-element">${vExam.examName}</h4>
-													</div>
+											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
+												id="validatedExamName<%=examRow%>">
+												<h4 class="list-element">${vExam.examName}</h4>
+											</div>
+											
+								<input type="hidden" name="validatedExamName<%=examRow%>" id="validatedExamName<%=examRow%>" value="${vExam.examName}"/>
 	<!-- Exam external name end-->
 	<!-- Exam CFU -->
-													<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="CFU">
-													
-													<span>
-														<input class="form-control" type="text" placeholder="es. 9"
-														id="validatedExamCFU<%=examRow%>" min="1"
-												max="30" minlength="1" maxlength="2" required
-												onkeypress="allowNumbersOnly(event)"
-												onblur="validateCFU(this)" oninput="maxLengthCheck(this)"
-												style="display: inline; width: 30%">
-															<script>
+											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="CFU">
+
+												<span> <input class="form-control" type="text"
+													placeholder="es. 9" id="validatedExamCFU<%=examRow%>"
+													name = "validatedExamCFU<%=examRow%>"
+													min="1" max="30" minlength="1" maxlength="2" required
+													onkeypress="allowNumbersOnly(event)"
+													onblur="validateCFU(this)" oninput="maxLengthCheck(this)"
+													style="display: inline; width: 30%">
+															<script type="text/javascript">
 															// if a draft of the exam cfu
 															// is already present, fill the field with it
-																if (${vExam.validatedCFU} >= 0) {
-																	document.getElementById("validatedExamCFU<%=examRow%>").defaultValue = ${vExam.validatedCFU};
-																	
+																if ('${vExam.validatedCFU}' >= 0) {
+																	document.getElementById("validatedExamCFU<%=examRow%>").value = '${vExam.validatedCFU}';
 																}
 															</script>
-														<h3 class="inline">/</h>
-														<h4 class="inline">X</h4>
-														</span>
-													</div>
+													<h3 class="inline">
+														/
+														</h3>
+														<h4 class="inline">X</h4></span>
+											</div>
 	<!-- Exam CFU end -->
 	<!-- Exam validation mode -->
-													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
-														id="validationMode">
-														
-														<textarea class="form-control" id="validatedExamMode<%=examRow%>"
-														placeholder="es. L'esame é stato convalidato come PROGRAMMAZIONE 1" rows="3" required>
-														<%
-																if (true) {
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
+												id="validationMode">
+
+												<textarea class="form-control"
+													id="validatedExamMode<%=examRow%>"
+													name = "validatedExamMode<%=examRow%>"
+													placeholder="es. L'esame é stato convalidato come PROGRAMMAZIONE 1"
+													rows="3" required></textarea>
+														<script type="text/javascript">
+																if ('${vExam.validationProcedure}'.length != 0) {
 																	// if a draft of the exam validation mode
 																	// is already present, fill the field with it
-															%>
-																${vExam.validationProcedure}
-															<%
+																	document.getElementById("validatedExamMode<%=examRow%>").value = '${vExam.validationProcedure}';
 																}
-															%>
-														</textarea>
-														</div>
+														</script>
+
+											</div>
+	<!-- Exam validation mode end-->
 	<!-- Exam suggestion -->
-														<%
+											<%
 															if (suggList.get(examRow - 1) != null) {
 														%>
-														<span id="collapsableBtn<%=examRow%>" data-toggle="collapse"
-															data-target="#suggestion<%=examRow%>"
-															aria-expanded="false"
-															aria-controls="suggestion<%=examRow%>">
-															<button class="btn btn-primary btn-square" type="button"
-																data-toggle="tooltip" data-html="true"
-																data-placement="right"
-																title="<b><em>Visualizza suggerimento</em></b>">
-																<img src="css/svg/help-circle.svg" class="btn-icon">
-															</button>
-														</span>
+														<script type="text/javascript">
+<%-- 															document.getElementById("validatedExamMode<%=examRow%>").onchange = checkSuggestionMatchForRow(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'); --%>
+															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
+															checkSuggestionMatchForRow(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>');
+															</script>
+											<span id="collapsableBtn<%=examRow%>" data-toggle="collapse"
+												data-target="#suggestion<%=examRow%>" aria-expanded="false"
+												aria-controls="suggestion<%=examRow%>">
+												<button class="btn btn-primary btn-square" type="button"
+													data-toggle="tooltip" data-html="true"
+													data-placement="right"
+													title="<b><em>Visualizza suggerimento</em></b>">
+													<img src="css/svg/help-circle.svg" class="btn-icon">
+												</button>
+											</span>
 
-													</div>
+										</div>
 
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
+											id="suggestion<%=examRow%>">
+											<div class="suggestion">
 												<div
-													class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
-													id="suggestion<%=examRow%>">
-													<div class="suggestion">
-													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-left-margin">
-														<h4 id="suggestion<%=examRow%>Body" class="suggestion-body"><%=suggList.get(examRow - 1).getValidationMode()%></h4>
-														<br>
-														</div>
-													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
-														<h5>
-															VALIDATO IL
-														</h5>
-														<h4><b><%=Utils.getFormattedDate(suggList.get(examRow - 1).getValidationDate())%></b></h4>
-													</div>
-													<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-left-margin">
-														<h5>
-															CFU RICONOSCIUTI
-														</h5>
-														<h4><b>
-															<%=suggList.get(examRow - 1).getValidatedCFU()%>/<%=suggList.get(examRow - 1).getExternalStudentCFU()%></b></h4>
-													</div>
-													<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
-													<button onclick="fillRowWithSuggestion(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>')"
-													class="btn btn-success">Usa suggerimento</button>
-													</div>
-													<!-- Adding an extra div in order to make the suggestion resize correctly -->
-													<div>&nbsp;</div>
-													<div>&nbsp;</div>
+													class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-left-margin">
+													<h4 id="suggestion<%=examRow%>Body" class="suggestion-body"><%=suggList.get(examRow - 1).getValidationMode()%></h4>
+													<br>
+												</div>
+												<div
+													class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
+													<h5>VALIDATO IL</h5>
+													<h4>
+														<b><%=Utils.getFormattedDate(suggList.get(examRow - 1).getValidationDate())%></b>
+													</h4>
+												</div>
+												<div
+													class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-left-margin">
+													<h5>CFU RICONOSCIUTI</h5>
+													<h4>
+														<b> <%=suggList.get(examRow - 1).getValidatedCFU()%>/<%=suggList.get(examRow - 1).getExternalStudentCFU()%></b>
+													</h4>
+												</div>
+												<div
+													class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
+													<button
+														onclick="fillRowWithSuggestion(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>')"
+														class="btn btn-success" type="button">Usa suggerimento</button>
+												</div>
+												<!-- Adding an extra div in order to make the suggestion resize correctly -->
+												<div>&nbsp;</div>
+												<div>&nbsp;</div>
 
-												</div>
-												</div>
-												<%
+											</div>
+										</div>
+										<%
 													} else {
 												%>
-												<span data-toggle="tooltip" data-html="true"
-													data-placement="right"
-													title="<b><em>Suggerimento non disponibile</em></b>"
-													style = "padding-bottom: 13px;">
-													<button class="btn btn-primary btn-square" type="button"
-														disabled>
-														<img src="css/svg/help-circle.svg" class="btn-icon">
-													</button>
-												</span>
-									</div>
-									<%
+										<span data-toggle="tooltip" data-html="true"
+											data-placement="right"
+											title="<b><em>Suggerimento non disponibile</em></b>"
+											style="padding-bottom: 13px;">
+											<button class="btn btn-primary btn-square" type="button"
+												disabled>
+												<img src="css/svg/help-circle.svg" class="btn-icon">
+											</button>
+										</span>
+								</div>
+	<!-- Exam suggestion end -->
+								<%
 										}
 											examRow++;
 									%>
-									</c:forEach>
-									</div>
+									
+									
+								</c:forEach>
+	<!-- Extra fields that the servlet needs -->
+								<input type="hidden" name="rowCount" id="rowCount" value="<%=examRow%>"/>
+								<input type="hidden" name="idRequestRC" id="idRequestRC" value="<%=request.getAttribute("idRequestRC")%>"/>
+							</div>
 <!-- Editable exams list end -->
 <!-- Additional notes section -->
-							<div class="col-lg-12 col-md-12" id="additionalNotesDiv">
+							<div class="col-lg-10 col-md-10" id="additionalNotesDiv">
 								<h4 class="text-left">
 									<b>Note aggiuntive</b>
 								</h4>
 								<textarea class="form-control" id="additionalNotes"
-								placeholder="" rows="5"></textarea>
+									placeholder="" rows="5"></textarea>
 							</div>
 <!-- Additional notes section end -->
+
+<!-- Report buttons -->
+
+							<div class="col-lg-12 col-md-12 reportButtons">
+								
+								
+									<button id="saveDraftBtn" type="submit" form="saveDraft" class="saveDraft">
+										<span class="circle"> <span class="icon arrow"></span>
+										</span> <span class="button-text">Salva bozza</span>
+									</button>
+								</form>
+
+									<button id="closeRCRequestBtn" type="submit"
+										class="closeRCRequest" form="closeRCRequest">
+										<span class="circle"> <span class="icon arrow"></span>
+										</span> <span class="button-text">Chiudi la richiesta e genera
+											il report</span>
+									</button>
+								</form>
+							</div>
+<!-- Report buttons end-->
+
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<jsp:include page="/partials/footer.jsp" />
 	</div>
