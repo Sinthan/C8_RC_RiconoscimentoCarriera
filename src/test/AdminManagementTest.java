@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import controller.AdminManagement;
+import controller.ViewRCRequestAdminServlet;
 
 /**
  * @author qletto
@@ -26,7 +26,7 @@ import controller.AdminManagement;
 class AdminManagementTest extends Mockito {
 	
 	
-	AdminManagement am;
+	ViewRCRequestAdminServlet am;
 	HttpServletRequest request;
 	HttpServletResponse response;
 	RequestDispatcher dsp;
@@ -40,7 +40,7 @@ class AdminManagementTest extends Mockito {
 		int extraPathIndex = root.toString().indexOf(projectFolder);
 		String catalinaRoot = root.toString().substring(0, extraPathIndex -1);
 		System.setProperty("catalina.base", catalinaRoot + "/.metadata/");
-		am = new AdminManagement();
+		am = new ViewRCRequestAdminServlet();
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
 		sessione = mock(HttpSession.class);
