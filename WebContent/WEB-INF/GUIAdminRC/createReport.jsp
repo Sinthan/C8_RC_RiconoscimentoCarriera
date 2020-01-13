@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="java.util.ArrayList, model.ValidatedExam, model.ValidatedExamDAO, model.Suggestion, controller.Utils"%>
+	import="java.util.ArrayList, model.Exam, model.ValidatedExam, model.ValidatedExamDAO, model.Suggestion, controller.Utils"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,8 @@
 	String pageFolder = "GUIAdminRC";
 	HttpSession sess = request.getSession();
 	ArrayList<Suggestion> suggList = (ArrayList<Suggestion>) request.getAttribute("suggList");
+	ArrayList<String> suggOverwrite = (ArrayList<String>) request.getAttribute("suggOverwrite");
+	ArrayList<Exam> examsList = (ArrayList<Exam>) request.getAttribute("examsList");
 	int examRow = 1;
 %>
 <script type='text/javascript'>
@@ -77,12 +79,12 @@
 	    }
 	}
 	
-	function validateCFU(object) {
-		if(this.value <= 30) {
+	function validateCFU(object, maxValue) {
+		if(this.value <= maxValue) {
 			return true;
-		} else if(object.value > 30) {
-			object.value = '30';
-			showAlert(1, "Il valore massimo dei CFU &#232; 30");
+		} else if(object.value > maxValue) {
+			object.value = maxValue;
+			showAlert(1, "Il valore massimo dei CFU per questo esame &#232; " + maxValue);
 			this.focus();
 			return false;
 		}
@@ -162,7 +164,7 @@
 													name = "validatedExamCFU<%=examRow%>"
 													min="1" max="30" minlength="1" maxlength="2" required
 													onkeypress="allowNumbersOnly(event, this)"
-													onblur="validateCFU(this)"
+													onblur="validateCFU(this, <%=examsList.get(examRow - 1).getCFU()%>)"
 													style="display: inline; width: 30%">
 															<script type="text/javascript">
 															// if a draft of the exam cfu
@@ -174,7 +176,10 @@
 													<h3 class="inline">
 														/
 														</h3>
-														<h4 class="inline">X</h4></span>
+														<h4 class="inline">
+														<%=examsList.get(examRow - 1).getCFU()%>
+														</h4>
+														</span>
 											</div>
 	<!-- Exam CFU end -->
 	<!-- Exam validation mode -->
@@ -198,7 +203,7 @@
 	<!-- Exam validation mode end-->
 	<!-- Exam suggestion -->
 											<%
-															if (suggList.get(examRow - 1) != null) {
+															if (suggList.size() >= examRow && suggList.get(examRow - 1) != null) {
 														%>
 														<script type="text/javascript">
 	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
@@ -216,10 +221,22 @@
 													<img src="css/svg/help-circle.svg" class="btn-icon">
 												</button>
 											</span>
+	<!-- Update suggestion checkbox -->
 											<div class="custom-control custom-checkbox">
-											  <input type="checkbox" class="custom-control-input" id="suggOverwrite<%=examRow%>">
-											  <label class="custom-control-label" for="suggOverwrite<%=examRow%>">Aggiorna il suggerimento</label>
+											  <input type="checkbox" class="custom-control-input" id="suggOverwrite<%=examRow%>" name = "suggOverwrite<%=examRow%>">
+											  <label for="suggOverwrite<%=examRow%>"><h5>Aggiorna il<br>suggerimento</h5></label>
 											</div>
+											<%
+											System.out.println(suggOverwrite);
+															if (suggOverwrite.size() >= examRow && suggOverwrite.get(examRow - 1) != null) {
+														%>
+														<script type="text/javascript">
+	 														document.getElementById("suggOverwrite<%=examRow%>").checked = true;
+														</script>
+											<%
+															}
+														%>
+	<!-- Update suggestion checkbox end -->
 										</div>
 										</div>
 
