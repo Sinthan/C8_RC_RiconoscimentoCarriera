@@ -50,7 +50,7 @@ public class SaveSendReportServlet extends HttpServlet {
 		ReportDAO repoDao = new ReportDAO();
 		for(int i = 1; i < rows; i++) {
 			exam = new ValidatedExam();
-			examName = request.getParameter("examName" + i);
+			examName =(String) request.getParameter("examName" + i);
 			CFU = Integer.parseInt(request.getParameter("CFU"+i));
 			mode = (String) request.getParameter("mode" + i);
 			exam.setExamName(examName);
