@@ -146,7 +146,6 @@
 			object.value = '30';
 			showAlert(1, "Il valore massimo dei CFU &#232; 30");
 			this.focus();
-			element.className += " is-invalid";
 			return false;
 		}
 	}
@@ -184,6 +183,7 @@
 						<div class="content">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
+									<br>
 									<h1 class="text-left">Inserisci gli esami da convalidare</h1>
 								</div>
 
@@ -193,7 +193,7 @@
 									<!-- 										The next field lets the servlet know how many exams were added -->
 									<input type="hidden" name="rowCount" id="rowCount" value="1" />
 
-									<div class="form-row" id=examInsertionRows>
+									<div class="form-row inputDiv" id=examInsertionRows>
 										<div class="form-group col-md-4 mb-3">
 											<label for="examName1">Nome esame</label> <input type="text"
 												title="Sono ammessi solo caratteri alfanumerici più i caratteri - e _
@@ -229,7 +229,7 @@
 										<br>
 									</div>
 
-									<div class="panel" style="margin-left: 15px; float: left;">
+									<div class="examBtnDiv">
 										<button type="button" class="btn btn-primary" id="btnAdd"
 											onclick="addRow() ">Aggiungi esame</button>
 										<button type="button" class="btn btn-danger" id="btnRemove"

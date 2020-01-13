@@ -24,7 +24,6 @@ import model.Student;
 import model.StudentDAO;
 import model.SystemAttribute;
 
-
 /**
  * Servlet implementation class ServletStudent.
  */
@@ -35,8 +34,6 @@ public class ServletStudent extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
     RequestRCDAO rDao = new RequestRCDAO();
-
-	
 
 	/**
 	 * Constructor.

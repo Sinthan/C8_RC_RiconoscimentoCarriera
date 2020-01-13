@@ -1,23 +1,33 @@
 @charset "ISO-8859-1";
 
+@media only screen and (max-width: 540px) {
+	#drc2 {
+		font-size: 90%;
+		left: -30px
+	}
+	#drc1 {
+		font-size: 90%;
+		left:-18px
+	}
+	
+	.form-popup {
+		margin-right: -35%;
+       	 z-index: 0;
+       	 right:0;
+	}
 
+	.submitButton{
+	left: 8%;
+} 
+}
 
-.orange-frame {
-	border: 1.5px solid #ffb84e;
-	border-radius: 15px;
-	margin-top: 16px;
-	margin-bottom: 16px;
-	padding: 16px 16px 22px 22px;
-	background-color: #fcfbfc;
+.inline {
+	display: inline;
 }
 
 .description {
 	margin-left: 14px;
 	color: #929292;
-}
-
-.field-title {
-/* 	color: #797979; */
 }
 
 h3 {

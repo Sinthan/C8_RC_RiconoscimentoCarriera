@@ -43,7 +43,7 @@ public class StudentRCRequestRedirector extends HttpServlet {
 		int flag = Integer.parseInt(request.getParameter("flag"));
 		
 		if(flag==1) {
-		HttpSession sessione = request.getSession(true);
+		HttpSession sessione = request.getSession();
 		Student s = (Student) sessione.getAttribute("user");
 		String email = s.getEmail();
 		RequestRCDAO rDao =  new RequestRCDAO();

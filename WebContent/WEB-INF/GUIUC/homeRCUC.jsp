@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
-    <%@ page import = "model.RequestRC, model.RequestRCDAO, model.State, model.Student, model.StudentDAO, java.util.ArrayList, java.text.SimpleDateFormat"
+    <%@ page import = "model.RequestRC,controller.Utils, model.RequestRCDAO, model.State, model.Student, model.StudentDAO, java.util.ArrayList, java.text.SimpleDateFormat"
     %>
 <%
 	String pageName = "homeRCUC.jsp";
@@ -49,8 +49,8 @@
 										
  										for (int i = 0; i < reqList.size(); i++){ 
 											temp = reqList.get(i);
-											SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-											String date  = f.format(temp.getSubmissionDate());
+											Utils util = new Utils();
+											String date =  util.getFormattedDate(temp.getSubmissionDate());
 											Student s = rDao.doRetrieveStudentByEmail(temp.getStudentID());
 											out.print("<tr>");
 											out.print("<td class=text-center align=center>" + temp.getStudentID() + "</td>");

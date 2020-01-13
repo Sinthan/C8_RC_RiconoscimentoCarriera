@@ -53,6 +53,7 @@ public class StudentDAO implements StudentDAOInterface {
 				return null;
 			}
 		} catch (SQLException e) {
+			System.out.println("doRetrieveStudent: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -97,6 +98,7 @@ public class StudentDAO implements StudentDAOInterface {
 	            	}
 	          }
 	  		} catch (SQLException e) {
+				System.out.println("insertStudent: error while executing the query\n" + e);
 	  			throw new RuntimeException("Impossibile effettuare la registrazione"+ e);
 	  		}
 	      
@@ -140,6 +142,7 @@ public class StudentDAO implements StudentDAOInterface {
 			}
 			
 		} catch (SQLException e) {
+			System.out.println("doRetrieveStudentByEmail: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}

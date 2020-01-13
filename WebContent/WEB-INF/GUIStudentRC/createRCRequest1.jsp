@@ -10,25 +10,17 @@
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<script type='text/javascript'> 
-		
-		
-		
+<script type='text/javascript'>
 		window.onload = function(){
 			controlServlet();
 		};
 	
 		function controlServlet(){
 			var err = '<%= request.getAttribute("errorCR1") %>';
-			
 			if( err.toString() != "null"){
 				showAlert(1, err.toString());
 			}
-			
-			
-			
 		}
-		
 	
 		function validationFile1(){
 			var filePath1 = document.getElementById("file1").value;
@@ -49,7 +41,7 @@
 					showAlert(1, "Il file inserito supera la dimensione massima consentita, massimo 10MB");
 				}else{
 					var printF = filePath1.substr(filePath1.lastIndexOf("\\")+1);
-					document.getElementById("parFile1").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
+					document.getElementById("parFile1").innerHTML = printF;
 					showAlert(0, "File caricato correttamente.");
 					if ( document.getElementById("file2").files[0].size < (1024*1024*10)-10 
 							&& document.getElementById("file2").files[0].size < (1024*1024*10)-10 
@@ -61,7 +53,6 @@
 					}
 				}
 			}
-			 
 		}
 		
 		function validationFile2(){
@@ -83,7 +74,7 @@
 					showAlert(1, "Il file inserito supera la dimensione massima consentita, massimo 10MB.");
 				}else{
 					var printF = filePath2.substr(filePath2.lastIndexOf("\\")+1);
-					document.getElementById("parFile2").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + printF;
+					document.getElementById("parFile2").innerHTML = printF;
 					showAlert(0, "File caricato correttamente.");
 					if ( document.getElementById("file1").files[0].size < (1024*1024*10)-10 
 							&& document.getElementById("file2").files[0].size < (1024*1024*10)-10 
@@ -95,7 +86,6 @@
 					}
 				}
 			}
-			 
 		}
 		
 		function validationUni(){
@@ -118,6 +108,7 @@
 			}
 		}
 
+		
 	</script>
 <link href="<%= request.getContextPath() %>/css/RC/createRCRequest.css"
 	rel="stylesheet">
@@ -147,18 +138,19 @@
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
-							<div class="news-block-seven">
-
-								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
-									<div class="panel" style="float: left; margin-top: -70px">
-										<h1 class="text-center">Compila Richiesta</h1>
-									</div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="panel">
+								<br>
+									<h1 class="text-left">
+										Compila Richiesta
+									</h1>
+								</div>
 
 									<form id="createRequestRC1" method="post"
 										action="StudentManagement" enctype="multipart/form-data">
 
-										<div class="divUni">
-											<p class="pBold">Universit&agrave; di provenienza :</p>
+										<div class="divUni inputDescription">
+											<h4><b>Universit&agrave; di provenienza</b></h4>
 											<div>
 												<!-- <select id="università" onChange="validationUni()" style="margin-left: 10px;">
 													<option style="" value="defaultUni" selected>Seleziona una Universit&agrave;</option>
@@ -169,10 +161,9 @@
 
 
 
-												<select class="select" id="universita"
+												<select class="form-control uniSelect" id="universita"
 													onChange="validationUni()" name="universita">
-													<option value="defaultUni" selected>Seleziona una
-														Universit&agrave;</option>
+													<option value="defaultUni" selected>Seleziona una Universit&agrave;</option>
 													<c:forEach items="${universities}" var="university">
 														<option value="${university.name}">
 															${university.name}</option>
@@ -182,35 +173,36 @@
 											</div>
 										</div>
 
-										<div class="divFile1">
+										<div class="divFile1 inputDescription">
 											<div>
-												<p class="pBold">&nbsp;&nbsp;&nbsp;&nbsp;Upload
-													documento</p>
+												<h4><b>Upload documento</b></h4>
 											</div>
-											<div class="">
-												<p class="pTFile">
-													<input class="fileS" type="file" id="file1" name="file1"
+											<div class="inputDiv">
+												<span class="pTFile">
+													<input type="file" id="file1" name="file1"
 														onChange="validationFile1()" accept="application/pdf"></input>
-													<label for="file1" class="btn-2">+</label>
-												</p>
-												<p class="pFile" id="parFile1">
-													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file</p>
+													<label for="file1">+</label>
+												</span>
+												<h4 class= "fileNameLabel" id="parFile1">
+													Seleziona un file</h4>
 											</div>
 										</div>
 
-										<div class="divFile2">
-											<div>
-												<p class="pBold">&nbsp;&nbsp;&nbsp;&nbsp;Upload
-													certificato di carriera pregressa</p>
+										<div class="divFile2 inputDescription">
+											<div >
+												<h4><b>Upload certificato di carriera pregressa</b></h4>
 											</div>
-											<div class="">
-												<p class="pTFile">
-													<input class="fileS" type="file" id="file2" name="file2"
+											
+											<div class="inputDiv">
+
+
+											<span class="pTFile">
+												<input type="file" id="file2" name="file2"
 														onChange="validationFile2()" accept="application/pdf"></input>
-													<label for="file2" class="btn-2">+</label>
-												</p>
-												<p class="pFile" id="parFile2">
-													&nbsp;&nbsp;&nbsp;&nbsp;Seleziona un file</p>
+														<label for="file2">+</label>
+
+												</span>
+												<h4 class= "fileNameLabel" id="parFile2">Seleziona un file</h4>
 											</div>
 										</div>
 
@@ -226,8 +218,6 @@
 									</form>
 
 								</div>
-
-							</div>
 						</div>
 					</div>
 				</div>
@@ -239,7 +229,6 @@
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
-
 </body>
 
 </html>

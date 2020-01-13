@@ -52,12 +52,17 @@ public interface RequestRCDAOInterface {
 	/*
 	 *Delete one specific requestRC using ID of the student
 	 */
-	public int deleteRequestRCByStudentID(int syudentID);
+	public int deleteRequestRCByStudentID(String studentID);
 
 	/*
 	 * Update the state of the request
 	 */
 	int updateState(RCState state, int reportID);
+
+	/*
+	 * Insert a report in a request
+	 */
+	int insertReportID(int reportID, int requestID);
 
 
 

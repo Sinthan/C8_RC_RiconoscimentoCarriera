@@ -119,6 +119,7 @@
 						<div class="content">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
+								<br>
 									<h1 class="text-left">
 										Richiesta di
 										<%=request.getAttribute("studentName")%>
@@ -323,7 +324,7 @@
 									<em>Certificato di carriera pregressa dello studente</em>
 								</h4>
 								<div class="orange-frame">
-									<embed src=<%=sess.getAttribute("pathCP")%>
+									<embed src=<%=request.getAttribute("pathCP")%>
 										type="application/pdf" width="100%" height="600px"></embed>
 								</div>
 							</div>
