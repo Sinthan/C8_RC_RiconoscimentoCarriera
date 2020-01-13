@@ -76,7 +76,6 @@ public class RequestRCManagement extends HttpServlet {
 				ReportDAO rDao = new ReportDAO();
 				ValidatedExam e = new ValidatedExam();
 				ValidatedExamDAO eDao = new ValidatedExamDAO();
-				result = rDao.createReport();
 				int reportID = rDao.doRetrieveLastReportID();
 				result = reqDAO.insertReportID(reportID, reqRC.getRequestRCID());
 				for(int i = 0; i < exams.size(); i++){
@@ -86,9 +85,7 @@ public class RequestRCManagement extends HttpServlet {
 					result = eDao.insertValidatedExam(e);
 				}
 
-				ReportDAO rDao = new ReportDAO();
 				result = rDao.createReport();
-				int reportID = rDao.doRetrieveLastReportID();
 				result = reqDAO.insertReportID(reportID, reqRC.getRequestRCID());
 				disp = request.getRequestDispatcher("/UCManagement");
 				disp.forward(request, response);
