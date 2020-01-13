@@ -37,7 +37,7 @@ public class ReportDAO implements ReportDAOInterface {
 		String insertSQL = "INSERT INTO REPORT " +
 				" (NOTE) " +
 				" VALUES (?)";
-try {
+		try {
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(insertSQL);			
 			// Setting parameters

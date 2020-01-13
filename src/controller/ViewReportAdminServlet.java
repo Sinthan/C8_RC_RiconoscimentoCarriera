@@ -48,7 +48,7 @@ public class ViewReportAdminServlet extends HttpServlet {
 		ReportDAO repoDao = new ReportDAO();
 		StudentDAO sDao = new StudentDAO();
 		ValidatedExamDAO eDao = new ValidatedExamDAO();
-		ArrayList<ValidatedExam> validatedExamList = new ArrayList<ValidatedExam>();
+
 
 		// Setting the exams
 		ArrayList<Exam> examsList = new ArrayList<Exam>();
@@ -59,45 +59,46 @@ public class ViewReportAdminServlet extends HttpServlet {
 		Student s =  sDao.doRetrieveStudentByEmail(req.getStudentID());
 
 		if (req != null) {
-
-			// Setting the RequestRC ID
-			request.setAttribute("idRequestRC", requestRCID);
-			System.out.println(req.getReportID());
-			if(req.getReportID() == 1) {
-				ValidatedExam e = new ValidatedExam();
-				int result;
-				result = repoDao.createReport();
-				int reportID = repoDao.doRetrieveLastReportID();
-				result = rDao.insertReportID(reportID, req.getRequestRCID());
-				for(int i = 0; i < examsList.size(); i++){
-					e.setExamName(examsList.get(i).getName());
-					e.setReportID(reportID);
-					e.setValidationProcedure(null);
-					result = eDao.insertValidatedExam(e);
-				}
-
-			} else {			
-				report = repoDao.doRetrieveReportByReportID(req.getReportID());
-			}
-
-
 			if (!examsList.isEmpty()) {
+				// Setting the RequestRC ID
+				request.setAttribute("idRequestRC", requestRCID);
+				//System.out.println(req.getReportID());
+				if(req.getReportID() == 1) {
+					ValidatedExam e = new ValidatedExam();
+					int result;
+					result = repoDao.createReport();
+					int reportID = repoDao.doRetrieveLastReportID();
+					System.out.println("Last Report id : " + reportID);
+					result = rDao.insertReportID(reportID, req.getRequestRCID());
+					for(int i = 0; i < examsList.size(); i++){
+						e.setExamName(examsList.get(i).getName());
+						e.setReportID(reportID);
+						e.setValidationProcedure(null);
+						result = eDao.insertValidatedExam(e);
+					}
+
+				} else {			
+					report = repoDao.doRetrieveReportByReportID(req.getReportID());
+				}
+				req = rDao.doRetrieveRequestRCByRequestID(requestRCID);
+				System.out.println("Report id after update : " + req.getReportID());
 				request.setAttribute("examsList", examsList);
 				// Setting the university
 				String universityName = req.getUniversityID();;
 				// Setting the suggestions
 				SuggestionDAO suggDAO = new SuggestionDAO();
 				ArrayList<Suggestion> suggList = new ArrayList<Suggestion>();
-
+				ArrayList<ValidatedExam> validatedExamList = new ArrayList<ValidatedExam>();
+				eDao = new ValidatedExamDAO(); 
 				for (Exam e : examsList) {
 					suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
-					validatedExamList.add(eDao.doRetrieveValidatedExam(report.getReportID(), e.getName()));
+					validatedExamList.add(eDao.doRetrieveValidatedExam(req.getReportID(), e.getName()));
 				}
 				request.setAttribute("suggList", suggList);
 				request.setAttribute("studentName", s.getName() + " " + s.getSurname());
 				request.setAttribute("note", report.getNote());
-				request.setAttribute("validatedExamList", report.getValidatedExamsList());
-				request.getSession().setAttribute("validatedExamList", report.getValidatedExamsList());
+				request.setAttribute("validatedExamList", validatedExamList);
+				request.getSession().setAttribute("validatedExamList", validatedExamList);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/createReport.jsp");
 				requestDispatcher.forward(request, response);
 			}else {
