@@ -73,12 +73,12 @@
 											out.print("<td class=text-center align=center>"+ submissionDate +"</td>");
 											out.print("<td class=text-center align=center style=\"width: 400px; position: relative;\">"+
 													
-													"<form action=./AdminManagement method=post style=\"display: inline;\">" + 
+													"<form action=./ViewRCRequestAdminServlet method=post style=\"display: inline;\">" + 
 															"<input type = hidden name = idRequestRC id = idRequestRC value = "  +temp.getRequestRCID() +  "  /> " +
 															"<input type= hidden value = 2 name=flag>"+
 														"<input type= submit value =Controlla  class=btn btn-primary></input>" + 
 													"</form>" +
-													"<form action=./ReportManagement method=post style=\"display: inline;\">" +
+													"<form action=./ViewReportAdminServlet method=post style=\"display: inline;\">" +
 															"<input type = hidden name = idRequestRC id = idRequestRC value = "  +temp.getRequestRCID() +  "  /> " +
 															"<input type= hidden value = 2 name=flag>"+
 														"<input type= submit value=\"Compila Report\"  class=btn btn-primary></input> </form> </td>" +
