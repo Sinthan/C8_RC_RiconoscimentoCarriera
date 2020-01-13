@@ -111,8 +111,6 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 				preparedStatement.setString(4, vExam.getExamName());
 				preparedStatement.executeUpdate();
 				connection.commit();
-				connection.close();
-				return 0;
 					
 				
 			} catch(SQLException e) {

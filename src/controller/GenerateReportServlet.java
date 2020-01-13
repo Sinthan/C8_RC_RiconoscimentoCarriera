@@ -1,30 +1,23 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.RCState;
-import model.RequestRC;
-import model.RequestRCDAO;
-
 /**
- * Servlet implementation class AdminHome
+ * Servlet implementation class GenerateReportServlet
  */
-@WebServlet("/AdminHome")
-public class AdminHome extends HttpServlet {
+@WebServlet("/GenerateReportServlet")
+public class GenerateReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminHome() {
+    public GenerateReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +25,8 @@ public class AdminHome extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RCState state = RCState.isBeingDiscussed;
-		RequestRCDAO reqDao = new RequestRCDAO();
-		ArrayList<RequestRC> reqList = reqDao.doRetrieveAllRequestRCBystate(state);
-		request.setAttribute("reqList", reqList);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/homeRCPCD.jsp");		
-		requestDispatcher.forward(request, response);
-		return;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	}
 
 	/**

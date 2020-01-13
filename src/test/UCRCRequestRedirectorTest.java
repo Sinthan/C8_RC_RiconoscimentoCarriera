@@ -11,9 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,16 +31,24 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import controller.DbConnection;
 import controller.StudentManagement;
 import controller.UCRCRequestRedirector;
+import controller.Utils;
 import model.Exam;
 import model.RCState;
 import model.RequestRC;
+import model.Student;
 
 class UCRCRequestRedirectorTest extends Mockito {
 	  
 	
-	UCRCRequestRedirector uc;
-	MockHttpServletRequest request;
-	MockHttpServletResponse response;
+	UCRCRequestRedirector ucrr;
+	HttpServletRequest request;
+	HttpServletResponse response;
+	HttpSession sessione;
+	RequestDispatcher requestDisp;
+	String extendedPath;
+	Student userRC;
+	Utils utils;
+	Utils utilReal;
 	RequestRC rRC;
 	Exam e;
 	
@@ -43,14 +56,19 @@ class UCRCRequestRedirectorTest extends Mockito {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		uc = new UCRCRequestRedirector();
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
+		ucrr = new UCRCRequestRedirector();
+		request = mock(HttpServletRequest.class);
+		response = mock(HttpServletResponse.class);
+		sessione = mock(HttpSession.class);
+		requestDisp = mock(RequestDispatcher.class);
+		userRC = new Student();
+		utils = mock(Utils.class);
+		utilReal = new Utils();
 		rRC = new RequestRC();
 		e = new Exam();
 	}
 	
-	@Test
+	/*@Test
 	public void returnRequestStudentOK() {
 		String studentID = "a.cella8@studenti.unisa.it";
 		RequestRC rRC = requestRCDAOStub(studentID);
@@ -131,5 +149,22 @@ class UCRCRequestRedirectorTest extends Mockito {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}*/
+	
+	@BeforeEach
+	public void setUpSystem() {
+		
+		System.setProperty("catalina.base","C:\\Users\\utenteTest\\ISworkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0");
 	}
+	
+	@Test
+	public void UcRcRedirectTest() throws ServletException, IOException {
+		when(request.getParameter("idRequestRC")).thenReturn(Integer.toString(7));
+		when(request.getSession()).thenReturn(sessione);
+		when(request.getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp")).thenReturn(requestDisp);
+		ucrr.doGet(request, response);
+		verify(requestDisp).forward(request, response);
+		
+	}
+	
 }

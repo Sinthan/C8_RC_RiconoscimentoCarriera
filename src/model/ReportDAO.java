@@ -115,8 +115,9 @@ try {
 			// Executing the selection
 			preparedStatement.executeUpdate();
 			connection.commit();
-			return 1;
+			System.out.println("Report created");		// Logging the operation
 		} catch(SQLException e){
+			System.out.println("createReport: error while executing the query\n" + e);
 			new RuntimeException(e);
 		}
 		return 0;
@@ -152,21 +153,10 @@ try {
 				preparedStatement = connection.prepareStatement(updateSQL);
 				
 				// Setting parameters
-				System.out.println("sono in");
 				preparedStatement.setString(1, note);
-				System.out.println("set note");
 				preparedStatement.setInt(2,reportID);
-				System.out.println("set id");
 				preparedStatement.executeUpdate();
-				System.out.println("eseguita");
-				connection.commit();	
-				System.out.println("commit");
-				connection.close();
-				System.out.println("close");
-				
-				return 0;
-				
-				
+				connection.commit();
 			} catch(SQLException e) {
 				System.out.println("updateNote: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the report in the database " + e);

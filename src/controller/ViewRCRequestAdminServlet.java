@@ -26,8 +26,8 @@ import model.SuggestionDAO;
 /**
  * Servlet implementation class AdminManagement
  */
-@WebServlet("/AdminManagement")
-public class AdminManagement extends HttpServlet {
+@WebServlet("/ViewRCRequestAdminServlet")
+public class ViewRCRequestAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String projectPath = Utils.getProjectPath();
 	String pdfSaveFolder = "/DocumentsRequestRC";
@@ -36,7 +36,7 @@ public class AdminManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AdminManagement() {
+	public ViewRCRequestAdminServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
