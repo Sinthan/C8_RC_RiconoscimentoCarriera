@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Admin;
 import model.Exam;
 import model.RCState;
-import model.Report;
 import model.ReportDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
