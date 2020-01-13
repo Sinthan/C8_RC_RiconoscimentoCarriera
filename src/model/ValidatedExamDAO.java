@@ -32,30 +32,32 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
 	 */
 	@Override
-	public int insertValidatedExam(ValidatedExam exam) {
-		if (exam.getExamName().equals("") || exam.getValidatedCFU() == -1) { // Checks if attributes are set
+	public int insertValidatedExam(ValidatedExam vExam) {
+		if (vExam.getExamName().equals("")) { // Checks if attributes are set
 			System.out.println("Please set the Exam's name and cfu before trying to add it to the database.");
-			return -4;
+			return -2;
 		}	
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;	
 		String insertSQL = "INSERT INTO VALIDATE_EXAM" +
 				" (NAME_EXAM, CFU_CONVALIDATED, MODE_VALIDATION,FK_ID_REPORT) " +
 				" VALUES (?, ?, ?, ?)";
+		int result = 0;
+		
 		try {  
 				connection = DbConnection.getInstance().getConn();
-				connection.setAutoCommit(false);
 				preparedStatement = connection.prepareStatement(insertSQL);			
 				// Setting parameters
-				preparedStatement.setString(1, exam.getExamName());
-				preparedStatement.setInt(2, exam.getValidatedCFU());
-				preparedStatement.setString(3, exam.getValidationProcedure());
-				preparedStatement.setInt(4, exam.getReportID());
+				preparedStatement.setString(1, vExam.getExamName());
+				preparedStatement.setInt(2, vExam.getValidatedCFU());
+				preparedStatement.setString(3, vExam.getValidationProcedure());
+				preparedStatement.setInt(4, vExam.getReportID());
+				result = preparedStatement.executeUpdate();	
 				connection.commit();
 			
 		} catch(SQLException e) {
 			System.out.println("insertValidatedExam: error while executing the query\n" + e);
-			new RuntimeException("Couldn't insert the exam \"" + exam.getExamName() + "\" in the database " + e);
+			new RuntimeException("Couldn't insert the exam \"" + vExam.getExamName() + "\" in the database " + e);
 		} finally {
 			// Statement release
 			if(preparedStatement != null)
@@ -65,7 +67,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 					e.printStackTrace();
 				}
 		}
-		System.out.println("insertExam(result=: " + exam.toString());	// Logging the operation
+		System.out.println("insertExam(result=" + result + ": " + vExam.toString());	// Logging the operation
 		return 0;
 	}
 

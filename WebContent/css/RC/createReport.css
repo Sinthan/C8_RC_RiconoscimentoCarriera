@@ -20,43 +20,55 @@
 	left: 8%;
 } 
 }
-.form-container .btn {
-	position: relative;
-	float: center;
-	right: -25%;
-  	background-color: #248ece;
-  	color: white;
-  	padding: 10px 16px;
-  	cursor: pointer;
-  	width: 50%;
- 	margin-bottom:10px;
+
+.inline {
+	display: inline;
 }
 
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
+.description {
+	margin-left: 14px;
+	color: #929292;
 }
 
-.text-left{
-	font-weight: bold;
+h3 {
+	padding: 10px 16px 16px 16px;
 }
 
-.btn{
-	width:2,5%; 
-	flaot:left;
+.list-element {
+	padding: 10px 16px;
 }
 
-.submitButton{
-	margin-right: 60px; 
-	width: 200px; 
-	position: relative; 
-	float:right;
-} 
-
- .textarea { /* Stili per il campo di testo e per la textarea */
-background: #1C1C1C; /* Colore di sfondo */
-border: 1px solid #323232; /* Bordo */
- 
+.list-element-centered {
+	padding: 10px 10px;
 }
 
+.btn-square {
+	margin: 3px 4px 12px 4px;
+	display: inline;
+}
 
+.btn-icon {
+    height: 24px;
+    width: 24px;
+}
 
+.suggestion {
+	background-color: #feffff;
+	border: 1.5px solid #ffe9ca;
+	border-radius: 5px;
+	padding: 16px 16px 16px 22px;
+	margin: 16px 36px 22px 22px;
+}
+
+.suggestion-body {
+}
+
+.suggestion-header {
+	color: #929292;
+}
+
+.no-left-margin {
+	margin-left: 0px;
+	padding-left: 0px;
+	margin-right: 32px;
+}

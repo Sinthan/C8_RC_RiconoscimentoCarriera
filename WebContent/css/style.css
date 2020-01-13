@@ -81,7 +81,6 @@ body {
 a {
 	text-decoration: none;
 	cursor: pointer;
-	color: #e73f43;
 }
 
 a:hover, a:focus, a:visited {

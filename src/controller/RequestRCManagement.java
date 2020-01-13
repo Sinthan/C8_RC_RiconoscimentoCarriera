@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Admin;
 import model.Exam;
 import model.RCState;
-import model.Report;
 import model.ReportDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
@@ -74,15 +73,19 @@ public class RequestRCManagement extends HttpServlet {
 				result = reqDAO.updateState(stateAcceptByUC, reqRC.getRequestRCID());
 				//Siccome la richiesta e' stata accettata creo ed allego un report contenente la lista degli esami da validare
 				ArrayList<Exam> exams = (ArrayList<Exam>) request.getSession().getAttribute("exams");
+				ReportDAO rDao = new ReportDAO();
 				ValidatedExam e = new ValidatedExam();
 				ValidatedExamDAO eDao = new ValidatedExamDAO();
+				result = rDao.createReport();
+				int reportID = rDao.doRetrieveLastReportID();
+				result = reqDAO.insertReportID(reportID, reqRC.getRequestRCID());
 				for(int i = 0; i < exams.size(); i++){
 					e.setExamName(exams.get(i).getName());
-					e.setReportID(reqRC.getRequestRCID());
-					e.setValidatedCFU(0);
+					e.setReportID(reportID);
 					e.setValidationProcedure(null);
 					result = eDao.insertValidatedExam(e);
 				}
+
 				ReportDAO rDao = new ReportDAO();
 				result = rDao.createReport();
 				int reportID = rDao.doRetrieveLastReportID();

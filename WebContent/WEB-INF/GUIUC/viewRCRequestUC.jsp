@@ -53,67 +53,77 @@
 			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
 
-		<div class="sidebar-page-container basePage createRequestRCPage"
-			style="">
+		<div class="sidebar-page-container basePage">
 			<div class="auto-container">
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
-							<div class="news-block-seven">
 <!-- sezione dedicata alle informazioni personali dello studente-->
-								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="panel">
-										<h3 class="text-center">Richiesta di ${userRC.name}
-											${userRC.surname} - ${reqRC.submissionDate}</h3>
+									<br>
+										<h1 class="text-left">Richiesta di ${userRC.name} ${userRC.surname} - ${reqRC.submissionDate}</h1>
 									</div>
 									<div class="studentName">
-										<div>
-											<h4 class="text-left">Nome studente</h4>
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 indentedDiv">
+											<h4 class="text-left"><b>Nome studente</b></h4>
+											<h3>${userRC.name}</h3>
+											</div>
+											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 indentedDiv">
+											<h4 class="text-left"><b>Cognome studente</b></h4>
+											<h3>${userRC.surname}</h3>
+											</div>
 										</div>
-										<div>
-											<h4 class="studentData">&nbsp;&nbsp;&nbsp;${userRC.name}</h4>
-										</div>
-										<div>
-											<h4 class="text-left">Cognome studente</h4>
-										</div>
-										<h4 class="studentData">&nbsp;&nbsp;&nbsp;${userRC.surname}</h4>
-										<br>
-									</div>
-								</div>
 <!-- sezione dedicata alla lista degli esami della richiesta-->
-								<div class="news-block-seven">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-										<h4 class="text-left">Esami inseriti dallo studente</h4>
+<div class="indentedDiv">
+										<h4 class="text-left description"><em>Esami inseriti dallo studente</em></h4>
+									<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 orange-frame">
+									
+									<div id="examsListHeader" class="row">
+												<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"
+													id="examNameColumn1">
+													<h4 class="text-left field-title">
+														<b>Nome esame</b>
+													</h4>
+												</div>
+												<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
+													<h4 class="text-center field-title">
+														<b>CFU</b>
+													</h4>
+												</div>
+												<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5"
+													id="buttons">
+													<h4 class="text-center field-title">
+														<b>Riferimento al programma di esame</b>
+													</h4>
+												</div>
+											</div>
+											<c:forEach items="${exams}" var="exam">
+												<div class="row">
+	<!-- Exam name -->
+													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+														<h4 class="list-element">${exam.name}</h4>
+													</div>
+	<!-- Exam name end-->
+	<!-- Exam CFU -->
+													<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="CFU">
+														<h4 class="text-center list-element-centered">${exam.CFU}</h4>
+													</div>
+	<!-- Exam CFU end -->
+													<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+													<a onclick="window.open('${exam.programLink}', '_blank')"
+															title="Vai al piano di studi">
+													<h5 class="list-element">${exam.programLink}</h5>
+														</a>
+														</div>
+														</div>
+														</c:forEach>
 									</div>
-									<div class="ExamsDiv">
-										<div class="table-responsive">
-										<table class="table">
-											<thead>
-												<tr>
-													<th scope="col">Nome esame</th>
-													<th scope="col">CFU</th>
-													<th scope="col">Riferimento al programma di esame</th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${exams}" var="exam">
-													<tr>
-														<td>${exam.name}</td>
-														<td>${exam.CFU}</td>
-														<td>${exam.programLink}</td>
-													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-										</div>
 									</div>
-								</div>
-							</div>
 
 <!-- sezione dedicata al download dei file della richiesta-->
-						</div>
 						<div class="downloadButton col-12" >
+						<div class="col-12 indentedDiv" >
 						<form class="buttonForm" action="./DownloaderRC" method="post">
 							<input type=hidden name=pdfvalue value="id" /> 
 							<input type=hidden name=pathpdf value="${filePath}" />
@@ -121,17 +131,20 @@
 									<img id="imgDownload" src="css/svg/download.svg" class="btn-icon">
 								</button>
 						</form>
-						<p id="drc1">Download documento d'identit&agrave;</p>
-						<br>
-						<br>
+						<h4 id="drc1">Download documento d'identit&agrave;</h4>
+						</div>
+						
+						
+						<div class="col-12 indentedDiv" >
 						<form class="buttonForm" action="./DownloaderRC" method="post">
 							<input type=hidden name=pdfvalue value="cp" />
 							<input type=hidden name=pathpdf value="${filePath}"/>
 							<button class="btn btn-primary btn-square">
 								<img id="imgDownload" src="css/svg/download.svg" class="btn-icon">
 							</button>
-							<p id="drc2">Download documento di riconoscimento carriera</p>
+							<h4 id="drc2">Download documento di riconoscimento carriera</h4>
 						</form>
+						</div>
 						</div>
 
 <!-- Decisional buttons -->
@@ -142,7 +155,7 @@
 								</span> <span class="button-text">Rifiuta</span>
 							</button>
 							<form id="acceptForm" action="./RequestRCManagement">
-								<input type=hidden name=RequestRCstate value="true" />
+								<input type=hidden name=RequestRCstate value="true"/>
 
 								<button id="accept" value="accepted" type="submit"
 									class="finish">
@@ -150,6 +163,7 @@
 									</span> <span class="button-text">Accetta</span>
 								</button>
 							</form>
+							</div>
 <!-- Decisional buttons end-->
 
 <!-- Modal -->
@@ -186,9 +200,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
 	<jsp:include page="/partials/footer.jsp" />
-
+	</div>
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />

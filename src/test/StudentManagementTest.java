@@ -43,6 +43,7 @@ class StudentManagementTest extends Mockito {
 	String pathC;
 	String date;
 	SimpleDateFormat sdf;
+	String SAVE_DIR2;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -155,7 +156,22 @@ class StudentManagementTest extends Mockito {
         when(part1.getContentType()).thenReturn("application/pdf");
         when(part2.getContentType()).thenReturn("application/pdf");
         when(sessione.getAttribute("user")).thenReturn(s);
-        assertEquals(pathC, System.getProperty("catalina.base"));
+        
+        when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp")).thenReturn(dsp);
+        sm.doGet(request, response);
+        verify(dsp).forward(request, response);
+        
+    }
+	
+	public void createRequestRC1Test5() throws ServletException, IOException {
+        when(request.getSession()).thenReturn(sessione);
+        when(sessione.getAttribute("flag")).thenReturn(2);
+        when(request.getPart("file1")).thenReturn(part1);
+        when(request.getPart("file2")).thenReturn(part2);
+        when(request.getParameter("universita")).thenReturn("Università degli Studi di NAPOLI Federico II");
+        when(part1.getContentType()).thenReturn("application/pdf");
+        when(part2.getContentType()).thenReturn("application/pdf");
+        when(sessione.getAttribute("user")).thenReturn(s);
         
         when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest2.jsp")).thenReturn(dsp);
         sm.doGet(request, response);
