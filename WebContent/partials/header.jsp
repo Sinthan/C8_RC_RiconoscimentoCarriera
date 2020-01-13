@@ -22,8 +22,6 @@
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/viewRequest.jsp\">Richieste</a></li>";    
           
-      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/"
-                  + "/ReportManagement\">(TASTO DA CANCELLARE)</a></li>";
       menu += 
     		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminHome\">Riconoscimento Carriere</a></li>";    
       menu +=
