@@ -38,7 +38,7 @@ public class StudentRCRequestRedirector extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int flag = Integer.parseInt(request.getParameter("flag"));
 		
@@ -65,7 +65,7 @@ public class StudentRCRequestRedirector extends HttpServlet {
 		}
 		
 		}else if(flag==2){
-			RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/_areaStudent/viewRequest.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("/_areaStudent/viewRequest.jsp");
 			dis.forward(request, response);	
 		}
 		// TODO Auto-generated method stub

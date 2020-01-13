@@ -47,15 +47,14 @@ public class UCRCRequestRedirector extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
     int reqID = Integer.parseInt(request.getParameter("idRequestRC"));
     StudentDAO sDAO = new StudentDAO();
-    RequestRCDAO reqDAO = new RequestRCDAO();
+    RequestRCDAO reqDAO = new RequestRCDAO(); 
     ExamDAO examDAO = new ExamDAO();
     RequestRC reqRC = reqDAO.doRetrieveRequestRCByRequestID(reqID);
-    request.getSession().setAttribute("reqRC", reqRC);
-		
+    request.getSession().setAttribute("reqRC", reqRC);	
 	//Ricavo i dati dello studente partendo dalla richiesta 
     Student userRC = sDAO.doRetrieveStudentByEmail(reqRC.getStudentID());
     request.getSession().setAttribute("userRC",userRC);

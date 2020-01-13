@@ -54,7 +54,7 @@ public class RequestRCManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RCState stateAcceptByUC = RCState.isBeingDiscussed;
 		RCState stateRejectByUC =RCState.refused;
@@ -69,7 +69,7 @@ public class RequestRCManagement extends HttpServlet {
 			RequestRCDAO reqDAO = new RequestRCDAO();
 			//Se la richiesta viene accettata dall'UC
 			if(requestRCstate.equalsIgnoreCase("true")) {
-				System.out.println(reqRC.getRequestRCID());
+				System.out.println( "ID RICHIESTA" + reqRC.getRequestRCID());
 				//Aggiorno lo stato della richiesta
 				result = reqDAO.updateState(stateAcceptByUC, reqRC.getRequestRCID());
 				//Siccome la richiesta e' stata accettata creo ed allego un report contenente la lista degli esami da validare
@@ -87,7 +87,7 @@ public class RequestRCManagement extends HttpServlet {
 				result = rDao.createReport();
 				int reportID = rDao.doRetrieveLastReportID();
 				result = reqDAO.insertReportID(reportID, reqRC.getRequestRCID());
-				disp = request.getServletContext().getRequestDispatcher("/UCManagement");
+				disp = request.getRequestDispatcher("/UCManagement");
 				disp.forward(request, response);
 				}//Se la richiesta viene rifiutata dall'UC
 			else if(requestRCstate.equalsIgnoreCase("false")) {
@@ -151,7 +151,7 @@ public class RequestRCManagement extends HttpServlet {
 			File fileM = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + mailStudent + "/" + "mailRequest.txt");
 			
 			// Control if the mail for exam was sent
-			if( fileM.exists() ) {
+			if( fileM.exists() ) { 
 				Scanner scanner = new Scanner(fileM);
 				PrintWriter writer = new PrintWriter( new BufferedWriter( new FileWriter( fileM, true )));
 				boolean found = false; 
