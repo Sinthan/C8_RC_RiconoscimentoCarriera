@@ -29,14 +29,14 @@ import model.ValidatedExamDAO;
 @WebServlet("/ViewReportAdminServlet")
 public class ViewReportAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ViewReportAdminServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ViewReportAdminServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see set as attribute the validatedExam arraylist 
@@ -49,16 +49,21 @@ public class ViewReportAdminServlet extends HttpServlet {
 		StudentDAO sDao = new StudentDAO();
 		ValidatedExamDAO eDao = new ValidatedExamDAO();
 		ArrayList<ValidatedExam> validatedExamList = new ArrayList<ValidatedExam>();
+
+		// Setting the exams
 		ArrayList<Exam> examsList = new ArrayList<Exam>();
+		ExamDAO examDAO = new ExamDAO();
+		examsList = examDAO.doRetrieveAllExamsByRequestRCID(requestRCID);
 		RequestRC req = rDao.doRetrieveRequestRCByRequestID(requestRCID);
 		Report report = new Report();
 		Student s =  sDao.doRetrieveStudentByEmail(req.getStudentID());
-		
+
 		if (req != null) {
-			
+
 			// Setting the RequestRC ID
 			request.setAttribute("idRequestRC", requestRCID);
-			if(req.getReportID()<=0) {
+			System.out.println(req.getReportID());
+			if(req.getReportID() == 1) {
 				ValidatedExam e = new ValidatedExam();
 				int result;
 				result = repoDao.createReport();
@@ -70,23 +75,21 @@ public class ViewReportAdminServlet extends HttpServlet {
 					e.setValidationProcedure(null);
 					result = eDao.insertValidatedExam(e);
 				}
-				
+
 			} else {			
 				report = repoDao.doRetrieveReportByReportID(req.getReportID());
 			}
-			
-			// Setting the exams
-			ExamDAO examDAO = new ExamDAO();
-			ArrayList<Exam> examList = examDAO.doRetrieveAllExamsByRequestRCID(requestRCID);
-			if (!examList.isEmpty()) {
-				request.setAttribute("examList", examList);
+
+
+			if (!examsList.isEmpty()) {
+				request.setAttribute("examsList", examsList);
 				// Setting the university
 				String universityName = req.getUniversityID();;
 				// Setting the suggestions
 				SuggestionDAO suggDAO = new SuggestionDAO();
 				ArrayList<Suggestion> suggList = new ArrayList<Suggestion>();
 
-				for (Exam e : examList) {
+				for (Exam e : examsList) {
 					suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
 					validatedExamList.add(eDao.doRetrieveValidatedExam(report.getReportID(), e.getName()));
 				}
@@ -100,7 +103,7 @@ public class ViewReportAdminServlet extends HttpServlet {
 			}else {
 				goBackWithError("Impossibile caricare la pagina, errore nel recupero degli esami della richiesta, si prega di riprovare.", request, response);
 			}
-			
+
 		} else {
 			goBackWithError("Impossibile caricare la pagina, errore nel recupero della richiesta selezionata, si prega di riprovare.", request, response);
 		}

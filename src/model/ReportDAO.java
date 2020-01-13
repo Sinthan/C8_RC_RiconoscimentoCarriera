@@ -115,8 +115,9 @@ try {
 			// Executing the selection
 			preparedStatement.executeUpdate();
 			connection.commit();
-			return 1;
+			System.out.println("Report created");		// Logging the operation
 		} catch(SQLException e){
+			System.out.println("createReport: error while executing the query\n" + e);
 			new RuntimeException(e);
 		}
 		return 0;
