@@ -1,7 +1,9 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +31,10 @@ import model.ValidatedExamDAO;
 @WebServlet("/ViewReportAdminServlet")
 public class ViewReportAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	String projectPath = Utils.getProjectPath();
+	String pdfSaveFolder = "/DocumentsRequestRC";
+	String projectName = "/C8_RC_RiconoscimentoCarriera";
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -49,7 +54,6 @@ public class ViewReportAdminServlet extends HttpServlet {
 		StudentDAO sDao = new StudentDAO();
 		ValidatedExamDAO eDao = new ValidatedExamDAO();
 
-
 		// Setting the exams
 		ArrayList<Exam> examsList = new ArrayList<Exam>();
 		ExamDAO examDAO = new ExamDAO();
@@ -59,16 +63,16 @@ public class ViewReportAdminServlet extends HttpServlet {
 		Student s =  sDao.doRetrieveStudentByEmail(req.getStudentID());
 
 		if (req != null) {
+			// if RequestRC is != null
 			if (!examsList.isEmpty()) {
+				// if exams list != empty
 				// Setting the RequestRC ID
 				request.setAttribute("idRequestRC", requestRCID);
-				//System.out.println(req.getReportID());
 				if(req.getReportID() == 1) {
 					ValidatedExam e = new ValidatedExam();
 					int result;
 					result = repoDao.createReport();
 					int reportID = repoDao.doRetrieveLastReportID();
-					System.out.println("Last Report id : " + reportID);
 					result = rDao.insertReportID(reportID, req.getRequestRCID());
 					for(int i = 0; i < examsList.size(); i++){
 						e.setExamName(examsList.get(i).getName());
@@ -89,22 +93,66 @@ public class ViewReportAdminServlet extends HttpServlet {
 				ArrayList<Suggestion> suggList = new ArrayList<Suggestion>();
 				ArrayList<ValidatedExam> validatedExamList = new ArrayList<ValidatedExam>();
 				eDao = new ValidatedExamDAO(); 
+				//Load suggestion list and validated exams list
 				for (Exam e : examsList) {
 					suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
 					validatedExamList.add(eDao.doRetrieveValidatedExam(req.getReportID(), e.getName()));
 				}
+				
+				// Control if folder DocumentsRequestRC is present in the project
+				File dir = new File(projectPath + "/WebContent" + pdfSaveFolder);
+				if( !dir.mkdir() ) {
+					dir.mkdir();	
+				}
+				
+				// Control if folder of Students document is present in DocumentsRequestRC
+				dir = new File(projectPath + "/WebContent" + pdfSaveFolder + "/" + s.getEmail());
+				if( !dir.mkdir() ) {
+					dir.mkdir();	
+				}
+				// Control if file of checked suggestion is present in the folder of the student
+				File fileSuggOW = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "suggOverwrite.txt");
+				
+				ArrayList<String> suggOverwrite = new ArrayList<String>();
+				if (fileSuggOW.exists()) {
+					for (Exam e : examsList) {
+						Scanner scanner = new Scanner(fileSuggOW);
+						while (scanner.hasNextLine()) { 
+							String lineFromFile = scanner.nextLine(); 
+							if (lineFromFile.equals(e.getName())) { 
+								suggOverwrite.add(lineFromFile);
+								break;
+							} else if (!scanner.hasNextLine()) {
+								suggOverwrite.add(null);
+								break;
+							}
+						}
+						scanner.close();
+					}
+				} else {
+					for (int i = 0; i < examsList.size(); i++) {
+						suggOverwrite.add(null);
+					}
+				}
+				
+				
+				//Set request attribute
+				request.setAttribute("suggOverwrite", suggOverwrite);
 				request.setAttribute("suggList", suggList);
 				request.setAttribute("studentName", s.getName() + " " + s.getSurname());
 				request.setAttribute("note", report.getNote());
 				request.setAttribute("validatedExamList", validatedExamList);
 				request.getSession().setAttribute("validatedExamList", validatedExamList);
+				//Redirect
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/createReport.jsp");
 				requestDispatcher.forward(request, response);
 			}else {
+				//if exams list is empty
 				goBackWithError("Impossibile caricare la pagina, errore nel recupero degli esami della richiesta, si prega di riprovare.", request, response);
 			}
 
 		} else {
+			//if the RCRequest not found
 			goBackWithError("Impossibile caricare la pagina, errore nel recupero della richiesta selezionata, si prega di riprovare.", request, response);
 		}
 	}
