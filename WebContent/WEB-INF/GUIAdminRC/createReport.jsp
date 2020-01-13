@@ -48,7 +48,7 @@
 		// Get the validation mode field
 		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
 		validationModeField.value  = suggestedProcedure;
-		validationModeField.style.backgroundColor = suggestionActiveBG
+		validationModeField.style.backgroundColor = suggestionActiveBG;
 		
 		$("#suggestion" + rowNumber).collapse('hide');
 	}
@@ -62,23 +62,20 @@
 			validatedCFUField.style.backgroundColor = suggestionActiveBG;
 			validationModeField.style.backgroundColor = suggestionActiveBG;
 		} else {
+			validationModeField.style.backgroundColor = "#ffffff";
 			validatedCFUField.style.backgroundColor = "#ffffff";
-			validationModeField.style.backgroundColor = "ffffff";
 		}
 	}
 	
-	function allowNumbersOnly(e) {
+	function allowNumbersOnly(e, object) {
+	    if (object.value.length > object.max.length)
+	      object.value = object.value.slice(0, object.max.length)
 	    var code = (e.which) ? e.which : e.keyCode;
 	    if (code > 31 && (code < 48 || code > 57)) {
 	        e.preventDefault();
 	        showAlert(1, "Sono consentiti solo caratteri numerici.");
 	    }
 	}
-	
-	function maxLengthCheck(object) {
-	    if (object.value.length > object.max.length)
-	      object.value = object.value.slice(0, object.max.length)
-	  }
 	
 	function validateCFU(object) {
 		if(this.value <= 30) {
@@ -108,8 +105,8 @@
 <body>
 	<div class="page-wrapper">
 		<jsp:include page="/partials/header.jsp">
-			<jsp:param name="pageName" value="<%=pageName%>" />
-			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
+			<jsp:param name="pageName" value="<%=pageName%>"/>
+			<jsp:param name="pageFolder" value="<%=pageFolder%>"/>
 		</jsp:include>
 		<div class="sidebar-page-container basePage">
 			<div class="auto-container">
@@ -125,7 +122,7 @@
 									</h5>
 								</div>
 <!-- Editable exams list-->
-								<div class="col-lg-10 col-md-10" id="editableExamsList">
+								<div class="col-lg-11 col-md-11" id="editableExamsList">
 									<div id="examsListHeader" class="row">
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
 											id="examNameColumn1">
@@ -165,8 +162,8 @@
 													placeholder="es. 9" id="validatedExamCFU<%=examRow%>"
 													name = "validatedExamCFU<%=examRow%>"
 													min="1" max="30" minlength="1" maxlength="2" required
-													onkeypress="allowNumbersOnly(event)"
-													onblur="validateCFU(this)" oninput="maxLengthCheck(this)"
+													onkeypress="allowNumbersOnly(event, this)"
+													onblur="validateCFU(this)"
 													style="display: inline; width: 30%">
 															<script type="text/javascript">
 															// if a draft of the exam cfu
@@ -182,7 +179,7 @@
 											</div>
 	<!-- Exam CFU end -->
 	<!-- Exam validation mode -->
-											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center"
+											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
 												id="validationMode">
 
 												<textarea class="form-control"
@@ -205,10 +202,11 @@
 															if (suggList.get(examRow - 1) != null) {
 														%>
 														<script type="text/javascript">
-<%-- 															document.getElementById("validatedExamMode<%=examRow%>").onchange = checkSuggestionMatchForRow(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'); --%>
+	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
 															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
 															checkSuggestionMatchForRow(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>');
-															</script>
+														</script>
+											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 											<span id="collapsableBtn<%=examRow%>" data-toggle="collapse"
 												data-target="#suggestion<%=examRow%>" aria-expanded="false"
 												aria-controls="suggestion<%=examRow%>">
@@ -219,7 +217,11 @@
 													<img src="css/svg/help-circle.svg" class="btn-icon">
 												</button>
 											</span>
-
+											<div class="custom-control custom-checkbox">
+											  <input type="checkbox" class="custom-control-input" id="suggOverwrite<%=examRow%>">
+											  <label class="custom-control-label" for="suggOverwrite<%=examRow%>">Aggiorna il suggerimento</label>
+											</div>
+										</div>
 										</div>
 
 										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"
@@ -287,8 +289,15 @@
 								<h4 class="text-left">
 									<b>Note aggiuntive</b>
 								</h4>
-								<textarea class="form-control" id="additionalNotes"
+								<textarea class="form-control" id="additionalNotes"  name="additionalNotes"
 									placeholder="" rows="5"></textarea>
+								<script type="text/javascript">
+																if ('<%=request.getAttribute("note")%>' != null) {
+																	// if a draft of the report note
+																	// is already present, fill the field with it
+																	document.getElementById("additionalNotes").value = '<%=request.getAttribute("note")%>';
+																}
+								</script>
 							</div>
 <!-- Additional notes section end -->
 
@@ -297,7 +306,7 @@
 							<div class="col-lg-12 col-md-12 reportButtons">
 								
 								
-									<button id="saveDraftBtn" type="submit" form="saveDraft" class="saveDraft">
+									<button id="saveDraftBtn" type="submit" form="saveDraft" class="saveDraft" formnovalidate>
 										<span class="circle"> <span class="icon arrow"></span>
 										</span> <span class="button-text">Salva bozza</span>
 									</button>

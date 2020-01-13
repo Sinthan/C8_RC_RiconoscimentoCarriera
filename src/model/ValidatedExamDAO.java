@@ -173,7 +173,6 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 					exam.setValidatedCFU(resSet.getInt("CFU_CONVALIDATED"));
 					exam.setValidationProcedure(resSet.getNString("MODE_VALIDATION"));
 					exam.setVExamID(resSet.getInt("ID_EXAM_VALIDATE"));
-					System.out.println("doretrieve:"+exam);
 				} 
 				
 			} catch(SQLException e) {

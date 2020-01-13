@@ -61,9 +61,15 @@ public class SaveReportDraftServlet extends HttpServlet {
 			for(int i = 1; i < rows; i++) {
 				ValidatedExam vExam = new ValidatedExam();
 				examName =(String) request.getParameter("validatedExamName" + i);
-				CFU = Integer.parseInt(request.getParameter("validatedExamCFU"+i));
+				String CFUParam = request.getParameter("validatedExamCFU" + i);
+				if (!CFUParam.equals("")) {
+					CFU = Integer.parseInt(CFUParam);
+				} else {
+					CFU = -1;
+				}
 				mode = (String) request.getParameter("validatedExamMode" + i);
 				vExam.setExamName(examName);
+				
 				vExam.setValidatedCFU(CFU);
 				vExam.setValidationProcedure(mode);
 				vExam.setReportID(repoID);

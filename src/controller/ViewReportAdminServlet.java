@@ -80,8 +80,7 @@ public class ViewReportAdminServlet extends HttpServlet {
 				} else {			
 					report = repoDao.doRetrieveReportByReportID(req.getReportID());
 				}
-				req = rDao.doRetrieveRequestRCByRequestID(requestRCID);
-				System.out.println("Report id after update : " + req.getReportID());
+				req = rDao.doRetrieveRequestRCByRequestID(requestRCID);;
 				request.setAttribute("examsList", examsList);
 				// Setting the university
 				String universityName = req.getUniversityID();;

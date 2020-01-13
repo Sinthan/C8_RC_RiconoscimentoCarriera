@@ -157,6 +157,7 @@ public class ReportDAO implements ReportDAOInterface {
 				preparedStatement.setInt(2,reportID);
 				preparedStatement.executeUpdate();
 				connection.commit();
+				System.out.println("updateNote: report note updated");
 			} catch(SQLException e) {
 				System.out.println("updateNote: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the report in the database " + e);
@@ -209,7 +210,6 @@ public class ReportDAO implements ReportDAOInterface {
 				report.setReportID(reportID);;
 				report.setNote(resSet.getString("NOTE"));
 				report.setValidatedExamsList(exams);
-				System.out.println("repo "+report);
 				return report;
 			}
 		} catch(SQLException e) {
