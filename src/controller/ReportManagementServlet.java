@@ -115,31 +115,31 @@ public class ReportManagementServlet extends HttpServlet {
 			// Insert checked suggestion for exam 
 			PrintWriter writer = new PrintWriter( new BufferedWriter( new FileWriter( fileSuggOW, true )));
 			for ( String sOW : suggOverwrite) {	
-				writer.write( sOW );
-				
+				writer.println( sOW );
 			}
 			writer.close();
 			
 			//Load checked suggestion
 			suggOverwrite = new ArrayList<String>();
-			if (fileSuggOW.exists()) {
-				for (ValidatedExam e : examList) {
+			if ( fileSuggOW.exists() ) {
+				int i = 1;
+				for ( ValidatedExam e : examList ) {
 					Scanner scanner = new Scanner(fileSuggOW);
 					while (scanner.hasNextLine()) { 
 						String lineFromFile = scanner.nextLine(); 
-						if (lineFromFile.equals(e.getExamName())) { 
-							suggOverwrite.add(lineFromFile);
+						if ( lineFromFile.equals( "suggOverwrite" + i ) ) { 
+							suggOverwrite.add( lineFromFile );
 							break;
-						} else if (!scanner.hasNextLine()) {
-							suggOverwrite.add(null);
+						} else if ( !scanner.hasNextLine() ) {
+							suggOverwrite.add( null );
 							break;
 						}
 					}
 					scanner.close();
 				}
 			} else {
-				for (int i = 0; i < examList.size(); i++) {
-					suggOverwrite.add(null);
+				for ( int i = 0; i < examList.size(); i++ ) {
+					suggOverwrite.add( null );
 				}
 			}
 			

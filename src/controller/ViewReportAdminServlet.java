@@ -114,27 +114,28 @@ public class ViewReportAdminServlet extends HttpServlet {
 				File fileSuggOW = new File(projectPath + "/" + "WebContent" + pdfSaveFolder + "/" + s.getEmail() + "/" + "suggOverwrite.txt");
 				
 				ArrayList<String> suggOverwrite = new ArrayList<String>();
-				if (fileSuggOW.exists()) {
-					for (Exam e : examsList) {
-						Scanner scanner = new Scanner(fileSuggOW);
-						while (scanner.hasNextLine()) { 
+				if ( fileSuggOW.exists() ) {
+					int i = 1;
+					for ( Exam e : examsList ) {
+						Scanner scanner = new Scanner( fileSuggOW );
+						while ( scanner.hasNextLine() ) { 
 							String lineFromFile = scanner.nextLine(); 
-							if (lineFromFile.equals(e.getName())) { 
-								suggOverwrite.add(lineFromFile);
+							if ( lineFromFile.equals( "suggOverwrite" + i ) ) { 
+								suggOverwrite.add( lineFromFile );
 								break;
-							} else if (!scanner.hasNextLine()) {
-								suggOverwrite.add(null);
+							} else if ( !scanner.hasNextLine() ) {
+								suggOverwrite.add( null );
 								break;
 							}
 						}
+						i++;
 						scanner.close();
 					}
 				} else {
-					for (int i = 0; i < examsList.size(); i++) {
-						suggOverwrite.add(null);
+					for ( int i = 0; i < examsList.size(); i++ ) {
+						suggOverwrite.add( null );
 					}
 				}
-				
 				
 				//Set request attribute
 				request.setAttribute("suggOverwrite", suggOverwrite);
