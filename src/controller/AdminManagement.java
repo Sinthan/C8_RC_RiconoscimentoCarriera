@@ -12,13 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.itextpdf.text.log.SysoCounter;
-
 import model.Exam;
 import model.ExamDAO;
 import model.FilePDF;
 import model.FilePDFDAO;
-import model.RCState;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;
@@ -47,7 +44,7 @@ public class AdminManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 			// Getting the RCRequest and FilePDF
 			RequestRCDAO reqDAO = new RequestRCDAO();
@@ -58,14 +55,14 @@ public class AdminManagement extends HttpServlet {
 			if (req != null) {
 				filesPDF = pdfDAO.doRetrieveAllFilePDFByIDRequestRC(req.getRequestRCID());
 
-				if (filesPDF != null) {
+				if (!filesPDF.isEmpty()) {
 					for (int i = 0; i < filesPDF.size(); i++) {
 						int indexWC = filesPDF.get(i).getPDFLink().indexOf("/DocumentsRequestRC/");
 						if (indexWC > -1) {
 							String relativePath = filesPDF.get(i).getPDFLink().
 									substring(indexWC + 1, filesPDF.get(i).getPDFLink().length());
 							if (relativePath.indexOf("CP.pdf") > 1) {
-								request.getSession().setAttribute("pathCP", relativePath);
+								request.setAttribute("pathCP", relativePath);
 							}
 						} else {
 							goBackWithError("Path del PDF non valido, impossibile mostrare il PDF.", request, response);
@@ -88,7 +85,7 @@ public class AdminManagement extends HttpServlet {
 						// Setting the exams
 						ExamDAO examDAO = new ExamDAO();
 						ArrayList<Exam> examList = examDAO.doRetrieveAllExamsByRequestRCID(requestRCID);
-						if (examList != null) {
+						if (!examList.isEmpty()) {
 							request.setAttribute("examList", examList);
 							request.getSession().setAttribute("examList", examList);
 							// Setting the university
@@ -157,7 +154,7 @@ public class AdminManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
@@ -166,7 +163,7 @@ public class AdminManagement extends HttpServlet {
 	private void goBackWithError(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(message);
 		request.setAttribute("errorVRA1", message);
-		RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/AdminHome");
+		RequestDispatcher dis = request.getRequestDispatcher("/AdminHome");
 		dis.forward(request, response);
 	}
 

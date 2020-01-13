@@ -20,11 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 import model.Admin;
 import model.Exam;
 import model.RCState;
+import model.Report;
+import model.ReportDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.SenderMail;
 import model.Student;
 import model.UC;
+import model.ValidatedExam;
+import model.ValidatedExamDAO;
 
 /**
  * Servlet implementation class RequestRCManagement
@@ -57,24 +61,41 @@ public class RequestRCManagement extends HttpServlet {
 		Object user = request.getSession().getAttribute("user");
 		int result;
 		RequestDispatcher disp;
+		RequestRC reqRC = (RequestRC) request.getSession().getAttribute("reqRC");
+		
 		//Se la richiesta deve essere trattata dall' UC
 		if(user instanceof UC) {
 			String requestRCstate = request.getParameter("RequestRCstate");
 			RequestRCDAO reqDAO = new RequestRCDAO();
-			RequestRC requestRC = (RequestRC) request.getSession().getAttribute("reqRC");
-			//Se la richiesta � stata accettata dall'UC
+			//Se la richiesta viene accettata dall'UC
 			if(requestRCstate.equalsIgnoreCase("true")) {
-				result = reqDAO.updateState(stateAcceptByUC, requestRC.getRequestRCID());
+				System.out.println(reqRC.getRequestRCID());
+				//Aggiorno lo stato della richiesta
+				result = reqDAO.updateState(stateAcceptByUC, reqRC.getRequestRCID());
+				//Siccome la richiesta e' stata accettata creo ed allego un report contenente la lista degli esami da validare
+				ArrayList<Exam> exams = (ArrayList<Exam>) request.getSession().getAttribute("exams");
+				ReportDAO rDao = new ReportDAO();
+				ValidatedExam e = new ValidatedExam();
+				ValidatedExamDAO eDao = new ValidatedExamDAO();
+				result = rDao.createReport();
+				int reportID = rDao.doRetrieveLastReportID();
+				result = reqDAO.insertReportID(reportID, reqRC.getRequestRCID());
+				for(int i = 0; i < exams.size(); i++){
+					e.setExamName(exams.get(i).getName());
+					e.setReportID(reportID);
+					e.setValidationProcedure(null);
+					result = eDao.insertValidatedExam(e);
+				}
 				disp = request.getServletContext().getRequestDispatcher("/UCManagement");
 				disp.forward(request, response);
-				}//Se la richiesta � stata rifiutata dall'UC
+				}//Se la richiesta viene rifiutata dall'UC
 			else if(requestRCstate.equalsIgnoreCase("false")) {
 				//Ottengo la motivazione del rifiuto della richiesta
 				String messageBody = request.getParameter("popupText");
-				result = reqDAO.updateState(stateRejectByUC, requestRC.getRequestRCID());
+				result = reqDAO.updateState(stateRejectByUC, reqRC.getRequestRCID());
 				Student student = (Student) request.getSession().getAttribute("userRC");
 				String message = "Gentile "+student.getName()+" " + student.getSurname() +", la sua richiesta di convalida della carriera pregressa"
-				+ " � stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
+				+ " e' stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
 				email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
 				requestDispatcher.forward(request, response);	

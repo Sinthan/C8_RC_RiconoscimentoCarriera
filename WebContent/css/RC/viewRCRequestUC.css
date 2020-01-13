@@ -1,40 +1,78 @@
 @charset "ISO-8859-1";
 
-@media only screen and (max-width: 540px) {
-	.panel h2 {
-		font-size: auto;
-	}
-	#drc2 {
-		font-size: 90%;
-		left: -30px
-	}
-	#drc1 {
-		font-size: 90%;
-		left: -18px
-	}
-	.form-popup {
-		margin-right: -35%;
-		z-index: 0;
-		right: 0;
-	}
-	.submitButton {
-		position: fixed;
-		float: right;
-	}
-	.news-block-seven {
-		width: auto;
-		position: relative;
-		float: left;
-	}
-}
-
-}
 {
 box-sizing
 :
  
 border-box
 ;
+}
+
+
+.downloadButton{
+	margin-top: -50px;
+	display: inline; 
+}
+.buttonForm{
+	width:340px;
+	position:relative;
+	display:inline;
+}
+
+#drc1{
+	position:relative;
+	display:inline;
+	margin: 12px;
+}
+#drc2{
+	position:relative;
+	display:inline;
+	margin: 12px;
+}
+
+.indentedDiv {
+	margin: 16px 0px 0px 32px;
+}
+
+.list-element {
+	padding: 10px 32px;
+}
+
+.no-left-margin {
+	margin-left: 0px;
+	padding-left: 0px;
+	margin-right: 32px;
+}
+
+#examsListHeader {
+	margin-left: 0px;
+	margin-bottom: 8px;
+}
+
+.list-element-centered {
+	padding: 10px 20px;
+}
+
+.description {
+	margin-left: 14px;
+	color: #929292;
+}
+
+.studentName {
+	padding-bottom: 110px;
+}
+
+h3 {
+	padding: 10px 16px 16px 16px;
+}
+
+.orange-frame {
+	border: 1.5px solid #ffb84e;
+	border-radius: 15px;
+	margin-top: 16px;
+	margin-bottom: 86px;
+	padding: 16px 16px 22px 22px;
+	background-color: #fcfbfc;
 }
 
 /* The popup form - hidden by default */
@@ -94,26 +132,12 @@ border-box
 	opacity: 1;
 }
 
-.panel {
-	float: left;
-	text-align: left;
-}
-
-.studentName {
-	width: 1000px;
-	position: relative;
-	float: left;
-}
-
-.text-left {
-	margin-top: 15px;
-	font-weight: bold;
-}
 
 .downloadButton {
 	width: 1400px;
 	position: relative;
 	float: left;
+	display: inline-block;
 	margin-left: 8px;
 	margin-bottom: 15px;
 }
@@ -145,17 +169,6 @@ border-box
 	width: 220px;
 	position: relative;
 	float: left;
-}
-
-/* div contenitore*/
-.ExamsDiv {
-	width: 800px;
-	overflow-x: scroll;
-	margin-left: 7px;
-}
-
-.ExamsDiv .table {
-	width: 800px;
 }
 
 .divsx {
@@ -375,4 +388,54 @@ button.reject .button-text {
 .btn-icon {
     height: 24px;
     width: 24px;
+}
+
+
+@media only screen and (max-width: 540px) {
+	
+	.list-element {
+		font-size: 90%;
+	}
+	
+	.list-element-centered {
+		font-size: 90%;
+	}
+	
+	#drc2 {
+		font-size: 90%;
+	}
+	#drc1 {
+		font-size: 90%;
+	}
+	.text-center{
+		font-size: 92%;
+	}
+	
+	.text-left{
+		font-size: 100%;
+	}
+	.form-popup {
+		margin-right: -35%;
+		z-index: 0;
+		right: 0;
+	}
+	
+	.news-block-seven {
+		width: auto;
+		position: relative;
+		float: left;
+	}
+
+	.submitButton.col-12 {
+		right: -12px;
+		width: 80%;
+		position:relative;
+		float:left;
+	}
+
+	#acceptForm{
+		margin-top:5px;
+		left: -39px;
+	}
+
 }

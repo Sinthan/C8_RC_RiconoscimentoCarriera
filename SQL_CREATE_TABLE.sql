@@ -54,7 +54,7 @@ CREATE TABLE VALIDATE_EXAM(
 	ID_EXAM_VALIDATE int(20) not null AUTO_INCREMENT,
     NAME_EXAM varchar(50) not null,
     CFU_CONVALIDATED tinyint(1) not null,
-    MODE_VALIDATION varchar(50) not null,
+    MODE_VALIDATION varchar(50) default null,
     FK_ID_REPORT int(20) not null,
     foreign key (FK_ID_REPORT) references REPORT(ID_REPORT),
 	primary key (ID_EXAM_VALIDATE)

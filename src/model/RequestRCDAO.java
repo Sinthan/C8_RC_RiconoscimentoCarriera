@@ -11,6 +11,8 @@ import java.util.Calendar;
 
 import org.apache.commons.io.FileUtils;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import controller.DbConnection;
 import controller.Utils;
 
@@ -68,6 +70,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			connection.commit();
 			System.out.println("insertRequestRC(result=" + result + ": " + request.toString());		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("insertRequestRC: error while executing the query\n" + e);
 			new RuntimeException("Couldn't insert the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -136,6 +139,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 					
 				
 			} catch(SQLException e) {
+				System.out.println("updateReportID: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the request in the database " + e);
 			} finally {
 				// Statement release
@@ -150,6 +154,49 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		}
 		
 	}
+	
+	
+	/**
+	 * Saves the report in request into the database.
+	 * 
+	 * @param request
+	 * @param reportID
+	 * @return			<ul><li>a positive value if the insertion succeeded
+	 *					<li>0 if nothing was added to the database
+	 * @author 			Gerardo Damiano
+	 */
+	@Override
+	public int insertReportID(int reportID, int requestID) {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			System.out.println(reportID + " id richiesta :" + requestID);
+			String updateSQL = "UPDATE REQUEST_RC SET FK_REPORT = ?" 
+					+ " WHERE (ID_REQUEST = ?); ";
+			try { 
+				
+				connection = DbConnection.getInstance().getConn();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				
+				// Setting parameters
+				preparedStatement.setInt(1,reportID);
+				preparedStatement.setInt(2,requestID);
+				preparedStatement.executeUpdate();
+				connection.commit();
+				return 1;
+			} catch(SQLException e) {
+				new RuntimeException("Couldn't find the request in the database " + e);
+			} finally {
+				// Statement release
+				if(preparedStatement != null)
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
+			return 0;
+		}
+	
 	
 	/**
 	 * Retrieves the <tt>status</tt> of the update given ID and current state
@@ -182,6 +229,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			ris = preparedStatement.executeUpdate();
 			connection.commit();
 		} catch(SQLException e) {
+			System.out.println("updateState: error while executing the query\n" + e);
 			new RuntimeException("Couldn't update the RequestRC " + requestRCID + e);
 		} finally {
 			// Statement release
@@ -237,6 +285,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 				requestRC.setReportID(resSet.getInt("FK_REPORT"));
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveRequestRCByRequestID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the RequestRC " + requestRCID + e);
 		} finally {
 			// Statement release
@@ -271,6 +320,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			}
 			return null;
 		} catch (SQLException e) {
+			System.out.println("doRetrieveRequestRCByStudentID: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -323,6 +373,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			// Deletes the pdf files and the student folder
 			FilePDFDAO pdfDAO = new FilePDFDAO();
 			FilePDF file = pdfDAO.doRetrieveAllFilePDFByIDRequestRC(requestRCID).get(0);	// Gets the first FilePDF
+			System.out.println(file);
 			String studentFilesFolderPath = Utils.getProjectPath() + Utils.getParentDirectoryFromFilePath(file.getPDFLink());	// Gets the path to the folder that contains all the student files
 			File studentDirectory = new File(studentFilesFolderPath);
 			if (FileUtils.deleteQuietly(studentDirectory)) {	//Deletes the directory and all its files
@@ -341,6 +392,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			connection.commit();
 			System.out.println("deleteRequestRC(result=" + result + ")");		// Logging the operation
 		} catch(SQLException e) {
+			System.out.println("deleteRequestRCByRequestID: error while executing the query\n" + e);
 			new RuntimeException("Couldn't delete the RequestRC " + e);
 		} finally {
 			// Statement release
@@ -354,10 +406,33 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		return result;
 	}
 
+	/**
+	 * Deletes the request that matches the specified student ID, and the related records of the
+	 * <tt>ContainsRelation</tt>, <tt>FilePDF</tt>, <tt>Exam</tt> (if not used in another request),
+	 * <tt>Report</tt>, <tt>ValidatedExams</tt> objects from the database.
+	 * 
+	 * @param	studentMail		the ID of the <tt>Student</tt> object that the <tt>RequestRC</tt> must match.
+	 * @return					<ul><li>a positive value if the deletion succeeded
+	 *							<li>0 if the request wasn't deleted
+	 *							<li>-1 if the deletion succeeded, but the database didn't return any information about the number of deleted rows
+	 *							<li>-2 if the passed parameter is not a valid <tt>Student</tt> ID</ul>
+	 * @author 	Gianluca Rossi
+	 */
 	@Override
-	public int deleteRequestRCByStudentID(int studentID) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteRequestRCByStudentID(String studentMail) {
+		if (studentMail.equals("")) { // Checks if parameter is a valid ID
+			System.out.println("deleteRequestRCByStudentID: Please enter a valid student ID.");
+			return -2;
+		}
+		
+		int result = 0;
+
+		RequestRC reqRC = doRetrieveRequestRCByStudentID(studentMail);
+		if (reqRC != null) {
+			int requestRCID = reqRC.getRequestRCID();
+			result = deleteRequestRCByRequestID(requestRCID);
+		}
+		return result;
 	}
 
 	@Override
@@ -390,6 +465,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			}
 
 		} catch (SQLException e) {
+			System.out.println("doRetrieveAllRequestRCBystate: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 

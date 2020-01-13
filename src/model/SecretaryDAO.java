@@ -41,6 +41,7 @@ public class SecretaryDAO implements SecretaryDAOInterface{
 			}
 			return null;
 		} catch (SQLException e) {
+			System.out.println("doRetrieveSecretary: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}

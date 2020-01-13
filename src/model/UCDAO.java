@@ -42,6 +42,7 @@ public class UCDAO implements UCDAOInterface{
 			}
 			
 		} catch (SQLException e) {
+			System.out.println("doRetrieveUc: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
 	}

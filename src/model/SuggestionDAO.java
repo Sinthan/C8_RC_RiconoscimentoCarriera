@@ -67,6 +67,7 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 				sugg.setValidationDate(resSet.getDate("DATE_VALIDATION"));
 			}
 		} catch(SQLException e) {
+			System.out.println("doRetrieveSuggestionByName: error while executing the query\n" + e);
 			new RuntimeException("Couldn't retrieve the Suggestion for the exam " + examName + e);
 		} finally {
 			// Statement release
