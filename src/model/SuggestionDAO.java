@@ -23,7 +23,7 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 	public int insertSuggestion(Suggestion suggestion) {
 		
 		if(suggestion==null) {
-			System.out.println("SuggestionDAO: passed null Sugestion");
+			System.out.println("insertSuggestion: passed null Sugestion");
 			return-1;
 		}
 		Connection connection = null;
@@ -50,10 +50,10 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 
 			if (resSet.first()) {	// suggestion found
 				int examID = resSet.getInt(1);
-				System.out.println("suggestion \"" +  "\" already present.");
+				System.out.println("suggestion already present.");
 				return examID;
 			} else {		// Suggestion not already present in the database, proceeding with the insertion
-				System.out.println("Suggestion \"" +  "\" not present, adding it to the database.");
+				System.out.println("Suggestion not present, adding it to the database.");
 				preparedStatement.close();
 				preparedStatement = connection.prepareStatement(insertSQL);			
 				// Setting parameters
@@ -69,7 +69,7 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 			}
 		} catch(SQLException e) {
 			System.out.println("insertSuggstion: error while executing the query\n" + e);
-			new RuntimeException("Couldn't insert the Suggestion \""  + "\" in the database " + e);
+			new RuntimeException("Couldn't insert the Suggestion in the database " + e);
 		} finally {
 			// Statement release
 			if(preparedStatement != null)
