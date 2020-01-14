@@ -154,7 +154,7 @@
 										</div>
 									</div>
 									
-								<form action="./ReportManagement">
+								<form action="./ReportManagementServlet">
 									<c:forEach items="${validatedExamList}" var="vExam">
 										<div id="examsListRow<%=examRow%>" class="row">
 	<!-- Exam external name -->
@@ -184,10 +184,10 @@
 													<h3 class="inline">
 														/
 														</h3>
-														<h4 class="inline" name="externalExamCFU<%=examRow%>">
+														<h4 class="inline">
 														<%=examsList.get(examRow - 1).getCFU()%>
 														</h4>
-														
+										<input type="hidden" name="externalExamCFU<%=examRow%>" id="externalExamCFU<%=examRow%>" value="<%=examsList.get(examRow - 1).getCFU()%>"/>
 														</span>
 											</div>
 	<!-- Exam CFU end -->

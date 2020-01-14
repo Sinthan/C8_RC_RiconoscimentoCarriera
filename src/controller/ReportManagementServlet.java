@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Exam;
+import model.RCState;
 import model.Report;
 import model.ReportDAO;
 import model.RequestRC;
@@ -42,20 +43,20 @@ public class ReportManagementServlet extends HttpServlet {
 	String subject = "ESITO RICONOSCIMENTO CARRIERA PREGRESSA";
 	String adminMail = "carrierapregressaunisa@gmail.com";
 	String fileName = "Report.pdf";
-	  
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReportManagementServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ReportManagementServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		// Getting the Session
 		HttpSession sess = request.getSession();
 		// Getting the RCRequest
@@ -66,8 +67,8 @@ public class ReportManagementServlet extends HttpServlet {
 		SuggestionDAO suggDao = new SuggestionDAO();
 		ValidatedExamDAO vExamDao = new ValidatedExamDAO();
 		SenderMail senderMail = new SenderMail();
-		
-		
+
+
 		ArrayList<ValidatedExam> examList = new ArrayList<ValidatedExam>();
 		ArrayList<String> suggOverwrite = new ArrayList<String>(); 
 		String note = request.getParameter("additionalNotes");
@@ -76,12 +77,12 @@ public class ReportManagementServlet extends HttpServlet {
 		String studentMail = req.getStudentID();
 		PDFCreator pdfC = new PDFCreator(System.getProperty("user.dir") + "/" + "Report.pdf");
 		String stName = sDao.doRetrieveStudentByEmail(studentMail).getName() + " " + sDao.doRetrieveStudentByEmail(studentMail).getSurname();
-		String messageBody = "Gentile " + stName + ";\n" + "In allegato troverà il PDF contente l'esito della sua richiesta di riconoscimento carriera.\nBuona Giornata.";
-		ArrayList<Integer> CFUarray = new ArrayList();
+		String messageBody = "Gentile " + stName + ";\n" + "In allegato troverï¿½ il PDF contente l'esito della sua richiesta di riconoscimento carriera.\nBuona Giornata.";
+		ArrayList<Integer> ValidatedCFUArray = new ArrayList();
 		ArrayList<Integer> CFUExt = new ArrayList();
 		Suggestion sugg = null;
-		
-		
+
+
 		//Get row number
 		int rows = Integer.parseInt(request.getParameter("rowCount"));
 		//Get Report id
@@ -90,18 +91,18 @@ public class ReportManagementServlet extends HttpServlet {
 		int CFU;
 		String examName;
 		String mode;
-		
+
 		//Update Report if request exists
 		if (req != null) {
 			//if RCRequest is != null
 			for(int i = 1; i < rows; i++) {
 				ValidatedExam vExam = new ValidatedExam();
-				examName =(String) request.getParameter("validatedExamName" + i);
+				examName = (String) request.getParameter("validatedExamName" + i);
 				String CFUParam = request.getParameter("validatedExamCFU" + i);
 				if( request.getParameter("suggOverwrite" + i ) != null ) {
 					suggOverwrite.add("suggOverwrite" + i);
 				}
-				if (!CFUParam.equals("")) {
+				if (!(CFUParam == null) && !CFUParam.equals("")) {
 					CFU = Integer.parseInt(CFUParam);
 				} else {
 					CFU = -1;
@@ -111,28 +112,18 @@ public class ReportManagementServlet extends HttpServlet {
 				vExam.setValidatedCFU(CFU);
 				vExam.setValidationProcedure(mode);
 				vExam.setReportID(repoID);
-				CFUarray.add(Integer.parseInt(request.getParameter("validatedExamCFU"+i)));
-				CFUExt.add((Integer)request.getAttribute("externalExamCfu"+i));
+				
 				vExamDao.updateValidatedExam(vExam);		
 				examList.add(vExam);
-				
-				// if suggestion doesn't exists add create it
-				if(suggDao.doRetrieveSuggestionByName(req.getUniversityID(),examName,CFUExt.get(i))==null) {
-				Date date = new Date(System.currentTimeMillis());
-				sugg = new Suggestion(req.getUniversityID(),examName,CFUExt.get(i),CFUarray.get(i),mode,date);
-				suggDao.insertSuggestion(sugg);
-		
-			}
-			
 			}
 			repoDao.updateNote(repoID,note);
-			
+
 			// Control if folder DocumentsRequestRC is present in the project
 			File dir = new File(projectPath + "/WebContent" + pdfSaveFolder);
 			if( !dir.mkdir() ) {
 				dir.mkdir();	
 			}
-						
+
 			// Control if folder of Students document is present in DocumentsRequestRC
 			dir = new File(projectPath + "/WebContent" + pdfSaveFolder + "/" + s.getEmail());
 			if( !dir.mkdir() ) {
@@ -148,7 +139,7 @@ public class ReportManagementServlet extends HttpServlet {
 				writer.println( sOW );
 			}
 			writer.close();
-			
+
 			//Load checked suggestion
 			suggOverwrite = new ArrayList<String>();
 			if ( fileSuggOW.exists() ) {
@@ -172,34 +163,57 @@ public class ReportManagementServlet extends HttpServlet {
 					suggOverwrite.add( null );
 				}
 			}
-			
+
 			//Set checked suggestion in servlet
 			request.setAttribute("suggOverwrite", suggOverwrite);
 			//Set RCRequest id in request
 			request.setAttribute("idRequestRC",requestRCID);
 			//Set success message in request
 			request.setAttribute("successCR", "Bozza salvata correttamente");
-			
+
 			if (request.getParameter("closeRCRequestBtn") != null) {
 				// If generate report was pressed
-				// Redirect back to rc requests list and show feedback
+				
+				// Create a suggestion if it doesn't exist
+				for(int i = 1; i < rows; i++) {
+					ValidatedCFUArray.add(Integer.parseInt(request.getParameter("validatedExamCFU"+i)));
+					CFUExt.add(Integer.parseInt(request.getParameter("externalExamCFU"+i)));
+					// if suggestion doesn't exists add create it
+					if(suggDao.doRetrieveSuggestionByName(req.getUniversityID(), examList.get(i-1).getExamName(), CFUExt.get(i-1)) == null) {
+						Date date = new Date(System.currentTimeMillis());
+						sugg = new Suggestion(req.getUniversityID(),
+											examList.get(i-1).getExamName(),
+											CFUExt.get(i-1),
+											ValidatedCFUArray.get(i-1),
+											examList.get(i-1).getValidationProcedure(),
+											date);
+						suggDao.insertSuggestion(sugg);
+
+					}
+				}
+				
+				
+				
 				for( int i = 0 ; i< suggOverwrite.size() ; i++ ) {
 					sugg = new Suggestion();
 					if( suggOverwrite.get(i) != null ) {
-						sugg.setExamName( req.getUniversityID() );
+						sugg.setUniversityName(req.getUniversityID());
 						sugg.setExamName(examList.get(i).getExamName());
 						sugg.setExternalStudentCFU( Integer.parseInt(request.getParameter("externalExamCFU" + (i+1) ) ) ) ;
 						sugg.setValidatedCFU(examList.get(i).getValidatedCFU());
 						sugg.setValidationMode(examList.get(i).getValidationProcedure());
-						Suggestion suggestion = suggDao.doRetrieveSuggestionByName( req.getUniversityID() , sugg.getExamName() , sugg.getExternalStudentCFU());
+						Suggestion suggestion = suggDao.doRetrieveSuggestionByName(req.getUniversityID(), sugg.getExamName(), sugg.getExternalStudentCFU());
 						sugg.setValidationDate(suggestion.getValidationDate());
-						
 					}
 				}
-				
-				pdfC.createReportPdf(examList, CFUarray, stName, CFUExt, note);
+
+				pdfC.createReportPdf(examList, ValidatedCFUArray, stName, CFUExt, note);
 				senderMail.sendMailWithAttached(adminMail,studentMail,subject,messageBody, fileName);
 				
+				// Update request status
+				rDao.updateState(RCState.approved, requestRCID);
+				
+				// Redirect back to rc requests list and show feedback
 				request.setAttribute("succCR", "Richiesta chiusa correttamente");
 				RequestDispatcher dis = request.getRequestDispatcher("/AdminHome");
 				dis.forward(request, response);
@@ -213,7 +227,7 @@ public class ReportManagementServlet extends HttpServlet {
 			goBackWithError("Impossibile caricare la pagina, errore nel recupero della richiesta selezionata, si prega di riprovare.", request, response);
 		}
 	}
-		
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -222,7 +236,7 @@ public class ReportManagementServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
+
 	private void goBackWithError(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(message);
 		request.setAttribute("errorCR", message);
