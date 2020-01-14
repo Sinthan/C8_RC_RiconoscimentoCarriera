@@ -95,7 +95,7 @@ public class ViewRCRequestAdminServlet extends HttpServlet {
 							SuggestionDAO suggDAO = new SuggestionDAO();
 							ArrayList<Suggestion> suggList = new ArrayList<Suggestion>();
 							for (Exam e : examList) {
-								suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName()));
+								suggList.add(suggDAO.doRetrieveSuggestionByName(universityName, e.getName())); //aggiungere CFU esterni
 							}
 							request.setAttribute("suggList", suggList);
 							// Creating the RCRequests documents folder if it doesn't exist
