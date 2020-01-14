@@ -143,7 +143,6 @@ public class ViewReportAdminServlet extends HttpServlet {
 				request.setAttribute("studentName", s.getName() + " " + s.getSurname());
 				request.setAttribute("note", report.getNote());
 				request.setAttribute("validatedExamList", validatedExamList);
-				request.getSession().setAttribute("validatedExamList", validatedExamList);
 				//Redirect
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/GUIAdminRC/createReport.jsp");
 				requestDispatcher.forward(request, response);
