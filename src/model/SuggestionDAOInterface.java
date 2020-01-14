@@ -12,4 +12,5 @@ public interface SuggestionDAOInterface {
 	public Suggestion doRetrieveSuggestionByName(String univerityName,String examName);
 	public int deleteOldSuggestions();
 	public Suggestion doRetrieveSuggestionByName(String universityName, String examName, int CFU);
+	int updateSuggestion(Suggestion sugg);
 }

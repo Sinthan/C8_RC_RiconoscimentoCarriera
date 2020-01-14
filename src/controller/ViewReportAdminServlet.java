@@ -68,7 +68,7 @@ public class ViewReportAdminServlet extends HttpServlet {
 				// if exams list != empty
 				// Setting the RequestRC ID
 				request.setAttribute("idRequestRC", requestRCID);
-				if(req.getReportID() == 1) {
+				if(req.getReportID() == 0) {
 					ValidatedExam e = new ValidatedExam();
 					int result;
 					result = repoDao.createReport();
@@ -151,7 +151,6 @@ public class ViewReportAdminServlet extends HttpServlet {
 				//if exams list is empty
 				goBackWithError("Impossibile caricare la pagina, errore nel recupero degli esami della richiesta, si prega di riprovare.", request, response);
 			}
-
 		} else {
 			//if the RCRequest not found
 			goBackWithError("Impossibile caricare la pagina, errore nel recupero della richiesta selezionata, si prega di riprovare.", request, response);

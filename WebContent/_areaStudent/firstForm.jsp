@@ -134,7 +134,13 @@
 										</div>
 
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary btn-submit">Invia</button>
+											<button id="send" value="send" type="submit"
+												class="send">
+												<span class="circle">
+													<span class="icon arrow"></span>
+												</span>
+												<span class="button-text">Invia</span>
+											</button>
 										</div>
 
 										<div class="clearfix"></div>

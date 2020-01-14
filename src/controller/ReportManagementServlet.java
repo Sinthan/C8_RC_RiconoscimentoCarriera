@@ -23,6 +23,8 @@ import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;
 import model.StudentDAO;
+import model.Suggestion;
+import model.SuggestionDAO;
 import model.ValidatedExam;
 import model.ValidatedExamDAO;
 
@@ -56,12 +58,14 @@ public class ReportManagementServlet extends HttpServlet {
 		RequestRCDAO rDao = new RequestRCDAO();
 		ReportDAO repoDao = new ReportDAO();
 		StudentDAO sDao = new StudentDAO();
+		SuggestionDAO suggDao = new SuggestionDAO();
 		ValidatedExamDAO vExamDao = new ValidatedExamDAO();
 		ArrayList<ValidatedExam> examList = new ArrayList<ValidatedExam>();
 		ArrayList<String> suggOverwrite = new ArrayList<String>(); 
 		String note = request.getParameter("additionalNotes");
 		RequestRC req = rDao.doRetrieveRequestRCByRequestID(requestRCID);
 		Student s =  sDao.doRetrieveStudentByEmail(req.getStudentID());
+		
 		
 		//Get row number
 		int rows = Integer.parseInt(request.getParameter("rowCount"));
@@ -153,6 +157,19 @@ public class ReportManagementServlet extends HttpServlet {
 			if (request.getParameter("closeRCRequestBtn") != null) {
 				// If generate report was pressed
 				// Redirect back to rc requests list and show feedback
+				for( int i = 0 ; i< suggOverwrite.size() ; i++ ) {
+					Suggestion sugg = new Suggestion();
+					if( suggOverwrite.get(i) != null ) {
+						sugg.setExamName( req.getUniversityID() );
+						sugg.setExamName(examList.get(i).getExamName());
+						sugg.setExternalStudentCFU( Integer.parseInt(request.getParameter("externalExamCFU" + (i+1) ) ) ) ;
+						sugg.setValidatedCFU(examList.get(i).getValidatedCFU());
+						sugg.setValidationMode(examList.get(i).getValidationProcedure());
+						Suggestion suggestion = suggDao.doRetrieveSuggestionByName( req.getUniversityID() , sugg.getExamName() , sugg.getExternalStudentCFU());
+						sugg.setValidationDate(suggestion.getValidationDate());
+						
+					}
+				}
 				request.setAttribute("succCR", "Richiesta chiusa correttamente");
 				RequestDispatcher dis = request.getRequestDispatcher("/AdminHome");
 				dis.forward(request, response);
