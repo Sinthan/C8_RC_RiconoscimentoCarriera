@@ -201,13 +201,12 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 	}
 	
 	/**
-	 * Updates the specified <tt>ValidatedExam</tt> object into the database.
+	 * Updates the specified <tt>Suggestion</tt> object into the database.
 	 * 
-	 * @param	vExam	the <tt>ValidatedExam</tt> object that will be updated.
-	 * @return			<ul><li>a positive count if the update succeeded
-	 *					<li>0 if nothing was altered into the database
-	 *					<li>-1 if the update succeeded, but the database didn't return any information about the number of updated rows
-	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
+	 * @param	sugg	the <tt>Suggestion</tt> object that will be updated.
+	 * @return			<ul><li>0 if the update succeeded
+	 *					<li>-1 if input param is null
+	 *					<li>-2 if param doesen't exists in database
 	 *@author 	Lorenzo Maturo
 	 */
 	@Override
