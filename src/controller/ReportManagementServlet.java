@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +22,7 @@ import model.Report;
 import model.ReportDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
+import model.SenderMail;
 import model.Student;
 import model.StudentDAO;
 import model.Suggestion;
@@ -37,6 +39,9 @@ public class ReportManagementServlet extends HttpServlet {
 	String projectPath = Utils.getProjectPath();
 	String pdfSaveFolder = "/DocumentsRequestRC";
 	String projectName = "/C8_RC_RiconoscimentoCarriera";
+	String subject = "ESITO RICONOSCIMENTO CARRIERA PREGRESSA";
+	String adminMail = "carrierapregressaunisa@gmail.com";
+	String fileName = "Report.pdf";
 	  
     /**
      * @see HttpServlet#HttpServlet()
@@ -60,11 +65,21 @@ public class ReportManagementServlet extends HttpServlet {
 		StudentDAO sDao = new StudentDAO();
 		SuggestionDAO suggDao = new SuggestionDAO();
 		ValidatedExamDAO vExamDao = new ValidatedExamDAO();
+		SenderMail senderMail = new SenderMail();
+		
+		
 		ArrayList<ValidatedExam> examList = new ArrayList<ValidatedExam>();
 		ArrayList<String> suggOverwrite = new ArrayList<String>(); 
 		String note = request.getParameter("additionalNotes");
 		RequestRC req = rDao.doRetrieveRequestRCByRequestID(requestRCID);
 		Student s =  sDao.doRetrieveStudentByEmail(req.getStudentID());
+		String studentMail = req.getStudentID();
+		PDFCreator pdfC = new PDFCreator(System.getProperty("user.dir") + "/" + "Report.pdf");
+		String stName = sDao.doRetrieveStudentByEmail(studentMail).getName() + " " + sDao.doRetrieveStudentByEmail(studentMail).getSurname();
+		String messageBody = "Gentile " + stName + ";\n" + "In allegato troverà il PDF contente l'esito della sua richiesta di riconoscimento carriera.\nBuona Giornata.";
+		ArrayList<Integer> CFUarray = new ArrayList();
+		ArrayList<Integer> CFUExt = new ArrayList();
+		Suggestion sugg = null;
 		
 		
 		//Get row number
@@ -96,8 +111,19 @@ public class ReportManagementServlet extends HttpServlet {
 				vExam.setValidatedCFU(CFU);
 				vExam.setValidationProcedure(mode);
 				vExam.setReportID(repoID);
+				CFUarray.add(Integer.parseInt(request.getParameter("validatedExamCFU"+i)));
+				CFUExt.add((Integer)request.getAttribute("externalExamCfu"+i));
 				vExamDao.updateValidatedExam(vExam);		
 				examList.add(vExam);
+				
+				// if suggestion doesn't exists add create it
+				if(suggDao.doRetrieveSuggestionByName(req.getUniversityID(),examName,CFUExt.get(i))==null) {
+				Date date = new Date(System.currentTimeMillis());
+				sugg = new Suggestion(req.getUniversityID(),examName,CFUExt.get(i),CFUarray.get(i),mode,date);
+				suggDao.insertSuggestion(sugg);
+		
+			}
+			
 			}
 			repoDao.updateNote(repoID,note);
 			
@@ -158,7 +184,7 @@ public class ReportManagementServlet extends HttpServlet {
 				// If generate report was pressed
 				// Redirect back to rc requests list and show feedback
 				for( int i = 0 ; i< suggOverwrite.size() ; i++ ) {
-					Suggestion sugg = new Suggestion();
+					sugg = new Suggestion();
 					if( suggOverwrite.get(i) != null ) {
 						sugg.setExamName( req.getUniversityID() );
 						sugg.setExamName(examList.get(i).getExamName());
@@ -170,6 +196,10 @@ public class ReportManagementServlet extends HttpServlet {
 						
 					}
 				}
+				
+				pdfC.createReportPdf(examList, CFUarray, stName, CFUExt, note);
+				senderMail.sendMailWithAttached(adminMail,studentMail,subject,messageBody, fileName);
+				
 				request.setAttribute("succCR", "Richiesta chiusa correttamente");
 				RequestDispatcher dis = request.getRequestDispatcher("/AdminHome");
 				dis.forward(request, response);
