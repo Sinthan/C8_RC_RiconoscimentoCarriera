@@ -61,6 +61,15 @@ h3 {
 	padding-bottom: 50px;
 }
 
+.tooltip.right .tooltip-inner {
+	background-color: #d5d5d5;
+    color:#5e5e5e;
+}
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: #d5d5d5;
+}
+
 .list-element {
 	padding: 10px 16px;
 }
