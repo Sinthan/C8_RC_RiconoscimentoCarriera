@@ -1,8 +1,6 @@
 package controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -16,14 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import model.Exam;
 import model.ExamDAO;
-import model.FilePDF;
-import model.FilePDFDAO;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;

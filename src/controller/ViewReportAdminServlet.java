@@ -68,7 +68,7 @@ public class ViewReportAdminServlet extends HttpServlet {
 				// if exams list != empty
 				// Setting the RequestRC ID
 				request.setAttribute("idRequestRC", requestRCID);
-				if(req.getReportID() == 1) {
+				if(req.getReportID() == 0) {
 					ValidatedExam e = new ValidatedExam();
 					int result;
 					result = repoDao.createReport();

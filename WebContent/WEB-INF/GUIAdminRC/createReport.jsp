@@ -154,7 +154,7 @@
 										</div>
 									</div>
 									
-								<form action="./ReportManagementServlet">
+								<form action="./GenerateReportServlet">
 									<c:forEach items="${validatedExamList}" var="vExam">
 										<div id="examsListRow<%=examRow%>" class="row">
 	<!-- Exam external name -->
