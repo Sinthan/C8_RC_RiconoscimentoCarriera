@@ -41,7 +41,30 @@ public class SenderMail {
         properties.put ( "mail.smtp.tls", "yes" );
     }
 
-    public void sendMail ( String from, String to, String subject, String messageBody, String fileName ) {
+    public void sendMail ( String from, String to, String subject, String messageBody, String fileName) {
+        try {
+        	
+            Session session = Session.getDefaultInstance ( properties, authenticator );
+            message = new MimeMessage ( session );
+            message.setFrom ( new InternetAddress ( from ) );
+            message.addRecipient ( Message.RecipientType.TO,
+                                new InternetAddress ( to ) );
+            message.setSubject ( subject );
+
+            multipart = new MimeMultipart ();
+            messageBodyPart = new MimeBodyPart ();
+            messageBodyPart.setContent ( messageBody, "text/html" );
+            multipart.addBodyPart ( messageBodyPart );
+            message.setText(messageBody);
+         
+            Transport.send ( message );
+            System.out.println ( "Message send successfully...." );
+        } catch ( Exception me ) {
+            me.printStackTrace ();
+        }
+    } 
+
+    public void sendMailWithAttached ( String from, String to, String subject, String messageBody, String fileName ) {
         try {
         	
             Session session = Session.getDefaultInstance ( properties, authenticator );
@@ -57,14 +80,13 @@ public class SenderMail {
             multipart.addBodyPart ( messageBodyPart );
             message.setText(messageBody);
             
-            /* 
             messageBodyPart = new MimeBodyPart ();
             DataSource source = new FileDataSource ( fileName );
             messageBodyPart.setDataHandler ( new DataHandler ( source ) );
             messageBodyPart.setFileName ( fileName );
             multipart.addBodyPart ( messageBodyPart );
             message.setContent ( multipart );
-             */	
+
          
             Transport.send ( message );
             System.out.println ( "Message send successfully...." );
@@ -72,7 +94,7 @@ public class SenderMail {
             me.printStackTrace ();
         }
     } 
-
+    
     private void performTask () {
         sendMail ( from, to, subject, messageBody, fileName );
     }

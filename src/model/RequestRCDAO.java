@@ -11,8 +11,6 @@ import java.util.Calendar;
 
 import org.apache.commons.io.FileUtils;
 
-import com.itextpdf.text.log.SysoCounter;
-
 import controller.DbConnection;
 import controller.Utils;
 
