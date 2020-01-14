@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import controller.DbConnection;
 import model.Suggestion;
@@ -130,6 +131,72 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 				}
 		}
 		return sugg;
+	}
+	
+	/**
+	 * Updates the specified <tt>ValidatedExam</tt> object into the database.
+	 * 
+	 * @param	vExam	the <tt>ValidatedExam</tt> object that will be updated.
+	 * @return			<ul><li>a positive count if the update succeeded
+	 *					<li>0 if nothing was altered into the database
+	 *					<li>-1 if the update succeeded, but the database didn't return any information about the number of updated rows
+	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
+	 *@author 	Lorenzo Maturo
+	 */
+	@Override
+	public int updateSuggestion(Suggestion sugg) {
+
+		if(sugg==null) {
+			System.out.println( "updateSuggestion: Void sugg passed" );
+			return -1;
+		} else if( doRetrieveSuggestionByName(sugg.getUniversityName(), sugg.getExamName(), sugg.getExternalStudentCFU() )==null){
+			System.out.println( "updateSuggestion: sugg doesn't exists in DB" );
+			return -2;
+		}else {
+			
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			// Selects the sugg 
+			String updateSQL = "UPDATE suggestion SET VALIDATED_CFU = ?, MODE_VALIDATION = ?, DATE_VALIDATION = ?" 
+					+ " WHERE ( NAME_UNIVERSITY = ? AND NAME_EXAM_EXTERN = ? AND NUMBER_CFU_EXTERN = ? ); ";
+			try { 
+				
+				connection = DbConnection.getInstance().getConn();
+				preparedStatement = connection.prepareStatement(updateSQL);
+				
+				//Set Data
+				Calendar calendar = Calendar.getInstance();
+				java.util.Date currentDate = calendar.getTime();
+				java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+				
+				// Setting parameters
+				preparedStatement.setInt(1, sugg.getValidatedCFU());
+				preparedStatement.setString(2, sugg.getValidationMode());
+				preparedStatement.setDate(3, sqlDate);
+				preparedStatement.setString(4, sugg.getUniversityName());
+				preparedStatement.setString(5, sugg.getExamName());
+				preparedStatement.setInt(6, sugg.getExternalStudentCFU());
+				preparedStatement.executeUpdate();
+				connection.commit();
+					
+				
+			} catch(SQLException e) {
+				System.out.println("updateSuggestion: error while executing the query\n" + e);
+				new RuntimeException("Couldn't find the sugg \"" + sugg.getExamName() + "\" in the database " + e);
+			} finally {
+				// Statement release
+				if(preparedStatement != null)
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
+			return 0;
+		}
+		
+	
 	}
 	
 	/**
