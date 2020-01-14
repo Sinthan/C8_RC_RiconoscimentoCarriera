@@ -57,6 +57,11 @@
 		suggOverwriteCheck.checked = false;
 		suggOverwriteCheck.disabled = true;
 		
+		// Get the applied suggestion label
+		appliedSuggLabel = document.getElementById("appliedSuggLabel" + rowNumber);
+		appliedSuggLabel.style.visibility = "visible";
+		
+		// Hiding the suggestion
 		$("#suggestion" + rowNumber).collapse('hide');
 	}
 	
@@ -67,14 +72,19 @@
 		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
 		// Get the overwrite suggestion
 		suggOverwriteCheck = document.getElementById("suggOverwrite" + rowNumber);
+		// Get the applied suggestion label
+		appliedSuggLabel = document.getElementById("appliedSuggLabel" + rowNumber);
+		
 		if (validatedCFUField.value == suggestedCFU && validationModeField.value == suggestedProcedure) {
 			validatedCFUField.style.backgroundColor = suggestionActiveBG;
 			validationModeField.style.backgroundColor = suggestionActiveBG;
+			appliedSuggLabel.style.visibility = "visible";
 			suggOverwriteCheck.checked = false;
 			suggOverwriteCheck.disabled = true;
 		} else {
 			validationModeField.style.backgroundColor = "#ffffff";
 			validatedCFUField.style.backgroundColor = "#ffffff";
+			appliedSuggLabel.style.visibility = "hidden";
 			suggOverwriteCheck.disabled = false;
 		}
 	}
@@ -192,10 +202,10 @@
 											</div>
 	<!-- Exam CFU end -->
 	<!-- Exam validation mode -->
-											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center validationMode"
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center validationModeDiv"
 												id="validationMode">
 
-												<textarea class="form-control"
+												<textarea class="form-control validationModeTxtArea"
 													id="validatedExamMode<%=examRow%>"
 													name = "validatedExamMode<%=examRow%>"
 													placeholder="es. L'esame é stato convalidato come PROGRAMMAZIONE 1"
@@ -207,7 +217,9 @@
 																	document.getElementById("validatedExamMode<%=examRow%>").value = '${vExam.validationProcedure}';
 																}
 														</script>
-
+														<div id="appliedSuggLabel<%=examRow%>" class="appliedSuggLabel">
+													        <h5>Suggerimento applicato!</h5>
+													      </div>
 											</div>
 	<!-- Exam validation mode end-->
 	<!-- Exam suggestion -->
@@ -270,8 +282,7 @@
 												</div>
 												<div
 													class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
-													<button
-														onclick="fillRowWithSuggestion(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>')"
+													<button onclick = "fillRowWithSuggestion(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>')"
 														class="btn btn-success" type="button">Usa suggerimento</button>
 												</div>
 												<!-- Adding an extra div in order to make the suggestion resize correctly -->
