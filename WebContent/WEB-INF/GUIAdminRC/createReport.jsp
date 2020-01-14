@@ -52,6 +52,11 @@
 		validationModeField.value  = suggestedProcedure;
 		validationModeField.style.backgroundColor = suggestionActiveBG;
 		
+		// Get the overwrite suggestion
+		suggOverwriteCheck = document.getElementById("suggOverwrite" + rowNumber);
+		suggOverwriteCheck.checked = false;
+		suggOverwriteCheck.disabled = true;
+		
 		$("#suggestion" + rowNumber).collapse('hide');
 	}
 	
@@ -60,12 +65,17 @@
 		validatedCFUField = document.getElementById("validatedExamCFU" + rowNumber);
 		// Get the validation mode field
 		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
+		// Get the overwrite suggestion
+		suggOverwriteCheck = document.getElementById("suggOverwrite" + rowNumber);
 		if (validatedCFUField.value == suggestedCFU && validationModeField.value == suggestedProcedure) {
 			validatedCFUField.style.backgroundColor = suggestionActiveBG;
 			validationModeField.style.backgroundColor = suggestionActiveBG;
+			suggOverwriteCheck.checked = false;
+			suggOverwriteCheck.disabled = true;
 		} else {
 			validationModeField.style.backgroundColor = "#ffffff";
 			validatedCFUField.style.backgroundColor = "#ffffff";
+			suggOverwriteCheck.disabled = false;
 		}
 	}
 	
@@ -117,13 +127,12 @@
 						<div class="content">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
-									<br>
 									<h1 class="text-left">Compila il report</h1>
-									<h5 class="text-left description">
+									<h4 class="text-left description">
 										<em>per la richiesta di <%=request.getAttribute("studentName")%></em>
-									</h5>
+									</h4>
 								</div>
-<!-- Editable exams list-->
+<!-- Editable exams list -->
 								<div class="col-lg-11 col-md-11" id="editableExamsList">
 									<div id="examsListHeader" class="row">
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
@@ -150,12 +159,12 @@
 										<div id="examsListRow<%=examRow%>" class="row">
 	<!-- Exam external name -->
 											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
-												id="validatedExamName<%=examRow%>">
+												id="validatedExamName<%=examRow%>" name="validatedExamName<%=examRow%>">
 												<h4 class="list-element">${vExam.examName}</h4>
 											</div>
 											
 								<input type="hidden" name="validatedExamName<%=examRow%>" id="validatedExamName<%=examRow%>" value="${vExam.examName}"/>
-	<!-- Exam external name end-->
+	<!-- Exam external name end -->
 	<!-- Exam CFU -->
 											<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="CFU">
 
@@ -175,14 +184,14 @@
 													<h3 class="inline">
 														/
 														</h3>
-														<h4 class="inline">
+														<h4 class="inline" name="externalExamCFU<%=examRow%>">
 														<%=examsList.get(examRow - 1).getCFU()%>
 														</h4>
 														</span>
 											</div>
 	<!-- Exam CFU end -->
 	<!-- Exam validation mode -->
-											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center"
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center validationMode"
 												id="validationMode">
 
 												<textarea class="form-control"
@@ -206,11 +215,7 @@
 											<%
 															if (suggList.size() >= examRow && suggList.get(examRow - 1) != null) {
 														%>
-														<script type="text/javascript">
-	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
-															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
-															checkSuggestionMatchForRow(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>');
-														</script>
+														
 											<span id="collapsableBtn<%=examRow%>" data-toggle="collapse"
 												data-target="#suggestion<%=examRow%>" aria-expanded="false"
 												aria-controls="suggestion<%=examRow%>">
@@ -227,8 +232,8 @@
 											  <label for="suggOverwrite<%=examRow%>"><h5>Aggiorna il<br>suggerimento</h5></label>
 											</div>
 											<%
-											System.out.println(suggOverwrite);
-															if (suggOverwrite.size() >= examRow && suggOverwrite.get(examRow - 1) != null) {
+											
+														if (suggOverwrite.size() >= examRow && suggOverwrite.get(examRow - 1) != null) {
 														%>
 														<script type="text/javascript">
 	 														document.getElementById("suggOverwrite<%=examRow%>").checked = true;
@@ -274,11 +279,16 @@
 
 											</div>
 										</div>
+										<script type="text/javascript">
+	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
+															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
+															checkSuggestionMatchForRow(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>');
+										</script>
 										<%
 													} else {
 												%>
 										<span data-toggle="tooltip" data-html="true"
-											data-placement="top"
+											data-placement="right"
 											title="<b><em>Suggerimento<br>non disponibile</em></b>"
 											style="padding-top: 13px;">
 											<button class="btn btn-primary btn-square" type="button"
@@ -306,7 +316,7 @@
 								<h4 class="text-left">
 									<b>Note aggiuntive</b>
 								</h4>
-								<textarea class="form-control" id="additionalNotes"  name="additionalNotes"
+								<textarea class="form-control list-element notes" id="additionalNotes"  name="additionalNotes"
 									placeholder="" rows="5"></textarea>
 								<script type="text/javascript">
 																if ('<%=request.getAttribute("note")%>' != "null") {
@@ -336,14 +346,14 @@
 									</button>
 								</form>
 							</div>
-<!-- Report buttons end-->
+<!-- Report buttons end -->
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
 	<jsp:include page="/partials/footer.jsp" />
 	</div>
 	<jsp:include page="/partials/includes.jsp" />

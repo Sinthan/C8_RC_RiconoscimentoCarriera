@@ -1,33 +1,26 @@
 @charset "ISO-8859-1";
 
-@media only screen and (max-width: 540px) {
-	#drc2 {
-		font-size: 90%;
-		left: -30px
-	}
-	#drc1 {
-		font-size: 90%;
-		left:-18px
-	}
-	
-	.form-popup {
-		margin-right: -35%;
-       	 z-index: 0;
-       	 right:0;
-	}
-
-	.submitButton{
-	left: 8%;
-} 
-}
-
 .inline {
 	display: inline;
 }
 
 .description {
 	margin-left: 14px;
-	color: #929292;
+	color: darkgray;
+}
+
+.reportButtons {
+	text-align: right;
+	margin-top: 64px;
+	padding-right: 66px;
+}
+
+.validationMode {
+	top: -16px;
+}
+
+.field-title {
+	margin-bottom: 10px;
 }
 
 input[type=checkbox], .suggestionOverwriteCheckbox {
@@ -47,8 +40,17 @@ h3 {
 	padding: 10px 16px 16px 16px;
 }
 
+.row {
+	margin-top: 23px;
+}
+
 .list-element {
 	padding: 10px 16px;
+}
+
+.notes {
+	margin-left: 16px;
+	margin-top: 10px;
 }
 
 .list-element-centered {
@@ -56,7 +58,7 @@ h3 {
 }
 
 .btn-square {
-	margin: 3px 4px 12px 4px;
+	margin: 0px 4px 19px 4px;
 	display: inline;
 }
 
@@ -190,6 +192,7 @@ button.closeRCRequest .button-text {
 button.saveDraft {
 	width: 20.3rem;
 	height: auto;
+	margin-right: 32px;
 }
 
 button.saveDraft .circle {
