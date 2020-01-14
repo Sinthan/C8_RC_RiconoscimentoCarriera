@@ -1,8 +1,11 @@
 package controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,25 +39,29 @@ public class DownloaderRC extends HttpServlet {
 		//verifico se il file da scaricare è l'ID o CP
 		if (value.equalsIgnoreCase("id")) {
 			file = "ID.pdf";
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + 
-					"ID" + student.getEmail() + ".pdf\"");
 		} else {
 			file = "CP.pdf";
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + "CP" 
-					+ student.getEmail() + ".pdf\"");
 		}
 		String path = pathpdf + file;
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		response.setContentType("APPLICATION/OCTET-STREAM");
+		File fileF = new File(path);
 		
-		FileInputStream fileInputStream = new FileInputStream(path);
-		int i;
-		while ((i = fileInputStream.read()) != -1) {
-			out.write(i);
+		if ( fileF.length() != 0) {
+			response.setHeader("Content-Disposition", "attachment; filename=\""
+					 + student.getEmail() + file +  "\"");
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			response.setContentType("APPLICATION/OCTET-STREAM");
+			
+			FileInputStream fileInputStream = new FileInputStream(path);
+			int i;
+			while ((i = fileInputStream.read()) != -1) {
+				out.write(i);
+			}
+			fileInputStream.close();
+			out.close();
+		}else if ( ( fileF.length() == 0) ){
+			goBackWithError("Impossibile scaricare il PDF, file non trovato.", request, response);
 		}
-		fileInputStream.close();
-		out.close();
 	}
 
 	/**
@@ -64,6 +71,13 @@ public class DownloaderRC extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	private void goBackWithError(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(message);
+		request.setAttribute("errorUC", message);
+		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIUC/viewRCRequestUC.jsp");
+		dis.forward(request, response);
 	}
 
 }
