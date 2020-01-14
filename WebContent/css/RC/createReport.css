@@ -54,8 +54,11 @@ h3 {
 	padding: 10px 16px 16px 16px;
 }
 
-.row {
-	margin-top: 23px;
+.examRow {
+	margin-top: 53px;
+	margin-bottom: 64px;
+	padding-top: 20px;
+	padding-bottom: 50px;
 }
 
 .list-element {
@@ -86,7 +89,7 @@ h3 {
 	border: 1.5px solid #ffe9ca;
 	border-radius: 5px;
 	padding: 16px 16px 16px 22px;
-	margin: 16px 72px 72px 0px;
+	margin: 0px 72px 72px 0px;
 }
 
 .suggestion-body {

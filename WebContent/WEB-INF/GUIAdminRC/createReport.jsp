@@ -144,7 +144,7 @@
 								</div>
 <!-- Editable exams list -->
 								<div class="col-lg-11 col-md-11" id="editableExamsList">
-									<div id="examsListHeader" class="row">
+									<div id="examsListHeader">
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
 											id="examNameColumn1">
 											<h4 class="text-left field-title">
@@ -166,7 +166,7 @@
 									
 								<form action="./ReportManagementServlet">
 									<c:forEach items="${validatedExamList}" var="vExam">
-										<div id="examsListRow<%=examRow%>" class="row">
+										<div id="examsListRow<%=examRow%>" class="examRow">
 	<!-- Exam external name -->
 											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
 												id="validatedExamName<%=examRow%>" name="validatedExamName<%=examRow%>">
