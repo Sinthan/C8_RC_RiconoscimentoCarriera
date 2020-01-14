@@ -151,7 +151,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 			
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
-			ValidatedExam exam = new ValidatedExam(); 
+			ValidatedExam exam = null; 
 			
 			// Selects the exams that match the 2 given parametric values
 			String selectSQL = "SELECT * FROM VALIDATE_EXAM "
@@ -167,19 +167,14 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 				ResultSet resSet = preparedStatement.executeQuery();
 
 				if (resSet.next()) {	// Exam found
+					exam = new ValidatedExam();
 					exam.setReportID(resSet.getInt("FK_ID_REPORT"));
 					exam.setExamName(resSet.getNString("NAME_EXAM"));
 					exam.setValidatedCFU(resSet.getInt("CFU_CONVALIDATED"));
 					exam.setValidationProcedure(resSet.getNString("MODE_VALIDATION"));
 					exam.setVExamID(resSet.getInt("ID_EXAM_VALIDATE"));
-					System.out.println("doretrieve:"+exam);
-					return exam;
-					
-				} else {		// Exam not  present in the database
-					System.out.println("Exam \"" + exam.getExamName() + "\" not present");
-					preparedStatement.close();
-					return null;
-				}
+				} 
+				
 			} catch(SQLException e) {
 				System.out.println("doRetrieveValidatedExam: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the exam \"" + exam.getExamName() + "\" in the database " + e);
@@ -192,9 +187,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 						e.printStackTrace();
 					}
 			}
-			return null;
-
-			
+			return exam;
 		}
 	}
 

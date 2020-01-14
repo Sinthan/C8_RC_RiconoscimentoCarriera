@@ -169,7 +169,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 	public int insertReportID(int reportID, int requestID) {
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
-			System.out.println(reportID + " id richiesta :" + requestID);
+			System.out.println("id report : " + reportID + "\n" + " id richiesta :" + requestID);
 			String updateSQL = "UPDATE REQUEST_RC SET FK_REPORT = ?" 
 					+ " WHERE (ID_REQUEST = ?); ";
 			try { 

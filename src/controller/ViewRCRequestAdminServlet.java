@@ -56,18 +56,23 @@ public class ViewRCRequestAdminServlet extends HttpServlet {
 				filesPDF = pdfDAO.doRetrieveAllFilePDFByIDRequestRC(req.getRequestRCID());
 
 				if (!filesPDF.isEmpty()) {
+					
+					
 					for (int i = 0; i < filesPDF.size(); i++) {
 						int indexWC = filesPDF.get(i).getPDFLink().indexOf("/DocumentsRequestRC/");
-						if (indexWC > -1) {
-							String relativePath = filesPDF.get(i).getPDFLink().
-									substring(indexWC + 1, filesPDF.get(i).getPDFLink().length());
-							if (relativePath.indexOf("CP.pdf") > 1) {
-								request.setAttribute("pathCP", relativePath);
+						File fileCP = new File(Utils.getProjectPath() + filesPDF.get(i).getPDFLink());
+						String relativePath = filesPDF.get(i).getPDFLink().substring(indexWC + 1, filesPDF.get(i).getPDFLink().length());
+							if (indexWC > -1) {
+								if (relativePath.indexOf("CP.pdf") > 1 && fileCP.length() != 0) {
+									request.setAttribute("pathCP", relativePath);
+								}else if (relativePath.indexOf("CP.pdf") > 1) {
+									goBackWithError("PDF non trovato, impossibile mostrare il PDF.", request, response);
+									return;
+								}
+							}else {
+								goBackWithError("Path del PDF non valido, impossibile mostrare il PDF.", request, response);
+								return;
 							}
-						} else {
-							goBackWithError("Path del PDF non valido, impossibile mostrare il PDF.", request, response);
-							return;
-						}
 					}
 
 					// Setting the RequestRC ID

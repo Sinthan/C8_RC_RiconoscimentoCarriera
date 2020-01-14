@@ -30,6 +30,19 @@
 	color: #929292;
 }
 
+input[type=checkbox], .suggestionOverwriteCheckbox {
+	height: 30px;
+	margin-right: 10px;
+	margin-left: 50px;
+}
+
+.cfuField {
+	display: inline;
+	width: 25%;
+	padding: 2px;
+	text-align: center;
+}
+
 h3 {
 	padding: 10px 16px 16px 16px;
 }

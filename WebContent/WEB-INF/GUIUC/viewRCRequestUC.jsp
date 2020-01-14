@@ -19,10 +19,14 @@
 
 <script type='text/javascript'> 
 		
+		window.onload = function(){
+			controlServlet();
+			$('[data-toggle="tooltip"]').tooltip(); // Tooltip setup
+		};
 		
 		// If the servlet sent an error, show it
 		function controlServlet() {
-			var err = '<%=request.getAttribute("errorVR")%>';
+			var err = '<%=request.getAttribute("errorUC")%>';
 			if (err != "null") {
 				showAlert(1, err);
 			}

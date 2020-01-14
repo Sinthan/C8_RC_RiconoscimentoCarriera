@@ -37,7 +37,7 @@ public class ReportDAO implements ReportDAOInterface {
 		String insertSQL = "INSERT INTO REPORT " +
 				" (NOTE) " +
 				" VALUES (?)";
-try {
+		try {
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(insertSQL);			
 			// Setting parameters
@@ -115,8 +115,9 @@ try {
 			// Executing the selection
 			preparedStatement.executeUpdate();
 			connection.commit();
-			return 1;
+			System.out.println("Report created");		// Logging the operation
 		} catch(SQLException e){
+			System.out.println("createReport: error while executing the query\n" + e);
 			new RuntimeException(e);
 		}
 		return 0;
@@ -156,6 +157,7 @@ try {
 				preparedStatement.setInt(2,reportID);
 				preparedStatement.executeUpdate();
 				connection.commit();
+				System.out.println("updateNote: report note updated");
 			} catch(SQLException e) {
 				System.out.println("updateNote: error while executing the query\n" + e);
 				new RuntimeException("Couldn't find the report in the database " + e);
@@ -208,7 +210,6 @@ try {
 				report.setReportID(reportID);;
 				report.setNote(resSet.getString("NOTE"));
 				report.setValidatedExamsList(exams);
-				System.out.println("repo "+report);
 				return report;
 			}
 		} catch(SQLException e) {

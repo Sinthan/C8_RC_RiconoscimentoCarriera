@@ -109,7 +109,6 @@ public class Utils {
 		String windowsExtraPathFirstFolder = "\\.metadata\\";
 		// Gets a path that identifies a temporary folder inside the workspace
 		String extendedPath = System.getProperty("catalina.base");
-		System.out.println(extendedPath);
 		// Determines the starting index of the extra path depending on the user OS (inferred from the slash)
 		int slashFound = extendedPath.indexOf("/");
 		int extraPathStartIndex;
