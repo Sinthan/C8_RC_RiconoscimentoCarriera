@@ -179,7 +179,10 @@ public class ReportManagementServlet extends HttpServlet {
 					ValidatedCFUArray.add(Integer.parseInt(request.getParameter("validatedExamCFU"+i)));
 					CFUExt.add(Integer.parseInt(request.getParameter("externalExamCFU"+i)));
 					// if suggestion doesn't exists add create it
-					if(suggDao.doRetrieveSuggestionByName(req.getUniversityID(), examList.get(i-1).getExamName(), CFUExt.get(i-1)) == null) {
+					String universityName = req.getUniversityID();
+					String examName2 = examList.get(i-1).getExamName();
+					int externalCFU = CFUExt.get(i-1);
+					if(suggDao.doRetrieveSuggestionByName(universityName, examName2, externalCFU) == null) {
 						Date date = new Date(System.currentTimeMillis());
 						sugg = new Suggestion(req.getUniversityID(),
 											examList.get(i-1).getExamName(),
@@ -194,7 +197,7 @@ public class ReportManagementServlet extends HttpServlet {
 				
 				
 				
-				for( int i = 0 ; i< suggOverwrite.size() ; i++ ) {
+				for(int i = 0 ; i < suggOverwrite.size() ; i++ ) {
 					sugg = new Suggestion();
 					if( suggOverwrite.get(i) != null ) {
 						sugg.setUniversityName(req.getUniversityID());

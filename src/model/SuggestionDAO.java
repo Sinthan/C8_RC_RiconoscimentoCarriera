@@ -36,7 +36,7 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 
 		// Selects the sugestion that match the 3 given parametric values
 		String selectSQL = "SELECT * FROM SUGGESTION "
-				+ " NAME_UNIVERSITY = ? AND NAME_EXAM_EXTERN = ? AND NUMBER_CFU_EXTERN = ?";
+				+ "WHERE NAME_UNIVERSITY = ? AND NAME_EXAM_EXTERN = ? AND NUMBER_CFU_EXTERN = ?";
 		try {  
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(selectSQL);
