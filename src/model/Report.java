@@ -24,7 +24,10 @@ public class Report {
 	 *Empty Constructor. 
 	 * 
 	 */
-	public Report() {}
+	public Report() {
+		reportID = -1;
+		note = "";
+	}
 
 	/**
 	 * Constructor. 

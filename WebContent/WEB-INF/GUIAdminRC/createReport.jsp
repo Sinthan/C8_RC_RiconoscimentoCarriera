@@ -313,7 +313,7 @@
 <!-- Editable exams list end -->
 <!-- Additional notes section -->
 							<div class="col-lg-10 col-md-10" id="additionalNotesDiv">
-								<h4 class="text-left">
+								<h4 class="text-left" style="margin-top:40px">
 									<b>Note aggiuntive</b>
 								</h4>
 								<textarea class="form-control list-element notes" id="additionalNotes"  name="additionalNotes"
