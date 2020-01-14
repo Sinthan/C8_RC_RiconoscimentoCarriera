@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
@@ -66,7 +67,7 @@
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="panel">
 									<br>
-										<h1 class="text-left">Richiesta di ${userRC.name} ${userRC.surname} - ${reqRC.submissionDate}</h1>
+										<h1 class="text-left">Richiesta di ${userRC.name} ${userRC.surname} - ${submissionDate}</h1>
 									</div>
 									<div class="studentName">
 											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 indentedDiv">
