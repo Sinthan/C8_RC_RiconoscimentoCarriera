@@ -47,18 +47,16 @@ public class PDFCreator {
           document.add(new Paragraph(init));
       }
       
-      private void inserisciTabellaEsamiValidati(ArrayList<ValidatedExam> esamiValidati, ArrayList<Integer> CfuInterni,ArrayList<Integer> cfuEsterni, String note ) {
+      private void inserisciTabellaEsamiValidati(ArrayList<ValidatedExam> esamiValidati, ArrayList<Integer> cfuInterni,ArrayList<Integer> cfuEsterni, String note ) {
     	  String spaces = "\n\n\n\n";
           document.add(new Paragraph(spaces));
 	      Table table = new Table(UnitValue.createPercentArray(3)).useAllAvailableWidth();
 	      int nCelle = esamiValidati.size();
 	      for (int i = 0; i < nCelle; i++) {
-	          //table.addCell(esamiValidati.get(i).getExamName()); //Prendere il nome esame dall arrayList
-	         // table.addCell( CfuInterni.get(i)+ " / " + cfuEsterni.get(i) ); //Prendere i cfuValidati e quelli non validati
-	          //table.addCell(esamiValidati.get(i).getValidationProcedure()); //Prendere la modalita dall'arrayList
-	          table.addCell("2"); //Prendere il nome esame dall arrayList
-	          table.addCell("3" ); //Prendere i cfuValidati e quelli non validati
-	          table.addCell(""); //Prendere la modalita dall'arrayList
+	          table.addCell(esamiValidati.get(i).getExamName()); //Prendere il nome esame dall arrayList
+	          table.addCell( cfuInterni.get(i)+ " / " + cfuEsterni.get(i) ); //Prendere i cfuValidati e quelli non validati
+	          System.out.println(esamiValidati.get(i).getValidationProcedure());
+	          table.addCell(esamiValidati.get(i).getValidationProcedure()); //Prendere la modalita dall'arrayList
 	      }
 	      document.add(table);
           document.add(new Paragraph(spaces));

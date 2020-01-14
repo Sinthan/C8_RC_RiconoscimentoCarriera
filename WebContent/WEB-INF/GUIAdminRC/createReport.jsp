@@ -187,6 +187,7 @@
 														<h4 class="inline" name="externalExamCFU<%=examRow%>">
 														<%=examsList.get(examRow - 1).getCFU()%>
 														</h4>
+														
 														</span>
 											</div>
 	<!-- Exam CFU end -->
