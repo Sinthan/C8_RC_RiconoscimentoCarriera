@@ -180,7 +180,7 @@
 										</div>
 									</div>
 									
-								<form action="./ReportManagementServlet">
+								<form action="./ReportManagementServlet" method="POST">
 									<c:forEach items="${validatedExamList}" var="vExam">
 										<div id="examsListRow<%=examRow%>" class="examRow">
 	<!-- Exam external name -->

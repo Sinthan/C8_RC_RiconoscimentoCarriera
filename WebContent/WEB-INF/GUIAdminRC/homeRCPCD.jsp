@@ -24,9 +24,13 @@
 	
 	// If the servlet sent an error, show it
 	function controlServlet() {
-		var err = '<%=request.getAttribute("errorVRA1")%>';
+		var err = "<%=request.getAttribute("errorVRA1")%>";
+		var errParam = "<%=request.getParameter("errorVRA1")%>";
 		if (err != "null") {
 			showAlert(1, err);
+		}
+		if (errParam != "null") {
+			showAlert(1, errParam);
 		}
 		var succ = '<%=request.getAttribute("succCR")%>';
 		if (succ != "null") {

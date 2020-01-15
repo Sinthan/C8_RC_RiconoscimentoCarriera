@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -91,7 +92,7 @@ public class ReportManagementServlet extends HttpServlet {
 		int CFU;
 		String examName;
 		String mode;
-
+		
 		//Update Report if request exists
 		if (req != null) {
 			//if RCRequest is != null
@@ -108,6 +109,10 @@ public class ReportManagementServlet extends HttpServlet {
 					CFU = -1;
 				}
 				mode = (String) request.getParameter("validatedExamMode" + i);
+				if (mode.length() > 5000) {
+					goBackWithError("Impossibile salvare la bozza, la modalita di convalida dell'esame " + examName + " supera i 5000 caratteri", request, response);
+					return;
+				}
 				vExam.setExamName(examName);
 				vExam.setValidatedCFU(CFU);
 				vExam.setValidationProcedure(mode);
@@ -115,6 +120,10 @@ public class ReportManagementServlet extends HttpServlet {
 				
 				vExamDao.updateValidatedExam(vExam);		
 				examList.add(vExam);
+			}
+			if (note.length() > 5000) {
+				goBackWithError("Impossibile salvare la bozza, la nota supera i 5000 caratteri", request, response);
+				return;
 			}
 			repoDao.updateNote(repoID,note);
 
@@ -228,6 +237,7 @@ public class ReportManagementServlet extends HttpServlet {
 		} else {
 			//if RCRequest = null
 			goBackWithError("Impossibile caricare la pagina, errore nel recupero della richiesta selezionata, si prega di riprovare.", request, response);
+			return;
 		}
 	}
 
@@ -242,9 +252,8 @@ public class ReportManagementServlet extends HttpServlet {
 
 	private void goBackWithError(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(message);
-		request.setAttribute("errorCR", message);
-		RequestDispatcher dis = request.getRequestDispatcher("/AdminHome");
-		dis.forward(request, response);
+		request.setAttribute("errorVRA1", message);
+		response.sendRedirect("/EnglishValidation/AdminHome?errorVRA1=" + message);;
+		return;
 	}
-
 }
