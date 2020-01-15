@@ -41,8 +41,20 @@ public class StudentRCRequestRedirector extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int flag = Integer.parseInt(request.getParameter("flag"));
+		String delete = request.getParameter("delete");
+		System.out.println(delete);
 		
-		if(flag==1) {
+		if (flag == 1 && delete != null) {
+		      HttpSession sessione = request.getSession();
+		      Student s = (Student) sessione.getAttribute("user");
+		      request.getSession().setAttribute("flag", 1);
+		      RequestRCDAO rcDao = new RequestRCDAO();
+		      RequestRC reqRc = rcDao.doRetrieveRequestRCByStudentID(s.getEmail());
+		      rcDao.deleteRequestRCByRequestID(reqRc.getRequestRCID());
+		      RequestDispatcher dis =
+		          request.getRequestDispatcher("/StudentManagement");
+		      dis.forward(request, response);
+		}else if(flag==1 && delete == null) {
 		HttpSession sessione = request.getSession();
 		Student s = (Student) sessione.getAttribute("user");
 		String email = s.getEmail();

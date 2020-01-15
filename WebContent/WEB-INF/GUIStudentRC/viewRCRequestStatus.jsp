@@ -78,14 +78,14 @@
 								</table>
 								<%
 								
-								
-								HttpSession sess = request.getSession();
-								sess.setAttribute("flag", 5);
 							
 								if(request.getAttribute("rRCState").toString().equals("refused")){
 									out.print("<td class=submitButton-centre style= 'margin-right: 60px; width: 200px; position: relative; float:right'>"+
-									    "<form action='./StudentManagement' method=get align='right'>" +
-										"<input type= submit value ='Crea una nuova Richiesta' name= 'flag' class=btn btn-primary></input></form>");
+									    "<form action='./StudentRCRequestRedirector' method=get align='right'>" +
+									"<input type=hidden name='flag' value ='1'></input>"+
+										"<input type=hidden name='delete' value ='delete'></input>" +
+										"<button class='btn btn-primary'>Crea una nuova Richiesta</button>"+
+										"</form>");
 									}
 									
 								%>

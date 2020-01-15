@@ -64,6 +64,7 @@ public class StudentManagement extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		int flag = (int) request.getSession().getAttribute("flag");
+		
 
 		if(flag == 0) {
 			HttpSession sessione = request.getSession();
@@ -300,24 +301,13 @@ public class StudentManagement extends HttpServlet {
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());
 			request.setAttribute("didInsertRequest", "true");
-			dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
-			dis.forward(request, response);
 			response.sendRedirect("/EnglishValidation/StudentRCRequestRedirector?flag=1");
 			return;
-		} else if (flag==4) {
+
+		}else if (flag==4) {
 			RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
-		} else if (flag == 5) {
-		      HttpSession sessione = request.getSession();
-		      Student s = (Student) sessione.getAttribute("user");
-		      RequestRCDAO rcDao = new RequestRCDAO();
-		      RequestRC reqRc = rcDao.doRetrieveRequestRCByStudentID(s.getEmail());
-		      rcDao.deleteRequestRCByRequestID(reqRc.getRequestRCID());
-		      RequestDispatcher dis =
-		          request.getRequestDispatcher("/StudentRCRequestRedirector?flag=1");
-		      dis.forward(request, response);
-
-		    }
+		}
 
 	}
 	

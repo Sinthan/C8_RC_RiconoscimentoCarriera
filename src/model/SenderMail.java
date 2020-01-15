@@ -25,7 +25,7 @@ public class SenderMail {
 
     public SenderMail () {
     	
-    	from = "carrierapregressa@gmail.com";
+    	from = "carrieraunisa@gmail.com";
         to = "";
         subject = "";
         messageBody = "";
@@ -111,8 +111,8 @@ public class SenderMail {
 
 class SMTPAuthenticator extends Authenticator {
 
-    private static final String SMTP_AUTH_USER = "a0536c3700ec66";
-    private static final String SMTP_AUTH_PASSWORD = "7fd50e83f20b4d";
+    private static final String SMTP_AUTH_USER = "d8bc9c699e7e70";
+    private static final String SMTP_AUTH_PASSWORD = "5fba6f19112af6";
 
     public PasswordAuthentication getPasswordAuthentication () {
         String username = SMTP_AUTH_USER;
