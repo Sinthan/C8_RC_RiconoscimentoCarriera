@@ -56,7 +56,7 @@ public class ReportManagementServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Getting the Session
 		HttpSession sess = request.getSession();
@@ -250,10 +250,10 @@ public class ReportManagementServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private void goBackWithError(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void goBackWithError(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(message);
 		request.setAttribute("errorVRA1", message);
-		response.sendRedirect("/EnglishValidation/AdminHome?errorVRA1=" + message);;
+		response.sendRedirect("/EnglishValidation/AdminHome?errorVRA1=" + message);
 		return;
 	}
 }
