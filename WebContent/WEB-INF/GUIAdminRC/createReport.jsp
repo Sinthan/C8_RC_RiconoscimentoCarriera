@@ -164,10 +164,16 @@
 												<b>CFU convalidati</b>
 											</h4>
 										</div>
-										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
+										<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center"
 											id="buttons">
 											<h4 class="text-left field-title">
 												<b>Modalità di convalida</b>
+											</h4>
+										</div>
+										<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"
+											id="buttons">
+											<h4 class="text-left field-title" style="padding-left: 49px;">
+												<b>Opzioni suggerimento</b>
 											</h4>
 										</div>
 									</div>
