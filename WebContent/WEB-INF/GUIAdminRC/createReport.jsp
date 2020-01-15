@@ -240,7 +240,7 @@
 	<!-- Exam validation mode end-->
 	<!-- Exam suggestion -->
 										
-											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 suggestionControlsDiv">
+											<div class="col-lg-3 col-md-2 col-sm-2 col-xs-2 suggestionControlsDiv">
 											<%
 															if (suggList.size() >= examRow && suggList.get(examRow - 1) != null) {
 														%>

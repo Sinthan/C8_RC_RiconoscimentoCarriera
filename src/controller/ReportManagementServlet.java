@@ -78,7 +78,7 @@ public class ReportManagementServlet extends HttpServlet {
 		String studentMail = req.getStudentID();
 		PDFCreator pdfC = new PDFCreator(System.getProperty("user.dir") + "/" + "Report.pdf");
 		String stName = sDao.doRetrieveStudentByEmail(studentMail).getName() + " " + sDao.doRetrieveStudentByEmail(studentMail).getSurname();
-		String messageBody = "Gentile " + stName + ";\n" + "In allegato troverà il PDF contente l'esito della sua richiesta di riconoscimento carriera.\nBuona Giornata.";
+		String messageBody = "Gentile " + stName + ";\n" + "In allegato trover&#224; il PDF contente l'esito della sua richiesta di riconoscimento carriera.\nBuona Giornata.";
 		ArrayList<Integer> ValidatedCFUArray = new ArrayList();
 		ArrayList<Integer> CFUExt = new ArrayList();
 		Suggestion sugg = null;
@@ -110,7 +110,7 @@ public class ReportManagementServlet extends HttpServlet {
 				}
 				mode = (String) request.getParameter("validatedExamMode" + i);
 				if (mode.length() > 5000) {
-					goBackWithError("Impossibile salvare la bozza, la modalita di convalida dell'esame " + examName + " supera i 5000 caratteri", request, response);
+					goBackWithError("Impossibile salvare la bozza, la modalit&#224; di convalida dell'esame " + examName + " supera i 5000 caratteri", request, response);
 					return;
 				}
 				vExam.setExamName(examName);
