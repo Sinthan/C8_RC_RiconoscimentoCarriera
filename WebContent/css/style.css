@@ -97,6 +97,11 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: 'Montserrat', sans-serif;
 }
 
+h1 {
+	color: #3c3c3c;
+	font-weight: 600;
+}
+
 .no-padding {
 	padding: 0px !important;
 }

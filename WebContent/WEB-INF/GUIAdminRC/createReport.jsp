@@ -21,7 +21,8 @@
 <script type='text/javascript'>
 	var examNameRegex = /^(\w+\s?\-?)*(\-?\s*\w*)*$/;
 	var CFURegex = /[0-9]{1,2}/;
-	var suggestionActiveBG = "#ddf0fe";
+	var suggestionActiveBG = "aliceblue";
+	//var suggestionActiveBG = "#ddf0fe";
 	var suggestionActiveBorder = '#93CAE6';
 	//var suggestionActiveBorder = '#acd6ec';
 	
@@ -145,6 +146,7 @@
 						<div class="content">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="panel">
+									<br>
 									<h1 class="text-left">Compila il report</h1>
 									<h4 class="text-left description">
 										<em>per la richiesta di <%=request.getAttribute("studentName")%></em>
@@ -225,10 +227,10 @@
 													placeholder="es. L'esame é stato convalidato come PROGRAMMAZIONE 1"
 													rows="3" required></textarea>
 														<script type="text/javascript">
-																if ('${vExam.validationProcedure}'.length != 0) {
+																if ("${vExam.validationProcedure}".length != 0) {
 																	// if a draft of the exam validation mode
 																	// is already present, fill the field with it
-																	document.getElementById("validatedExamMode<%=examRow%>").value = '${vExam.validationProcedure}';
+																	document.getElementById("validatedExamMode<%=examRow%>").value = "${vExam.validationProcedure}";
 																}
 														</script>
 														<div id="appliedSuggLabel<%=examRow%>" class="appliedSuggLabel">
@@ -238,7 +240,7 @@
 	<!-- Exam validation mode end-->
 	<!-- Exam suggestion -->
 										
-											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 suggestionControlsDiv">
 											<%
 															if (suggList.size() >= examRow && suggList.get(examRow - 1) != null) {
 														%>
@@ -296,7 +298,7 @@
 												</div>
 												<div
 													class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
-													<button onclick = "fillRowWithSuggestion(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>')"
+													<button onclick = "fillRowWithSuggestion(<%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>")"
 														class="btn btn-success" type="button">Usa suggerimento</button>
 												</div>
 												<!-- Adding an extra div in order to make the suggestion resize correctly -->
@@ -306,9 +308,9 @@
 											</div>
 										</div>
 										<script type="text/javascript">
-	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
-															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>'));
-															checkSuggestionMatchForRow(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>');
+	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>"));
+															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>"));
+															checkSuggestionMatchForRow(<%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>");
 										</script>
 										<%
 													} else {
@@ -345,10 +347,10 @@
 								<textarea class="form-control list-element notes" id="additionalNotes"  name="additionalNotes"
 									placeholder="" rows="5"></textarea>
 								<script type="text/javascript">
-																if ('<%=request.getAttribute("note")%>' != "null") {
+																if ("<%=request.getAttribute("note")%>" != "null") {
 																	// if a draft of the report note
 																	// is already present, fill the field with it
-																	document.getElementById("additionalNotes").value = '<%=request.getAttribute("note")%>';
+																	document.getElementById("additionalNotes").value = "<%=request.getAttribute("note")%>";
 																}
 								</script>
 							</div>

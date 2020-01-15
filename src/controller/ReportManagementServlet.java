@@ -77,7 +77,7 @@ public class ReportManagementServlet extends HttpServlet {
 		String studentMail = req.getStudentID();
 		PDFCreator pdfC = new PDFCreator(System.getProperty("user.dir") + "/" + "Report.pdf");
 		String stName = sDao.doRetrieveStudentByEmail(studentMail).getName() + " " + sDao.doRetrieveStudentByEmail(studentMail).getSurname();
-		String messageBody = "Gentile " + stName + ";\n" + "In allegato trover� il PDF contente l'esito della sua richiesta di riconoscimento carriera.\nBuona Giornata.";
+		String messageBody = "Gentile " + stName + ";\n" + "In allegato troverà il PDF contente l'esito della sua richiesta di riconoscimento carriera.\nBuona Giornata.";
 		ArrayList<Integer> ValidatedCFUArray = new ArrayList();
 		ArrayList<Integer> CFUExt = new ArrayList();
 		Suggestion sugg = null;
