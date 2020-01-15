@@ -77,13 +77,13 @@ public class PDFCreator {
 	      
 	      table.addHeaderCell("Esame"); //Prendere il nome esame dall arrayList
           table.addHeaderCell( "CFU validati/totali" ); //Prendere i cfuValidati e quelli non validati
-          table.addHeaderCell("Modalità di convalida"); //Prendere la modalita dall'arrayList
+          table.addHeaderCell("Modalitï¿½ di convalida"); //Prendere la modalita dall'arrayList
           
           table.getHeader().setBold();
           
 	      for (int i = 0; i < nCelle; i++) {
 	          table.addCell(esamiValidati.get(i).getExamName()); //Prendere il nome esame dall arrayList
-	          table.addCell( cfuInterni.get(i)+ " / " + cfuEsterni.get(i) ); //Prendere i cfuValidati e quelli non validati
+	          table.addCell( CfuInterni.get(i)+ " / " + cfuEsterni.get(i) ); //Prendere i cfuValidati e quelli non validati
 	          table.addCell(esamiValidati.get(i).getValidationProcedure()); //Prendere la modalita dall'arrayList
 	      }
 	      document.add(table);
