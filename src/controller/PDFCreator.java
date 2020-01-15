@@ -49,7 +49,7 @@ public class PDFCreator {
 	      document.close();    
       }
       
-      private void inserisciPiePagine() {
+     public void inserisciPiePagine() {
     	  String spaces = "\n\n\n\n";
           document.add(new Paragraph(spaces));
     	  long millis=System.currentTimeMillis();  
@@ -59,14 +59,17 @@ public class PDFCreator {
     	  document.add(new Paragraph(piePagina));
       }
 
-      private void inserisciIntestazione(String nomeStudente) {
+      public void inserisciIntestazione(String nomeStudente) {
     	  String universita = "UNIVERSITA' DEGLI STUDI DI SALERNO\nDIPARTIMENTO DI INFORMATICA";
     	  String init = "Gentile " + nomeStudente +  "\nLe comunico l'esito della sua domanda di riconoscimento carriera.";
           document.add(new Paragraph(universita));
           document.add(new Paragraph(init));
       }
       
-      private void inserisciTabellaEsamiValidati(ArrayList<ValidatedExam> esamiValidati, ArrayList<Integer> cfuInterni,ArrayList<Integer> cfuEsterni, String note ) {
+
+      public void inserisciTabellaEsamiValidati(ArrayList<ValidatedExam> esamiValidati, ArrayList<Integer> CfuInterni,ArrayList<Integer> cfuEsterni, String note ) {
+
+
     	  String spaces = "\n\n\n\n";
           document.add(new Paragraph(spaces));
 	      Table table = new Table(UnitValue.createPercentArray(3)).useAllAvailableWidth();

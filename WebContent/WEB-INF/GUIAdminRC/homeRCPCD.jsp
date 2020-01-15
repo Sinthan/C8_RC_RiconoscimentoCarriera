@@ -80,12 +80,12 @@
 													"<form action=./ViewRCRequestAdminServlet method=post style=\"display: inline;\">" + 
 															"<input type = hidden name = idRequestRC id = idRequestRC value = "  +temp.getRequestRCID() +  "  /> " +
 															"<input type= hidden value = 2 name=flag>"+
-														"<input type= submit value =Controlla  class=btn btn-primary></input>" + 
+														"<input type= submit value =Controlla  class=\"btn btn-primary\" style=\"margin-right: 30px;\"></input>" + 
 													"</form>" +
 													"<form action=./ViewReportAdminServlet method=post style=\"display: inline;\">" +
 															"<input type = hidden name = idRequestRC id = idRequestRC value = "  +temp.getRequestRCID() +  "  /> " +
 															"<input type= hidden value = 2 name=flag>"+
-														"<input type= submit value=\"Compila Report\"  class=btn btn-primary></input> </form> </td>" +
+														"<input type= submit value=\"Compila Report\"  class=\"btn btn-primary\"></input> </form> </td>" +
 													"</form>" +
 													"</td>"
 													);

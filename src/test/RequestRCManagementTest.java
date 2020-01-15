@@ -156,8 +156,8 @@ class RequestRCManagementTest extends Mockito {
 		verify(requestDisp).forward(request, response);	
 	}
 	
-	/*@Test
-	public void userIsAdminTest() throws ServletException, IOException {
+	@Test
+	public void userIsAdminTestFileEx() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(session);
 		when(request.getSession().getAttribute("user")).thenReturn(admin);
 		when(request.getParameter("requestRCID")).thenReturn("7"); 
@@ -167,6 +167,19 @@ class RequestRCManagementTest extends Mockito {
 		when(request.getSession().getAttribute("examList")).thenReturn(exams);
 		when(fileM.exists()).thenReturn(true);
 		rRCM.doGet(request, response);
-	}*/
+	}
+	
+	@Test
+	public void userIsAdminTestFileNotEx() throws ServletException, IOException {
+		when(request.getSession()).thenReturn(session);
+		when(request.getSession().getAttribute("user")).thenReturn(admin);
+		when(request.getParameter("requestRCID")).thenReturn("7"); 
+		when(request.getParameter("recipient-name")).thenReturn("testmail@unisa.it");
+		when(request.getParameter("message-text")).thenReturn("test test test");
+		when(request.getParameter("exam-selected")).thenReturn("esameTest");
+		when(request.getSession().getAttribute("examList")).thenReturn(exams);
+		when(fileM.exists()).thenReturn(false);
+		rRCM.doGet(request, response);
+	}
 	
 }

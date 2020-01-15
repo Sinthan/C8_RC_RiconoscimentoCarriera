@@ -3310,7 +3310,7 @@ select[multiple].form-group-lg .form-control, textarea.form-group-lg .form-contr
 	padding: 6px 12px;
 	margin-bottom: 0;
 	font-size: 14px;
-	font-weight: 400;
+	font-weight: 600;
 	line-height: 1.42857143;
 	text-align: center;
 	white-space: nowrap;
@@ -3393,16 +3393,18 @@ select[multiple].form-group-lg .form-control, textarea.form-group-lg .form-contr
 
 .btn-primary {
 	color: #fff;
-	background-color: #337ab7;
-	border-color: #2e6da4
+/* 	background-color: #337ab7; */
+/* 	border-color: #2e6da4 */
+	background-color: #1b6cd0;
+    border-color: #005bbd;
 }
 
 .btn-primary.active, .btn-primary.focus, .btn-primary:active,
 	.btn-primary:focus, .btn-primary:hover, .open>.dropdown-toggle.btn-primary
 	{
 	color: #fff;
-	background-color: #286090;
-	border-color: #204d74
+	background-color: #1658a9;
+    border-color: #004d9f;
 }
 
 .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary
@@ -3418,8 +3420,10 @@ select[multiple].form-group-lg .form-control, textarea.form-group-lg .form-contr
 	fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active,
 	fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover
 	{
-	background-color: #337ab7;
-	border-color: #2e6da4
+/* 	background-color: #337ab7; */
+/* 	border-color: #2e6da4 */
+	background-color: #3788d7;
+    border-color: #0063ce;
 }
 
 .btn-primary .badge {

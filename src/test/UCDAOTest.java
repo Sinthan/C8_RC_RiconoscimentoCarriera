@@ -21,11 +21,12 @@ class UCDAOTest extends Mockito {
 		@BeforeEach
 		public void setUp() {
 			ucDAO = new UCDAO();
+			
 		}
 		
 		@Test // Utente estratto correttamente dal database
 		  void testDoRetriveUCOK() throws ServletException, IOException {
-			UC uc = ucDAO.doRetrieveUc("UC@unisa.it", "9611edf7f716b00c8a44441973906aa7f5c0c580");
+			UC uc = ucDAO.doRetrieveUc("UC@unisa.it", "4bb47fd2a6c598d2a52ef7de3473fd3ea8401a9b");
 		    assertNotEquals(null, uc);
 		}
 		

@@ -312,7 +312,7 @@ public class StudentManagement extends HttpServlet {
 		RequestRCDAO reqDAO =  new RequestRCDAO();
 		reqDAO.deleteRequestRCByRequestID(requestRCID);
 		request.setAttribute("errorCR1", message);
-		RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 		dis.forward(request, response);
 	}
 

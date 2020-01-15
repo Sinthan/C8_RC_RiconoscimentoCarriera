@@ -117,7 +117,7 @@ INSERT INTO CONTAINS VALUES(4,7);
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Analisi Matematica I', 9, 9, 'Validato come ANALISI MATEMATICA', '2020-1-2');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Algoritmi e strutture dati I', 9, 9, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI', '2020-1-3');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Linguaggi di Programmazione I', 6, 6, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI', '2020-1-4');
-INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Economia ed organizzazione aziendale', 6, 6, 'Il corso di laurea di informatica non prevede un esame affine a quello che lo studente intende riconoscere', '2020-1-6');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Economia ed organizzazione aziendale', 6, 0, 'Il corso di laurea di informatica non prevede un esame affine a quello che lo studente intende riconoscere', '2020-1-6');
 #INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Architettura degli elaboratori', 9,9, 'Validato come ARCHITETTURA DEGLI ELABORATORI', '2020-1-10');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Fisica Generale I', 6, 6, 'Validato come FISICA', '2020-1-16');
 
