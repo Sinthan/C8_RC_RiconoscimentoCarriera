@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -29,7 +30,7 @@ class StudentDAOTest extends Mockito {
 	
 	@Test // Utente estratto correttamente dal database
 	  void testDoRetriveStudentOK() throws ServletException, IOException {
-		Student s = sDAO.doRetrieveStudent("r.deluca@studenti.unisa.it", "9611edf7f716b00c8a44441973906aa7f5c0c580");
+		Student s = sDAO.doRetrieveStudent("d.taffuri@studenti.unisa.it", "9611edf7f716b00c8a44441973906aa7f5c0c580");
 	    assertNotEquals(null,s);
 	}
 	
@@ -59,8 +60,13 @@ class StudentDAOTest extends Mockito {
 	
 	@Test // Utente non presente ed inserito correttamenete
 	void testInserteStudenteOK() throws ServletException, IOException{
-		int result = sDAO.insertStudent("grarardo@gmail.it", "gerardo", "damiano", 0, 'M', "123456789",null);
+		int result = sDAO.insertStudent("gerardo@gmail.it", "gerardo", "damiano", 0, 'M', "123456789",null);
 		assertEquals(1, result);
+	}
+	
+	@AfterEach
+	public void deleteAddUser() {
+		sDAO.deleteStudentByEmail("gerardo@gmail.it");
 	}
 	
 }

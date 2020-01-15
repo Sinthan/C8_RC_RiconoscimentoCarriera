@@ -11,7 +11,7 @@ public interface StudentDAOInterface {
 	public int insertStudent(Student s);	
 	public Student doRetrieveStudentByEmail(String email);
 	public int deleteStudentByEmail(String email);
-	public int deleteOldExternalStudent();
+	//public int deleteOldExternalStudent();
 	
 	/**
 	 * the method takes care of validation during the login phase 

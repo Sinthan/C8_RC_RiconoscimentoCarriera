@@ -19,7 +19,7 @@ public interface ValidatedExamDAOInterface {
 	
 	public ValidatedExam doRetrieveValidatedExam(int reportID, String examName);
 	
-	public int deleteValidatedExam(ValidatedExam vExam);
+	//public int deleteValidatedExam(ValidatedExam vExam);
 	
 	public ArrayList<ValidatedExam> doRetrieveValidatedExamsByReportID(int reportID);
 }

@@ -1,7 +1,6 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +24,7 @@ import model.FilePDF;
 import model.RequestRC;
 import model.RequestRCDAO;
 import model.Student;
+import model.StudentDAO;
 
 class StudentManagementTest extends Mockito {
 	
@@ -44,10 +44,13 @@ class StudentManagementTest extends Mockito {
 	String date;
 	SimpleDateFormat sdf;
 	String SAVE_DIR2;
+	StudentDAO sdao;
+	
 
 	@BeforeEach
 	void setUp() throws Exception {
 		Path root = Paths.get(".").normalize().toAbsolutePath();
+		System.out.println(root);
 		String projectFolder = "C8_RC_RiconoscimentoCarriera";
 		int extraPathIndex = root.toString().indexOf(projectFolder);
 		String catalinaRoot = root.toString().substring(0, extraPathIndex -1);
@@ -63,37 +66,36 @@ class StudentManagementTest extends Mockito {
 		s.setEmail("g.rossi@studenti.unisa.it");
 		rRC = new RequestRC();
 		rRC.setStudentID(s.getEmail());
-		rRC.setUniversityID("Universit√† degli Studi di SALERNO");
+		rRC.setUniversityID("Universit‡ degli Studi di SALERNO");
 		// Getting today's date
 		Calendar calendar = Calendar.getInstance();
 		java.util.Date currentDate = calendar.getTime();
 		java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
 		rRC.setSubmissionDate(sqlDate);
 		reqDAO =  new RequestRCDAO();
+		sdao = new StudentDAO();
 	}
 	
 	@Test
 	public void returnRequestStatusOK1() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(sessione);
-		s.setEmail("ggg@studenti.unisa.it");
+		s = sdao.doRetrieveStudentByEmail("g.rossi@studenti.unisa.it");
 		when(request.getSession()).thenReturn(sessione); 
 		when(sessione.getAttribute("flag")).thenReturn(0);
 		when(sessione.getAttribute("user")).thenReturn(s);
-		when(request.getRequestDispatcher("/_areaStudent/signUp.jsp")).thenReturn(dsp);
 		sm.doGet(request, response);
-		verify(dsp).forward(request, response);
+		assertNotNull(s);
 	}
 	
 	@Test
 	public void returnRequestStatusOK2() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(sessione);
-		s.setEmail("g.rossi31@studenti.unisa.it");
+		s.setEmail("d.taffuri@studenti.unisa.it");
 		when(request.getSession()).thenReturn(sessione);
 		when(sessione.getAttribute("flag")).thenReturn(0);
 		when(sessione.getAttribute("user")).thenReturn(s);
         when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp")).thenReturn(dsp);
 		sm.doGet(request, response);
-		
 		verify(dsp).forward(request, response);
 	}
 	
@@ -163,6 +165,7 @@ class StudentManagementTest extends Mockito {
         
     }
 	
+	@Test
 	public void createRequestRC1Test5() throws ServletException, IOException {
         when(request.getSession()).thenReturn(sessione);
         when(sessione.getAttribute("flag")).thenReturn(2);

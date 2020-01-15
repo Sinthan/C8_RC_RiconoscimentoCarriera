@@ -26,7 +26,7 @@ public class DbConnectionTest {
   @Test
   void testgetPassword() {
     DbConnection db = new DbConnection();
-    assertEquals("", db.getPassword());
+    assertEquals("961995", db.getPassword());
   }
 
   @Test

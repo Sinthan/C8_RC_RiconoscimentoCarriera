@@ -221,10 +221,10 @@ public class ExamDAO implements ExamDAOInterface{
 	 * retrieve exam 
 	 * @return -1 if insert failed, 0 if ok 
 	 */
-	public int doRetrieveExam(int requestRCID, int ExamID) {
+	/*public int doRetrieveExam(int requestRCID, int ExamID) {
 		int flag = 0;
 		return flag; 
-	}
+	}*/
 
 
 	public int doRetrieveMaxExamID() {
@@ -279,7 +279,7 @@ public class ExamDAO implements ExamDAOInterface{
 
 	
 	
-	public void removeAddExamForTest() throws SQLException {
+	/*public void removeAddExamForTest() throws SQLException {
 		String sql = "Delete FROM englishvalidation.exam  where name = 'ingegneria del test' and cfu = 9 and link_program= '//link di riferimento//'" ;
 		Connection conn = (Connection) new DbConnection().getInstance().getConn();
 
@@ -290,12 +290,12 @@ public class ExamDAO implements ExamDAOInterface{
 			System.out.println("removeAddExamForTest: error while executing the query\n" + e);
 			e.getMessage();
 		}
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public int deleteExamsByRequestID(int id) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}*/
 
 }
