@@ -89,6 +89,7 @@ class ReportManagementServletTest extends Mockito {
 		when(request.getParameter("closeRCRequestBtn")).thenReturn("ok");
 		when(request.getParameter("validatedExamCFU"+i)).thenReturn("9");
 		when(request.getParameter("externalExamCFU"+i)).thenReturn("9");
+		when(request.getRequestDispatcher("/AdminHome")).thenReturn(dsp);
 		rm.doGet(request, response);
 		verify(dsp).forward(request, response);
 	}
@@ -107,8 +108,8 @@ class ReportManagementServletTest extends Mockito {
 		when(request.getParameter("closeRCRequestBtn")).thenReturn("ok");
 		when(request.getParameter("validatedExamCFU"+i)).thenReturn("9");
 		when(request.getParameter("externalExamCFU"+i)).thenReturn("9");
+		when(request.getRequestDispatcher("/AdminHome")).thenReturn(dsp);
 		rm.doGet(request, response);
 		verify(dsp).forward(request, response);
 	}
-
 }
