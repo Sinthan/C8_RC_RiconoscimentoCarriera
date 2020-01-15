@@ -253,27 +253,54 @@ public class ExamDAO implements ExamDAOInterface{
 	@Override
 	public int deleteAllRCRequestExamsByRequestID(int idRequest) {
 		// TODO Auto-generated method stub
+		int biggestExamId = -1;
 		ArrayList<Exam> exams = doRetrieveAllExamsByRequestRCID(idRequest);
+		ExamDAO eDao = new ExamDAO();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		// recupero l'id più grande della lista esami
+		for( Exam x : exams ) {
+			if(x.getExamID() > biggestExamId) {
+				biggestExamId = x.getExamID();
+			}
+		}
+		// recupero il max id corrente
+		int currentId = eDao.doRetrieveMaxExamID();
+		
 		int result = 0;
 		for( int i=0 ; i < exams.size() ; i++ ) {
 			ArrayList<ContainsRelation> containsRelations = crDAO.doRetrieveAllContainsRelationByIDExam(exams.get(i).getExamID());
 			if( containsRelations.size() == 1 ) {
-				Connection connection = null;
-				PreparedStatement preparedStatement = null;
 				try {
 					connection = DbConnection.getInstance().getConn();
+					// elimino l'esame
 					preparedStatement = connection.prepareStatement("DELETE EXAM FROM EXAM WHERE ID_EXAM = ?");
 					preparedStatement.setInt(1, exams.get(i).getExamID());
 					// Executing the deletion
 					result = preparedStatement.executeUpdate();	
 					connection.commit();
-					return result;
 				} catch (SQLException e) {
 					System.out.println("deleteAllRCRequestExamsByRequestID: error while executing the query\n" + e);
 					throw new RuntimeException(e);
 				}
 			}
 		}
+		// lo confronto con il max exam id
+		// se è uguale resetto l'autoincrement
+		if(biggestExamId == currentId) {
+			connection = DbConnection.getInstance().getConn();
+			try {
+				preparedStatement = connection.prepareStatement("ALTER TABLE EXAM AUTO_INCREMENT = ?");
+				preparedStatement.setInt(1, currentId);
+				result = preparedStatement.executeUpdate();	
+				connection.commit();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
 		return result;
 	}
 

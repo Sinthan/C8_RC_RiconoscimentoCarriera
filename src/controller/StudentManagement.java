@@ -229,6 +229,7 @@ public class StudentManagement extends HttpServlet {
 			String studentMail = newReq.getStudentID();
 			RequestRC dbRCRequest = reqDAO.doRetrieveRequestRCByStudentID(studentMail);
 			int reqRCID = dbRCRequest.getRequestRCID();
+			System.out.println("La richiesta appena creata ha id :" + reqRCID);
 			// Initializing ContainsRelation between a RequestRC and its Exams 
 			ContainsRelationDAO containsRelDAO = new ContainsRelationDAO();
 			ContainsRelation containsRel = new ContainsRelation();
@@ -236,7 +237,7 @@ public class StudentManagement extends HttpServlet {
 			// Adding the exams to the database
 			Exam exam = new Exam();
 			ExamDAO examDAO =  new ExamDAO();
-			int lastExamID = examDAO.doRetrieveMaxExamID();
+			int lastExamID = examDAO.doRetrieveMaxExamID();	
 			int nextExamID = lastExamID + 1;
 			int insertExamResult;
 			int containsRelResult;
@@ -299,12 +300,23 @@ public class StudentManagement extends HttpServlet {
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());
 			request.setAttribute("didInsertRequest", "true");
+			request.getSession().setAttribute("repeatCreation", false);
 			dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
 		} else if (flag==4) {
 			RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
-		}
+		} else if (flag == 5) {
+		      HttpSession sessione = request.getSession();
+		      Student s = (Student) sessione.getAttribute("user");
+		      RequestRCDAO rcDao = new RequestRCDAO();
+		      RequestRC reqRc = rcDao.doRetrieveRequestRCByStudentID(s.getEmail());
+		      rcDao.deleteRequestRCByRequestID(reqRc.getRequestRCID());
+		      RequestDispatcher dis =
+		          request.getRequestDispatcher("/StudentRCRequestRedirector?flag=1");
+		      dis.forward(request, response);
+
+		    }
 
 	}
 	

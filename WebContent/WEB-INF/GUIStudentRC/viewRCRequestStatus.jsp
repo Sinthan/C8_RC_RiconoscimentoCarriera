@@ -43,7 +43,7 @@
 		
 		
 	<div class="sidebar-page-container basePage viewRequestStudent">
-			<br/><h2>La tua richiesta</h2><br/>
+			<br/><h2 style= "margin-left: 15px">La tua richiesta</h2><br/>
 			<div class="auto-container">
 				<div class="row clearfix">
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -67,8 +67,8 @@
 													out.print("<td class='text-center' align='center'><img src='imagesRC/pending.png' alt='orangePoit'>Richiesta in valutazione</td>");
 												}else if(request.getAttribute("rRCState").toString().equals("approved")){
 													out.print("<td class='text-center' align='center'><img src='imagesRC/approved.png' alt='greenPoit'>Richiesta approvata</td>");
-												}else{
-													out.print("<td>refused</td>");
+												}else if(request.getAttribute("rRCState").toString().equals("refused")){
+													out.print("<td class='text-center' align='center'><img src='imagesRC/refused.png' alt='redPoit'>Richiesta rifiutata, controllare mail per dettagli</td>");
 												}
 											%>
 												</tr>
@@ -76,6 +76,19 @@
 										<tbody id="bodyStudentTable">
 									</tbody>
 								</table>
+								<%
+								
+								
+								HttpSession sess = request.getSession();
+								sess.setAttribute("flag", 5);
+							
+								if(request.getAttribute("rRCState").toString().equals("refused")){
+									out.print("<td class=submitButton-centre align=center style= margin-right: 60px; width: 200px; position: relative; float:centre>"+
+									    "<form action='./StudentManagement' method=get align='right'>" +
+										"<input type= submit value ='Crea una nuova Richiesta' name= 'flag' class=btn btn-primary></input></form>");
+									}
+									
+								%>
 							</div>
 						</div>
 					</div>
