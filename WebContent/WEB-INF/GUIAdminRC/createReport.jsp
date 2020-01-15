@@ -298,7 +298,7 @@
 												</div>
 												<div
 													class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
-													<button onclick = "fillRowWithSuggestion(<%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>")"
+													<button onclick = "fillRowWithSuggestion(<%=examRow%>, '<%=suggList.get(examRow - 1).getValidatedCFU()%>', '<%=suggList.get(examRow - 1).getValidationMode()%>')"
 														class="btn btn-success" type="button">Usa suggerimento</button>
 												</div>
 												<!-- Adding an extra div in order to make the suggestion resize correctly -->
@@ -308,9 +308,9 @@
 											</div>
 										</div>
 										<script type="text/javascript">
-	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>"));
-															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>"));
-															checkSuggestionMatchForRow(<%=examRow%>, "<%=suggList.get(examRow - 1).getValidatedCFU()%>", "<%=suggList.get(examRow - 1).getValidationMode()%>");
+	 														document.getElementById("validatedExamCFU<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, '<%=suggList.get(examRow - 1).getValidatedCFU()%>', '<%=suggList.get(examRow - 1).getValidationMode()%>'));
+															document.getElementById("validatedExamMode<%=examRow%>").addEventListener("input", checkSuggestionMatchForRow.bind(null, <%=examRow%>, '<%=suggList.get(examRow - 1).getValidatedCFU()%>', '<%=suggList.get(examRow - 1).getValidationMode()%>'));
+															checkSuggestionMatchForRow(<%=examRow%>, '<%=suggList.get(examRow - 1).getValidatedCFU()%>', '<%=suggList.get(examRow - 1).getValidationMode()%>');
 										</script>
 										<%
 													} else {

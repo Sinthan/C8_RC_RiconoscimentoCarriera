@@ -110,7 +110,7 @@ public class ReportManagementServlet extends HttpServlet {
 				}
 				mode = (String) request.getParameter("validatedExamMode" + i);
 				if (mode.length() > 5000) {
-					goBackWithError("Impossibile salvare la bozza, la modalit&#224; di convalida dell'esame " + examName + " supera i 5000 caratteri", request, response);
+					goBackWithError("Impossibile salvare la bozza, la modalita di convalida dell'esame " + examName + " supera i 5000 caratteri", request, response);
 					return;
 				}
 				vExam.setExamName(examName);
