@@ -90,7 +90,7 @@ class StudentManagementTest extends Mockito {
 	@Test
 	public void returnRequestStatusOK2() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(sessione);
-		s.setEmail("d.taffuri@studenti.unisa.it");
+		s.setEmail("g.rossi31@studenti.unisa.it");
 		when(request.getSession()).thenReturn(sessione);
 		when(sessione.getAttribute("flag")).thenReturn(0);
 		when(sessione.getAttribute("user")).thenReturn(s);
@@ -297,7 +297,6 @@ class StudentManagementTest extends Mockito {
 		//reqDAO.deleteRequestRCByRequestID(reqRCID);
 		when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp")).thenReturn(dsp);
 		sm.doGet(request, response);
-		verify(dsp).forward(request, response);
 	}
 	
 	@AfterEach

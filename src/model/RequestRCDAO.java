@@ -299,6 +299,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 
 	@Override
 	public RequestRC doRetrieveRequestRCByStudentID(String studentID) {
+		RequestRC r = null;
 		try {
 			Connection connection = DbConnection.getInstance().getConn();
 			PreparedStatement ps = connection.prepareStatement(
@@ -307,20 +308,21 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			ps.setString(1, studentID);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				RequestRC r = new RequestRC();
+				r = new RequestRC();
 				r.setRequestRCID(rs.getInt(1));
 				r.setSubmissionDate(rs.getDate(2));
 				r.setState(RCState.fromInteger(rs.getInt(3)));
 				r.setUniversityID(rs.getString(4));
 				r.setStudentID(rs.getString(5));
 				r.setReportID(rs.getInt(6));
+				System.out.println(r);
 				return r;
 			}
-			return null;
 		} catch (SQLException e) {
 			System.out.println("doRetrieveRequestRCByStudentID: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
+		return r;
 	}
 
 

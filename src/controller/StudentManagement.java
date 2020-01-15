@@ -299,8 +299,8 @@ public class StudentManagement extends HttpServlet {
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());
 			request.setAttribute("didInsertRequest", "true");
-			dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
-			dis.forward(request, response);
+			response.sendRedirect("/EnglishValidation/StudentRCRequestRedirector?flag=1");
+			return;
 		} else if (flag==4) {
 			RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);

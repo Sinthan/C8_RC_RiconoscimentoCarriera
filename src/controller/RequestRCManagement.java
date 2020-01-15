@@ -96,8 +96,7 @@ public class RequestRCManagement extends HttpServlet {
 				String message = "Gentile "+student.getName()+" " + student.getSurname() +", la sua richiesta di convalida della carriera pregressa"
 				+ " e' stata rifiutata per le seguenti ragioni: \n"+ messageBody +"\n"+ "Cordiali saluti.";
 				email.sendMail("carrierapregressaunisa@gmail.com", student.getEmail() , "Carriera pregressa", message, null);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/UCManagement");
-				requestDispatcher.forward(request, response);	
+				response.sendRedirect("/EnglishValidation/UCManagement");	
 			}			
 		}// Se la richiesta deve essere trattata dal PCD
 		else if(user instanceof Admin) {
