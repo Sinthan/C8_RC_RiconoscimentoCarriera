@@ -209,7 +209,7 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 	 *					<li>-2 if param doesen't exists in database
 	 *@author 	Lorenzo Maturo
 	 */
-	@Override
+	/*@Override
 	public int updateSuggestion(Suggestion sugg) {
 
 		if(sugg==null) {
@@ -263,16 +263,16 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 		}
 		
 	
-	}
+	}*/
 	
 	/**
 	 * Delete old suggest       
 	 * @return -1 if delete failed, 0 if delete ok
 	 */
-	public int deleteOldSuggestions() {
+	/*public int deleteOldSuggestions() {
 	
 		int flag = 0;
 		return flag;	
-	}
+	}*/
 	
 }

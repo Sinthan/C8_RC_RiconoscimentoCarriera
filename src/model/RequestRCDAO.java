@@ -39,7 +39,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		}
 
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;		
+		PreparedStatement preparedStatement = null;		 
 		int result = 0;
 
 		/* Adds the 5 given parametric values in the REQUEST_RC table.
@@ -82,7 +82,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		return result;
 	}
 
-	@Override
+	/*@Override
 	public int updateRequestRC(RequestRC request) {
 		if(request==null) {
 			System.out.println("updateRequestRC: invalid argument passed");
@@ -102,10 +102,10 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			}
 		}
 	
-	}
+	}*/
 
 
-	@Override
+	/*@Override
 	public int updateReportID(int reportID, RequestRC request) {
 		if(reportID<0) {
 			System.out.println("updateReport: invalid argument passed");
@@ -151,7 +151,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			return 0;
 		}
 		
-	}
+	}*/
 	
 	
 	/**
@@ -299,6 +299,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 
 	@Override
 	public RequestRC doRetrieveRequestRCByStudentID(String studentID) {
+		RequestRC r = null;
 		try {
 			Connection connection = DbConnection.getInstance().getConn();
 			PreparedStatement ps = connection.prepareStatement(
@@ -307,20 +308,21 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			ps.setString(1, studentID);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				RequestRC r = new RequestRC();
+				r = new RequestRC();
 				r.setRequestRCID(rs.getInt(1));
 				r.setSubmissionDate(rs.getDate(2));
 				r.setState(RCState.fromInteger(rs.getInt(3)));
 				r.setUniversityID(rs.getString(4));
 				r.setStudentID(rs.getString(5));
 				r.setReportID(rs.getInt(6));
+				System.out.println(r);
 				return r;
 			}
-			return null;
 		} catch (SQLException e) {
 			System.out.println("doRetrieveRequestRCByStudentID: error while executing the query\n" + e);
 			throw new RuntimeException(e);
 		}
+		return r;
 	}
 
 
@@ -379,7 +381,6 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			} else {
 				System.out.println("Couldn't delete the folder " + studentDirectory);
 			}
-
 			// Preparing the RCRequest deletion
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(deleteSQL);			

@@ -84,7 +84,7 @@ class AdminManagementTest extends Mockito {
 	void testEmailsSent() throws ServletException, IOException {
 		when(request.getParameter("idRequestRC")).thenReturn(Integer.toString(4));
 		when(request.getSession()).thenReturn(sessione);
-		when(request.getRequestDispatcher("/WEB-INF/GUIAdminRC/viewRCRequestAdmin.jsp")).thenReturn(dsp);
+		when(request.getRequestDispatcher("/AdminHome")).thenReturn(dsp);
 		am.doPost(request, response);
 		verify(dsp).forward(request, response);
 	}

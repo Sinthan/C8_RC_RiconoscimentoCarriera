@@ -300,9 +300,10 @@ public class StudentManagement extends HttpServlet {
 			request.setAttribute("rRCDate", dbRCRequest.getSubmissionDate());
 			request.setAttribute("rRCState", dbRCRequest.getState());
 			request.setAttribute("didInsertRequest", "true");
-			request.getSession().setAttribute("repeatCreation", false);
 			dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
+			response.sendRedirect("/EnglishValidation/StudentRCRequestRedirector?flag=1");
+			return;
 		} else if (flag==4) {
 			RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp");
 			dis.forward(request, response);
@@ -324,7 +325,7 @@ public class StudentManagement extends HttpServlet {
 		RequestRCDAO reqDAO =  new RequestRCDAO();
 		reqDAO.deleteRequestRCByRequestID(requestRCID);
 		request.setAttribute("errorCR1", message);
-		RequestDispatcher dis = request.getServletContext().getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp");
 		dis.forward(request, response);
 	}
 

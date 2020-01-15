@@ -250,7 +250,7 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 
 
 
-	@Override
+	/*@Override
 	public int deleteValidatedExam(ValidatedExam vExam) {
 		if (vExam.getVExamID()< 0) { // Checks if parameter is a valid ID
 			System.out.println("deleteValidatedExam: Please enter a valid ExamID.");
@@ -288,12 +288,9 @@ public class ValidatedExamDAO implements ValidatedExamDAOInterface {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-	
 	}
 	
 		return result;
-
-
-	}
+	}*/
 }
 

@@ -186,8 +186,8 @@
 			    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminHome\">Lista Richieste</a></li>";
   		}
   		else if(pageName.equals("createReport.jsp")){
-  	    	menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + "_areaAdmin"
-  	    	          + "/viewRequest.jsp\">Richieste English Validation</a></li>";
+  			menu += 
+		    		  "<li class=\"current\"><a href=\"" + request.getContextPath() + "/AdminHome\">Lista Richieste</a></li>";
   	    	      menu +=
   	    	          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
   	    }

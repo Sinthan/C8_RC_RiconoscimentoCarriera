@@ -1,13 +1,20 @@
 package test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import controller.DbConnection;
 import model.Exam;
 import model.ExamDAO;
 import model.RequestRC;
@@ -25,15 +32,15 @@ class ExamDAOTest {
 		ex = new Exam();
 	}
 
-	/*@Test
+	@Test
 	void testinsertExamOK() throws SQLException {
-		ex.setName("ingegneria del test");
+		ex.setName("testtest");
 		ex.setCFU(9);
 		ex.setProgramLink("//link di riferimento//");
 		int i = exD.insertExam(ex);
-		assertEquals(-1, i);
+		assertNotNull(i);
 	}
-*/	
+	
 	@Test
 	void testInsertExamFailName() {
 		ex.setName("");
@@ -96,5 +103,17 @@ class ExamDAOTest {
 		}
 		assertEquals(0, result);
 	}	
+	
+	@Test
+	public void doRetrieveMaxExamIDTest() {
+		 int result = exD.doRetrieveMaxExamID();
+		 assertNotNull(result);
+	}
+	
+	@Test 
+	public void  doRetrieveExamByIDTest() {
+		Exam examReturn= exD.doRetrieveExamByID(1);
+		assertNotNull(examReturn);
+	}
 	
 }

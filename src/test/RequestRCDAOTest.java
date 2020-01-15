@@ -3,23 +3,37 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import model.RequestRC;
 import model.RequestRCDAO;
+import model.Student;
+import model.Exam;
 import model.RCState;
 
 class RequestRCDAOTest {
 	
 	RequestRCDAO requestRCDAO;
+	HttpSession session;
+	HttpServletRequest request;
+	HttpServletResponse response;
 	RequestRC r;
 	int result;
+	RCState state;
+	Student s ;
 	
 	//@BeforeEach
 	void setUp() throws Exception {
 		requestrcDAO = new RequestRCDAO();
 		r = new RequestRC();
+		s= new Student();
 	}
 	
 	RequestRCDAO requestrcDAO = new RequestRCDAO();
@@ -27,7 +41,7 @@ class RequestRCDAOTest {
 
 	@Test// Richiesta estratta correttamente
 	void testdoRetrieveRequestRCByStudentID() {
-		RequestRC r = requestrcDAO.doRetrieveRequestRCByStudentID("g.damiano@studenti.unisa.it");
+		RequestRC r = requestrcDAO.doRetrieveRequestRCByStudentID("d.taffuri@studenti.unisa.it");
 		assertNotNull(r);
 	}
 	
@@ -51,7 +65,7 @@ class RequestRCDAOTest {
 	
 	@Test
 	void testdoRetrieveAllRequestRCBystatefail() {
-		RCState state = RCState.refused;
+		 state = RCState.refused;
 		ArrayList<RequestRC> list = requestrcDAO.doRetrieveAllRequestRCBystate(state);
 		if(list.isEmpty()) {
 			result = 0;
@@ -60,5 +74,32 @@ class RequestRCDAOTest {
 		}
 		assertEquals(1, result);
 	}
+	
+	@Test
+	public void updateStateTest() {
+		state = RCState.approved;
+		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.fonzo1@studenti.unisa.it");
+		int idRequest = r.getRequestRCID();
+		int result =requestrcDAO.updateState(state,idRequest);
+		assertEquals(0, result);
+	}
+	
+	@Test
+	public void doRetrieveRequestRCByRequestIDTest() {
+		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.fonzo1@studenti.unisa.it");
+		RequestRC testRequest = requestrcDAO.doRetrieveRequestRCByRequestID(r.getRequestRCID());
+		assertNotNull(testRequest);
+	}
+	
+
+	@AfterEach
+	public void resetValueStateAfterTest() {
+		state = RCState.refused;
+		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.fonzo1@studenti.unisa.it");
+		int idRequest = r.getRequestRCID();
+		requestrcDAO.updateState(state,idRequest);
+	}
+	
+	
 
 }

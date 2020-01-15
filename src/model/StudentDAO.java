@@ -163,12 +163,12 @@ public class StudentDAO implements StudentDAOInterface {
 	 * Delete external student when his registration date is too old        
 	 * @return -1 if delete failed, 0 if delete ok
 	 */
-	public int deleteOldExternalStudent() {
+	/*public int deleteOldExternalStudent() {
 		
 		int flag = 0;
 		return flag;
 		
-	}
+	}*/
 	
 	
 	

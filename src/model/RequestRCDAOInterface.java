@@ -18,13 +18,13 @@ public interface RequestRCDAOInterface {
 	/*
 	 * Update information of requestRC
 	 */
-	public int updateRequestRC(RequestRC request);
+	//public int updateRequestRC(RequestRC request);
 	
 	
 	/*
 	 * Update report's ID
 	 */
-	public int updateReportID(int reportID, RequestRC request);
+	//public int updateReportID(int reportID, RequestRC request);
 
 	/*
 	 * Retrieve all requestRCs from the database
