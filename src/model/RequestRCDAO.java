@@ -39,7 +39,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		}
 
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;		
+		PreparedStatement preparedStatement = null;		 
 		int result = 0;
 
 		/* Adds the 5 given parametric values in the REQUEST_RC table.
@@ -82,7 +82,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 		return result;
 	}
 
-	@Override
+	/*@Override
 	public int updateRequestRC(RequestRC request) {
 		if(request==null) {
 			System.out.println("updateRequestRC: invalid argument passed");
@@ -102,10 +102,10 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			}
 		}
 	
-	}
+	}*/
 
 
-	@Override
+	/*@Override
 	public int updateReportID(int reportID, RequestRC request) {
 		if(reportID<0) {
 			System.out.println("updateReport: invalid argument passed");
@@ -151,7 +151,7 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			return 0;
 		}
 		
-	}
+	}*/
 	
 	
 	/**
@@ -379,7 +379,6 @@ public class RequestRCDAO implements RequestRCDAOInterface {
 			} else {
 				System.out.println("Couldn't delete the folder " + studentDirectory);
 			}
-
 			// Preparing the RCRequest deletion
 			connection = DbConnection.getInstance().getConn();
 			preparedStatement = connection.prepareStatement(deleteSQL);			
