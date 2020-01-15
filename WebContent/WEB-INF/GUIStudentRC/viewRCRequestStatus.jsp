@@ -83,7 +83,7 @@
 								sess.setAttribute("flag", 5);
 							
 								if(request.getAttribute("rRCState").toString().equals("refused")){
-									out.print("<td class=submitButton-centre align=center style= margin-right: 60px; width: 200px; position: relative; float:centre>"+
+									out.print("<td class=submitButton-centre style= 'margin-right: 60px; width: 200px; position: relative; float:right'>"+
 									    "<form action='./StudentManagement' method=get align='right'>" +
 										"<input type= submit value ='Crea una nuova Richiesta' name= 'flag' class=btn btn-primary></input></form>");
 									}

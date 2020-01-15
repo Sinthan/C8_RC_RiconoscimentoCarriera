@@ -185,12 +185,9 @@
 									      	<div class="modal-body">
 									      		<div class="form-group">
 													<label for="message-text" class="col-form-label">Messaggio:</label>
-														<textarea rows="5" cols="100" class="form-control"
-														id="message-text" placeholder="La richiesta è stata rifiutata perchè..." onChange="validateMailBody()"
-														name="popupText" required>
-														</textarea>
+														<textarea rows="5" cols="100" class="form-control" id="message-text" placeholder="La richiesta è stata rifiutata perchè..." onChange="validateMailBody()"name="popupText" required></textarea>										
 												</div>
-										    	<input type = hidden name = RequestRCstate value="false"/>
+										    	<input type = hidden name = RequestRCstate value="false"></input>
 									      	</div>
 									      	<div class="modal-footer">
 									        	<button type="reset" class="btn btn-secondary" data-dismiss="modal" >Annulla</button>
