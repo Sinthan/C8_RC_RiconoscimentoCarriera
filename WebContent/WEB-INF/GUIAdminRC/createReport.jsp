@@ -22,6 +22,8 @@
 	var examNameRegex = /^(\w+\s?\-?)*(\-?\s*\w*)*$/;
 	var CFURegex = /[0-9]{1,2}/;
 	var suggestionActiveBG = "#ddf0fe";
+	var suggestionActiveBorder = '#93CAE6';
+	//var suggestionActiveBorder = '#acd6ec';
 	
 	window.onload = function(){
 		controlServlet();
@@ -46,11 +48,13 @@
 		validatedCFUField = document.getElementById("validatedExamCFU" + rowNumber);
 		validatedCFUField.value = suggestedCFU;
 		validatedCFUField.style.backgroundColor = suggestionActiveBG;
+		validatedCFUField.style.borderColor = suggestionActiveBorder;
 		
 		// Get the validation mode field
 		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
 		validationModeField.value  = suggestedProcedure;
 		validationModeField.style.backgroundColor = suggestionActiveBG;
+		validationModeField.style.borderColor = suggestionActiveBorder;
 		
 		// Get the overwrite suggestion
 		suggOverwriteCheck = document.getElementById("suggOverwrite" + rowNumber);
@@ -77,13 +81,17 @@
 		
 		if (validatedCFUField.value == suggestedCFU && validationModeField.value == suggestedProcedure) {
 			validatedCFUField.style.backgroundColor = suggestionActiveBG;
+			validatedCFUField.style.borderColor = suggestionActiveBorder;
 			validationModeField.style.backgroundColor = suggestionActiveBG;
+			validationModeField.style.borderColor = suggestionActiveBorder;
 			appliedSuggLabel.style.visibility = "visible";
 			suggOverwriteCheck.checked = false;
 			suggOverwriteCheck.disabled = true;
 		} else {
 			validationModeField.style.backgroundColor = "#ffffff";
+			validationModeField.style.borderColor = "";
 			validatedCFUField.style.backgroundColor = "#ffffff";
+			validatedCFUField.style.borderColor = "";
 			appliedSuggLabel.style.visibility = "hidden";
 			suggOverwriteCheck.disabled = false;
 		}
