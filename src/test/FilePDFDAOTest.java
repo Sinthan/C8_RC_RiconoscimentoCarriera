@@ -55,7 +55,7 @@ class FilePDFDAOTest {
 	@Test
 	void testdoRetrieveAllFilePDFByIDRequestRCOK() {
 		ArrayList<FilePDF> list = new ArrayList<FilePDF>();
-		list = filePDFDAO.doRetrieveAllFilePDFByIDRequestRC(1);
+		list = filePDFDAO.doRetrieveAllFilePDFByIDRequestRC(4);
 		if(list.isEmpty()) {
 			result = 0;
 		}else {

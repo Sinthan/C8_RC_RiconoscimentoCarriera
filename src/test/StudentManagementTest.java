@@ -126,7 +126,7 @@ class StudentManagementTest extends Mockito {
 		when(sessione.getAttribute("flag")).thenReturn(2);
 		when(request.getPart("file1")).thenReturn(part1);
 		when(request.getPart("file2")).thenReturn(part2);
-		when(request.getParameter("universita")).thenReturn("Universit√† degli Studi di NAPOLI Federico II");
+		when(request.getParameter("universita")).thenReturn("Universit‡ degli Studi di NAPOLI Federico II");
 		when(part1.getContentType()).thenReturn("application/xml");
 		when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp")).thenReturn(dsp);
 		sm.doGet(request, response);
@@ -139,7 +139,7 @@ class StudentManagementTest extends Mockito {
 		when(sessione.getAttribute("flag")).thenReturn(2);
 		when(request.getPart("file1")).thenReturn(part1);
 		when(request.getPart("file2")).thenReturn(part2);
-		when(request.getParameter("universita")).thenReturn("Universit√† degli Studi di NAPOLI Federico II");
+		when(request.getParameter("universita")).thenReturn("Universit‡ degli Studi di NAPOLI Federico II");
 		when(part1.getContentType()).thenReturn("application/pdf");
 		when(part2.getContentType()).thenReturn("application/xml");
 		when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/createRCRequest1.jsp")).thenReturn(dsp);
@@ -154,7 +154,7 @@ class StudentManagementTest extends Mockito {
         when(sessione.getAttribute("flag")).thenReturn(2);
         when(request.getPart("file1")).thenReturn(part1);
         when(request.getPart("file2")).thenReturn(part2);
-        when(request.getParameter("universita")).thenReturn("Universit√† degli Studi di NAPOLI Federico II");
+        when(request.getParameter("universita")).thenReturn("Universit‡ degli Studi di NAPOLI Federico II");
         when(part1.getContentType()).thenReturn("application/pdf");
         when(part2.getContentType()).thenReturn("application/pdf");
         when(sessione.getAttribute("user")).thenReturn(s);
@@ -171,7 +171,7 @@ class StudentManagementTest extends Mockito {
         when(sessione.getAttribute("flag")).thenReturn(2);
         when(request.getPart("file1")).thenReturn(part1);
         when(request.getPart("file2")).thenReturn(part2);
-        when(request.getParameter("universita")).thenReturn("Universit√† degli Studi di NAPOLI Federico II");
+        when(request.getParameter("universita")).thenReturn("Universit‡ degli Studi di NAPOLI Federico II");
         when(part1.getContentType()).thenReturn("application/pdf");
         when(part2.getContentType()).thenReturn("application/pdf");
         when(sessione.getAttribute("user")).thenReturn(s);

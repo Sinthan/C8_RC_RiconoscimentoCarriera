@@ -78,8 +78,8 @@ class ViewReportAdminServletTest extends Mockito {
 	@Test
 	public void testReport1() throws ServletException, IOException {
 		when(request.getSession()).thenReturn(sessione);
-		when((request.getParameter("idRequestRC"))).thenReturn("1");
-		s = sDao.doRetrieveStudentByEmail("g.rossi@studenti.unisa.it");
+		when((request.getParameter("idRequestRC"))).thenReturn("25");
+		s = sDao.doRetrieveStudentByEmail("g.c@studenti.unisa.it");
 		when(request.getSession()).thenReturn(sessione); 
 		when(sessione.getAttribute("user")).thenReturn(s);
 		when(request.getRequestDispatcher("/WEB-INF/GUIAdminRC/createReport.jsp")).thenReturn(dsp);

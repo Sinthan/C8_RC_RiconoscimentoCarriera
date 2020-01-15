@@ -83,7 +83,7 @@ class ExamDAOTest {
 	@Test
 	void testdoRetrieveAllExamsByRequestRCIDOK() {
 		ArrayList<Exam> list = new ArrayList<Exam>();
-		list = exD.doRetrieveAllExamsByRequestRCID(1);
+		list = exD.doRetrieveAllExamsByRequestRCID(4);
 		if(list.isEmpty()) {
 			result = 0;
 		}else {
