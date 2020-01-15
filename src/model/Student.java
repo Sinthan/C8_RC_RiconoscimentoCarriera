@@ -4,28 +4,27 @@ import interfacce.UserInterface;
 import java.util.Date;
 
 /**
- * 
- * Object Student represents a real student 
+ * Object Student represents a real student.
  *
  */
 public class Student implements UserInterface {
-	
-	private String email;
-	private String name;
-	private String surname;
-	private char sex;
-	private String password;
-	private int userType;
-	private Date registrationDate;
-  
-	/**
-	 * Empty Constructor.
-	 */
+
+  private String email;
+  private String name;
+  private String surname;
+  private char sex;
+  private String password;
+  private int userType;
+  private Date registrationDate;
+
+  /**
+   * Empty Constructor.
+   */
   public Student() {}
 
 
   /**
-   * Contructor used 
+   * Contructor used.
    * 
    * @param email is the address that the Student uses to Log in the site.
    * @param name is the name of the Student.
@@ -35,20 +34,20 @@ public class Student implements UserInterface {
    * @param userType specifies the type of the user.
    */
 
-  public Student(String email, String name, String surname, char sex, String password,int userType) {
-	    
-	  this.email = email;
-	  this.name = name;
-	  this.surname = surname;
-	  this.sex = sex;
-	  this.password = password;
-	  this.userType = userType;
-  
+  public Student(String email, String name, String surname, char sex, String password,
+      int userType) {
+
+    this.email = email;
+    this.name = name;
+    this.surname = surname;
+    this.sex = sex;
+    this.password = password;
+    this.userType = userType;
+
   }
-  
+
   /**
-   * 
-   * getters and setters
+   * getters and setters.
    * 
    */
   @Override
@@ -82,9 +81,9 @@ public class Student implements UserInterface {
   }
 
   public Date getRegistrationDate() {
-		return registrationDate;
+    return registrationDate;
   }
-  
+
   @Override
   public void setEmail(String email) {
     this.email = email;
@@ -116,12 +115,12 @@ public class Student implements UserInterface {
   }
 
   public void setRegistrationDate(Date registrationDate) {
-	this.registrationDate = registrationDate;
-}
+    this.registrationDate = registrationDate;
+  }
 
-@Override
+  @Override
   public boolean validate() {
-    return new Stub().database.containsKey(getEmail()) 
-        && new Stub().database.containsValue(getPassword());    
+    return new Stub().database.containsKey(getEmail())
+        && new Stub().database.containsValue(getPassword());
   }
 }

@@ -5,13 +5,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import model.SystemAttribute;
 
 
@@ -46,8 +44,8 @@ public class Downloader extends HttpServlet {
 
     int idRequest = Integer.parseInt(request.getParameter("idRequest"));
     String filename = request.getParameter("filename");
-    String basePath = 
-    new SystemAttribute().getValueByKey("request-upload-path") + "\\" + idRequest + "\\";
+    String basePath =
+        new SystemAttribute().getValueByKey("request-upload-path") + "\\" + idRequest + "\\";
 
     try {
       in = new FileInputStream(basePath + filename);

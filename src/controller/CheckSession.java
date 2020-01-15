@@ -1,10 +1,8 @@
 package controller;
 
-import java.io.Serializable;
-
-import javax.servlet.http.HttpSession;
-
 import interfacce.UserInterface;
+import java.io.Serializable;
+import javax.servlet.http.HttpSession;
 import model.UC;
 
 
@@ -100,33 +98,34 @@ public class CheckSession implements Serializable {
    */
   public boolean isAllowed() {
     this.setAllowed(false);
-    
+
     Object uc = this.getSession().getAttribute("user");
-    if(uc instanceof UC && this.pageFolder.equals("GUIUC")){
-    	
-    	this.setAllowed(true); // Profilo UC
-    }else {
-    
-    	UserInterface u = (UserInterface) this.session.getAttribute("user");
-    	if (u != null) {
-    		int userType = u.getUserType();
+    if (uc instanceof UC && this.pageFolder.equals("GUIUC")) {
 
-    		if (userType == 0 && this.pageFolder.equals("_areaStudent")) {
-    			this.setAllowed(true); // Profilo Student
+      this.setAllowed(true); // Profilo UC
+    } else {
 
-    		} else if (userType == 1 && this.pageFolder.equals("_areaSecretary")) {
-    			this.setAllowed(true); // Profilo Secretary
+      UserInterface u = (UserInterface) this.session.getAttribute("user");
+      if (u != null) {
+        int userType = u.getUserType();
 
-    		} else if (userType == 2 && this.pageFolder.equals("_areaAdmin")) {
-    			this.setAllowed(true); // Profilo Admin
-        
-    		} else if (this.pageFolder.equals("GUIUC")) {
-    			this.setAllowed(true); // Profilo UC	
-    		}
-    	}
+        if (userType == 0 && this.pageFolder.equals("_areaStudent")) {
+          this.setAllowed(true); // Profilo Student
+
+        } else if (userType == 1 && this.pageFolder.equals("_areaSecretary")) {
+          this.setAllowed(true); // Profilo Secretary
+
+        } else if (userType == 2 && this.pageFolder.equals("_areaAdmin")) {
+          this.setAllowed(true); // Profilo Admin
+
+        } else if (this.pageFolder.equals("GUIUC")) {
+          this.setAllowed(true); // Profilo UC
+        }
+      }
     }
     return allowed;
   }
+
   /**
    * Set the variable allowed.
    * 

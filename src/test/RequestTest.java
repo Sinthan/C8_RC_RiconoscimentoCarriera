@@ -2,25 +2,21 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
 import interfacce.UserInterface;
-
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import model.Attached;
 import model.Ente;
 import model.Request;
 import model.Secretary;
 import model.State;
 import model.Student;
-
 import org.junit.jupiter.api.Test;
 
 class RequestTest {
-  
+
   @Test
   void testRequestCostructorEmpty() {
     Request re = new Request();

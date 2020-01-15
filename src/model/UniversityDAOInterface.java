@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface UniversityDAOInterface {
 
-	
-	/**
-	* @return returns a set of university name.
-	*/
-	public List<University> doRetrieveAllUniversity();
+
+  /**
+   * @return returns a set of university name.
+   */
+  public List<University> doRetrieveAllUniversity();
 }
