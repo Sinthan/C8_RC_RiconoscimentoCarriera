@@ -46,7 +46,7 @@ class StudentRCRequestRedirectorTest extends Mockito {
 		when(request.getParameter("flag")).thenReturn("1");
 		when(request.getSession()).thenReturn(sessione);
 		when(sessione.getAttribute("user")).thenReturn(s);
-		s.setEmail("a.cassese9@studenti.unisa.it");
+		s.setEmail("g.rossi31@studenti.unisa.it");
 		when(request.getRequestDispatcher("/WEB-INF/GUIStudentRC/viewRCRequestStatus.jsp")).thenReturn(requestDisp);
 		sRCR.doGet(request, response);
 		verify(requestDisp).forward(request, response);

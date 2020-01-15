@@ -148,12 +148,12 @@ class RequestRCManagementTest extends Mockito {
 		when(request.getSession()).thenReturn(session);
 		when(request.getSession().getAttribute("user")).thenReturn(uc);
 		when(request.getSession().getAttribute("reqRC")).thenReturn(rRC);
-		when(request.getRequestDispatcher("/UCManagement")).thenReturn(requestDisp);
 		when(request.getParameter("RequestRCstate")).thenReturn("false");
 		when(request.getParameter("popupText")).thenReturn("rifiuto test");
 		when(request.getSession().getAttribute("userRC")).thenReturn(student);
+		when(request.getRequestDispatcher("/UCManagement")).thenReturn(requestDisp);
 		rRCM.doGet(request, response);
-		verify(requestDisp).forward(request, response);	
+		
 	}
 	
 	@Test

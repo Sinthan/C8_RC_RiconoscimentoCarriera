@@ -101,8 +101,8 @@ class LoginManagementTest extends Mockito {
 	 
 	 	@Test //Caso Login Student: Login effettuato con successo
 	 	void testLoginStudentOK() throws ServletException, IOException {
-	 		request.addParameter("email","a.cassese9@studenti.unisa.it");
-		    request.addParameter("password","123456789");
+	 		request.addParameter("email","g.rossi31@studenti.unisa.it");
+		    request.addParameter("password","password");
 		    servlet.doPost(request, response);
 		    assertEquals("json", response.getContentType());
 		  }

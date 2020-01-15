@@ -46,7 +46,7 @@ public class ViewReportAdminServlet extends HttpServlet {
 	/**
 	 * @see set as attribute the validatedExam arraylist 
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Getting the RCRequest
 		int requestRCID = Integer.parseInt(request.getParameter("idRequestRC"));
 		RequestRCDAO rDao = new RequestRCDAO();

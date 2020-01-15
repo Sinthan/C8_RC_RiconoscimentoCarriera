@@ -41,7 +41,7 @@ class RequestRCDAOTest {
 
 	@Test// Richiesta estratta correttamente
 	void testdoRetrieveRequestRCByStudentID() {
-		RequestRC r = requestrcDAO.doRetrieveRequestRCByStudentID("d.taffuri@studenti.unisa.it");
+		RequestRC r = requestrcDAO.doRetrieveRequestRCByStudentID("g.rossi31@studenti.unisa.it");
 		assertNotNull(r);
 	}
 	
@@ -78,7 +78,7 @@ class RequestRCDAOTest {
 	@Test
 	public void updateStateTest() {
 		state = RCState.approved;
-		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.fonzo1@studenti.unisa.it");
+		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.rossi31@studenti.unisa.it");
 		int idRequest = r.getRequestRCID();
 		int result =requestrcDAO.updateState(state,idRequest);
 		assertEquals(0, result);
@@ -86,7 +86,7 @@ class RequestRCDAOTest {
 	
 	@Test
 	public void doRetrieveRequestRCByRequestIDTest() {
-		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.fonzo1@studenti.unisa.it");
+		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.rossi31@studenti.unisa.it");
 		RequestRC testRequest = requestrcDAO.doRetrieveRequestRCByRequestID(r.getRequestRCID());
 		assertNotNull(testRequest);
 	}
@@ -95,7 +95,7 @@ class RequestRCDAOTest {
 	@AfterEach
 	public void resetValueStateAfterTest() {
 		state = RCState.refused;
-		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.fonzo1@studenti.unisa.it");
+		r = requestrcDAO.doRetrieveRequestRCByStudentID("g.rossi31@studenti.unisa.it");
 		int idRequest = r.getRequestRCID();
 		requestrcDAO.updateState(state,idRequest);
 	}
