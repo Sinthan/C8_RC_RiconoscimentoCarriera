@@ -22,6 +22,8 @@
 	var examNameRegex = /^(\w+\s?\-?)*(\-?\s*\w*)*$/;
 	var CFURegex = /[0-9]{1,2}/;
 	var suggestionActiveBG = "#ddf0fe";
+	var suggestionActiveBorder = '#93CAE6';
+	//var suggestionActiveBorder = '#acd6ec';
 	
 	window.onload = function(){
 		controlServlet();
@@ -46,17 +48,24 @@
 		validatedCFUField = document.getElementById("validatedExamCFU" + rowNumber);
 		validatedCFUField.value = suggestedCFU;
 		validatedCFUField.style.backgroundColor = suggestionActiveBG;
+		validatedCFUField.style.borderColor = suggestionActiveBorder;
 		
 		// Get the validation mode field
 		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
 		validationModeField.value  = suggestedProcedure;
 		validationModeField.style.backgroundColor = suggestionActiveBG;
+		validationModeField.style.borderColor = suggestionActiveBorder;
 		
 		// Get the overwrite suggestion
 		suggOverwriteCheck = document.getElementById("suggOverwrite" + rowNumber);
 		suggOverwriteCheck.checked = false;
 		suggOverwriteCheck.disabled = true;
 		
+		// Get the applied suggestion label
+		appliedSuggLabel = document.getElementById("appliedSuggLabel" + rowNumber);
+		appliedSuggLabel.style.visibility = "visible";
+		
+		// Hiding the suggestion
 		$("#suggestion" + rowNumber).collapse('hide');
 	}
 	
@@ -67,14 +76,23 @@
 		validationModeField = document.getElementById("validatedExamMode" + rowNumber);
 		// Get the overwrite suggestion
 		suggOverwriteCheck = document.getElementById("suggOverwrite" + rowNumber);
+		// Get the applied suggestion label
+		appliedSuggLabel = document.getElementById("appliedSuggLabel" + rowNumber);
+		
 		if (validatedCFUField.value == suggestedCFU && validationModeField.value == suggestedProcedure) {
 			validatedCFUField.style.backgroundColor = suggestionActiveBG;
+			validatedCFUField.style.borderColor = suggestionActiveBorder;
 			validationModeField.style.backgroundColor = suggestionActiveBG;
+			validationModeField.style.borderColor = suggestionActiveBorder;
+			appliedSuggLabel.style.visibility = "visible";
 			suggOverwriteCheck.checked = false;
 			suggOverwriteCheck.disabled = true;
 		} else {
 			validationModeField.style.backgroundColor = "#ffffff";
+			validationModeField.style.borderColor = "";
 			validatedCFUField.style.backgroundColor = "#ffffff";
+			validatedCFUField.style.borderColor = "";
+			appliedSuggLabel.style.visibility = "hidden";
 			suggOverwriteCheck.disabled = false;
 		}
 	}
@@ -134,7 +152,7 @@
 								</div>
 <!-- Editable exams list -->
 								<div class="col-lg-11 col-md-11" id="editableExamsList">
-									<div id="examsListHeader" class="row">
+									<div id="examsListHeader">
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
 											id="examNameColumn1">
 											<h4 class="text-left field-title">
@@ -146,17 +164,23 @@
 												<b>CFU convalidati</b>
 											</h4>
 										</div>
-										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
+										<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center"
 											id="buttons">
 											<h4 class="text-left field-title">
 												<b>Modalità di convalida</b>
 											</h4>
 										</div>
+										<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"
+											id="buttons">
+											<h4 class="text-left field-title" style="padding-left: 49px;">
+												<b>Opzioni suggerimento</b>
+											</h4>
+										</div>
 									</div>
 									
-								<form action="./GenerateReportServlet">
+								<form action="./ReportManagementServlet">
 									<c:forEach items="${validatedExamList}" var="vExam">
-										<div id="examsListRow<%=examRow%>" class="row">
+										<div id="examsListRow<%=examRow%>" class="examRow">
 	<!-- Exam external name -->
 											<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
 												id="validatedExamName<%=examRow%>" name="validatedExamName<%=examRow%>">
@@ -184,17 +208,18 @@
 													<h3 class="inline">
 														/
 														</h3>
-														<h4 class="inline" name="externalExamCFU<%=examRow%>">
+														<h4 class="inline">
 														<%=examsList.get(examRow - 1).getCFU()%>
 														</h4>
+										<input type="hidden" name="externalExamCFU<%=examRow%>" id="externalExamCFU<%=examRow%>" value="<%=examsList.get(examRow - 1).getCFU()%>"/>
 														</span>
 											</div>
 	<!-- Exam CFU end -->
 	<!-- Exam validation mode -->
-											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center validationMode"
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center validationModeDiv"
 												id="validationMode">
 
-												<textarea class="form-control"
+												<textarea class="form-control validationModeTxtArea"
 													id="validatedExamMode<%=examRow%>"
 													name = "validatedExamMode<%=examRow%>"
 													placeholder="es. L'esame é stato convalidato come PROGRAMMAZIONE 1"
@@ -206,7 +231,9 @@
 																	document.getElementById("validatedExamMode<%=examRow%>").value = '${vExam.validationProcedure}';
 																}
 														</script>
-
+														<div id="appliedSuggLabel<%=examRow%>" class="appliedSuggLabel">
+													        <h5>Suggerimento applicato!</h5>
+													      </div>
 											</div>
 	<!-- Exam validation mode end-->
 	<!-- Exam suggestion -->
@@ -269,8 +296,7 @@
 												</div>
 												<div
 													class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-left-margin">
-													<button
-														onclick="fillRowWithSuggestion(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>')"
+													<button onclick = "fillRowWithSuggestion(<%=examRow%>, <%=suggList.get(examRow - 1).getValidatedCFU()%>, '<%=suggList.get(examRow - 1).getValidationMode()%>')"
 														class="btn btn-success" type="button">Usa suggerimento</button>
 												</div>
 												<!-- Adding an extra div in order to make the suggestion resize correctly -->
@@ -313,7 +339,7 @@
 <!-- Editable exams list end -->
 <!-- Additional notes section -->
 							<div class="col-lg-10 col-md-10" id="additionalNotesDiv">
-								<h4 class="text-left">
+								<h4 class="text-left" style="margin-top:40px">
 									<b>Note aggiuntive</b>
 								</h4>
 								<textarea class="form-control list-element notes" id="additionalNotes"  name="additionalNotes"

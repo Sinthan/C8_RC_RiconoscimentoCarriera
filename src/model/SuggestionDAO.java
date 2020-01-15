@@ -1,5 +1,6 @@
 package model;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,9 +22,75 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 	 */
 	public int insertSuggestion(Suggestion suggestion) {
 		
-		int flag = 0;
-		return flag;
+		if(suggestion==null) {
+			System.out.println("insertSuggestion: passed null Sugestion");
+			return-1;
+		}
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;		
+		int result = -2; // No rows affected by default
+
+		String insertSQL = "INSERT INTO SUGGESTION " +
+				" (NAME_UNIVERSITY, NAME_EXAM_EXTERN, NUMBER_CFU_EXTERN, VALIDATED_CFU, MODE_VALIDATION, DATE_VALIDATION) " +
+				" VALUES (?, ?, ?, ?, ?, ?)";
+
+		// Selects the sugestion that match the 3 given parametric values
+		String selectSQL = "SELECT * FROM SUGGESTION "
+				+ "WHERE NAME_UNIVERSITY = ? AND NAME_EXAM_EXTERN = ? AND NUMBER_CFU_EXTERN = ?";
+		try {  
+			connection = DbConnection.getInstance().getConn();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			java.sql.Date date = (Date) suggestion.getValidationDate();
+			// Setting parameters
+			preparedStatement.setString(1,suggestion.getUniversityName());
+			preparedStatement.setString(2, suggestion.getExamName());
+			preparedStatement.setInt(3,suggestion.getExternalStudentCFU());
+
+			ResultSet resSet = preparedStatement.executeQuery();
+
+			if (resSet.first()) {	// suggestion found
+				int examID = resSet.getInt(1);
+				System.out.println("suggestion already present.");
+				return examID;
+			} else {		// Suggestion not already present in the database, proceeding with the insertion
+				System.out.println("Suggestion not present, adding it to the database.");
+				preparedStatement.close();
+				preparedStatement = connection.prepareStatement(insertSQL);			
+				// Setting parameters
+				preparedStatement.setString(1,suggestion.getUniversityName());
+				preparedStatement.setString(2, suggestion.getExamName());
+				preparedStatement.setInt(3,suggestion.getExternalStudentCFU());
+				preparedStatement.setInt(4,suggestion.getValidatedCFU());
+				preparedStatement.setString(5,suggestion.getValidationMode());
+				preparedStatement.setDate(6, date);
+				// Executing the insertion
+				result = preparedStatement.executeUpdate();	
+				connection.commit();
+			}
+		} catch(SQLException e) {
+			System.out.println("insertSuggstion: error while executing the query\n" + e);
+			new RuntimeException("Couldn't insert the Suggestion in the database " + e);
+		} finally {
+			// Statement release
+			if(preparedStatement != null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+
+		if (result > 0) { // SQL Insert succeeded
+			return -1;
+		} else if (result == 0) { // SQL Insert failed
+			return -2;
+		} else if (result == -1) { // SQL Insert succeeded without log
+			return -3;
+		}
+		System.out.println("insertSuggestion(result=" + result + ": " + suggestion.toString());	// Logging the operation
+		return result;
 	}
+	
 	
 	/**
 	 * Retrieves the <tt>Suggestion</tt> object that matches the given exam name and university
@@ -134,13 +201,12 @@ public class SuggestionDAO implements SuggestionDAOInterface {
 	}
 	
 	/**
-	 * Updates the specified <tt>ValidatedExam</tt> object into the database.
+	 * Updates the specified <tt>Suggestion</tt> object into the database.
 	 * 
-	 * @param	vExam	the <tt>ValidatedExam</tt> object that will be updated.
-	 * @return			<ul><li>a positive count if the update succeeded
-	 *					<li>0 if nothing was altered into the database
-	 *					<li>-1 if the update succeeded, but the database didn't return any information about the number of updated rows
-	 *					<li>-2 if the attributes of the passed argument aren't fully specified</ul>
+	 * @param	sugg	the <tt>Suggestion</tt> object that will be updated.
+	 * @return			<ul><li>0 if the update succeeded
+	 *					<li>-1 if input param is null
+	 *					<li>-2 if param doesen't exists in database
 	 *@author 	Lorenzo Maturo
 	 */
 	@Override

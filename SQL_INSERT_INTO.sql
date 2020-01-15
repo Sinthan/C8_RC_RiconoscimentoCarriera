@@ -75,10 +75,10 @@ INSERT INTO REPORT VALUES(3 ,'La sua carriera NON è ok ok');
 INSERT INTO REQUEST_RC VALUES(1, '2019-3-11', 1,'Università degli Studi di SALERNO','provaRC1@unisa.it',1,'EMAILUC@gmail.it');
 INSERT INTO REQUEST_RC VALUES(2, '2020-1-30', 2,'Università degli Studi di SALERNO','provaRC2@unisa.it',2,'EMAILUC@gmail.it');
 INSERT INTO REQUEST_RC VALUES(3, '2020-4-10', 3,'Università degli Studi di SALERNO','prova2@unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(4, '2020-1-20', 0,'Università degli Studi di NAPOLI Federico II','g.rossi31@studenti.unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(5, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMI@studenti.unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(6, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMINOPDF@studenti.unisa.it',1,'EMAILUC@gmail.it');
-INSERT INTO REQUEST_RC VALUES(7, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMIINVALIDPATH@studenti.unisa.it',1,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(4, '2020-1-20', 0,'Università degli Studi di NAPOLI Federico II','g.rossi31@studenti.unisa.it', null,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(5, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMI@studenti.unisa.it',null,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(6, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMINOPDF@studenti.unisa.it',null,'EMAILUC@gmail.it');
+INSERT INTO REQUEST_RC VALUES(7, '2020-1-11', 1,'Università degli Studi di SALERNO','g.rossiNOESAMIINVALIDPATH@studenti.unisa.it',null,'EMAILUC@gmail.it');
 
 /*VALIDATE EXAM*/
 INSERT INTO VALIDATE_EXAM VALUES(1,'PROGRAMMAZIONE 1', 9, 'è stato validato bene',1);
@@ -117,9 +117,9 @@ INSERT INTO CONTAINS VALUES(4,7);
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Analisi Matematica I', 9, 9, 'Validato come ANALISI MATEMATICA', '2020-1-2');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Algoritmi e strutture dati I', 9, 9, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI', '2020-1-3');
 INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Linguaggi di Programmazione I', 6, 6, 'Validato come PROGRAMMAZIONE & STRUTTURE DATI', '2020-1-4');
-INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Economia ed organizzazione aziendale', 6, 6, 'Il corso di laurea di informatica non prevede un esame affine a quello che lo studente intende riconoscere', '2020-1-6');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Economia ed organizzazione aziendale', 6, 0, 'Il corso di laurea di informatica non prevede un esame affine a quello che lo studente intende riconoscere', '2020-1-6');
 #INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Architettura degli elaboratori', 9,9, 'Validato come ARCHITETTURA DEGLI ELABORATORI', '2020-1-10');
-INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Fisica Generale I', 6, 6, 'Validato come FISICA, CFU riconosciuti: 6/6', '2020-1-16');
+INSERT INTO SUGGESTION VALUES('Università degli Studi di NAPOLI Federico II', 'Fisica Generale I', 6, 6, 'Validato come FISICA', '2020-1-16');
 
 INSERT INTO `attached` VALUES (1,'certificato.pdf',1,'prova@unisa.it');
 
